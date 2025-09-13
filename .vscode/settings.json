@@ -1,0 +1,12 @@
+{
+    "frontMatter.framework.id": "next",
+    "frontMatter.content.publicFolder": "public",
+    "frontMatter.preview.host": "http://localhost:3000",
+    "frontMatter.git.enabled": true,
+    "frontMatter.content.pageFolders": [
+        {
+            "title": "pages",
+            "path": "[[workspace]]/src/pages"
+        }
+    ]
+}
