@@ -1,12 +1,21 @@
 "use client";
 
 // Components
-import MyComponent from '../components/MyComponent';
 import Navbar from "../components/Navbar"
-import ExampleWidget from '../widgets/ExampleWidget';
+import Footer from "../components/Footer"
+
+// Widgets
+import SelfDescriptionWidget from "../components/widgets/SelfDescriptionWidget"
+import GalleryWidget from "../components/widgets/GalleryWidget"
+import MusicCardWidget from "../components/widgets/MusicCardWidget"
+import PlantWidget from "../components/widgets/PlantWidget"
+import ExampleWidget from '../components/widgets/ExampleWidget';
+
+// Styles
+import styles from "./css/home.module.css"
 
 // Markdown Pages
-import AboutMe from './content/about-me.mdx';
+// import AboutMe from './content/about-me.mdx';
 
 export default function HomePage() {
   return (
@@ -14,9 +23,23 @@ export default function HomePage() {
       <body>
         <Navbar/>
         <center className='pageContent'>
-          <AboutMe components={{ MyComponent, ExampleWidget }}/>
-        </center>
+          <SelfDescriptionWidget />
 
+          <div className={styles.bottom}>
+            <MusicCardWidget/>
+            <div className={styles.right}>
+              <GalleryWidget />
+              <div className={styles.smallRight}>
+                <PlantWidget />
+                <ExampleWidget />
+              </div>
+
+            </div>
+          </div>
+          
+          {/* <AboutMe components={{ MyComponent, ExampleWidget }}/> */}
+        </center>
+        <Footer/>
       </body>
     </html>
   );

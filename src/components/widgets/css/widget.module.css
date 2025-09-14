@@ -1,0 +1,47 @@
+.widget {
+  display: inline-flex;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #ffffff);
+  color: #000000;
+  overflow: hidden;
+
+  box-sizing: border-box;
+  margin: 1rem;
+
+  text-align: center;
+}
+
+.body {
+  background-color: aliceblue;
+  margin: 2rem;
+
+
+}
+
+.small { 
+  width: 20%;
+  aspect-ratio: 1/1;
+
+  
+}
+
+.mediumVert {
+  width: 35%;
+  aspect-ratio: 1/1.25;
+
+  
+}
+
+.mediumHor {
+  width: 100%;
+  aspect-ratio: 1/0.75;
+
+  
+}
+
+.large {
+  width: 100%;
+  margin: 1rem 0;
+
+  text-align: left;
+}

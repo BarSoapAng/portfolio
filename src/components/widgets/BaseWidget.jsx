@@ -1,4 +1,4 @@
-import styles from '../css/widgets/widget.module.css';
+import styles from './css/widget.module.css';
 
 /**
  * BaseWidget - a small reusable shell for card-like widgets.
@@ -8,8 +8,18 @@ import styles from '../css/widgets/widget.module.css';
  * - onClick: optional click handler
  * - children: widget content
  */
-export default function BaseWidget({ title, size = 'medium', onClick, children, ariaLabel }) {
-  const sizeClass = size === 'small' ? styles.small : size === 'large' ? styles.large : styles.medium;
+export default function BaseWidget({ title, size, onClick, children, ariaLabel }) {
+  let sizeClass;
+
+  if (size === 'small') {
+    sizeClass = styles.small;
+  } else if (size === 'large') {
+    sizeClass = styles.large;
+  } else if (size === 'medium-vert') {
+    sizeClass = styles.mediumVert;
+  } else {
+    sizeClass = styles.mediumHor;
+  }
 
   return (
     <div

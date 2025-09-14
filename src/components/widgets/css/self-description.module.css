@@ -1,0 +1,11 @@
+.img {
+  width: 30%;
+  aspect-ratio: 1/1;
+  min-width: 300px;
+
+  object-fit: contain;
+  background-color: black;
+
+  float: left;
+  margin: 1rem 2rem 1rem 2rem ;
+}

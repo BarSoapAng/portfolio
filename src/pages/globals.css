@@ -32,5 +32,6 @@ html, body {
 }
 
 .pageContent {
-  margin: 2rem 3rem;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
 }
