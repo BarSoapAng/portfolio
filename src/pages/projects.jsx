@@ -5,8 +5,8 @@ export default function ProjectsPage() {
   return (
     <html>
       <body>
+        <Navbar/>
         <center>
-          <Navbar/>
           <Projects/>
         </center>
       </body>
