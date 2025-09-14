@@ -3,6 +3,7 @@
 // Components
 import MyComponent from '../components/MyComponent';
 import Navbar from "../components/Navbar"
+import ExampleWidget from '../widgets/ExampleWidget';
 
 // Markdown Pages
 import AboutMe from './content/about-me.mdx';
@@ -12,8 +13,8 @@ export default function HomePage() {
     <html>
       <body>
         <Navbar/>
-        <center>
-          <AboutMe components={{ MyComponent }}/>
+        <center className='pageContent'>
+          <AboutMe components={{ MyComponent, ExampleWidget }}/>
         </center>
 
       </body>

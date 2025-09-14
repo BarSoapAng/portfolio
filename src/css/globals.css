@@ -30,3 +30,7 @@ html, body {
   padding: 0;
   box-sizing: border-box;
 }
+
+.pageContent {
+  margin: 2rem 3rem;
+}

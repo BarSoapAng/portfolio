@@ -1,0 +1,33 @@
+.widget {
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fafafa);
+  color: #111;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+
+  padding: 0.5rem 1rem;
+}
+
+.body {
+  margin: 1rem;
+}
+
+.small { 
+  width: 20%;
+  aspect-ratio: 1/1;
+
+
+}
+.medium {
+  width: 35%;
+  aspect-ratio: 1/1.25;
+
+  
+}
+.large {
+  width: 100%;
+
+  flex-direction: row;
+}
