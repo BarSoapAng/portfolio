@@ -5,15 +5,15 @@ import catJump from '@assets/cat-jump.gif'
 
 export default function RetroHomepageCard() {
   return (
-    <div className="w-full bg-[#f6d6a8] border-4 border-[#8b6b4a] p-1 font-mono text-black">
+    <div className="w-full bg-[#f6d6a8] border-2 border-[#8b6b4a] p-1 font-mono text-black">
       {/* Top row */}
       <div className="grid grid-cols-[250px_1fr] gap-1">
         {/* Left image box */}
-        <div className="bg-[#f2c28f] border-2 border-[#8b6b4a] flex items-center justify-center">
+        <div className="w-full h-full min-h-[300px] bg-[#f2c28f] border-2 border-[#8b6b4a] relative overflow-hidden">
           <img
             src={selfie}
             alt="angela's selfie"
-            className="w-full h-[300px] object-cover object-top-left"
+            className="absolute w-full h-full object-top-left object-cover"
           />
         </div>
 

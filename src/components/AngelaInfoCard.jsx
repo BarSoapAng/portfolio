@@ -5,14 +5,14 @@ export default function AngelaInfoCard() {
   return (
     <div className="w-full bg-[#fffccf] border-2 border-pink-500">
       {/* Header */}
-      <div className="border-b-2 border-pink-500 px-4 py-2">
+      <div className="border-b-2 border-pink-500 px-4">
         <h2 className="text-red-600 font-bold">
           Information
         </h2>
       </div>
 
       {/* Row 1 */}
-      <div className="flex flex-row justify-between border-b-2 border-pink-400 px-4 py-2">
+      <div className="flex flex-row justify-between border-b-2 border-pink-400 px-4 py-1">
         <p className=" text-blue-600">
           Height: 170cm
           <br />

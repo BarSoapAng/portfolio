@@ -4,8 +4,8 @@ import AngelaInfoCard from '@components/AngelaInfoCard'
 function App() {
   return (
     <>
-      <div className="grid grid-cols-[0.5fr_1.5fr_1fr] grid-rows-3 gap-2 m-5">
-        <div className="col-start-1 row-span-3 border">Left</div>
+      <div className="grid grid-cols-[0.5fr_1.5fr_1fr] gap-2 m-5 items-start">
+        <div className="col-start-1 border">Left</div>
 
         <div className="grid grid-rows-[auto_auto] col-start-2 border gap-2">
           <div className="row-start-1 border"><SelfDescriptionCard /></div>
