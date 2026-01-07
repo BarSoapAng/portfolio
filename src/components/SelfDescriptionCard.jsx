@@ -5,7 +5,7 @@ import catJump from '@assets/cat-jump.gif'
 
 export default function RetroHomepageCard() {
   return (
-    <div className="w-full max-w-2xl bg-[#f6d6a8] border-4 border-[#8b6b4a] p-1 font-mono text-black">
+    <div className="w-full bg-[#f6d6a8] border-4 border-[#8b6b4a] p-1 font-mono text-black">
       {/* Top row */}
       <div className="grid grid-cols-[250px_1fr] gap-1">
         {/* Left image box */}
@@ -51,7 +51,7 @@ export default function RetroHomepageCard() {
               , playing League of Legends, and coding sites like these. But more than anything, <b>I LOVE FOOD</b>!
             </div>
             <div className="bg-[#f2c28f] border-2 border-[#8b6b4a] py-1 px-3 text-sm">
-              I yap too much for here so if you want to know me better, check out this page {'<3'}
+              I yap too much so if you want to know me better, check out this page {'<3'}
             </div>
           </div>
         </div>
