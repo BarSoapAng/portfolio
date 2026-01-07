@@ -1,5 +1,6 @@
 import SelfDescriptionCard from '@components/SelfDescriptionCard'
 import AngelaInfoCard from '@components/AngelaInfoCard'
+import VinylPlayer from './components/VinylPlayer'
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
 
         <div className="grid grid-rows-[auto_auto_auto] col-start-3 border gap-2">
           <div className="row-start-1 border"><AngelaInfoCard /></div>
-          <div className="row-start-2 border">Right Middle</div>
+          <div className="row-start-2 border"><VinylPlayer /></div>
           <div className="row-start-3 grid grid-cols-2 gap-2">
             <div className="border">RB Left</div>
             <div className="border">RB Right</div>
