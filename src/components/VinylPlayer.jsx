@@ -33,7 +33,7 @@ export default function VinylPlayer() {
           <div className="absolute inset-3 rounded-full border border-black/25" />
           <div className="absolute inset-6 rounded-full border border-black/25" />
           {/* Center label */}
-          <div className="absolute inset-9 rounded-full bg-[#f2c28f] border border-black" />
+          <div className="absolute inset-10 rounded-full bg-[#f2c28f] border border-black" />
         </div>
 
         {/* Right content */}
