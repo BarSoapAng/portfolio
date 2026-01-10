@@ -5,14 +5,16 @@ import Navbar from "@components/Navbar";
 export default function App() {
   return (
     <>
-      <Navbar />
+      <div className="w-dvw h-dvh">
+        <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        {routes.map((r) => (
-          <Route key={r.path} path={r.path} element={r.element} />
-        ))}
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          {routes.map((r) => (
+            <Route key={r.path} path={r.path} element={r.element} />
+          ))}
+        </Routes>
+      </div>
     </>
   );
 }

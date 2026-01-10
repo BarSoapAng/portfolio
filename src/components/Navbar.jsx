@@ -4,19 +4,17 @@ import { routes } from "../routes";
 export default function Navbar() {
   const location = useLocation();
 
-  const navRoutes = routes.filter((r) => r.showInNavbar);
-
   return (
-    <div className="w-full font-mono">
-      <div className="relative w-full bg-[#f6d6a8] border-4 border-[#8b6b4a]">
-        {/* Title bar */}
-        <div className="h-12 flex items-center px-4 bg-[#f2c28f] border-b-4 border-[#8b6b4a]">
-          <span className="text-lg">title</span>
-        </div>
+    <div className="w-full bg-gray-500 border-b-2 border-blue-700">
+      <div className="h-12 flex justify-between items-end px-1">
+        {/* LEFT: Title */}
+        <h2 className="ml-4 my-auto whitespace-nowrap">
+          Angela's Universe
+        </h2>
 
-        {/* Tabs */}
-        <div className="relative h-10">
-          {navRoutes.map((page, i) => {
+        {/* RIGHT: Tabs */}
+        <div className="flex items-end">
+          {routes.map((page) => {
             const isActive = location.pathname === page.path;
 
             return (
@@ -24,19 +22,24 @@ export default function Navbar() {
                 key={page.path}
                 to={page.path}
                 className={`
-                  absolute bottom-0
-                  px-4 py-1
-                  border-4 border-[#8b6b4a]
-                  text-black
-                  transition-all duration-150
+                  px-3
+                  border-2 border-b-0
+                  border-t-white border-l-white border-r-black
+                  bg-blue-300 text-black
+                  rounded-t-md
+                  flex items-center justify-center
                   ${isActive
-                    ? "bg-[#f6d6a8] z-30 -top-1"
-                    : "bg-[#e5b37d] z-10 top-1 hover:bg-[#f2c28f]"
-                  }
+                    ? `
+                      bg-blue-600 text-white
+                      h-[34px]
+                      -mt-[4px]
+                      -mb-[2px]
+                      border-b-gray-500
+                    `
+                    : `
+                      h-[30px]
+                    `}
                 `}
-                style={{
-                  right: `${16 + i * 84}px`,
-                }}
               >
                 {page.label}
               </Link>
