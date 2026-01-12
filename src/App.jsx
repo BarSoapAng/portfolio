@@ -5,7 +5,7 @@ import Navbar from "@components/Navbar";
 export default function App() {
   return (
     <>
-      <div className="w-dvw h-dvh">
+      <div className="w-dvw h-dvh overflow-x-hidden">
         <Navbar />
 
         <Routes>
