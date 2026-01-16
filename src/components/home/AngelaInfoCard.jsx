@@ -1,5 +1,5 @@
 import leo from '@assets/leo.gif'
-import SparkleHover from './SparkleHover';
+import SparkleHover from './effects/SparkleHover';
 
 export default function AngelaInfoCard() {
   return (
@@ -14,7 +14,7 @@ export default function AngelaInfoCard() {
       {/* Row 1 */}
       <div className="flex flex-row justify-between border-b-2 border-pink-400 px-4 py-1">
         <p className=" text-blue-600">
-          Height: 170cm
+          Height: 165cm
           <br />
           Zodiac: Leo
         </p>

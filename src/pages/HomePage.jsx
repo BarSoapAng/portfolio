@@ -1,9 +1,10 @@
-import SelfDescriptionCard from '@components/SelfDescriptionCard'
-import AngelaInfoCard from '@components/AngelaInfoCard'
-import VinylPlayer from '@components/VinylPlayer'
+import SelfDescriptionCard from '@components/home/SelfDescriptionCard'
+import AngelaInfoCard from '@components/home/AngelaInfoCard'
+import VinylPlayer from '@components/home/VinylPlayer'
+import EmailMeCard from '@components/home/EmailMeCard'
+import StatsCard from '@components/home/StatsCard'
+
 import wavingCat from '@assets/cat_waving.gif'
-import EmailMeCard from '@components/EmailMeCard'
-import StatsCard from '@components/StatsCard'
 
 function HomePage() {
   return (

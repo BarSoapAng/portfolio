@@ -1,4 +1,4 @@
-import IllumiHover from '@components/IllumiHover'
+import IllumiHover from './effects/IllumiHover'
 
 import selfie from '@assets/selfie.jpg'
 import catJump from '@assets/cat-jump.gif'
