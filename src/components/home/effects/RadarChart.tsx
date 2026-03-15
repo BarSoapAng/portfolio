@@ -3,6 +3,7 @@
 import { Radar } from 'react-chartjs-2'
 import {
   Chart,
+  ChartOptions,
   RadialLinearScale,
   PointElement,
   LineElement,
@@ -35,7 +36,7 @@ const devData = {
   ],
 }
 
-const options = {
+const options: ChartOptions<'radar'> = {
   scales: {
     r: {
       min: 0,
@@ -61,7 +62,7 @@ const options = {
     },
     tooltip: {
       titleFont: {
-        weight: 'bold',
+        weight: 'bold' as const,
       },
       displayColors: false,
     },

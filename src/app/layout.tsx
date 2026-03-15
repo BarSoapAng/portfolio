@@ -1,13 +1,19 @@
 import "./globals.css";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Navbar from "@components/Navbar";
 import background from "@assets/bg.gif";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Angela's Universe",
   description: "Portfolio website",
 };
 
-export default function RootLayout({ children }) {
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>

@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Sparkle = ({ x }) => {
+type SparkleProps = {
+  x: number;
+};
+
+const Sparkle = ({ x }: SparkleProps) => {
   return (
     <motion.div
       className="pointer-events-none fixed top-0 z-50"
