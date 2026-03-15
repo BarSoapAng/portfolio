@@ -18,7 +18,7 @@ export default function AngelaInfoCard() {
           <br />
           Zodiac: Leo
         </p>
-        <img src={leo} className='w-12 h-12'/>
+        <img src={leo.src} className='w-12 h-12' alt="Leo" />
       </div>
 
       {/* Row 3 */}

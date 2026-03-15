@@ -1,8 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { routes } from "../routes";
 
 export default function Navbar() {
-  const location = useLocation();
+  const pathname = usePathname();
 
   return (
     <div className="w-full bg-gray-500 border-b-2 border-blue-700">
@@ -15,12 +18,12 @@ export default function Navbar() {
         {/* RIGHT: Tabs */}
         <div className="flex items-end">
           {routes.map((page) => {
-            const isActive = location.pathname === page.path;
+            const isActive = pathname === page.path;
 
             return (
               <Link
                 key={page.path}
-                to={page.path}
+                href={page.path}
                 className={`
                   px-3
                   border-2 border-b-0

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react'
 
 import aphelios from '@assets/aphelios.jpg'
@@ -23,11 +25,12 @@ export default function VinylPlayer() {
         <div className="relative w-24 h-24 shrink-0">
           {/* Outer vinyl */}
           <img
-            src={SONGS[curSong].cover}
+            src={SONGS[curSong].cover.src}
             className="absolute inset-0 rounded-full border border-black animate-[spin_5s_linear_infinite]"
             style={{
               animationPlayState: playing ? 'running' : 'paused',
             }}
+            alt={SONGS[curSong].title}
           />
           {/* Center Rings */}
           <div className="absolute inset-3 rounded-full border border-black/25" />

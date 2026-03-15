@@ -11,7 +11,7 @@ export default function RetroHomepageCard() {
         {/* Left image box */}
         <div className="w-full h-full min-h-[300px] bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white relative overflow-hidden">
           <img
-            src={selfie}
+            src={selfie.src}
             alt="angela's selfie"
             className="absolute w-full h-full object-top-left object-cover"
           />
@@ -21,11 +21,11 @@ export default function RetroHomepageCard() {
         <div className="flex flex-col gap-1">
           {/* Header */}
           <div className="flex justify-between bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white py-2 px-4 text-center">
-            <img src={catJump} className="inline-block w-7" />
+            <img src={catJump.src} className="inline-block w-7" alt="" />
             <h1 className="font-bold text-purple-600">
               Welcome
             </h1>
-            <img src={catJump} className="inline-block w-7" />
+            <img src={catJump.src} className="inline-block w-7" alt="" />
           </div>
 
           {/* Subheader */}

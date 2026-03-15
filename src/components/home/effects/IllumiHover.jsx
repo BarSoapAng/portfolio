@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -42,17 +44,19 @@ export default function PersonalHover() {
             <div className="relative w-76 h-76">
               {/* Image A */}
               <motion.img
-                src={illumi}
+                src={illumi.src}
                 className="absolute inset-0 w-full h-full object-contain"
+                alt="Illumi"
               />
 
               {/* Image B */}
               <motion.img
-                src={notIllumi}
+                src={notIllumi.src}
                 className="absolute inset-0 w-full h-full object-contain"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: phase === "imageB" ? 1 : 0 }}
                 transition={{ duration: 3 }}
+                alt="Not Illumi"
               />
             </div>
           </motion.div>
