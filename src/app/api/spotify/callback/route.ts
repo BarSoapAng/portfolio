@@ -25,7 +25,7 @@ export async function GET(request: Request) {
   try {
     const tokens = await exchangeSpotifyCode(code);
 
-    if (!tokens.refresh_token) {
+    if (!tokens.refreshToken) {
       return new NextResponse(
         "Spotify did not return a refresh token. Remove any existing app authorization in Spotify, then try /api/spotify/login again.",
         {
@@ -41,7 +41,7 @@ export async function GET(request: Request) {
       [
         "Add this line to your .env or .env.local file, then restart the app:",
         "",
-        `SPOTIFY_REFRESH_TOKEN=${tokens.refresh_token}`,
+        `SPOTIFY_REFRESH_TOKEN=${tokens.refreshToken}`,
         "",
         "After that, the Vinyl player will use your Spotify account server-side for all visitors.",
       ].join("\n"),
