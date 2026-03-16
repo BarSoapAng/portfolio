@@ -30,7 +30,10 @@
       "@assets/*": [
         "src/assets/*"
       ],
-      "@pages/*": [
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@views/*": [
         "src/pages/*"
       ]
     }

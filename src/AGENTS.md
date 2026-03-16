@@ -13,5 +13,5 @@
 
 - Keep route entrypoints in `src/app/`.
 - Keep reusable UI in `src/components/`.
-- Keep route view modules in `src/pages/` when that pattern is already in use.
-- Prefer the configured path aliases `@components/*`, `@assets/*`, and `@pages/*` over long relative import paths when they improve clarity.
+- Keep route view modules in `src/views/` to avoid collisions with Next.js Pages Router conventions.
+- Prefer the configured path aliases `@components/*`, `@assets/*`, and `@views/*` over long relative import paths when they improve clarity.
