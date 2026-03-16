@@ -45,13 +45,14 @@ const options: ChartOptions<'radar'> = {
       ticks: {
         stepSize: 1,
         backdropColor: 'transparent',
+        display: false,
       },
       grid: {
         color: 'rgba(0,0,0,0.2)',
       },
       pointLabels: {
         font: {
-          size: 10,
+          size: 9,
           weight: 'bold',
         },
       },
@@ -74,11 +75,13 @@ Chart.defaults.font.size = 8;
 
 export default function RadarChart() {
   return (
-    <div className="h-full w-full">
-      <Radar 
-        data={devData}
-        options={options}
-      />
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="h-full max-h-[175px] w-full max-w-[175px]">
+        <Radar 
+          data={devData}
+          options={options}
+        />
+      </div>
     </div>
   )
 }
