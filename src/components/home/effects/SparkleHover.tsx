@@ -1,13 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 type SparkleProps = {
+  duration: number;
+  rotate: number;
   x: number;
 };
 
-const Sparkle = ({ x }: SparkleProps) => {
+const sparkleConfigs = Array.from({ length: 80 }, (_, index) => ({
+  x: (index * 17) % 100,
+  rotate: (index * 37) % 360,
+  duration: 1 + (index % 5) * 0.15,
+}));
+
+function Sparkle({ duration, rotate, x }: SparkleProps) {
   return (
     <motion.div
       className="pointer-events-none fixed top-0 z-50"
@@ -16,41 +24,43 @@ const Sparkle = ({ x }: SparkleProps) => {
         y: "100vh",
         opacity: [1, 0],
         scale: [0.5, 1, 0.3],
-        rotate: Math.random() * 360,
+        rotate,
       }}
       transition={{
-        duration: 1 + Math.random(),
+        duration,
         ease: "easeIn",
       }}
       style={{
         left: `${x}%`,
       }}
     >
-      ✦
+      *
     </motion.div>
   );
-};
+}
 
 export default function SparkleHover() {
   const [hovered, setHovered] = useState(false);
-  const sparkles = Array.from({ length: 80 });
 
   return (
     <div className="relative inline-block">
-      {/* Hover Word */}
       <span
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="cursor-pointer text-purple-500 hover:text-purple-300 transition"
+        className="cursor-pointer text-purple-500 transition hover:text-purple-300"
       >
         Favorite Color: purple
       </span>
 
-      {/* Sparkles */}
       <AnimatePresence>
         {hovered &&
-          sparkles.map((_, i) => (
-            <Sparkle key={i} x={Math.random() * 100} />
+          sparkleConfigs.map((sparkle, index) => (
+            <Sparkle
+              key={index}
+              duration={sparkle.duration}
+              rotate={sparkle.rotate}
+              x={sparkle.x}
+            />
           ))}
       </AnimatePresence>
     </div>

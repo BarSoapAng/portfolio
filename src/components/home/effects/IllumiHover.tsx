@@ -10,11 +10,8 @@ export default function PersonalHover() {
   const [hovered, setHovered] = useState(false);
   const [phase, setPhase] = useState("imageA");
 
-  // Handle timed image swap
   useEffect(() => {
     if (!hovered) return;
-
-    setPhase("imageA");
 
     const timer = setTimeout(() => {
       setPhase("imageB");
@@ -26,7 +23,10 @@ export default function PersonalHover() {
   return (
     <span
       className="relative inline-block text-orange-600 underline cursor-pointer"
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => {
+        setPhase("imageA");
+        setHovered(true);
+      }}
       onMouseLeave={() => setHovered(false)}
     >
       my cat
