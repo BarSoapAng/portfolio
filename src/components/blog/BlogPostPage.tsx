@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import TopBlogOverview from "@components/home/TopBlogOverview";
+import TopBlogOverview from "@components/navigation/TopBlogOverview";
 import { formatPostDate, type PostSummary } from "../../lib/blog-shared";
 
 type BlogPostPageProps = {

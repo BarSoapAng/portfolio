@@ -14,7 +14,12 @@ export default function TopBlogLink({ dateLabel, href, title }: TopBlogLinkProps
         href={href}
       >
         <div className="min-w-0">
-          <div className="line-clamp-2 text-[15px] leading-tight">{title}</div>
+          <div
+            className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] leading-tight"
+            title={title}
+          >
+            {title}
+          </div>
           <div className="mt-1 text-[11px] uppercase tracking-[0.08em] text-[#6a4d2d]">{dateLabel}</div>
         </div>
       </Link>

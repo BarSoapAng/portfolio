@@ -1,6 +1,6 @@
 import TopBlogLink from './TopBlogLink'
-import { getAllPosts } from '../../lib/blog'
-import { formatPostDate } from '../../lib/blog-shared'
+import { getAllPosts } from '@lib/blog'
+import { formatPostDate } from '@lib/blog-shared'
 
 const DISPLAY_LIMIT = 5
 
