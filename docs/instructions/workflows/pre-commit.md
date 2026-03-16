@@ -13,6 +13,8 @@ Before committing, read:
 - Keep commits focused. Split independent concerns when practical.
 - Run required validation before creating a commit.
 - Do not skip required checks just because the change seems small.
+- End each implementation cycle with at least one commit.
+- After committing, push the working branch to GitHub.
 
 ## Minimum Expectations
 

@@ -3,7 +3,7 @@
 ## Required Workflow
 
 1. Create at least one commit containing the completed work.
-2. Push the working branch.
+2. Push the working branch to GitHub.
 3. Create or update the PR when repository workflow and user instructions require it.
 
 ## PR Content

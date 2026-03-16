@@ -22,7 +22,7 @@
 
 - This repo is a single Next.js application, not a monorepo.
 - Root project tooling is defined in `package.json`, `package-lock.json`, `.nvmrc`, `tsconfig.json`, `eslint.config.js`, `tailwind.config.js`, and `postcss.config.mjs`.
-- Start work by creating a Git worktree in `../.worktrees` before making code or documentation changes.
+- Assume the current checkout is an already-created Git worktree unless the user explicitly instructs otherwise.
 - Run `npm` commands from the repo root unless a more specific doc says otherwise.
 - Do not invent generator, migration, or CI steps that are not supported by the current repo state.
 - If a check cannot run, record the exact command and why it was skipped.
@@ -31,6 +31,7 @@
 
 - Before creating a commit, run every required validation command that applies to the files you changed.
 - Do not create a commit while required lint, build, or documentation updates are still outstanding.
+- End each implementation cycle by creating at least one commit and pushing the working branch to GitHub.
 - Use [docs/instructions/workflows/pre-commit.md](docs/instructions/workflows/pre-commit.md) and [docs/instructions/workflows/pull-requests.md](docs/instructions/workflows/pull-requests.md) as the canonical finish checklist.
 
 ## Living Docs Policy

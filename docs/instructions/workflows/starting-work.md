@@ -2,13 +2,14 @@
 
 ## Required First Step
 
-- Start implementation work by creating a Git worktree in `../.worktrees` before making code or documentation changes.
-- Use `git worktree add -b <worktree-name> ../.worktrees/<worktree-name> [start-point]` to create worktrees so the location is always `../.worktrees/<worktree-name>`.
+- Assume the current checkout is an already-created Git worktree assigned to the task.
+- Start implementation work in that assigned checkout unless the user explicitly instructs otherwise.
 
 ## Scope
 
-- If the user explicitly instructs you to work in the current checkout instead, follow the user instruction and note that the worktree step was intentionally skipped.
+- If the user explicitly instructs you to create a new worktree, use `git worktree add -b <worktree-name> ../.worktrees/<worktree-name> [start-point]`.
+- If the user explicitly instructs you to work outside the default worktree assumption, follow the instruction and record that the default was intentionally overridden.
 
 ## Reporting
 
-- Record the worktree name.
+- Record the worktree path and branch used for the task.
