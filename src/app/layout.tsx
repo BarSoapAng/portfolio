@@ -16,7 +16,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body className="font-sans">
         <img src={background.src} className="absolute z-[-1] h-full w-full object-cover" alt="" />
         <div className="w-dvw h-dvh overflow-x-hidden">
           <Navbar />

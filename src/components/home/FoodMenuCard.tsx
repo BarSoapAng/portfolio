@@ -18,11 +18,11 @@ const menuItems = [
 
 export default function FoodMenuCard() {
   return (
-    <div className="w-full max-w-[260px] bg-[#f6d6a8] border-2 border-[#8b6b4a] p-1 font-mono text-black">
+    <div className="w-full max-w-[260px] border-2 border-sand-1 bg-cream-1 p-1 text-black-1">
       <div className="space-y-1">
-        <div className="bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white px-3 py-2 text-center">
-          <div className="font-bold text-purple-600">Today&apos;s Menu</div>
-          <div className="text-[11px] text-blue-600">favorite comfort picks and drinks</div>
+        <div className="border-2 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-2 text-center">
+          <div className="font-bold text-purple-1">Today&apos;s Menu</div>
+          <div className="text-[11px] text-blue-1">favorite comfort picks and drinks</div>
         </div>
 
         {menuItems.map((item) => (

@@ -47,7 +47,7 @@ export default function SparkleHover() {
       <span
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="cursor-pointer text-purple-500 transition hover:text-purple-300"
+        className="cursor-pointer text-purple-1 transition hover:opacity-70"
       >
         Favorite Color: purple
       </span>

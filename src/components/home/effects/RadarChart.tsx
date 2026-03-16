@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Radar } from 'react-chartjs-2'
 import {
   Chart,
@@ -21,57 +22,94 @@ Chart.register(
   Filler
 )
 
-const devData = {
-  labels: ['Ownership', 'Speed', 'Quality', 'Communication', 'Design'],
-  datasets: [
-    {
-      data: [4, 2, 4, 5, 3],
-      fill: true,
-      backgroundColor: 'rgba(255, 99, 132, 0.35)',
-      borderColor: 'rgb(255, 99, 132)',
-      borderWidth: 2,
-      pointRadius: 4,
-      pointBackgroundColor: 'rgb(255, 99, 132)',
-    },
-  ],
-}
-
-const options: ChartOptions<'radar'> = {
-  scales: {
-    r: {
-      min: 0,
-      max: 5,
-      ticks: {
-        stepSize: 1,
-        backdropColor: 'transparent',
-      },
-      grid: {
-        color: 'rgba(0,0,0,0.2)',
-      },
-      pointLabels: {
-        font: {
-          size: 10,
-          weight: 'bold',
-        },
-      },
-    },
-  },
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      titleFont: {
-        weight: 'bold' as const,
-      },
-      displayColors: false,
-    },
-  },
-}
+const labels = ['Ownership', 'Speed', 'Quality', 'Communication', 'Design']
 
 Chart.defaults.font.size = 8;
 
 export default function RadarChart() {
+  const withAlpha = (color: string, alpha: number) => {
+    const hex = color.replace("#", "");
+    if (/^[0-9a-fA-F]{6}$/.test(hex)) {
+      const r = Number.parseInt(hex.slice(0, 2), 16);
+      const g = Number.parseInt(hex.slice(2, 4), 16);
+      const b = Number.parseInt(hex.slice(4, 6), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+    return color;
+  };
+
+  const chartColors = useMemo(() => {
+    if (typeof window === "undefined") {
+      return {
+        accent: "var(--color-pink-1)",
+        accentSoft: withAlpha("#db2777", 0.35),
+        grid: withAlpha("#345362", 0.2),
+        transparent: "var(--color-transparent)",
+      };
+    }
+
+    const getColor = (token: string) =>
+      getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+
+    const accent = getColor('--color-pink-1');
+    const gray = getColor('--color-gray-1');
+
+    return {
+      accent,
+      accentSoft: withAlpha(accent, 0.35),
+      grid: withAlpha(gray, 0.2),
+      transparent: getColor('--color-transparent'),
+    };
+  }, []);
+
+  const devData = useMemo(() => ({
+    labels,
+    datasets: [
+      {
+        data: [4, 2, 4, 5, 3],
+        fill: true,
+        backgroundColor: chartColors.accentSoft,
+        borderColor: chartColors.accent,
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: chartColors.accent,
+      },
+    ],
+  }), [chartColors]);
+
+  const options: ChartOptions<'radar'> = useMemo(() => ({
+    scales: {
+      r: {
+        min: 0,
+        max: 5,
+        ticks: {
+          stepSize: 1,
+          backdropColor: chartColors.transparent,
+        },
+        grid: {
+          color: chartColors.grid,
+        },
+        pointLabels: {
+          font: {
+            size: 10,
+            weight: 'bold',
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        titleFont: {
+          weight: 'bold' as const,
+        },
+        displayColors: false,
+      },
+    },
+  }), [chartColors]);
+
   return (
     <div className='m-auto'>
       <Radar 

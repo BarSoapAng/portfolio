@@ -1,17 +1,36 @@
 @import "tailwindcss";
+@config "../../tailwind.config.js";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --font-default: "Trebuchet MS", "Segoe UI", Tahoma, Verdana, sans-serif;
+
+  --color-white-1: #ffffff;
+  --color-black-1: #000000;
+  --color-gray-1: #345362;
+  --color-gray-2: #1f3442;
+
+  --color-paper-1: #fffdf4;
+  --color-paper-2: #f4f1e2;
+  --color-cream-1: #f8ecd0;
+  --color-cream-2: #f2c28f;
+  --color-sand-1: #8b6b4a;
+  --color-sand-2: #be8f3d;
+
+  --color-blue-1: #0d607b;
+  --color-blue-2: #56aec3;
+  --color-transparent: transparent;
+
+  --color-red-1: #dc2626;
+  --color-green-1: #16a34a;
+  --color-purple-1: #9333ea;
+  --color-pink-1: #db2777;
+  --color-orange-1: #ea580c;
+
+  --shadow-gray-1-12: rgb(52 83 98 / 0.12);
 }
 
 * {
@@ -25,6 +44,60 @@ body {
   min-height: 100vh;
 }
 
+@layer base {
+  html {
+    font-family: var(--font-default);
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    color: var(--color-gray-2);
+  }
+
+  body,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  .retro-panel {
+    @apply border-2 border-gray-2 bg-paper-1 p-1;
+  }
+
+  .retro-panel-inner {
+    @apply border-2 border-sand-1 bg-cream-1;
+  }
+
+  .retro-tag {
+    @apply border border-sand-1 bg-paper-1 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1;
+  }
+
+  .retro-button {
+    @apply inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2;
+  }
+
+  .retro-button-active {
+    @apply bg-sand-2 text-black-1 shadow-inset-sand;
+  }
+
+  .retro-home-shell {
+    @apply w-full border-2 border-sand-1 bg-cream-1 p-1 text-black-1;
+  }
+
+  .retro-home-row {
+    @apply border-2 border-sand-1 border-b-white-1 bg-cream-2;
+  }
+}
+
 h1 {
   font-size: 2rem;
   line-height: 1.1;
@@ -35,7 +108,7 @@ h2 {
 }
 
 .blog-prose {
-  color: #1b3340;
+  color: var(--color-gray-1);
 }
 
 .blog-prose > * + * {
@@ -45,7 +118,7 @@ h2 {
 .blog-prose h2,
 .blog-prose h3,
 .blog-prose h4 {
-  color: #17303d;
+  color: var(--color-gray-2);
   line-height: 1.2;
 }
 
@@ -66,7 +139,7 @@ h2 {
 }
 
 .blog-prose a {
-  color: #0d607b;
+  color: var(--color-blue-1);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
@@ -83,30 +156,30 @@ h2 {
 
 .blog-prose blockquote {
   margin-left: 0;
-  border-left: 4px solid #be8f3d;
+  border-left: 4px solid var(--color-sand-2);
   padding-left: 1rem;
-  color: #345362;
+  color: var(--color-gray-1);
 }
 
 .blog-prose code {
-  border: 1px solid #d6c39d;
-  background: #fff7e7;
+  border: 1px solid var(--color-sand-1);
+  background: var(--color-paper-1);
   padding: 0.1rem 0.35rem;
-  font-family: "Courier New", Courier, monospace;
+  font-family: inherit;
   font-size: 0.95em;
 }
 
 .blog-prose pre {
   overflow-x: auto;
-  border: 2px solid #1f3442;
-  background: #1f3442;
+  border: 2px solid var(--color-gray-2);
+  background: var(--color-gray-2);
   padding: 1rem;
-  color: #f4f1e2;
+  color: var(--color-paper-2);
 }
 
 .blog-prose pre code {
   border: 0;
-  background: transparent;
+  background: var(--color-transparent);
   padding: 0;
   color: inherit;
 }

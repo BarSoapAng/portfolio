@@ -19,24 +19,24 @@ export default function VinylPlayer() {
   const [ playing, setPlaying ] = useState(false);
 
   return (
-    <div className='w-full bg-[#f6d6a8] border-4 border-black p-3 font-mono text-black'>
+    <div className='w-full border-4 border-black-1 bg-cream-1 p-3 text-black-1'>
       <div className="flex gap-4 items-center">
         {/* Vinyl */}
         <div className="relative w-24 h-24 shrink-0">
           {/* Outer vinyl */}
           <img
             src={SONGS[curSong].cover.src}
-            className="absolute inset-0 rounded-full border border-black animate-[spin_5s_linear_infinite]"
+            className="absolute inset-0 rounded-full border border-black-1 animate-[spin_5s_linear_infinite]"
             style={{
               animationPlayState: playing ? 'running' : 'paused',
             }}
             alt={SONGS[curSong].title}
           />
           {/* Center Rings */}
-          <div className="absolute inset-3 rounded-full border border-black/25" />
-          <div className="absolute inset-6 rounded-full border border-black/25" />
+          <div className="absolute inset-3 rounded-full border border-black-1/25" />
+          <div className="absolute inset-6 rounded-full border border-black-1/25" />
           {/* Center label */}
-          <div className="absolute inset-10 rounded-full bg-[#f2c28f] border border-black" />
+          <div className="absolute inset-10 rounded-full border border-black-1 bg-cream-2" />
         </div>
 
         {/* Right content */}
@@ -48,23 +48,23 @@ export default function VinylPlayer() {
           </div>
 
           {/* Progress bar */}
-          <div className="h-1 rounded-sm border border-black">
-            <div className="h-full w-1/3 bg-black" />
+          <div className="h-1 rounded-sm border border-black-1">
+            <div className="h-full w-1/3 bg-black-1" />
           </div>
 
           {/* Controls */}
           <div className="flex mx-10 justify-between">
             <button onClick={() => setCurSong((curSong + 1) % SONGS.length)}>
-              <IoMdSkipBackward className='h-5 hover:cursor-pointer hover:text-gray-500' />
+              <IoMdSkipBackward className='h-5 hover:cursor-pointer hover:text-gray-1' />
             </button>
             <button onClick={() => setPlaying(!playing)}>
               {playing ? 
-                <IoMdPause className='h-5 hover:cursor-pointer hover:text-gray-500' /> : 
-                <IoMdPlay className='h-5 hover:cursor-pointer hover:text-gray-500' />
+                <IoMdPause className='h-5 hover:cursor-pointer hover:text-gray-1' /> : 
+                <IoMdPlay className='h-5 hover:cursor-pointer hover:text-gray-1' />
               }
             </button>
             <button onClick={() => setCurSong((curSong + 1) % SONGS.length)}>
-              <IoMdSkipForward className='h-5 hover:cursor-pointer hover:text-gray-500'/>
+              <IoMdSkipForward className='h-5 hover:cursor-pointer hover:text-gray-1'/>
             </button>
           </div>
         </div>
