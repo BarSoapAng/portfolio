@@ -9,17 +9,17 @@
 
 - `src/app/`: route entrypoints, layout, and global styles
 - `src/components/`: reusable UI components
-- `src/components/home/`: current home-page UI components and interactive effects
-- `src/pages/`: page-level composition modules used by App Router routes
+- `src/components/home/`: reusable home-page cards and effects
+- `src/pages/`: route view modules imported by App Router entrypoints
 - `src/assets/`: imported local images and GIF assets
-- `src/routes.ts`: shared route definitions used by navigation
+- `src/routes.ts`: shared route metadata used by navigation
 
 ## Routing Rules
 
 - Put actual route files in `src/app/**/page.tsx`.
-- Keep `src/app/page.tsx` as the root entrypoint behavior for `/`.
+- `src/app/page.tsx` currently redirects `/` to `/home`.
 - Use `next/navigation` redirects only in route entrypoints or other server-safe locations that already follow Next.js rules.
-- `src/pages/` is not acting as the legacy Next.js Pages Router. It currently holds React components that are imported by App Router routes.
+- `src/pages/` is not the legacy Next.js Pages Router. It holds React view modules imported by App Router routes.
 
 ## Import Conventions
 
@@ -31,11 +31,12 @@
 
 ## Home Feature Notes
 
-- The current home experience is composed through `src/pages/home/HomePage.tsx`.
-- The repository currently contains both `src/pages/home/components/` import usage and `src/components/home/` files. When touching this area, keep one source of truth and update imports deliberately instead of duplicating components.
-- Interactive effects live under `src/components/home/effects/`.
+- `src/app/home/page.tsx` renders the home view from `src/pages/home/HomePage.tsx`.
+- Reusable home UI belongs in `src/components/home/`.
+- Interactive home effects live in `src/components/home/effects/`.
+- There is no `src/pages/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
 
 ## Validation
 
-- Run `npm run lint` after changing files in `src/`.
-- Run `npm run build` when route behavior, layout, rendering, or production asset loading changes.
+- Run `npm run lint` after changing linted source files in `src/`.
+- Run `npm run build` when route behavior, layout, global CSS, rendering, or production asset loading changes.

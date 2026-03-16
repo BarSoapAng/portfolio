@@ -2,17 +2,17 @@
 
 ## Always
 
-- Run `npm run lint` for code, style, or configuration changes that touch linted files.
+- Run `npm run lint` for `*.js`, `*.jsx`, `*.ts`, and `*.tsx` changes.
 - Treat required validation commands as pre-commit requirements when they apply, not post-commit cleanup.
 
 ## Build Verification
 
 Run `npm run build` when the change affects:
 
-- files under `src/app/`
-- route behavior or navigation
-- page composition under `src/pages/`
-- global layout, metadata, or CSS
+- route files under `src/app/`
+- route behavior or navigation, including the root redirect in `src/app/page.tsx`
+- page composition modules under `src/pages/`
+- `src/app/layout.tsx`, metadata, or global CSS
 - asset imports that are rendered in production
 
 ## Current Repo State

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repo keeps detailed operational guidance in `docs/instructions/` and uses `AGENTS.md` files as discovery entrypoints.
+This repo keeps detailed operational guidance in `docs/instructions/` and uses `AGENTS.md` files as lightweight entrypoints.
 
 - Root `AGENTS.md` defines repo-wide policy.
 - `src/AGENTS.md` defines local scope for application code.
@@ -16,19 +16,20 @@ Follow instructions in this order:
 2. Nearest workspace `AGENTS.md`
 3. The referenced files in `docs/instructions/`
 
-If two detailed docs overlap, follow the more specific doc. Workspace guidance wins over shared workflow guidance when both apply.
+If two detailed docs overlap, follow the more specific one. Workspace guidance wins over shared workflow guidance when both apply.
 
 ## Navigation
 
 - Read [authoring.md](authoring.md) before editing instruction docs.
-- Read workflow docs in `workflows/` for cross-repo process requirements.
+- Read workflow docs in `workflows/` for shared process requirements.
 - Read [workspaces/src.md](workspaces/src.md) before changing app code in `src/`.
 
 ## Canonical Files
 
-- `workflows/pre-commit.md`: local verification expectations before creating a commit
-- `workflows/pull-requests.md`: PR expectations and reporting guidance
-- `workflows/testing.md`: when to run lint and build checks
+- `workflows/starting-work.md`: required first-step workflow before making tracked changes
+- `workflows/pre-commit.md`: required local verification before creating a commit
+- `workflows/pull-requests.md`: PR expectations and reporting requirements
+- `workflows/testing.md`: when lint and build checks are required
 - `workflows/generators.md`: generator guidance for this repo
 - `workspaces/src.md`: app structure, commands, and local rules for the Next.js codebase
 
@@ -38,6 +39,6 @@ Agents should treat `workflows/pre-commit.md` as the required local finish check
 
 Keep these docs current as the repo evolves.
 
-- Update the most relevant canonical file when behavior or conventions materially change.
+- Update the most relevant canonical file when behavior, workflow, or conventions materially change.
 - Prefer in-place edits over append-only notes.
 - Capture durable guidance only. Leave out temporary task context.

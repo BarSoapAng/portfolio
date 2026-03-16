@@ -3,7 +3,6 @@
 ## Scope
 
 - This file applies to everything under `src/`.
-- Follow the root [AGENTS.md](../AGENTS.md) first, then this file, then the referenced docs.
 
 ## Required Reading
 
@@ -14,5 +13,5 @@
 
 - Keep route entrypoints in `src/app/`.
 - Keep reusable UI in `src/components/`.
-- Keep page-level composition in `src/pages/` when that pattern is already in use.
+- Keep route view modules in `src/pages/` when that pattern is already in use.
 - Prefer the configured path aliases `@components/*`, `@assets/*`, and `@pages/*` over long relative import paths when they improve clarity.

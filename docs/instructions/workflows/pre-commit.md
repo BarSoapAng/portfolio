@@ -16,8 +16,8 @@ Before committing, read:
 
 ## Minimum Expectations
 
-- Run `npm run lint` when JavaScript, TypeScript, JSX, TSX, or CSS files change.
-- Run `npm run build` when routing, layout, rendering behavior, metadata, or production asset loading changes.
+- Run `npm run lint` when `*.js`, `*.jsx`, `*.ts`, or `*.tsx` files change. Treat it as the default validation step for `src/` code edits.
+- Run `npm run build` when route entrypoints, navigation behavior, global layout or CSS, rendering behavior, metadata, or production asset loading changes.
 - Update the relevant instruction docs when durable workflows or project structure change.
 - Do not create a commit until the required commands above have been run or explicitly skipped with a recorded reason.
 

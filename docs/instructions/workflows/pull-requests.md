@@ -16,8 +16,8 @@
 
 ## Template Alignment
 
-- If `.github/pull_request_template.md` exists, follow it.
-- If no PR template exists, include summary, testing, and skipped checks explicitly in the PR body.
+- This repo does not currently include `.github/pull_request_template.md`.
+- Include summary, testing, and skipped checks explicitly in the PR body unless a template is added later.
 
 ## Documentation
 

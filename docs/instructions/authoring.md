@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These docs are AI-first operational guidance that humans can also read. They are living documents and should be updated when the repo changes in ways that affect future work.
+These docs are operational guidance first. They should stay current when repo changes affect future work.
 
 ## Required Format
 
