@@ -6,15 +6,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import illumi from '@assets/illumi.jpg'
 import notIllumi from '@assets/not-illumi.jpg'
 
+type Phase = "imageA" | "imageB";
+
 export default function PersonalHover() {
   const [hovered, setHovered] = useState(false);
-  const [phase, setPhase] = useState("imageA");
+  const [phase, setPhase] = useState<Phase>("imageA");
 
-  // Handle timed image swap
   useEffect(() => {
-    if (!hovered) return;
-
-    setPhase("imageA");
+    if (!hovered) {
+      return;
+    }
 
     const timer = setTimeout(() => {
       setPhase("imageB");
@@ -26,8 +27,14 @@ export default function PersonalHover() {
   return (
     <span
       className="relative inline-block text-orange-600 underline cursor-pointer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => {
+        setPhase("imageA");
+        setHovered(true);
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+        setPhase("imageA");
+      }}
     >
       my cat
 

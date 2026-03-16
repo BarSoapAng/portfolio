@@ -1,74 +1,234 @@
 "use client";
 
-import { useState } from 'react'
+import { useEffect, useState } from "react";
 
-import aphelios from '@assets/aphelios.jpg'
-import seven from '@assets/seven.png'
-import melt from '@assets/melt.jpg'
+import { FaSpotify } from "react-icons/fa";
+import { IoMdPause, IoMdPlay } from "react-icons/io";
 
-import { IoMdPlay, IoMdPause, IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
+import type { SpotifyNowPlayingPayload } from "../../lib/spotify";
 
-const SONGS = [
-  { title: 'Puddles', artist: 'Not for Radio', cover: melt },
-  { title: '七彩光', artist: '单依纯', cover: seven },
-  { title: 'Aphelios, Weapon of the Faithful', artist: 'League of Legends', cover: aphelios },
-]
+const REFRESH_INTERVAL_MS = 15_000;
+const PROGRESS_TICK_MS = 1_000;
+
+const INITIAL_STATE: SpotifyNowPlayingPayload = {
+  configured: false,
+  connected: false,
+  isPlaying: false,
+  jamUrl: null,
+  loginUrl: null,
+  openUrl: null,
+  playedAt: null,
+  progressMs: null,
+  source: null,
+  track: null,
+};
+
+function formatDuration(durationMs: number | null): string {
+  if (!durationMs || durationMs < 0) {
+    return "--:--";
+  }
+
+  const totalSeconds = Math.floor(durationMs / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+function getStatusLabel(player: SpotifyNowPlayingPayload): string {
+  if (!player.configured) {
+    return "Spotify not configured";
+  }
+
+  if (!player.connected) {
+    return "Connect Spotify";
+  }
+
+  if (player.source === "currently-playing") {
+    return player.isPlaying ? "Listening now" : "Paused";
+  }
+
+  if (player.source === "recently-played") {
+    return "Last played";
+  }
+
+  return "Waiting for playback";
+}
 
 export default function VinylPlayer() {
-  const [ curSong, setCurSong ] = useState(0);
-  const [ playing, setPlaying ] = useState(false);
+  const [player, setPlayer] = useState<SpotifyNowPlayingPayload>(INITIAL_STATE);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadPlayer = async () => {
+      try {
+        const response = await fetch("/api/spotify/now-playing", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          if (!cancelled) {
+            setHasLoaded(true);
+          }
+
+          return;
+        }
+
+        const nextPlayer = (await response.json()) as SpotifyNowPlayingPayload;
+
+        if (!cancelled) {
+          setPlayer(nextPlayer);
+          setHasLoaded(true);
+        }
+      } catch {
+        if (!cancelled) {
+          setHasLoaded(true);
+        }
+      }
+    };
+
+    void loadPlayer();
+
+    const refreshInterval = window.setInterval(() => {
+      void loadPlayer();
+    }, REFRESH_INTERVAL_MS);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(refreshInterval);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!player.isPlaying || !player.track || player.progressMs === null) {
+      return;
+    }
+
+    const progressInterval = window.setInterval(() => {
+      setPlayer((currentPlayer) => {
+        if (
+          !currentPlayer.isPlaying ||
+          !currentPlayer.track ||
+          currentPlayer.progressMs === null
+        ) {
+          return currentPlayer;
+        }
+
+        const nextProgress = Math.min(
+          currentPlayer.progressMs + PROGRESS_TICK_MS,
+          currentPlayer.track.durationMs,
+        );
+
+        return {
+          ...currentPlayer,
+          progressMs: nextProgress,
+        };
+      });
+    }, PROGRESS_TICK_MS);
+
+    return () => {
+      window.clearInterval(progressInterval);
+    };
+  }, [player.isPlaying, player.progressMs, player.track]);
+
+  const progressMs = player.progressMs ?? player.track?.durationMs ?? 0;
+  const durationMs = player.track?.durationMs ?? null;
+  const progressPercent =
+    durationMs && durationMs > 0 ? Math.min((progressMs / durationMs) * 100, 100) : 0;
 
   return (
-    <div className='w-full bg-[#f6d6a8] border-4 border-black p-3 font-mono text-black'>
-      <div className="flex gap-4 items-center">
-        {/* Vinyl */}
-        <div className="relative w-24 h-24 shrink-0">
-          {/* Outer vinyl */}
-          <img
-            src={SONGS[curSong].cover.src}
-            className="absolute inset-0 rounded-full border border-black animate-[spin_5s_linear_infinite]"
-            style={{
-              animationPlayState: playing ? 'running' : 'paused',
-            }}
-            alt={SONGS[curSong].title}
-          />
-          {/* Center Rings */}
-          <div className="absolute inset-3 rounded-full border border-black/25" />
-          <div className="absolute inset-6 rounded-full border border-black/25" />
-          {/* Center label */}
-          <div className="absolute inset-10 rounded-full bg-[#f2c28f] border border-black" />
+    <div className="w-full border-4 border-black bg-[#f6d6a8] p-3 font-mono text-black">
+      <div className="mb-3 flex items-start justify-between gap-3 border-b border-black pb-2">
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.25em]">Spotify Vinyl</div>
+          <div className="text-xs opacity-80">{getStatusLabel(player)}</div>
         </div>
 
-        {/* Right content */}
-        <div className="flex flex-col flex-1 gap-2">
-          {/* Song info */}
-          <div>
-            <div className="text-sm font-bold">{SONGS[curSong].title}</div>
-            <div className="text-xs opacity-80">{SONGS[curSong].artist}</div>
-          </div>
+        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em]">
+          {player.openUrl ? (
+            <a
+              href={player.openUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="border border-black px-2 py-1 hover:bg-black hover:text-[#f6d6a8]"
+            >
+              Open
+            </a>
+          ) : null}
+          {!player.connected && player.loginUrl ? (
+            <a
+              href={player.loginUrl}
+              className="border border-green-800 bg-green-200 px-2 py-1 text-green-900 hover:bg-green-900 hover:text-green-100"
+            >
+              Connect
+            </a>
+          ) : null}
+        </div>
+      </div>
 
-          {/* Progress bar */}
-          <div className="h-1 rounded-sm border border-black">
-            <div className="h-full w-1/3 bg-black" />
-          </div>
+      <div className="flex items-center gap-4">
+        <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-black bg-black">
+          {player.track?.coverUrl ? (
+            <img
+              src={player.track.coverUrl}
+              className="absolute inset-0 h-full w-full animate-[spin_5s_linear_infinite] rounded-full object-cover"
+              style={{
+                animationPlayState: player.isPlaying ? "running" : "paused",
+              }}
+              alt={player.track.title}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center rounded-full bg-[#1b1b1b] text-green-400">
+              <FaSpotify className="h-8 w-8" />
+            </div>
+          )}
+          <div className="absolute inset-3 rounded-full border border-white/20" />
+          <div className="absolute inset-6 rounded-full border border-white/20" />
+          <div className="absolute inset-10 rounded-full border border-black bg-[#f2c28f]" />
+        </div>
 
-          {/* Controls */}
-          <div className="flex mx-10 justify-between">
-            <button onClick={() => setCurSong((curSong + 1) % SONGS.length)}>
-              <IoMdSkipBackward className='h-5 hover:cursor-pointer hover:text-gray-500' />
-            </button>
-            <button onClick={() => setPlaying(!playing)}>
-              {playing ? 
-                <IoMdPause className='h-5 hover:cursor-pointer hover:text-gray-500' /> : 
-                <IoMdPlay className='h-5 hover:cursor-pointer hover:text-gray-500' />
-              }
-            </button>
-            <button onClick={() => setCurSong((curSong + 1) % SONGS.length)}>
-              <IoMdSkipForward className='h-5 hover:cursor-pointer hover:text-gray-500'/>
-            </button>
-          </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          {player.track ? (
+            <>
+              <div className="min-w-0">
+                <div className="truncate text-sm font-bold">{player.track.title}</div>
+                <div className="truncate text-xs opacity-80">{player.track.artist}</div>
+                <div className="truncate text-[11px] opacity-60">{player.track.album}</div>
+              </div>
+
+              <div className="h-2 overflow-hidden rounded-sm border border-black bg-[#f3e0bf]">
+                <div
+                  className="h-full bg-black transition-[width] duration-1000 ease-linear"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] uppercase">
+                <div className="flex items-center gap-1 font-bold">
+                  {player.isPlaying ? <IoMdPause className="h-4 w-4" /> : <IoMdPlay className="h-4 w-4" />}
+                  <span>{getStatusLabel(player)}</span>
+                </div>
+                <div>
+                  {formatDuration(progressMs)} / {formatDuration(durationMs)}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex min-h-24 flex-col justify-center text-xs">
+              <div className="font-bold">
+                {hasLoaded ? "No recent Spotify track found" : "Loading Spotify..."}
+              </div>
+              <div className="mt-1 opacity-80">
+                {player.configured
+                  ? "Start playback once and this card will keep the latest track visible."
+                  : "Add Spotify API credentials to turn this card into a live player."}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -4,7 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "../../routes";
 
-export default function NavbarLink({ className = "" }) {
+type NavbarLinkProps = {
+  className?: string;
+};
+
+export default function NavbarLink({ className = "" }: NavbarLinkProps) {
   const pathname = usePathname();
 
   return (
