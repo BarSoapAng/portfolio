@@ -1,17 +1,19 @@
+import TopBlogLink from './TopBlogLink'
+
 const menuItems = [
-  { label: 'TOP', name: 'Sweet and Sour Ribs', tone: 'text-pink-600' },
-  { label: 'NEW', name: 'Orange Glazed Ribs', tone: 'text-blue-600' },
-  { label: 'SET', name: 'Chicken Rice Plate', tone: 'text-green-600' },
-  { label: 'HOT', name: 'Curry Chicken', tone: 'text-red-600' },
-  { label: 'COZY', name: 'Coconut Chicken', tone: 'text-purple-600' },
-  { label: 'FAVE', name: 'Garlic Chicken Rice', tone: 'text-pink-600' },
-  { label: 'CRISPY', name: 'Spicy Crispy Chicken', tone: 'text-orange-600' },
-  { label: 'SIP', name: 'Milk Tea', tone: 'text-blue-600' },
-  { label: 'COLD', name: 'Orange Juice', tone: 'text-green-600' },
-  { label: 'SWEET', name: 'Honey Tea', tone: 'text-amber-600' },
-  { label: 'ADD', name: 'Red Bean Add-On', tone: 'text-red-600' },
-  { label: 'CALM', name: 'Green Tea', tone: 'text-emerald-600' },
-  { label: 'CHEF', name: 'Spiced Beef', tone: 'text-purple-600' },
+  'Sweet and Sour Ribs',
+  'Orange Glazed Ribs',
+  'Chicken Rice Plate',
+  'Curry Chicken',
+  'Coconut Chicken',
+  'Garlic Chicken Rice',
+  'Spicy Crispy Chicken',
+  'Milk Tea',
+  'Orange Juice',
+  'Honey Tea',
+  'Red Bean Add-On',
+  'Green Tea',
+  'Spiced Beef',
 ]
 
 export default function FoodMenuCard() {
@@ -24,17 +26,7 @@ export default function FoodMenuCard() {
         </div>
 
         {menuItems.map((item) => (
-          <div
-            key={item.name}
-            className="grid grid-cols-[64px_1fr] gap-1 bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white p-1"
-          >
-            <div className="flex min-h-[48px] items-center justify-center border-2 border-[#8b6b4a] border-b-white bg-[#fff4d8] px-1 text-center text-[10px] font-bold tracking-wide">
-              <span className={item.tone}>{item.label}</span>
-            </div>
-            <div className="flex min-h-[48px] items-center border-2 border-[#8b6b4a] border-b-white bg-[#fff7e7] px-3 text-[15px] leading-tight text-[#2f2418]">
-              {item.name}
-            </div>
-          </div>
+          <TopBlogLink key={item} title={item} />
         ))}
       </div>
     </div>
