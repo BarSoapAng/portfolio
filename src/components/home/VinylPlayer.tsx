@@ -19,8 +19,8 @@ export default function VinylPlayer() {
   const [ playing, setPlaying ] = useState(false);
 
   return (
-    <div className='w-full border-4 border-black-1 bg-cream-1 p-3 text-black-1'>
-      <div className="flex gap-4 items-center">
+    <div className='h-full w-full bg-cream-1 border-4 border-black p-3 font-mono text-black'>
+      <div className="flex h-full items-center gap-4">
         {/* Vinyl */}
         <div className="relative w-24 h-24 shrink-0">
           {/* Outer vinyl */}
@@ -40,7 +40,7 @@ export default function VinylPlayer() {
         </div>
 
         {/* Right content */}
-        <div className="flex flex-col flex-1 gap-2">
+        <div className="flex flex-1 flex-col gap-2">
           {/* Song info */}
           <div>
             <div className="text-sm font-bold">{SONGS[curSong].title}</div>

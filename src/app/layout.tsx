@@ -16,11 +16,13 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="font-sans">
+      <body className="overflow-hidden font-sans">
         <img src={background.src} className="absolute z-[-1] h-full w-full object-cover" alt="" />
-        <div className="w-dvw h-dvh overflow-x-hidden">
+        <div className="flex h-dvh w-dvw flex-col overflow-hidden">
           <Navbar />
-          {children}
+          <main className="min-h-0 flex-1 overflow-auto">
+            {children}
+          </main>
         </div>
       </body>
     </html>

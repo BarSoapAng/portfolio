@@ -77,45 +77,51 @@ export default function RadarChart() {
     ],
   }), [chartColors]);
 
-  const options: ChartOptions<'radar'> = useMemo(() => ({
-    scales: {
-      r: {
-        min: 0,
-        max: 5,
-        ticks: {
-          stepSize: 1,
-          backdropColor: chartColors.transparent,
-        },
-        grid: {
-          color: chartColors.grid,
-        },
-        pointLabels: {
-          font: {
-            size: 10,
-            weight: 'bold',
-          },
-        },
-      },
-    },
-    plugins: {
-      legend: {
+const options: ChartOptions<'radar'> = {
+  maintainAspectRatio: false,
+  scales: {
+    r: {
+      min: 0,
+      max: 5,
+      ticks: {
+        stepSize: 1,
+        backdropColor: 'transparent',
         display: false,
       },
-      tooltip: {
-        titleFont: {
-          weight: 'bold' as const,
+      grid: {
+        color: 'rgba(0,0,0,0.2)',
+      },
+      pointLabels: {
+        font: {
+          size: 9,
+          weight: 'bold',
         },
-        displayColors: false,
       },
     },
-  }), [chartColors]);
+  },
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      titleFont: {
+        weight: 'bold' as const,
+      },
+      displayColors: false,
+    },
+  },
+}
+
+Chart.defaults.font.size = 8;
 
   return (
-    <div className='m-auto'>
-      <Radar 
-        data={devData}
-        options={options}
-      />
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="h-full max-h-[175px] w-full max-w-[175px]">
+        <Radar 
+          data={devData}
+          options={options}
+        />
+      </div>
     </div>
   )
 }

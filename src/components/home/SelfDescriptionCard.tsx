@@ -7,7 +7,7 @@ export default function RetroHomepageCard() {
   return (
     <div className="retro-home-shell">
       {/* Top row */}
-      <div className="grid grid-cols-[250px_1fr] gap-1">
+      <div className="grid h-full grid-cols-[220px_minmax(0,1fr)] gap-1">
         {/* Left image box */}
         <div className="relative h-full w-full min-h-[300px] overflow-hidden border-2 border-sand-1 border-b-white-1 bg-cream-2">
           <img
@@ -18,7 +18,7 @@ export default function RetroHomepageCard() {
         </div>
 
         {/* Right content */}
-        <div className="flex flex-col gap-1">
+        <div className="flex min-h-0 flex-col gap-1">
           {/* Header */}
           <div className="retro-home-row flex justify-between px-4 py-2 text-center">
             <img src={catJump.src} className="inline-block w-7" alt="" />
