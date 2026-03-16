@@ -31,6 +31,9 @@ function HomePage() {
             <div className="border">
               <img src={wavingCat.src} className='border-2 border-red-1' alt="Waving cat" />
             </div>
+            <div className="border">
+              <EmailMeCard />
+            </div>
           </div>
         </div>
       </div>
