@@ -1,0 +1,19 @@
+---
+title: "Weeknotes 001"
+date: "2026-03-14"
+summary: "A short note on adding the blog, choosing MDX, and keeping the content workflow simple."
+published: true
+tags:
+  - weeknotes
+  - development
+---
+
+This week I wanted a blog setup that did not ask for a CMS, a database, or an admin panel. I only wanted files.
+
+## What shipped
+
+Each post lives in its own `.mdx` file. The filename becomes the slug, frontmatter handles metadata, and the app builds an index plus a page for each published post.
+
+## Why this approach fits
+
+The rest of the site is already static and personal, so a file-based workflow is the least surprising option. It keeps writing close to the code and makes new posts cheap to add.

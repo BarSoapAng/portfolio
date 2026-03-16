@@ -11,7 +11,7 @@ Run `npm run build` when the change affects:
 
 - route files under `src/app/`
 - route behavior or navigation, including the root redirect in `src/app/page.tsx`
-- page composition modules under `src/pages/`
+- page composition modules under `src/views/`
 - `src/app/layout.tsx`, metadata, or global CSS
 - asset imports that are rendered in production
 
