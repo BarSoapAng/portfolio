@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "preview": "next start"
+    "preview": "next start",
+    "spotify:refresh-token": "node scripts/spotify-refresh-token.mjs"
   },
   "dependencies": {
     "chart.js": "^4.5.1",

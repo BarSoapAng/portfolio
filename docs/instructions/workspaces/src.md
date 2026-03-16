@@ -37,6 +37,7 @@
 - There is no `src/pages/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
 - The Spotify vinyl card uses the route handler under `src/app/api/spotify/now-playing/` plus server utilities in `src/lib/spotify.ts`.
 - Runtime Spotify access is env-driven: set `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and either `SPOTIFY_ACCESS_TOKEN` or `SPOTIFY_REFRESH_TOKEN` in `.env` or `.env.local`.
+- Run `npm run spotify:refresh-token -- --write-env` to generate a local `SPOTIFY_REFRESH_TOKEN` without using app routes. The helper uses `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`, defaults to `http://127.0.0.1:3010/callback`, and writes the token to `.env.local` when `--write-env` is passed.
 - `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` are not enough for `/me/player/*`; Spotify requires a user token for currently-playing and recently-played lookups, so the card should show that setup error explicitly.
 - The home page renders the Spotify vinyl card with an initial server-side fetch and the client refreshes `/api/spotify/now-playing`; if Spotify data is missing, the card should show the concrete setup error instead of silently failing in the browser.
 
