@@ -15,12 +15,11 @@ export default function TopBlogOverview() {
           <div className="text-[11px] text-blue-600">latest published posts</div>
         </div>
 
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           <TopBlogLink
             key={post.slug}
             dateLabel={formatPostDate(post.date)}
             href={`/blog/${post.slug}`}
-            rank={index + 1}
             title={post.title}
           />
         ))}
