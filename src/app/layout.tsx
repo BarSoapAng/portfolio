@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Navbar from "@components/Navbar";
+import Navbar from "@components/navigation/Navbar";
 import background from "@assets/bg.gif";
 
 export const metadata: Metadata = {
