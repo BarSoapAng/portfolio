@@ -6,13 +6,13 @@ import { NextResponse } from "next/server";
 import {
   SPOTIFY_STATE_COOKIE,
   buildSpotifyAuthorizeUrl,
-  isSpotifyConfigured,
+  hasSpotifyCredentials,
 } from "../../../../lib/spotify";
 
 export async function GET(request: Request) {
   const redirectUrl = new URL("/home", request.url);
 
-  if (!isSpotifyConfigured()) {
+  if (!hasSpotifyCredentials()) {
     return NextResponse.redirect(redirectUrl);
   }
 

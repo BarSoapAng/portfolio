@@ -3,10 +3,8 @@ import { NextResponse } from "next/server";
 
 import {
   SPOTIFY_STATE_COOKIE,
-  clearSpotifySession,
   exchangeSpotifyCode,
-  isSpotifyConfigured,
-  writeSpotifySession,
+  hasSpotifyCredentials,
 } from "../../../../lib/spotify";
 
 export async function GET(request: Request) {
@@ -20,17 +18,41 @@ export async function GET(request: Request) {
 
   cookieStore.delete(SPOTIFY_STATE_COOKIE);
 
-  if (!isSpotifyConfigured() || error || !code || !returnedState || returnedState !== storedState) {
-    clearSpotifySession(cookieStore);
+  if (!hasSpotifyCredentials() || error || !code || !returnedState || returnedState !== storedState) {
     return NextResponse.redirect(redirectUrl);
   }
 
   try {
     const tokens = await exchangeSpotifyCode(code);
-    writeSpotifySession(cookieStore, tokens);
-    return NextResponse.redirect(redirectUrl);
+
+    if (!tokens.refresh_token) {
+      return new NextResponse(
+        "Spotify did not return a refresh token. Remove any existing app authorization in Spotify, then try /api/spotify/login again.",
+        {
+          headers: {
+            "Cache-Control": "no-store",
+            "Content-Type": "text/plain; charset=utf-8",
+          },
+        },
+      );
+    }
+
+    return new NextResponse(
+      [
+        "Add this line to your .env or .env.local file, then restart the app:",
+        "",
+        `SPOTIFY_REFRESH_TOKEN=${tokens.refresh_token}`,
+        "",
+        "After that, the Vinyl player will use your Spotify account server-side for all visitors.",
+      ].join("\n"),
+      {
+        headers: {
+          "Cache-Control": "no-store",
+          "Content-Type": "text/plain; charset=utf-8",
+        },
+      },
+    );
   } catch {
-    clearSpotifySession(cookieStore);
     return NextResponse.redirect(redirectUrl);
   }
 }

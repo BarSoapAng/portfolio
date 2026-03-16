@@ -2,52 +2,13 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import {
-  clearSpotifySession,
   createConnectedIdleSpotifyPayload,
   createCurrentTrackPayload,
-  createDisconnectedSpotifyPayload,
   createRecentTrackPayload,
+  createSetupRequiredSpotifyPayload,
   fetchSpotifyApi,
-  readSpotifySession,
-  refreshSpotifyAccessToken,
-  writeSpotifySession,
+  getSpotifyOwnerAccessToken,
 } from "../../../../lib/spotify";
-
-async function getAuthorizedAccessToken() {
-  const cookieStore = await cookies();
-  const session = readSpotifySession(cookieStore);
-
-  if (!session.refreshToken) {
-    return {
-      accessToken: null,
-      cookieStore,
-    };
-  }
-
-  if (session.accessToken && session.expiresAt && session.expiresAt > Date.now()) {
-    return {
-      accessToken: session.accessToken,
-      cookieStore,
-    };
-  }
-
-  try {
-    const refreshedToken = await refreshSpotifyAccessToken(session.refreshToken);
-    const updatedSession = writeSpotifySession(cookieStore, refreshedToken, session.refreshToken);
-
-    return {
-      accessToken: updatedSession.accessToken,
-      cookieStore,
-    };
-  } catch {
-    clearSpotifySession(cookieStore);
-
-    return {
-      accessToken: null,
-      cookieStore,
-    };
-  }
-}
 
 function createJsonResponse(body: unknown, init?: ResponseInit) {
   return NextResponse.json(body, {
@@ -60,49 +21,28 @@ function createJsonResponse(body: unknown, init?: ResponseInit) {
 }
 
 export async function GET() {
-  const { accessToken, cookieStore } = await getAuthorizedAccessToken();
+  await cookies();
+
+  let accessToken: string | null = null;
+
+  try {
+    accessToken = await getSpotifyOwnerAccessToken();
+  } catch {
+    return createJsonResponse(createSetupRequiredSpotifyPayload(), {
+      status: 502,
+    });
+  }
 
   if (!accessToken) {
-    return createJsonResponse(createDisconnectedSpotifyPayload());
+    return createJsonResponse(createSetupRequiredSpotifyPayload());
   }
 
-  let activeAccessToken = accessToken;
-  let currentTrackResponse = await fetchSpotifyApi("/me/player/currently-playing", activeAccessToken);
-
-  if (currentTrackResponse.status === 401) {
-    const session = readSpotifySession(cookieStore);
-
-    if (!session.refreshToken) {
-      clearSpotifySession(cookieStore);
-      return createJsonResponse(createDisconnectedSpotifyPayload());
-    }
-
-    try {
-      const refreshedToken = await refreshSpotifyAccessToken(session.refreshToken);
-      const updatedSession = writeSpotifySession(cookieStore, refreshedToken, session.refreshToken);
-
-      if (!updatedSession.accessToken) {
-        clearSpotifySession(cookieStore);
-        return createJsonResponse(createDisconnectedSpotifyPayload());
-      }
-
-      activeAccessToken = updatedSession.accessToken;
-      currentTrackResponse = await fetchSpotifyApi("/me/player/currently-playing", activeAccessToken);
-    } catch {
-      clearSpotifySession(cookieStore);
-      return createJsonResponse(createDisconnectedSpotifyPayload());
-    }
-  }
+  const currentTrackResponse = await fetchSpotifyApi("/me/player/currently-playing", accessToken);
 
   if (currentTrackResponse.status === 204) {
-    const recentlyPlayedResponse = await fetchSpotifyApi("/me/player/recently-played?limit=1", activeAccessToken);
+    const recentlyPlayedResponse = await fetchSpotifyApi("/me/player/recently-played?limit=1", accessToken);
 
     if (!recentlyPlayedResponse.ok) {
-      if (recentlyPlayedResponse.status === 401) {
-        clearSpotifySession(cookieStore);
-        return createJsonResponse(createDisconnectedSpotifyPayload());
-      }
-
       return createJsonResponse(createConnectedIdleSpotifyPayload(), {
         status: 502,
       });
@@ -115,7 +55,7 @@ export async function GET() {
   }
 
   if (!currentTrackResponse.ok) {
-    return createJsonResponse(createConnectedIdleSpotifyPayload(), {
+    return createJsonResponse(createSetupRequiredSpotifyPayload(), {
       status: 502,
     });
   }
@@ -127,14 +67,9 @@ export async function GET() {
     return createJsonResponse(currentPayload);
   }
 
-  const recentlyPlayedResponse = await fetchSpotifyApi("/me/player/recently-played?limit=1", activeAccessToken);
+  const recentlyPlayedResponse = await fetchSpotifyApi("/me/player/recently-played?limit=1", accessToken);
 
   if (!recentlyPlayedResponse.ok) {
-    if (recentlyPlayedResponse.status === 401) {
-      clearSpotifySession(cookieStore);
-      return createJsonResponse(createDisconnectedSpotifyPayload());
-    }
-
     return createJsonResponse(createConnectedIdleSpotifyPayload(), {
       status: 502,
     });

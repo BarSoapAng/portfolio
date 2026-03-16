@@ -11,12 +11,11 @@ const REFRESH_INTERVAL_MS = 15_000;
 const PROGRESS_TICK_MS = 1_000;
 
 const INITIAL_STATE: SpotifyNowPlayingPayload = {
+  actionLabel: null,
+  actionUrl: null,
   configured: false,
   connected: false,
   isPlaying: false,
-  jamUrl: null,
-  loginUrl: null,
-  openUrl: null,
   playedAt: null,
   progressMs: null,
   source: null,
@@ -37,11 +36,7 @@ function formatDuration(durationMs: number | null): string {
 
 function getStatusLabel(player: SpotifyNowPlayingPayload): string {
   if (!player.configured) {
-    return "Spotify not configured";
-  }
-
-  if (!player.connected) {
-    return "Connect Spotify";
+    return player.actionUrl ? "Owner setup required" : "Spotify not configured";
   }
 
   if (player.source === "currently-playing") {
@@ -137,6 +132,7 @@ export default function VinylPlayer() {
   const durationMs = player.track?.durationMs ?? null;
   const progressPercent =
     durationMs && durationMs > 0 ? Math.min((progressMs / durationMs) * 100, 100) : 0;
+  const isExternalAction = player.actionUrl?.startsWith("http");
 
   return (
     <div className="w-full border-4 border-black bg-[#f6d6a8] p-3 font-mono text-black">
@@ -147,22 +143,19 @@ export default function VinylPlayer() {
         </div>
 
         <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em]">
-          {player.openUrl ? (
+          {player.actionUrl && player.actionLabel ? (
             <a
-              href={player.openUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="border border-black px-2 py-1 hover:bg-black hover:text-[#f6d6a8]"
+              href={player.actionUrl}
+              target={isExternalAction ? "_blank" : undefined}
+              rel={isExternalAction ? "noreferrer" : undefined}
+              className={[
+                "border px-2 py-1",
+                player.configured
+                  ? "border-black hover:bg-black hover:text-[#f6d6a8]"
+                  : "border-green-800 bg-green-200 text-green-900 hover:bg-green-900 hover:text-green-100",
+              ].join(" ")}
             >
-              Open
-            </a>
-          ) : null}
-          {!player.connected && player.loginUrl ? (
-            <a
-              href={player.loginUrl}
-              className="border border-green-800 bg-green-200 px-2 py-1 text-green-900 hover:bg-green-900 hover:text-green-100"
-            >
-              Connect
+              {player.actionLabel}
             </a>
           ) : null}
         </div>
@@ -223,7 +216,9 @@ export default function VinylPlayer() {
               <div className="mt-1 opacity-80">
                 {player.configured
                   ? "Start playback once and this card will keep the latest track visible."
-                  : "Add Spotify API credentials to turn this card into a live player."}
+                  : player.actionUrl
+                    ? "Authorize your Spotify account once to generate the refresh token this card needs."
+                    : "Add Spotify API credentials to .env to turn this card into a live player."}
               </div>
             </div>
           )}

@@ -35,7 +35,8 @@
 - Reusable home UI belongs in `src/components/home/`.
 - Interactive home effects live in `src/components/home/effects/`.
 - There is no `src/pages/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
-- The Spotify vinyl card uses route handlers under `src/app/api/spotify/` and expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REDIRECT_URI` in `.env.local`.
+- The Spotify vinyl card uses route handlers under `src/app/api/spotify/` and expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REDIRECT_URI`, and `SPOTIFY_REFRESH_TOKEN` in `.env` or `.env.local`.
+- If the refresh token is missing, visit `/api/spotify/login` once to generate it through the callback route, then add the returned `SPOTIFY_REFRESH_TOKEN` value to the local env file and restart the app.
 
 ## Validation
 

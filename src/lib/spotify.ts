@@ -4,39 +4,12 @@ const SPOTIFY_AUTHORIZE_URL = "https://accounts.spotify.com/authorize";
 const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1";
 
-const ACCESS_TOKEN_COOKIE = "spotify_access_token";
-const ACCESS_TOKEN_EXPIRES_AT_COOKIE = "spotify_access_token_expires_at";
-const REFRESH_TOKEN_COOKIE = "spotify_refresh_token";
 export const SPOTIFY_STATE_COOKIE = "spotify_oauth_state";
 
 const SPOTIFY_SCOPES = [
   "user-read-currently-playing",
   "user-read-recently-played",
 ] as const;
-
-type CookieValue = {
-  value: string;
-};
-
-type ReadableCookieStore = {
-  get(name: string): CookieValue | undefined;
-};
-
-type WritableCookieStore = ReadableCookieStore & {
-  delete(name: string): void;
-  set(
-    name: string,
-    value: string,
-    options?: {
-      expires?: Date;
-      httpOnly?: boolean;
-      maxAge?: number;
-      path?: string;
-      sameSite?: "lax" | "strict" | "none";
-      secure?: boolean;
-    },
-  ): void;
-};
 
 type SpotifyTokenResponse = {
   access_token: string;
@@ -77,6 +50,12 @@ type SpotifyRecentlyPlayedResponse = {
   }>;
 };
 
+type SpotifyCredentials = {
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+};
+
 export type SpotifyTrackSummary = {
   album: string;
   artist: string;
@@ -89,38 +68,18 @@ export type SpotifyTrackSummary = {
 };
 
 export type SpotifyNowPlayingPayload = {
+  actionLabel: string | null;
+  actionUrl: string | null;
   configured: boolean;
   connected: boolean;
   isPlaying: boolean;
-  jamUrl: string | null;
-  loginUrl: string | null;
-  openUrl: string | null;
   playedAt: string | null;
   progressMs: number | null;
   source: "currently-playing" | "recently-played" | null;
   track: SpotifyTrackSummary | null;
 };
 
-export type SpotifySession = {
-  accessToken: string | null;
-  expiresAt: number | null;
-  refreshToken: string | null;
-};
-
-type SpotifyConfig = {
-  clientId: string;
-  clientSecret: string;
-  redirectUri: string;
-};
-
-const COOKIE_OPTIONS = {
-  httpOnly: true,
-  path: "/",
-  sameSite: "lax" as const,
-  secure: process.env.NODE_ENV === "production",
-};
-
-function getSpotifyConfig(): SpotifyConfig | null {
+function getSpotifyCredentials(): SpotifyCredentials | null {
   const clientId = process.env.SPOTIFY_CLIENT_ID?.trim();
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
   const redirectUri = process.env.SPOTIFY_REDIRECT_URI?.trim();
@@ -136,8 +95,17 @@ function getSpotifyConfig(): SpotifyConfig | null {
   };
 }
 
+function getSpotifyRefreshToken(): string | null {
+  const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN?.trim();
+  return refreshToken || null;
+}
+
+export function hasSpotifyCredentials(): boolean {
+  return getSpotifyCredentials() !== null;
+}
+
 export function isSpotifyConfigured(): boolean {
-  return getSpotifyConfig() !== null;
+  return hasSpotifyCredentials() && getSpotifyRefreshToken() !== null;
 }
 
 export function getSpotifyLoginPath(): string {
@@ -145,15 +113,15 @@ export function getSpotifyLoginPath(): string {
 }
 
 export function buildSpotifyAuthorizeUrl(state: string): string | null {
-  const config = getSpotifyConfig();
+  const credentials = getSpotifyCredentials();
 
-  if (!config) {
+  if (!credentials) {
     return null;
   }
 
   const params = new URLSearchParams({
-    client_id: config.clientId,
-    redirect_uri: config.redirectUri,
+    client_id: credentials.clientId,
+    redirect_uri: credentials.redirectUri,
     response_type: "code",
     scope: SPOTIFY_SCOPES.join(" "),
     state,
@@ -162,72 +130,22 @@ export function buildSpotifyAuthorizeUrl(state: string): string | null {
   return `${SPOTIFY_AUTHORIZE_URL}?${params.toString()}`;
 }
 
-export function readSpotifySession(cookieStore: ReadableCookieStore): SpotifySession {
-  const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE)?.value ?? null;
-  const expiresAtValue = cookieStore.get(ACCESS_TOKEN_EXPIRES_AT_COOKIE)?.value ?? null;
-  const refreshToken = cookieStore.get(REFRESH_TOKEN_COOKIE)?.value ?? null;
-
-  return {
-    accessToken,
-    expiresAt: expiresAtValue ? Number(expiresAtValue) : null,
-    refreshToken,
-  };
-}
-
-export function writeSpotifySession(
-  cookieStore: WritableCookieStore,
-  token: SpotifyTokenResponse,
-  existingRefreshToken?: string | null,
-): SpotifySession {
-  const refreshToken = token.refresh_token ?? existingRefreshToken ?? null;
-  const expiresAt = Date.now() + token.expires_in * 1000 - 60_000;
-
-  cookieStore.set(ACCESS_TOKEN_COOKIE, token.access_token, {
-    ...COOKIE_OPTIONS,
-    maxAge: token.expires_in,
-  });
-  cookieStore.set(ACCESS_TOKEN_EXPIRES_AT_COOKIE, String(expiresAt), {
-    ...COOKIE_OPTIONS,
-    maxAge: token.expires_in,
-  });
-
-  if (refreshToken) {
-    cookieStore.set(REFRESH_TOKEN_COOKIE, refreshToken, {
-      ...COOKIE_OPTIONS,
-      maxAge: 60 * 60 * 24 * 180,
-    });
-  }
-
-  return {
-    accessToken: token.access_token,
-    expiresAt,
-    refreshToken,
-  };
-}
-
-export function clearSpotifySession(cookieStore: WritableCookieStore): void {
-  cookieStore.delete(ACCESS_TOKEN_COOKIE);
-  cookieStore.delete(ACCESS_TOKEN_EXPIRES_AT_COOKIE);
-  cookieStore.delete(REFRESH_TOKEN_COOKIE);
-  cookieStore.delete(SPOTIFY_STATE_COOKIE);
-}
-
-function createSpotifyBasicAuthorizationHeader(config: SpotifyConfig): string {
-  return `Basic ${Buffer.from(`${config.clientId}:${config.clientSecret}`).toString("base64")}`;
+function createSpotifyBasicAuthorizationHeader(credentials: SpotifyCredentials): string {
+  return `Basic ${Buffer.from(`${credentials.clientId}:${credentials.clientSecret}`).toString("base64")}`;
 }
 
 async function requestSpotifyTokens(body: URLSearchParams): Promise<SpotifyTokenResponse> {
-  const config = getSpotifyConfig();
+  const credentials = getSpotifyCredentials();
 
-  if (!config) {
-    throw new Error("Spotify is not configured.");
+  if (!credentials) {
+    throw new Error("Spotify credentials are missing.");
   }
 
   const response = await fetch(SPOTIFY_TOKEN_URL, {
     body,
     cache: "no-store",
     headers: {
-      Authorization: createSpotifyBasicAuthorizationHeader(config),
+      Authorization: createSpotifyBasicAuthorizationHeader(credentials),
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
@@ -241,28 +159,36 @@ async function requestSpotifyTokens(body: URLSearchParams): Promise<SpotifyToken
 }
 
 export async function exchangeSpotifyCode(code: string): Promise<SpotifyTokenResponse> {
-  const config = getSpotifyConfig();
+  const credentials = getSpotifyCredentials();
 
-  if (!config) {
-    throw new Error("Spotify is not configured.");
+  if (!credentials) {
+    throw new Error("Spotify credentials are missing.");
   }
 
   return requestSpotifyTokens(
     new URLSearchParams({
       code,
       grant_type: "authorization_code",
-      redirect_uri: config.redirectUri,
+      redirect_uri: credentials.redirectUri,
     }),
   );
 }
 
-export async function refreshSpotifyAccessToken(refreshToken: string): Promise<SpotifyTokenResponse> {
-  return requestSpotifyTokens(
+export async function getSpotifyOwnerAccessToken(): Promise<string | null> {
+  const refreshToken = getSpotifyRefreshToken();
+
+  if (!refreshToken) {
+    return null;
+  }
+
+  const token = await requestSpotifyTokens(
     new URLSearchParams({
       grant_type: "refresh_token",
       refresh_token: refreshToken,
     }),
   );
+
+  return token.access_token;
 }
 
 function buildSpotifyApiUrl(path: string): string {
@@ -293,16 +219,15 @@ function toTrackSummary(track: SpotifyTrackObject): SpotifyTrackSummary {
   };
 }
 
-export function createDisconnectedSpotifyPayload(): SpotifyNowPlayingPayload {
-  const configured = isSpotifyConfigured();
+export function createSetupRequiredSpotifyPayload(): SpotifyNowPlayingPayload {
+  const hasCredentials = hasSpotifyCredentials();
 
   return {
-    configured,
+    actionLabel: hasCredentials ? "Finish Setup" : null,
+    actionUrl: hasCredentials ? getSpotifyLoginPath() : null,
+    configured: false,
     connected: false,
     isPlaying: false,
-    jamUrl: null,
-    loginUrl: configured ? getSpotifyLoginPath() : null,
-    openUrl: null,
     playedAt: null,
     progressMs: null,
     source: null,
@@ -312,16 +237,24 @@ export function createDisconnectedSpotifyPayload(): SpotifyNowPlayingPayload {
 
 export function createConnectedIdleSpotifyPayload(): SpotifyNowPlayingPayload {
   return {
+    actionLabel: null,
+    actionUrl: null,
     configured: true,
     connected: true,
     isPlaying: false,
-    jamUrl: null,
-    loginUrl: getSpotifyLoginPath(),
-    openUrl: null,
     playedAt: null,
     progressMs: null,
     source: null,
     track: null,
+  };
+}
+
+function createTrackAction(track: SpotifyTrackObject) {
+  const actionUrl = track.external_urls?.spotify ?? null;
+
+  return {
+    actionLabel: actionUrl ? "Listen Along" : null,
+    actionUrl,
   };
 }
 
@@ -333,12 +266,10 @@ export function createCurrentTrackPayload(
   }
 
   return {
+    ...createTrackAction(playback.item),
     configured: true,
     connected: true,
     isPlaying: playback.is_playing,
-    jamUrl: null,
-    loginUrl: getSpotifyLoginPath(),
-    openUrl: playback.item.external_urls?.spotify ?? null,
     playedAt: null,
     progressMs: playback.progress_ms,
     source: "currently-playing",
@@ -356,12 +287,10 @@ export function createRecentTrackPayload(
   }
 
   return {
+    ...createTrackAction(latestTrack.track),
     configured: true,
     connected: true,
     isPlaying: false,
-    jamUrl: null,
-    loginUrl: getSpotifyLoginPath(),
-    openUrl: latestTrack.track.external_urls?.spotify ?? null,
     playedAt: latestTrack.played_at,
     progressMs: latestTrack.track.duration_ms,
     source: "recently-played",
