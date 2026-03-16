@@ -3,6 +3,7 @@ import AngelaInfoCard from '@components/home/AngelaInfoCard'
 import VinylPlayer from '@components/home/VinylPlayer'
 import EmailMeCard from '@components/home/EmailMeCard'
 import StatsCard from '@components/home/StatsCard'
+import FoodMenuCard from '@components/home/FoodMenuCard'
 
 import wavingCat from '@assets/cat_waving.gif'
 
@@ -10,7 +11,9 @@ function HomePage() {
   return (
     <>
       <div className="grid grid-cols-[0.4fr_1.5fr_1fr] gap-2 m-5 items-start">
-        <div className="col-start-1 border">Left</div>
+        <div className="col-start-1">
+          <FoodMenuCard />
+        </div>
 
         <div className="grid grid-rows-[auto_auto] col-start-2 border gap-2">
           <div className="row-start-1 border"><SelfDescriptionCard /></div>
