@@ -18,8 +18,8 @@ const menuItems = [
 
 export default function FoodMenuCard() {
   return (
-    <div className="w-full max-w-[260px] bg-[#f6d6a8] border-2 border-[#8b6b4a] p-1 font-mono text-black">
-      <div className="space-y-1">
+    <div className="h-full w-full bg-[#f6d6a8] border-2 border-[#8b6b4a] p-1 font-mono text-black">
+      <div className="grid h-full grid-rows-[auto_repeat(13,minmax(0,1fr))] gap-1">
         <div className="bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white px-3 py-2 text-center">
           <div className="font-bold text-purple-600">Today&apos;s Menu</div>
           <div className="text-[11px] text-blue-600">favorite comfort picks and drinks</div>

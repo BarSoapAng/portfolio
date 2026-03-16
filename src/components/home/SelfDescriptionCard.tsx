@@ -5,11 +5,11 @@ import catJump from '@assets/cat-jump.gif'
 
 export default function RetroHomepageCard() {
   return (
-    <div className="w-full bg-[#f6d6a8] border-2 border-[#8b6b4a] p-1 font-mono text-black">
+    <div className="h-full w-full bg-[#f6d6a8] border-2 border-[#8b6b4a] p-1 font-mono text-black">
       {/* Top row */}
-      <div className="grid grid-cols-[250px_1fr] gap-1">
+      <div className="grid h-full grid-cols-[220px_minmax(0,1fr)] gap-1">
         {/* Left image box */}
-        <div className="w-full h-full min-h-[300px] bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white relative overflow-hidden">
+        <div className="relative h-full min-h-0 overflow-hidden border-2 border-[#8b6b4a] border-b-white bg-[#f2c28f]">
           <img
             src={selfie.src}
             alt="angela's selfie"
@@ -18,7 +18,7 @@ export default function RetroHomepageCard() {
         </div>
 
         {/* Right content */}
-        <div className="flex flex-col gap-1">
+        <div className="flex min-h-0 flex-col gap-1">
           {/* Header */}
           <div className="flex justify-between bg-[#f2c28f] border-2 border-[#8b6b4a] border-b-white py-2 px-4 text-center">
             <img src={catJump.src} className="inline-block w-7" alt="" />

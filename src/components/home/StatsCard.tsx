@@ -9,8 +9,8 @@ const stats = [
 
 export default function StatsCard() {
   return (
-    <div className="w-full bg-green-200 border-2 border-green-800 p-1 font-mono text-black">
-      <div className="grid gap-1 lg:grid-cols-[minmax(0,1fr)_275px]">
+    <div className="h-full w-full bg-green-200 border-2 border-green-800 p-1 font-mono text-black">
+      <div className="grid h-full grid-cols-[minmax(0,1fr)_260px] gap-1">
         <div className="flex flex-col gap-1">
           {stats.map(({ label, value }) => (
             <div
@@ -40,7 +40,7 @@ export default function StatsCard() {
           </div>
         </div>
 
-        <div className="min-h-[240px] border-2 border-green-800 border-b-white px-2 py-3">
+        <div className="h-full min-h-0 border-2 border-green-800 border-b-white px-2 py-3">
           <RadarChart />
         </div>
       </div>

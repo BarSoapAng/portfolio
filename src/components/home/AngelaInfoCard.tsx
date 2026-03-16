@@ -3,7 +3,7 @@ import SparkleHover from './effects/SparkleHover';
 
 export default function AngelaInfoCard() {
   return (
-    <div className="w-full bg-[#fffccf] border-2 border-pink-500">
+    <div className="h-full w-full bg-[#fffccf] border-2 border-pink-500">
       {/* Header */}
       <div className="border-b-2 border-pink-500 px-4">
         <h2 className="text-red-600 font-bold">

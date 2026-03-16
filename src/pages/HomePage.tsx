@@ -9,29 +9,43 @@ import wavingCat from '@assets/cat_waving.gif'
 
 function HomePage() {
   return (
-    <>
-      <div className="grid grid-cols-[0.4fr_1.5fr_1fr] gap-2 m-5 items-start">
-        <div className="col-start-1">
+    <div className="h-full overflow-hidden p-4">
+      <div className="grid h-full grid-cols-[240px_minmax(0,1.6fr)_320px] gap-3">
+        <div className="min-h-0">
           <FoodMenuCard />
         </div>
 
-        <div className="grid grid-rows-[auto_auto] col-start-2 border gap-2">
-          <div className="row-start-1 border"><SelfDescriptionCard /></div>
-          <div className="row-start-2 border"><StatsCard /></div>
+        <div className="grid min-h-0 grid-rows-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-3">
+          <div className="min-h-0">
+            <SelfDescriptionCard />
+          </div>
+          <div className="min-h-0">
+            <StatsCard />
+          </div>
         </div>
 
-        <div className="grid grid-rows-[auto_auto_auto] col-start-3 border gap-2">
-          <div className="row-start-1 border"><AngelaInfoCard /></div>
-          <div className="row-start-2 border"><VinylPlayer /></div>
-          <div className="row-start-3 grid grid-cols-2 gap-2">
-            <div className="border">
-              <img src={wavingCat.src} className='border-2 border-red-300' alt="Waving cat" />
-            </div>
-            <div className="border"><EmailMeCard /></div>
+        <div className="grid min-h-0 grid-rows-[minmax(0,0.9fr)_minmax(0,0.95fr)_minmax(0,0.75fr)] gap-3">
+          <div className="min-h-0">
+            <AngelaInfoCard />
           </div>
-        </div>        
+          <div className="min-h-0">
+            <VinylPlayer />
+          </div>
+          <div className="grid min-h-0 grid-cols-2 gap-3">
+            <div className="min-h-0 overflow-hidden border">
+              <img
+                src={wavingCat.src}
+                className="h-full w-full border-2 border-red-300 object-cover"
+                alt="Waving cat"
+              />
+            </div>
+            <div className="min-h-0 overflow-hidden border">
+              <EmailMeCard />
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 
