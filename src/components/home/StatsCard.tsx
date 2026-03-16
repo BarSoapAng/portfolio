@@ -1,47 +1,46 @@
 import RadarChart from './effects/RadarChart'
 import { PiCoffeeLight, PiCoffeeFill } from "react-icons/pi";
 
+const stats = [
+  { label: 'Archetype', value: 'Shapeshifter' },
+  { label: 'Impressions', value: '4M+' },
+  { label: 'Projects', value: '9' },
+]
+
 export default function StatsCard() {
   return (
     <div className="w-full bg-green-200 border-2 border-green-800 p-1 font-mono text-black">
-
-      <div className="grid grid-cols-[auto_auto] gap-1">
+      <div className="grid gap-1 lg:grid-cols-[minmax(0,1fr)_275px]">
         <div className="flex flex-col gap-1">
-          
-          <div className="border-2 border-green-800 border-b-white py-2 px-4">
-            <span className="font-bold text-purple-600">
-              Archetype:
-            </span>
-            <span className='text-black'> Shapeshifter</span>
-          </div>
+          {stats.map(({ label, value }) => (
+            <div
+              key={label}
+              className="flex min-h-12 items-center justify-between gap-4 border-2 border-green-800 border-b-white px-4 py-2"
+            >
+              <span className="font-bold text-purple-600">
+                {label}:
+              </span>
+              <span className="text-right text-black">
+                {value}
+              </span>
+            </div>
+          ))}
 
-          <div className="border-2 border-green-800 border-b-white py-2 px-4">
+          <div className="flex min-h-12 items-center justify-between gap-4 border-2 border-green-800 border-b-white px-4 py-2">
             <span className="font-bold text-purple-600">
-              Impressions:
+              Caffeination:
             </span>
-            <span className='text-black'> 4M+</span>
-          </div>
-
-          <div className="border-2 border-green-800 border-b-white py-2 px-4">
-            <span className="font-bold text-purple-600">
-              Projects: 
-            </span>
-            <span className='text-black'> 9</span>
-          </div>
-
-          <div className="flex border-2 border-green-800 border-b-white py-2 px-4">
-            <span className="font-bold text-purple-600">
-              Caffeination: 
-            </span>
-            <PiCoffeeFill className='w-5 text-green-500'/>
-            <PiCoffeeFill className='w-5 text-green-500'/>
-            <PiCoffeeLight />
-            <PiCoffeeLight />
-            <PiCoffeeLight />
+            <div className="flex items-center gap-1 text-green-500">
+              <PiCoffeeFill className="h-5 w-5" />
+              <PiCoffeeFill className="h-5 w-5" />
+              <PiCoffeeLight className="h-5 w-5" />
+              <PiCoffeeLight className="h-5 w-5" />
+              <PiCoffeeLight className="h-5 w-5" />
+            </div>
           </div>
         </div>
 
-        <div className="border-2 border-green-800 border-b-white overflow-hidden w-[275px] h-[240px]">
+        <div className="min-h-[240px] border-2 border-green-800 border-b-white px-2 py-3">
           <RadarChart />
         </div>
       </div>

@@ -37,6 +37,7 @@ const devData = {
 }
 
 const options: ChartOptions<'radar'> = {
+  maintainAspectRatio: false,
   scales: {
     r: {
       min: 0,
@@ -73,7 +74,7 @@ Chart.defaults.font.size = 8;
 
 export default function RadarChart() {
   return (
-    <div className='m-auto'>
+    <div className="h-full w-full">
       <Radar 
         data={devData}
         options={options}
