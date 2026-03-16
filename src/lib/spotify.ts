@@ -1,15 +1,7 @@
 import { Buffer } from "node:buffer";
 
-const SPOTIFY_AUTHORIZE_URL = "https://accounts.spotify.com/authorize";
 const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1";
-
-export const SPOTIFY_STATE_COOKIE = "spotify_oauth_state";
-
-const SPOTIFY_SCOPES = [
-  "user-read-currently-playing",
-  "user-read-recently-played",
-] as const;
 
 type SpotifyTokenResponse = {
   access_token: string;
@@ -49,7 +41,6 @@ type SpotifyRecentlyPlayedResponse = {
 type SpotifyCredentials = {
   clientId: string;
   clientSecret: string;
-  redirectUri: string;
 };
 
 export type SpotifyTrackSummary = {
@@ -77,17 +68,20 @@ export type SpotifyNowPlayingPayload = {
 function getSpotifyCredentials(): SpotifyCredentials | null {
   const clientId = process.env.SPOTIFY_CLIENT_ID?.trim();
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET?.trim();
-  const redirectUri = process.env.SPOTIFY_REDIRECT_URI?.trim();
 
-  if (!clientId || !clientSecret || !redirectUri) {
+  if (!clientId || !clientSecret) {
     return null;
   }
 
   return {
     clientId,
     clientSecret,
-    redirectUri,
   };
+}
+
+function getSpotifyAccessToken(): string | null {
+  const accessToken = process.env.SPOTIFY_ACCESS_TOKEN?.trim();
+  return accessToken || null;
 }
 
 function getSpotifyRefreshToken(): string | null {
@@ -97,32 +91,6 @@ function getSpotifyRefreshToken(): string | null {
 
 export function hasSpotifyCredentials(): boolean {
   return getSpotifyCredentials() !== null;
-}
-
-export function hasSpotifyRefreshToken(): boolean {
-  return getSpotifyRefreshToken() !== null;
-}
-
-export function getSpotifyLoginPath(): string {
-  return "/api/spotify/login";
-}
-
-export function buildSpotifyAuthorizeUrl(state: string): string | null {
-  const credentials = getSpotifyCredentials();
-
-  if (!credentials) {
-    return null;
-  }
-
-  const params = new URLSearchParams({
-    client_id: credentials.clientId,
-    redirect_uri: credentials.redirectUri,
-    response_type: "code",
-    scope: SPOTIFY_SCOPES.join(" "),
-    state,
-  });
-
-  return `${SPOTIFY_AUTHORIZE_URL}?${params.toString()}`;
 }
 
 function createSpotifyBasicAuthorizationHeader(credentials: SpotifyCredentials): string {
@@ -153,40 +121,23 @@ async function requestSpotifyTokens(body: URLSearchParams): Promise<SpotifyToken
   return (await response.json()) as SpotifyTokenResponse;
 }
 
-export async function exchangeSpotifyCode(code: string): Promise<{ accessToken: string; refreshToken: string | null }> {
-  const credentials = getSpotifyCredentials();
-
-  if (!credentials) {
-    throw new Error("Spotify credentials are missing.");
-  }
-
-  const tokenResponse = await fetch(SPOTIFY_TOKEN_URL, {
-    body: new URLSearchParams({
-      code,
-      grant_type: "authorization_code",
-      redirect_uri: credentials.redirectUri,
+async function getSpotifyAppAccessToken(): Promise<string> {
+  const token = await requestSpotifyTokens(
+    new URLSearchParams({
+      grant_type: "client_credentials",
     }),
-    cache: "no-store",
-    headers: {
-      Authorization: createSpotifyBasicAuthorizationHeader(credentials),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    method: "POST",
-  });
+  );
 
-  if (!tokenResponse.ok) {
-    throw new Error(`Spotify authorization request failed with status ${tokenResponse.status}.`);
-  }
-
-  const token = (await tokenResponse.json()) as SpotifyTokenResponse & { refresh_token?: string };
-
-  return {
-    accessToken: token.access_token,
-    refreshToken: token.refresh_token ?? null,
-  };
+  return token.access_token;
 }
 
 async function getSpotifyOwnerAccessToken(): Promise<string | null> {
+  const accessToken = getSpotifyAccessToken();
+
+  if (accessToken) {
+    return accessToken;
+  }
+
   const refreshToken = getSpotifyRefreshToken();
 
   if (!refreshToken) {
@@ -230,6 +181,19 @@ function toTrackSummary(track: SpotifyTrackObject): SpotifyTrackSummary {
 function createMissingConfigPayload(error: string): SpotifyNowPlayingPayload {
   return {
     configured: false,
+    connected: false,
+    error,
+    isPlaying: false,
+    playedAt: null,
+    progressMs: null,
+    source: null,
+    track: null,
+  };
+}
+
+function createDisconnectedSpotifyPayload(error: string): SpotifyNowPlayingPayload {
+  return {
+    configured: true,
     connected: false,
     error,
     isPlaying: false,
@@ -293,13 +257,13 @@ function createRecentTrackPayload(
   };
 }
 
+function isSpotifyAuthorizationFailure(response: Response): boolean {
+  return response.status === 401 || response.status === 403;
+}
+
 export async function getSpotifyNowPlaying(): Promise<SpotifyNowPlayingPayload> {
   if (!hasSpotifyCredentials()) {
-    return createMissingConfigPayload("Missing Spotify app credentials in .env.");
-  }
-
-  if (!hasSpotifyRefreshToken()) {
-    return createMissingConfigPayload("Missing SPOTIFY_REFRESH_TOKEN in .env.");
+    return createMissingConfigPayload("Missing SPOTIFY_CLIENT_ID or SPOTIFY_CLIENT_SECRET in .env.");
   }
 
   let accessToken: string | null = null;
@@ -307,17 +271,35 @@ export async function getSpotifyNowPlaying(): Promise<SpotifyNowPlayingPayload> 
   try {
     accessToken = await getSpotifyOwnerAccessToken();
   } catch {
-    return createMissingConfigPayload("Spotify token refresh failed. Check SPOTIFY_REFRESH_TOKEN.");
+    return createDisconnectedSpotifyPayload(
+      "Spotify token refresh failed. Check SPOTIFY_ACCESS_TOKEN or SPOTIFY_REFRESH_TOKEN.",
+    );
   }
 
   if (!accessToken) {
-    return createMissingConfigPayload("Spotify token refresh returned no access token.");
+    try {
+      await getSpotifyAppAccessToken();
+    } catch {
+      return createMissingConfigPayload(
+        "Spotify app token request failed. Check SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET.",
+      );
+    }
+
+    return createDisconnectedSpotifyPayload(
+      "Spotify now playing needs SPOTIFY_ACCESS_TOKEN or SPOTIFY_REFRESH_TOKEN in .env. App API keys alone cannot read /me/player.",
+    );
   }
 
   const currentTrackResponse = await fetchSpotifyApi("/me/player/currently-playing", accessToken);
 
   if (currentTrackResponse.status === 204) {
     const recentlyPlayedResponse = await fetchSpotifyApi("/me/player/recently-played?limit=1", accessToken);
+
+    if (isSpotifyAuthorizationFailure(recentlyPlayedResponse)) {
+      return createDisconnectedSpotifyPayload(
+        "Spotify rejected the user token. Update SPOTIFY_ACCESS_TOKEN or SPOTIFY_REFRESH_TOKEN.",
+      );
+    }
 
     if (!recentlyPlayedResponse.ok) {
       return {
@@ -330,8 +312,17 @@ export async function getSpotifyNowPlaying(): Promise<SpotifyNowPlayingPayload> 
     return createRecentTrackPayload(recentlyPlayed) ?? createConnectedIdleSpotifyPayload();
   }
 
+  if (isSpotifyAuthorizationFailure(currentTrackResponse)) {
+    return createDisconnectedSpotifyPayload(
+      "Spotify rejected the user token. Update SPOTIFY_ACCESS_TOKEN or SPOTIFY_REFRESH_TOKEN.",
+    );
+  }
+
   if (!currentTrackResponse.ok) {
-    return createMissingConfigPayload("Spotify currently-playing lookup failed.");
+    return {
+      ...createConnectedIdleSpotifyPayload(),
+      error: "Spotify currently-playing lookup failed.",
+    };
   }
 
   const playback = (await currentTrackResponse.json()) as SpotifyCurrentlyPlayingResponse;
@@ -342,6 +333,12 @@ export async function getSpotifyNowPlaying(): Promise<SpotifyNowPlayingPayload> 
   }
 
   const recentlyPlayedResponse = await fetchSpotifyApi("/me/player/recently-played?limit=1", accessToken);
+
+  if (isSpotifyAuthorizationFailure(recentlyPlayedResponse)) {
+    return createDisconnectedSpotifyPayload(
+      "Spotify rejected the user token. Update SPOTIFY_ACCESS_TOKEN or SPOTIFY_REFRESH_TOKEN.",
+    );
+  }
 
   if (!recentlyPlayedResponse.ok) {
     return {

@@ -8,6 +8,7 @@ import { IoMdPause, IoMdPlay } from "react-icons/io";
 import type { SpotifyNowPlayingPayload } from "../../lib/spotify";
 
 const PROGRESS_TICK_MS = 1_000;
+const PLAYER_REFRESH_MS = 15_000;
 
 function formatDuration(durationMs: number | null): string {
   if (!durationMs || durationMs < 0) {
@@ -24,6 +25,10 @@ function formatDuration(durationMs: number | null): string {
 function getStatusLabel(player: SpotifyNowPlayingPayload): string {
   if (!player.configured) {
     return "Spotify setup required";
+  }
+
+  if (!player.connected) {
+    return "Spotify auth required";
   }
 
   if (player.source === "currently-playing") {
@@ -47,6 +52,41 @@ export default function VinylPlayerClient({ initialPlayer }: VinylPlayerClientPr
   useEffect(() => {
     setPlayer(initialPlayer);
   }, [initialPlayer]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    const refreshPlayer = async () => {
+      try {
+        const response = await fetch("/api/spotify/now-playing", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const nextPlayer = (await response.json()) as SpotifyNowPlayingPayload;
+
+        if (isActive) {
+          setPlayer(nextPlayer);
+        }
+      } catch {
+        // Keep the last known player state if the refresh request fails.
+      }
+    };
+
+    const refreshInterval = window.setInterval(() => {
+      void refreshPlayer();
+    }, PLAYER_REFRESH_MS);
+
+    void refreshPlayer();
+
+    return () => {
+      isActive = false;
+      window.clearInterval(refreshInterval);
+    };
+  }, []);
 
   useEffect(() => {
     if (!player.isPlaying || !player.track || player.progressMs === null) {
@@ -147,9 +187,11 @@ export default function VinylPlayerClient({ initialPlayer }: VinylPlayerClientPr
                 {player.error ?? "No recent Spotify track found"}
               </div>
               <div className="mt-1 opacity-80">
-                {player.configured
-                  ? "Start playback once and this card will keep the latest track visible."
-                  : "The player now fetches on the server. Add the missing Spotify env values and restart Next.js."}
+                {!player.configured
+                  ? "Add SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET to .env, then restart Next.js."
+                  : !player.connected
+                    ? "Add SPOTIFY_ACCESS_TOKEN or SPOTIFY_REFRESH_TOKEN to .env. Spotify app API keys alone cannot read /me/player."
+                    : "Start playback once and this card will keep the latest track visible."}
               </div>
             </div>
           )}
