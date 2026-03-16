@@ -3,7 +3,7 @@ import AngelaInfoCard from '@components/home/AngelaInfoCard'
 import VinylPlayer from '@components/home/VinylPlayer'
 import EmailMeCard from '@components/home/EmailMeCard'
 import StatsCard from '@components/home/StatsCard'
-import FoodMenuCard from '@components/home/FoodMenuCard'
+import TopBlogOverview from '@components/home/TopBlogOverview'
 
 import wavingCat from '@assets/cat_waving.gif'
 
@@ -12,7 +12,7 @@ function HomePage() {
     <div className="h-full overflow-hidden p-4">
       <div className="grid h-full grid-cols-[240px_minmax(0,1.6fr)_320px] gap-3">
         <div className="min-h-0">
-          <FoodMenuCard />
+          <TopBlogOverview />
         </div>
 
         <div className="grid min-h-0 grid-rows-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-3">

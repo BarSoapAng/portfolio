@@ -1,6 +1,6 @@
 import Link from "next/link";
-import FoodMenuCard from "@components/home/FoodMenuCard";
-import { formatPostDate, type PostSummary } from "@lib/blog-shared";
+import TopBlogOverview from "@components/home/TopBlogOverview";
+import { formatPostDate, type PostSummary } from "../../lib/blog-shared";
 
 type BlogIndexPageProps = {
   posts: PostSummary[];
@@ -19,7 +19,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
     <main className="px-4 py-6 text-gray-2 sm:px-6">
       <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
         <aside className="lg:sticky lg:top-6">
-          <FoodMenuCard />
+          <TopBlogOverview />
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">

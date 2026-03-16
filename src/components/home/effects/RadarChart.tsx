@@ -24,8 +24,6 @@ Chart.register(
 
 const labels = ['Ownership', 'Speed', 'Quality', 'Communication', 'Design']
 
-Chart.defaults.font.size = 8;
-
 export default function RadarChart() {
   const withAlpha = (color: string, alpha: number) => {
     const hex = color.replace("#", "");
@@ -111,8 +109,6 @@ const options: ChartOptions<'radar'> = {
     },
   },
 }
-
-Chart.defaults.font.size = 8;
 
   return (
     <div className="flex h-full w-full items-center justify-center">
