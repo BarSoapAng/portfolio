@@ -31,7 +31,7 @@
         "src/assets/*"
       ],
       "@views/*": [
-        "src/views/*"
+        "src/pages/*"
       ]
     }
   },
