@@ -22,7 +22,7 @@
 
 - This repo is a single Next.js application, not a monorepo.
 - Root project tooling is defined in `package.json`, `package-lock.json`, `.nvmrc`, `tsconfig.json`, `eslint.config.js`, `tailwind.config.js`, and `postcss.config.mjs`.
-- Start work by creating a Git worktree before making code or documentation changes.
+- Start work by creating a Git worktree in `../.worktrees` before making code or documentation changes.
 - Run `npm` commands from the repo root unless a more specific doc says otherwise.
 - Do not invent generator, migration, or CI steps that are not supported by the current repo state.
 - If a check cannot run, record the exact command and why it was skipped.
