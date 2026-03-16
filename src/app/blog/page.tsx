@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import BlogIndexPage from "@components/blog/BlogIndexPage";
-import { getAllPosts } from "../../lib/blog";
+import { getAllPosts } from "@lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog | Angela's Universe",

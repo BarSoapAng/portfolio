@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { formatPostDate, type PostSummary } from "../../lib/blog-shared";
+import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 
 type BlogPostPageProps = {
   post: PostSummary;

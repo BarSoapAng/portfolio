@@ -1,6 +1,6 @@
 import Link from "next/link";
 import FoodMenuCard from "@components/home/FoodMenuCard";
-import { formatPostDate, type PostSummary } from "../../lib/blog-shared";
+import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 
 type BlogIndexPageProps = {
   posts: PostSummary[];

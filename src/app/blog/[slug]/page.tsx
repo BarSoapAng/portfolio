@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import BlogPostPage from "@components/blog/BlogPostPage";
-import { buildPostMetadata, getAllPostSlugs, getPostBySlug } from "../../../lib/blog";
+import { buildPostMetadata, getAllPostSlugs, getPostBySlug } from "@lib/blog";
 
 type BlogPostRouteProps = {
   params: Promise<{
