@@ -26,12 +26,12 @@ function HomePage() {
           </div>
         </div>
 
-        <div className="grid grid-rows-[auto_auto_auto] col-start-3 border gap-2">
+        <div className="col-start-3 grid grid-rows-[auto_auto_auto] gap-2 border">
           <div className="row-start-1 border"><AngelaInfoCard /></div>
           <div className="row-start-2 border"><VinylPlayer /></div>
           <div className="row-start-3 grid grid-cols-2 gap-2">
             <div className="border">
-              <img src={wavingCat.src} className='border-2 border-red-1' alt="Waving cat" />
+              <img src={wavingCat.src} className="border-2 border-red-1" alt="Waving cat" />
             </div>
             <div className="border">
               <EmailMeCard />
