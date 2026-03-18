@@ -34,7 +34,7 @@
         "src/lib/*"
       ],
       "@views/*": [
-        "src/pages/*"
+        "src/views/*"
       ]
     }
   },
