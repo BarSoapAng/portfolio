@@ -1,87 +1,33 @@
 import "server-only";
 
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
-import matter from "gray-matter";
 import type { WorkFrontmatter, WorkSummary } from "./work-shared";
+import {
+  parseTagsField,
+  readMdxCollection,
+  requireBooleanField,
+  requireDateField,
+  requireStringField,
+} from "./mdx-collection";
 
-const WORK_DIRECTORY = path.join(process.cwd(), "content", "work");
-const WORK_EXTENSION = ".mdx";
-
-function readWorkFiles(): string[] {
-  if (!fs.existsSync(WORK_DIRECTORY)) {
-    return [];
-  }
-
-  return fs
-    .readdirSync(WORK_DIRECTORY, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith(WORK_EXTENSION))
-    .map((entry) => entry.name);
-}
-
-function requireString(value: unknown, key: string, fileName: string): string {
-  if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error(`Expected "${key}" to be a non-empty string in ${fileName}.`);
-  }
-
-  return value;
-}
-
-function requireBoolean(value: unknown, key: string, fileName: string): boolean {
-  if (typeof value !== "boolean") {
-    throw new Error(`Expected "${key}" to be a boolean in ${fileName}.`);
-  }
-
-  return value;
-}
-
-function requireDate(value: unknown, fileName: string): string {
-  const date = requireString(value, "date", fileName);
-
-  if (Number.isNaN(Date.parse(date))) {
-    throw new Error(`Expected "date" to be a valid date string in ${fileName}.`);
-  }
-
-  return date;
-}
-
-function parseTags(value: unknown, fileName: string): string[] {
-  if (value === undefined) {
-    return [];
-  }
-
-  if (!Array.isArray(value) || value.some((tag) => typeof tag !== "string" || tag.trim().length === 0)) {
-    throw new Error(`Expected "tags" to be an array of non-empty strings in ${fileName}.`);
-  }
-
-  return value;
-}
-
-function parseFrontmatter(fileName: string): WorkFrontmatter {
-  const source = fs.readFileSync(path.join(WORK_DIRECTORY, fileName), "utf8");
-  const { data } = matter(source);
-
-  return {
-    title: requireString(data.title, "title", fileName),
-    company: requireString(data.company, "company", fileName),
-    period: requireString(data.period, "period", fileName),
-    location: requireString(data.location, "location", fileName),
-    date: requireDate(data.date, fileName),
-    summary: requireString(data.summary, "summary", fileName),
-    published: requireBoolean(data.published, "published", fileName),
-    tags: parseTags(data.tags, fileName),
-  };
-}
+const WORK_FIELD_PARSERS = {
+  title: requireStringField("title"),
+  company: requireStringField("company"),
+  period: requireStringField("period"),
+  location: requireStringField("location"),
+  date: requireDateField(),
+  summary: requireStringField("summary"),
+  published: requireBooleanField("published"),
+  tags: parseTagsField,
+} satisfies {
+  [K in keyof WorkFrontmatter]: (value: unknown, fileName: string) => WorkFrontmatter[K];
+};
 
 export function getAllWorkEntries(): WorkSummary[] {
-  return readWorkFiles()
-    .map((fileName) => ({
-      slug: fileName.slice(0, -WORK_EXTENSION.length),
-      ...parseFrontmatter(fileName),
-    }))
-    .filter((entry) => entry.published)
-    .sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
+  return readMdxCollection<WorkFrontmatter>({
+    directoryName: "work",
+    fieldParsers: WORK_FIELD_PARSERS,
+  });
 }
 
 export function getAllWorkSlugs(): string[] {
