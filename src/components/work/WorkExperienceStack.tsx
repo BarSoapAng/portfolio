@@ -19,8 +19,7 @@ type StackedWorkCardProps = {
   scrollYProgress: MotionValue<number>;
 };
 
-const TITLE_TO_STACK_GAP_PX = 12;
-const DEFAULT_TITLE_HEIGHT_PX = 172;
+const TITLE_TO_STACK_GAP_PX = 24;
 
 function Tag({ label }: { label: string }) {
   return (
@@ -94,23 +93,29 @@ function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: St
 
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   const stackRef = useRef<HTMLElement | null>(null);
-  const titleRef = useRef<HTMLElement | null>(null);
-  const [titleHeight, setTitleHeight] = useState(DEFAULT_TITLE_HEIGHT_PX);
+  const [titleHeight, setTitleHeight] = useState(0);
 
   useEffect(() => {
-    const node = titleRef.current;
-    if (!node) {
+    const stackNode = stackRef.current;
+    if (!stackNode) {
+      return;
+    }
+
+    const titleNode = stackNode.previousElementSibling;
+    if (!(titleNode instanceof HTMLElement)) {
       return;
     }
 
     const measure = () => {
-      setTitleHeight(node.getBoundingClientRect().height);
+      const nextTitleHeight = titleNode.getBoundingClientRect().height;
+
+      setTitleHeight(nextTitleHeight);
     };
 
     measure();
 
     const observer = new ResizeObserver(measure);
-    observer.observe(node);
+    observer.observe(titleNode);
     window.addEventListener("resize", measure);
 
     return () => {
@@ -124,23 +129,10 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     offset: ["start start", "end end"],
   });
   const cardTop = titleHeight + TITLE_TO_STACK_GAP_PX;
+  const bottomPadding = titleHeight - 6;
 
   return (
-    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-4">
-      <section
-        ref={titleRef}
-        className="sticky top-0 z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
-      >
-        <div className="border-[3px] border-[#fff98a] bg-[#fff4bf] px-4 py-4">
-          <p className="m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">experience board.exe</p>
-          <h1 className="mt-2 text-3xl leading-tight text-[#16324a]">Work</h1>
-          <p className="mt-2 text-sm leading-6 text-[#204764]">
-            Every card is generated from a file in <code>content/work</code>. Add or edit an MDX file and this board
-            updates automatically.
-          </p>
-        </div>
-      </section>
-
+    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-12" style={{ paddingBottom: bottomPadding }}>
       {entries.map((entry, index) => (
         <StackedWorkCard
           key={entry.slug}
