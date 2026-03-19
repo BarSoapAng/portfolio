@@ -4,20 +4,13 @@ import catJump from "@assets/cat-jump.gif";
 import catWaving from "@assets/cat_waving.gif";
 import star1 from "@assets/star1.gif";
 import star2 from "@assets/star2.gif";
+import TagLabel from "@components/ui/TagLabel";
 import { formatWorkDate, type WorkSummary } from "@lib/work-shared";
 
 type WorkPostPageProps = {
   entry: WorkSummary;
   children: ReactNode;
 };
-
-function Tag({ label }: { label: string }) {
-  return (
-    <span className="border-2 border-[#0c2b43] bg-[#ffe66a] px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-[#0c2b43]">
-      {label}
-    </span>
-  );
-}
 
 export default function WorkPostPage({ entry, children }: WorkPostPageProps) {
   return (
@@ -55,7 +48,11 @@ export default function WorkPostPage({ entry, children }: WorkPostPageProps) {
 
                   <div className="flex flex-wrap gap-2">
                     {entry.tags.map((tag) => (
-                      <Tag key={tag} label={tag} />
+                      <TagLabel
+                        key={tag}
+                        className="border-2 border-[#0c2b43] bg-[#ffe66a] px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-[#0c2b43]"
+                        label={tag}
+                      />
                     ))}
                   </div>
                 </div>

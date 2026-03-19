@@ -1,18 +1,11 @@
 import Link from "next/link";
 import TopBlogOverview from "@components/navigation/TopBlogOverview";
+import TagLabel from "@components/ui/TagLabel";
 import { formatPostDate, type PostSummary } from "../../lib/blog-shared";
 
 type BlogIndexPageProps = {
   posts: PostSummary[];
 };
-
-function Tag({ label }: { label: string }) {
-  return (
-    <span className="retro-tag">
-      {label}
-    </span>
-  );
-}
 
 export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
   return (
@@ -44,7 +37,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
                   <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-sand-1">
                     <span>{formatPostDate(post.date)}</span>
                     {post.tags.map((tag) => (
-                      <Tag key={tag} label={tag} />
+                      <TagLabel key={tag} label={tag} />
                     ))}
                   </div>
 

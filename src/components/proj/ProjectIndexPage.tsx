@@ -2,6 +2,7 @@ import Link from "next/link";
 import starOne from "@assets/star1.gif";
 import starTwo from "@assets/star2.gif";
 import catWaving from "@assets/cat_waving.gif";
+import TagLabel from "@components/ui/TagLabel";
 import { formatProjectDate, type ProjectSummary } from "@lib/project-shared";
 
 type ProjectIndexPageProps = {
@@ -9,14 +10,6 @@ type ProjectIndexPageProps = {
 };
 
 const CARD_EMOJIS = ["🪩", "💾", "🕹️", "🍓", "📼", "🎧"];
-
-function Tag({ label }: { label: string }) {
-  return (
-    <span className="retro-tag bg-paper-2">
-      {label}
-    </span>
-  );
-}
 
 function EmptyState() {
   return (
@@ -71,7 +64,7 @@ export default function ProjectIndexPage({ projects }: ProjectIndexPageProps) {
                     <span>{formatProjectDate(project.date)}</span>
                     <span>{CARD_EMOJIS[index % CARD_EMOJIS.length]}</span>
                     {project.tags.map((tag) => (
-                      <Tag key={tag} label={tag} />
+                      <TagLabel key={tag} className="retro-tag bg-paper-2" label={tag} />
                     ))}
                   </div>
 
