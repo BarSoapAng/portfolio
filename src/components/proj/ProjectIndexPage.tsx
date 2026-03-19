@@ -64,7 +64,11 @@ export default function ProjectIndexPage({ projects }: ProjectIndexPageProps) {
                     <span>{formatProjectDate(project.date)}</span>
                     <span>{CARD_EMOJIS[index % CARD_EMOJIS.length]}</span>
                     {project.tags.map((tag) => (
-                      <TagLabel key={tag} className="retro-tag bg-paper-2" label={tag} />
+                      <TagLabel
+                        key={tag}
+                        className="border border-sand-1 bg-paper-2 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1"
+                        label={tag}
+                      />
                     ))}
                   </div>
 
@@ -78,7 +82,10 @@ export default function ProjectIndexPage({ projects }: ProjectIndexPageProps) {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3">
-                    <Link className="retro-button" href={`/proj/${project.slug}`}>
+                    <Link
+                      className="inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2"
+                      href={`/proj/${project.slug}`}
+                    >
                       Open project page
                     </Link>
                     <img src={index % 2 === 0 ? starTwo.src : starOne.src} className="w-6" alt="" />

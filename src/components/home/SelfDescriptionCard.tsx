@@ -5,7 +5,7 @@ import catJump from '@assets/cat-jump.gif'
 
 export default function RetroHomepageCard() {
   return (
-    <div className="retro-home-shell">
+    <div className="h-full w-full border-2 border-sand-1 bg-cream-1 p-1 text-black-1">
       {/* Top row */}
       <div className="grid h-full grid-cols-[220px_minmax(0,1fr)] gap-1">
         {/* Left image box */}
@@ -20,7 +20,7 @@ export default function RetroHomepageCard() {
         {/* Right content */}
         <div className="flex min-h-0 flex-col gap-1">
           {/* Header */}
-          <div className="retro-home-row flex justify-between px-4 py-2 text-center">
+          <div className="flex justify-between border-2 border-sand-1 border-b-white-1 bg-cream-2 px-4 py-2 text-center">
             <img src={catJump.src} className="inline-block w-7" alt="" />
             <h1 className="font-bold text-purple-1">
               Welcome
@@ -29,7 +29,7 @@ export default function RetroHomepageCard() {
           </div>
 
           {/* Subheader */}
-          <div className="retro-home-row px-3 py-1 text-center">
+          <div className="border-2 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-1 text-center">
             <span className="text-blue-1">
               [Angela's Second Home]
             </span>{" "}
@@ -39,7 +39,7 @@ export default function RetroHomepageCard() {
           </div>
 
           {/* Website Desc box */}
-          <div className="retro-home-row px-3 py-2 text-sm">
+          <div className="border-2 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-2 text-sm">
             <b className="text-green-1">Hello hello!</b> This is a place where I share my experiences, thoughts, and my FAV tried and tested macro-friendly recipes :3
           </div>
 
@@ -50,7 +50,7 @@ export default function RetroHomepageCard() {
               <IllumiHover />
               , playing League of Legends, and coding sites like these. But more than anything, <b>I LOVE FOOD</b>!
             </div>
-            <div className="retro-home-row px-3 py-1 text-sm">
+            <div className="border-2 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-1 text-sm">
               I yap too much so if you want to know me better, check out this page {'<3'}
             </div>
           </div>

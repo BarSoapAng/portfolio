@@ -76,36 +76,6 @@ body {
   background-color: pink;
 }
 
-@layer components {
-  .retro-panel {
-    @apply border-2 border-gray-2 bg-paper-1 p-1;
-  }
-
-  .retro-panel-inner {
-    @apply border-2 border-sand-1 bg-cream-1;
-  }
-
-  .retro-tag {
-    @apply border border-sand-1 bg-paper-1 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1;
-  }
-
-  .retro-button {
-    @apply inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2;
-  }
-
-  .retro-button-active {
-    @apply bg-sand-2 text-black-1 shadow-inset-sand;
-  }
-
-  .retro-home-shell {
-    @apply w-full border-2 border-sand-1 bg-cream-1 p-1 text-black-1;
-  }
-
-  .retro-home-row {
-    @apply border-2 border-sand-1 border-b-white-1 bg-cream-2;
-  }
-}
-
 h1 {
   font-size: 2rem;
   line-height: 1.1;

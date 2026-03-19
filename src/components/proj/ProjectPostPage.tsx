@@ -15,10 +15,15 @@ export default function ProjectPostPage({ project, children }: ProjectPostPagePr
     <main className="px-4 py-6 text-gray-2 sm:px-6">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
-          <Link className="retro-button retro-button-active" href="/proj">
+          <Link
+            className="inline-flex border-2 border-gray-2 bg-sand-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-black-1 shadow-inset-sand transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2"
+            href="/proj"
+          >
             Back to proj index
           </Link>
-          <span className="retro-tag">Project Log</span>
+          <span className="border border-sand-1 bg-paper-1 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1">
+            Project Log
+          </span>
         </div>
 
         <article className="border-4 border-blue-1 bg-paper-1 p-1 shadow-retro-lg">
@@ -28,7 +33,11 @@ export default function ProjectPostPage({ project, children }: ProjectPostPagePr
                 <span>{formatProjectDate(project.date)}</span>
                 <span>🧃</span>
                 {project.tags.map((tag) => (
-                  <TagLabel key={tag} className="retro-tag bg-paper-2" label={tag} />
+                  <TagLabel
+                    key={tag}
+                    className="border border-sand-1 bg-paper-2 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1"
+                    label={tag}
+                  />
                 ))}
               </div>
               <h1 className="mt-3 text-3xl leading-tight text-gray-2 sm:text-4xl">{project.title}</h1>

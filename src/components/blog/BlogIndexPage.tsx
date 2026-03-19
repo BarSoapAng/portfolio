@@ -16,7 +16,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">
-          <section className="retro-panel bg-paper-2 shadow-retro-lg">
+          <section className="border-2 border-gray-2 bg-paper-2 p-1 shadow-retro-lg">
             <div className="border-2 border-sand-1 bg-gradient-to-r from-sand-2 via-cream-1 to-paper-1 px-4 py-4">
               <p className="m-0 text-[11px] font-bold uppercase tracking-[0.16em] text-sand-1">Personal Blog</p>
               <h1 className="mt-2 text-3xl text-gray-2">Notes, weeknotes, and project scraps</h1>
@@ -31,7 +31,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
             {posts.map((post) => (
               <article
                 key={post.slug}
-                className="retro-panel shadow-retro-md"
+                className="border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md"
               >
                 <div className="flex h-full flex-col gap-4 border-2 border-sand-1 bg-cream-1 px-4 py-4">
                   <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-sand-1">
@@ -52,7 +52,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
 
                   <div>
                     <Link
-                      className="retro-button"
+                      className="inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2"
                       href={`/blog/${post.slug}`}
                     >
                       Read entry
