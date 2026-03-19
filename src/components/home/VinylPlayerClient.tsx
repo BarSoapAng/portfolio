@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { useRouter } from "next/navigation";
 
 import { FaSpotify } from "react-icons/fa";
 import { IoMdPause, IoMdPlay } from "react-icons/io";
@@ -31,21 +33,17 @@ function formatPlayedAt(playedAt: string | null) {
 }
 
 export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) {
-  const [progressMs, setProgressMs] = useState(playback.track?.progressMs ?? 0);
+  const router = useRouter();
 
   useEffect(() => {
-    if (playback.status !== "playing" || !playback.track?.durationMs) {
-      return;
-    }
-
     const interval = window.setInterval(() => {
-      setProgressMs((current) => Math.min(current + 1_000, playback.track?.durationMs ?? current));
+      router.refresh();
     }, 1_000);
 
     return () => {
       window.clearInterval(interval);
     };
-  }, [playback.status, playback.track?.durationMs]);
+  }, [router]);
 
   if (!playback.track) {
     return (
@@ -67,9 +65,12 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
 
   const isPlaying = playback.status === "playing";
   const playedAt = formatPlayedAt(playback.track.playedAt);
-  const currentProgress = isPlaying ? formatDuration(progressMs) : formatDuration(playback.track.durationMs);
+  const currentProgressMs = isPlaying
+    ? Math.max(playback.track.progressMs ?? 0, 0)
+    : playback.track.durationMs;
+  const currentProgress = formatDuration(currentProgressMs);
   const progressPercentage = isPlaying
-    ? Math.min((progressMs / playback.track.durationMs) * 100, 100)
+    ? Math.min((currentProgressMs / playback.track.durationMs) * 100, 100)
     : 100;
 
   return (
