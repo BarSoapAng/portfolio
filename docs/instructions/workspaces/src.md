@@ -15,6 +15,7 @@
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
 - `content/work/`: local MDX work entries loaded by the App Router work routes
+- `content/project/`: local MDX project entries loaded by the App Router project routes
 
 ## Routing Rules
 
@@ -25,6 +26,7 @@
 - Keep App Router view modules in `src/views/` instead.
 - `src/app/blog/page.tsx` and `src/app/blog/[slug]/page.tsx` load blog content from `content/blog/`, where each `.mdx` filename becomes its slug.
 - `src/app/work/page.tsx` and `src/app/work/[slug]/page.tsx` load work content from `content/work/`, where each `.mdx` filename becomes its slug.
+- `src/app/proj/page.tsx` and `src/app/proj/[slug]/page.tsx` load project content from `content/project/`, where each `.mdx` filename becomes its slug.
 
 ## Import Conventions
 

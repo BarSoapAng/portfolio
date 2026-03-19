@@ -261,6 +261,83 @@ h2 {
   color: inherit;
 }
 
+.project-prose {
+  color: var(--color-gray-1);
+}
+
+.project-prose > * + * {
+  margin-top: 1rem;
+}
+
+.project-prose h2,
+.project-prose h3,
+.project-prose h4 {
+  color: var(--color-gray-2);
+  line-height: 1.2;
+}
+
+.project-prose h2 {
+  margin-top: 2rem;
+  font-size: 1.6rem;
+}
+
+.project-prose h3 {
+  margin-top: 1.4rem;
+  font-size: 1.25rem;
+}
+
+.project-prose p,
+.project-prose li {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.project-prose a {
+  color: var(--color-blue-1);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.project-prose ul,
+.project-prose ol {
+  padding-left: 1.45rem;
+}
+
+.project-prose li + li {
+  margin-top: 0.35rem;
+}
+
+.project-prose blockquote {
+  margin-left: 0;
+  border-left: 4px solid var(--color-blue-2);
+  background: var(--color-paper-2);
+  padding: 0.4rem 0.9rem;
+}
+
+.project-prose code {
+  border: 1px solid var(--color-blue-1);
+  background: var(--color-paper-2);
+  padding: 0.1rem 0.35rem;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.project-prose pre {
+  overflow-x: auto;
+  border: 2px solid var(--color-blue-1);
+  background: var(--color-gray-2);
+  padding: 1rem;
+  color: var(--color-paper-2);
+}
+
+.project-prose pre code {
+  border: 0;
+  background: var(--color-transparent);
+  padding: 0;
+  color: inherit;
+}
+
 .retro-marquee {
   overflow: hidden;
   white-space: nowrap;
