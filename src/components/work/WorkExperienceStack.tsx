@@ -19,10 +19,8 @@ type StackedWorkCardProps = {
   scrollYProgress: MotionValue<number>;
 };
 
-const TITLE_TOP_OFFSET_PX = 16;
 const TITLE_TO_STACK_GAP_PX = 12;
 const DEFAULT_TITLE_HEIGHT_PX = 172;
-const DEFAULT_TITLE_STICKY_TOP_PX = 16;
 
 function Tag({ label }: { label: string }) {
   return (
@@ -98,7 +96,6 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
   const stackRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLElement | null>(null);
   const [titleHeight, setTitleHeight] = useState(DEFAULT_TITLE_HEIGHT_PX);
-  const [titleStickyTop, setTitleStickyTop] = useState(DEFAULT_TITLE_STICKY_TOP_PX);
 
   useEffect(() => {
     const node = titleRef.current;
@@ -108,7 +105,6 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
 
     const measure = () => {
       setTitleHeight(node.getBoundingClientRect().height);
-      setTitleStickyTop(Math.max(TITLE_TOP_OFFSET_PX, Math.round(node.getBoundingClientRect().top)));
     };
 
     measure();
@@ -127,14 +123,13 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     target: stackRef,
     offset: ["start start", "end end"],
   });
-  const cardTop = titleStickyTop + titleHeight + TITLE_TO_STACK_GAP_PX;
+  const cardTop = titleHeight + TITLE_TO_STACK_GAP_PX;
 
   return (
     <section ref={stackRef} className="relative flex min-w-0 flex-col gap-4">
       <section
         ref={titleRef}
-        className="sticky z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
-        style={{ top: titleStickyTop }}
+        className="sticky top-0 z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
       >
         <div className="border-[3px] border-[#fff98a] bg-[#fff4bf] px-4 py-4">
           <p className="m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">experience board.exe</p>

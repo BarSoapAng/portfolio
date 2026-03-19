@@ -12,9 +12,9 @@ type WorkIndexPageProps = {
 
 export default function WorkIndexPage({ entries }: WorkIndexPageProps) {
   return (
-    <main className="px-4 py-6 text-[#1f2f40] sm:px-6">
+    <main className="px-4 pb-6 pt-0 text-[#1f2f40] sm:px-6">
       <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-        <aside className="lg:sticky lg:top-6">
+        <aside className="lg:sticky lg:top-0">
           <section className="border-[3px] border-[#0d2743] bg-[#ff8ec8] p-1 font-mono shadow-[7px_7px_0_rgba(13,39,67,0.28)]">
             <div className="space-y-2 border-[3px] border-[#fff98a] bg-[#ffe9a3] p-3">
               <p className="animate-pulse text-center text-xs font-bold uppercase tracking-[0.12em] text-[#d7005f]">
