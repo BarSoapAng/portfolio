@@ -3,6 +3,7 @@ import AngelaInfoCard from '@components/home/AngelaInfoCard'
 import VinylPlayer from '@components/home/VinylPlayer'
 import EmailMeCard from '@components/home/EmailMeCard'
 import StatsCard from '@components/home/StatsCard'
+import SiteVisitorCounter from '@components/home/SiteVisitorCounter'
 import TopBlogOverview from '@components/navigation/TopBlogOverview'
 
 import wavingCat from '@assets/cat_waving.gif'
@@ -11,8 +12,9 @@ function HomePage() {
   return (
     <div className="h-full overflow-hidden p-4">
       <div className="grid h-full grid-cols-[200px_minmax(0,1.6fr)_450px] gap-3">
-        <div className="min-h-0">
+        <div className="flex flex-col justify-between">
           <TopBlogOverview />
+          <SiteVisitorCounter />
         </div>
 
         <div className="flex min-h-0 flex-col gap-3">
