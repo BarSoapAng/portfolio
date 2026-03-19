@@ -38,10 +38,12 @@
 
 ## Home Feature Notes
 
-- `src/app/home/page.tsx` renders the home view from `src/views/HomePage.tsx`.
+- `src/app/home/page.tsx` currently defines the home page layout directly.
 - Reusable home UI belongs in `src/components/home/`.
 - Interactive home effects live in `src/components/home/effects/`.
 - There is no `src/views/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
+- `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
+- The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
 
 ## Validation
 
