@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import star1 from "@assets/star1.gif";
@@ -15,8 +15,13 @@ type StackedWorkCardProps = {
   entry: WorkSummary;
   index: number;
   total: number;
+  topOffset: number;
   scrollYProgress: MotionValue<number>;
 };
+
+const TITLE_TOP_OFFSET_PX = 16;
+const TITLE_TO_STACK_GAP_PX = 12;
+const DEFAULT_TITLE_HEIGHT_PX = 172;
 
 function Tag({ label }: { label: string }) {
   return (
@@ -26,23 +31,25 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-function StackedWorkCard({ entry, index, total, scrollYProgress }: StackedWorkCardProps) {
+function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: StackedWorkCardProps) {
   const prefersReducedMotion = useReducedMotion();
   const baseTilt = index % 2 === 0 ? -0.45 : 0.4;
-  const start = total <= 1 ? 0 : index / total;
-  const end = Math.min(1, start + 0.35);
+  const step = total <= 1 ? 1 : 1 / (total + 1);
+  const start = index * step;
+  const end = Math.min(1, start + step * 1.15);
+  const finalScale = 1 - Math.min(0.24, index * 0.04);
 
-  const y = useTransform(scrollYProgress, [start, end], [0, -Math.min(28, index * 8)]);
-  const scale = useTransform(scrollYProgress, [start, end], [1, 1 - Math.min(0.14, index * 0.03)]);
-  const rotate = useTransform(scrollYProgress, [start, end], [baseTilt, baseTilt * 0.35]);
+  const y = useTransform(scrollYProgress, [start, end], [0, -Math.min(64, index * 12)]);
+  const scale = useTransform(scrollYProgress, [start, end], [1, finalScale]);
+  const rotate = useTransform(scrollYProgress, [start, end], [baseTilt, baseTilt * 0.1]);
 
   return (
     <motion.article
-      className="sticky top-4 border-[3px] border-[#0d2743] bg-[#ffc4e6] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
+      className="sticky border-[3px] border-[#0d2743] bg-[#ffc4e6] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
       style={
         prefersReducedMotion
-          ? { rotate: baseTilt, zIndex: index + 1 }
-          : { y, scale, rotate, transformOrigin: "center top", zIndex: index + 1 }
+          ? { top: topOffset, rotate: baseTilt, zIndex: index + 1 }
+          : { top: topOffset, y, scale, rotate, transformOrigin: "center top", zIndex: index + 1 }
       }
     >
       <div className="flex h-full flex-col gap-4 border-[3px] border-[#fff98a] bg-[#fff8d4] px-4 py-4">
@@ -88,19 +95,60 @@ function StackedWorkCard({ entry, index, total, scrollYProgress }: StackedWorkCa
 
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   const stackRef = useRef<HTMLElement | null>(null);
+  const titleRef = useRef<HTMLElement | null>(null);
+  const [titleHeight, setTitleHeight] = useState(DEFAULT_TITLE_HEIGHT_PX);
+
+  useEffect(() => {
+    const node = titleRef.current;
+    if (!node) {
+      return;
+    }
+
+    const measure = () => {
+      setTitleHeight(node.getBoundingClientRect().height);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: stackRef,
-    offset: ["start 0.9", "end end"],
+    offset: ["start 0.95", "end 0.35"],
   });
+  const cardTop = titleHeight + TITLE_TOP_OFFSET_PX + TITLE_TO_STACK_GAP_PX;
 
   return (
-    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-4">
+    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-4 pb-[45vh]">
+      <section
+        ref={titleRef}
+        className="sticky top-4 z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
+      >
+        <div className="border-[3px] border-[#fff98a] bg-[#fff4bf] px-4 py-4">
+          <p className="m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">experience board.exe</p>
+          <h1 className="mt-2 text-3xl leading-tight text-[#16324a]">Work</h1>
+          <p className="mt-2 text-sm leading-6 text-[#204764]">
+            Every card is generated from a file in <code>content/work</code>. Add or edit an MDX file and this board
+            updates automatically.
+          </p>
+        </div>
+      </section>
+
       {entries.map((entry, index) => (
         <StackedWorkCard
           key={entry.slug}
           entry={entry}
           index={index}
           total={entries.length}
+          topOffset={cardTop}
           scrollYProgress={scrollYProgress}
         />
       ))}
