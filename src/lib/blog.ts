@@ -3,8 +3,8 @@ import "server-only";
 import type { Metadata } from "next";
 import type { PostFrontmatter, PostSummary } from "./blog-shared";
 import {
+  createMdxCollectionReader,
   parseTagsField,
-  readMdxCollection,
   requireBooleanField,
   requireDateField,
   requireStringField,
@@ -20,19 +20,25 @@ const POST_FIELD_PARSERS = {
   [K in keyof PostFrontmatter]: (value: unknown, fileName: string) => PostFrontmatter[K];
 };
 
+const postCollection = createMdxCollectionReader<PostFrontmatter>({
+  directoryName: "blog",
+  fieldParsers: POST_FIELD_PARSERS,
+});
+
 export function getAllPosts(): PostSummary[] {
-  return readMdxCollection<PostFrontmatter>({
-    directoryName: "blog",
-    fieldParsers: POST_FIELD_PARSERS,
-  });
+  return postCollection.getAll();
 }
 
 export function getAllPostSlugs(): string[] {
-  return getAllPosts().map((post) => post.slug);
+  return postCollection.getSlugs();
 }
 
 export function getPostBySlug(slug: string): PostSummary | null {
-  return getAllPosts().find((post) => post.slug === slug) ?? null;
+  return postCollection.getBySlug(slug);
+}
+
+export function getTopPosts(limit: number): PostSummary[] {
+  return postCollection.getTop(limit);
 }
 
 export function buildPostMetadata(post: PostSummary): Metadata {

@@ -49,7 +49,7 @@ export default function BlogPostPage({ post, posts, children }: BlogPostPageProp
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-[#2b4652]">{post.summary}</p>
               </header>
 
-              <div className="blog-prose mt-6">{children}</div>
+              <div className="mdx-prose mdx-prose--blog mt-6">{children}</div>
             </div>
           </article>
         </div>

@@ -3,8 +3,8 @@ import "server-only";
 import type { Metadata } from "next";
 import type { WorkFrontmatter, WorkSummary } from "./work-shared";
 import {
+  createMdxCollectionReader,
   parseTagsField,
-  readMdxCollection,
   requireBooleanField,
   requireDateField,
   requireStringField,
@@ -23,19 +23,21 @@ const WORK_FIELD_PARSERS = {
   [K in keyof WorkFrontmatter]: (value: unknown, fileName: string) => WorkFrontmatter[K];
 };
 
+const workCollection = createMdxCollectionReader<WorkFrontmatter>({
+  directoryName: "work",
+  fieldParsers: WORK_FIELD_PARSERS,
+});
+
 export function getAllWorkEntries(): WorkSummary[] {
-  return readMdxCollection<WorkFrontmatter>({
-    directoryName: "work",
-    fieldParsers: WORK_FIELD_PARSERS,
-  });
+  return workCollection.getAll();
 }
 
 export function getAllWorkSlugs(): string[] {
-  return getAllWorkEntries().map((entry) => entry.slug);
+  return workCollection.getSlugs();
 }
 
 export function getWorkBySlug(slug: string): WorkSummary | null {
-  return getAllWorkEntries().find((entry) => entry.slug === slug) ?? null;
+  return workCollection.getBySlug(slug);
 }
 
 export function buildWorkMetadata(entry: WorkSummary): Metadata {

@@ -3,8 +3,8 @@ import "server-only";
 import type { Metadata } from "next";
 import type { ProjectFrontmatter, ProjectSummary } from "./project-shared";
 import {
+  createMdxCollectionReader,
   parseTagsField,
-  readMdxCollection,
   requireBooleanField,
   requireDateField,
   requireStringField,
@@ -20,19 +20,21 @@ const PROJECT_FIELD_PARSERS = {
   [K in keyof ProjectFrontmatter]: (value: unknown, fileName: string) => ProjectFrontmatter[K];
 };
 
+const projectCollection = createMdxCollectionReader<ProjectFrontmatter>({
+  directoryName: "project",
+  fieldParsers: PROJECT_FIELD_PARSERS,
+});
+
 export function getAllProjects(): ProjectSummary[] {
-  return readMdxCollection<ProjectFrontmatter>({
-    directoryName: "project",
-    fieldParsers: PROJECT_FIELD_PARSERS,
-  });
+  return projectCollection.getAll();
 }
 
 export function getAllProjectSlugs(): string[] {
-  return getAllProjects().map((project) => project.slug);
+  return projectCollection.getSlugs();
 }
 
 export function getProjectBySlug(slug: string): ProjectSummary | null {
-  return getAllProjects().find((project) => project.slug === slug) ?? null;
+  return projectCollection.getBySlug(slug);
 }
 
 export function buildProjectMetadata(project: ProjectSummary): Metadata {

@@ -19,6 +19,18 @@ type ReadMdxCollectionOptions<TFields extends { date: string; published: boolean
   fieldParsers: FieldParsers<TFields>;
 };
 
+type CollectionIndex<TFields extends { date: string; published: boolean }> = {
+  all: CollectionEntry<TFields>[];
+  bySlug: Map<string, CollectionEntry<TFields>>;
+};
+
+type MdxCollectionReader<TFields extends { date: string; published: boolean }> = {
+  getAll: () => CollectionEntry<TFields>[];
+  getSlugs: () => string[];
+  getBySlug: (slug: string) => CollectionEntry<TFields> | null;
+  getTop: (limit: number) => CollectionEntry<TFields>[];
+};
+
 function requireString(value: unknown, key: string, fileName: string): string {
   if (typeof value !== "string" || value.trim().length === 0) {
     throw new Error(`Expected "${key}" to be a non-empty string in ${fileName}.`);
@@ -83,16 +95,17 @@ function readCollectionFiles(directory: string): string[] {
 function parseFrontmatter<TFields>(directory: string, fileName: string, fieldParsers: FieldParsers<TFields>): TFields {
   const source = fs.readFileSync(path.join(directory, fileName), "utf8");
   const { data } = matter(source);
+  const frontmatter = data as Record<string, unknown>;
   const parsedFields = {} as TFields;
 
   for (const [key, parser] of Object.entries(fieldParsers) as [keyof TFields, FieldParser<TFields[keyof TFields]>][]) {
-    parsedFields[key] = parser(data[key], fileName);
+    parsedFields[key] = parser(frontmatter[String(key)], fileName);
   }
 
   return parsedFields;
 }
 
-export function readMdxCollection<TFields extends { date: string; published: boolean }>(
+function readMdxCollection<TFields extends { date: string; published: boolean }>(
   options: ReadMdxCollectionOptions<TFields>,
 ): CollectionEntry<TFields>[] {
   const directory = path.join(process.cwd(), "content", options.directoryName);
@@ -104,4 +117,47 @@ export function readMdxCollection<TFields extends { date: string; published: boo
     }))
     .filter((entry) => entry.published)
     .sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
+}
+
+function cloneEntry<TFields extends { date: string; published: boolean }>(
+  entry: CollectionEntry<TFields>,
+): CollectionEntry<TFields> {
+  return { ...entry };
+}
+
+function buildCollectionIndex<TFields extends { date: string; published: boolean }>(
+  options: ReadMdxCollectionOptions<TFields>,
+): CollectionIndex<TFields> {
+  const all = readMdxCollection(options);
+  const bySlug = new Map<string, CollectionEntry<TFields>>(all.map((entry) => [entry.slug, entry]));
+
+  return {
+    all,
+    bySlug,
+  };
+}
+
+export function createMdxCollectionReader<TFields extends { date: string; published: boolean }>(
+  options: ReadMdxCollectionOptions<TFields>,
+): MdxCollectionReader<TFields> {
+  let cachedIndex: CollectionIndex<TFields> | null = null;
+
+  function getIndex(): CollectionIndex<TFields> {
+    if (!cachedIndex) {
+      cachedIndex = buildCollectionIndex(options);
+    }
+
+    return cachedIndex;
+  }
+
+  return {
+    getAll: () => getIndex().all.map(cloneEntry),
+    getSlugs: () => getIndex().all.map((entry) => entry.slug),
+    getBySlug: (slug) => {
+      const entry = getIndex().bySlug.get(slug);
+
+      return entry ? cloneEntry(entry) : null;
+    },
+    getTop: (limit) => getIndex().all.slice(0, Math.max(0, limit)).map(cloneEntry),
+  };
 }

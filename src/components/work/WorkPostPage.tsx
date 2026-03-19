@@ -69,7 +69,7 @@ export default function WorkPostPage({ entry, children }: WorkPostPageProps) {
               </div>
             </header>
 
-            <div className="work-prose mt-6">{children}</div>
+            <div className="mdx-prose mdx-prose--work mt-6">{children}</div>
           </div>
         </article>
       </div>

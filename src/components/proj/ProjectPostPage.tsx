@@ -53,7 +53,7 @@ export default function ProjectPostPage({ project, children }: ProjectPostPagePr
                 </div>
               </aside>
 
-              <div className="project-prose min-w-0">{children}</div>
+              <div className="mdx-prose mdx-prose--project min-w-0">{children}</div>
             </div>
           </div>
         </article>
