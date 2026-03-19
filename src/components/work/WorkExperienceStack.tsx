@@ -22,6 +22,7 @@ type StackedWorkCardProps = {
 const TITLE_TOP_OFFSET_PX = 16;
 const TITLE_TO_STACK_GAP_PX = 12;
 const DEFAULT_TITLE_HEIGHT_PX = 172;
+const DEFAULT_TITLE_STICKY_TOP_PX = 16;
 
 function Tag({ label }: { label: string }) {
   return (
@@ -34,9 +35,9 @@ function Tag({ label }: { label: string }) {
 function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: StackedWorkCardProps) {
   const prefersReducedMotion = useReducedMotion();
   const baseTilt = index % 2 === 0 ? -0.45 : 0.4;
-  const step = total <= 1 ? 1 : 1 / (total + 1);
+  const step = total <= 0 ? 1 : 1 / total;
   const start = index * step;
-  const end = Math.min(1, start + step * 1.15);
+  const end = Math.min(1, start + step);
   const finalScale = 1 - Math.min(0.24, index * 0.04);
 
   const y = useTransform(scrollYProgress, [start, end], [0, -Math.min(64, index * 12)]);
@@ -97,6 +98,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
   const stackRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLElement | null>(null);
   const [titleHeight, setTitleHeight] = useState(DEFAULT_TITLE_HEIGHT_PX);
+  const [titleStickyTop, setTitleStickyTop] = useState(DEFAULT_TITLE_STICKY_TOP_PX);
 
   useEffect(() => {
     const node = titleRef.current;
@@ -106,6 +108,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
 
     const measure = () => {
       setTitleHeight(node.getBoundingClientRect().height);
+      setTitleStickyTop(Math.max(TITLE_TOP_OFFSET_PX, Math.round(node.getBoundingClientRect().top)));
     };
 
     measure();
@@ -122,15 +125,16 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
 
   const { scrollYProgress } = useScroll({
     target: stackRef,
-    offset: ["start 0.95", "end 0.35"],
+    offset: ["start start", "end end"],
   });
-  const cardTop = titleHeight + TITLE_TOP_OFFSET_PX + TITLE_TO_STACK_GAP_PX;
+  const cardTop = titleStickyTop + titleHeight + TITLE_TO_STACK_GAP_PX;
 
   return (
-    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-4 pb-[45vh]">
+    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-4">
       <section
         ref={titleRef}
-        className="sticky top-4 z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
+        className="sticky z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]"
+        style={{ top: titleStickyTop }}
       >
         <div className="border-[3px] border-[#fff98a] bg-[#fff4bf] px-4 py-4">
           <p className="m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">experience board.exe</p>
