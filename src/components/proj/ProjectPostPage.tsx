@@ -2,20 +2,13 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import starOne from "@assets/star1.gif";
 import starTwo from "@assets/star2.gif";
+import TagLabel from "@components/ui/TagLabel";
 import { formatProjectDate, type ProjectSummary } from "@lib/project-shared";
 
 type ProjectPostPageProps = {
   project: ProjectSummary;
   children: ReactNode;
 };
-
-function Tag({ label }: { label: string }) {
-  return (
-    <span className="retro-tag bg-paper-2">
-      {label}
-    </span>
-  );
-}
 
 export default function ProjectPostPage({ project, children }: ProjectPostPageProps) {
   return (
@@ -35,7 +28,7 @@ export default function ProjectPostPage({ project, children }: ProjectPostPagePr
                 <span>{formatProjectDate(project.date)}</span>
                 <span>🧃</span>
                 {project.tags.map((tag) => (
-                  <Tag key={tag} label={tag} />
+                  <TagLabel key={tag} className="retro-tag bg-paper-2" label={tag} />
                 ))}
               </div>
               <h1 className="mt-3 text-3xl leading-tight text-gray-2 sm:text-4xl">{project.title}</h1>
@@ -53,7 +46,7 @@ export default function ProjectPostPage({ project, children }: ProjectPostPagePr
                 </div>
               </aside>
 
-              <div className="project-prose min-w-0">{children}</div>
+              <div className="mdx-prose mdx-prose--project min-w-0">{children}</div>
             </div>
           </div>
         </article>

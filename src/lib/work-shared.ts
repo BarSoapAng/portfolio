@@ -1,3 +1,5 @@
+import { formatLongDate } from "./format-date";
+
 export type WorkFrontmatter = {
   title: string;
   company: string;
@@ -14,5 +16,5 @@ export type WorkSummary = WorkFrontmatter & {
 };
 
 export function formatWorkDate(date: string): string {
-  return new Intl.DateTimeFormat("en-CA", { dateStyle: "long" }).format(new Date(date));
+  return formatLongDate(date);
 }

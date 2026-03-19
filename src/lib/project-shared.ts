@@ -1,3 +1,5 @@
+import { formatLongDate } from "./format-date";
+
 export type ProjectFrontmatter = {
   title: string;
   date: string;
@@ -11,5 +13,5 @@ export type ProjectSummary = ProjectFrontmatter & {
 };
 
 export function formatProjectDate(date: string): string {
-  return new Intl.DateTimeFormat("en-CA", { dateStyle: "long" }).format(new Date(date));
+  return formatLongDate(date);
 }
