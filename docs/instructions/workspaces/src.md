@@ -14,6 +14,7 @@
 - `src/assets/`: imported local images and GIF assets
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
+- `content/work/`: local MDX work entries loaded by the App Router work routes
 
 ## Routing Rules
 
@@ -23,6 +24,7 @@
 - Do not put application view modules in `src/pages/`; Next.js treats that directory as the legacy Pages Router and will generate accidental routes from it.
 - Keep App Router view modules in `src/views/` instead.
 - `src/app/blog/page.tsx` and `src/app/blog/[slug]/page.tsx` load blog content from `content/blog/`, where each `.mdx` filename becomes its slug.
+- `src/app/work/page.tsx` and `src/app/work/[slug]/page.tsx` load work content from `content/work/`, where each `.mdx` filename becomes its slug.
 
 ## Import Conventions
 
