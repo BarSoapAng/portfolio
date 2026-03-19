@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import BlogPostPage from "@components/blog/BlogPostPage";
-import { buildPostMetadata, getAllPostSlugs, getPostBySlug } from "@lib/blog";
+import { buildPostMetadata, getAllPostSlugs, getAllPosts, getPostBySlug } from "@lib/blog";
 
 type BlogPostRouteProps = {
   params: Promise<{
@@ -28,7 +28,8 @@ export async function generateMetadata({ params }: BlogPostRouteProps): Promise<
 
 export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const posts = getAllPosts();
+  const post = posts.find((entry) => entry.slug === slug) ?? null;
 
   if (!post) {
     notFound();
@@ -37,7 +38,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { default: PostContent } = await import(`../../../../content/blog/${slug}.mdx`);
 
   return (
-    <BlogPostPage post={post}>
+    <BlogPostPage post={post} posts={posts}>
       <PostContent />
     </BlogPostPage>
   );

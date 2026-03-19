@@ -5,6 +5,7 @@ import { formatPostDate, type PostSummary } from "../../lib/blog-shared";
 
 type BlogPostPageProps = {
   post: PostSummary;
+  posts: PostSummary[];
   children: ReactNode;
 };
 
@@ -16,12 +17,12 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-export default function BlogPostPage({ post, children }: BlogPostPageProps) {
+export default function BlogPostPage({ post, posts, children }: BlogPostPageProps) {
   return (
     <main className="px-4 py-6 text-[#193746] sm:px-6">
       <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
         <aside className="lg:sticky lg:top-6">
-          <TopBlogOverview />
+          <TopBlogOverview posts={posts} />
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">

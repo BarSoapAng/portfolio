@@ -19,7 +19,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
     <main className="px-4 py-6 text-gray-2 sm:px-6">
       <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
         <aside className="lg:sticky lg:top-6">
-          <TopBlogOverview />
+          <TopBlogOverview posts={posts} />
         </aside>
 
         <div className="flex min-w-0 flex-col gap-4">
