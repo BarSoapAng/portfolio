@@ -14,8 +14,8 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
         <aside className="lg:sticky lg:top-6">
           <TopBlogOverview posts={posts} />
         </aside>
-        
-        <section className="grid gap-4 lg:grid-cols-3">
+
+        <section className="grid gap-4 lg:grid-cols-2">
           {posts.map((post) => (
             <article
               key={post.slug}
