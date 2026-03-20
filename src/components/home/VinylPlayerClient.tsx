@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import { FaSpotify } from "react-icons/fa";
 import { IoMdPause, IoMdPlay } from "react-icons/io";
 
 import type { SpotifyPlaybackState } from "@lib/spotify";
@@ -12,6 +11,9 @@ import type { SpotifyPlaybackState } from "@lib/spotify";
 type VinylPlayerClientProps = {
   playback: SpotifyPlaybackState;
 };
+
+const PLAYING_REFRESH_INTERVAL_MS = 1_000;
+const IDLE_REFRESH_INTERVAL_MS = 30_000;
 
 function formatDuration(ms: number) {
   const totalSeconds = Math.floor(ms / 1_000);
@@ -34,16 +36,18 @@ function formatPlayedAt(playedAt: string | null) {
 
 export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) {
   const router = useRouter();
+  const refreshIntervalMs =
+    playback.status === "playing" ? PLAYING_REFRESH_INTERVAL_MS : IDLE_REFRESH_INTERVAL_MS;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       router.refresh();
-    }, 1_000);
+    }, refreshIntervalMs);
 
     return () => {
       window.clearInterval(interval);
     };
-  }, [router]);
+  }, [refreshIntervalMs, router]);
 
   if (!playback.track) {
     return (
@@ -69,6 +73,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
     ? Math.max(playback.track.progressMs ?? 0, 0)
     : playback.track.durationMs;
   const currentProgress = formatDuration(currentProgressMs);
+  const trackLength = formatDuration(playback.track.durationMs);
   const progressPercentage = isPlaying
     ? Math.min((currentProgressMs / playback.track.durationMs) * 100, 100)
     : 100;
@@ -95,40 +100,46 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-2">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="truncate text-sm font-bold">{playback.track.title}</div>
-              <div className="truncate text-xs opacity-80">{playback.track.artist}</div>
-              <div className="truncate text-[10px] uppercase tracking-[0.18em] opacity-60">
-                {playback.track.album}
-              </div>
-            </div>
+          <div className="flex flex-col">
             <a
+              className="truncate text-sm font-bold hover:underline"
               href={playback.track.spotifyUrl}
               target="_blank"
               rel="noreferrer"
               aria-label="Open track on Spotify"
-              className="shrink-0 text-green-700 transition-colors hover:text-green-600"
             >
-              <FaSpotify className="h-5 w-5" />
+              {playback.track.title}
             </a>
+            {playback.track.artistUrl ? (
+              <a
+                className="truncate text-xs opacity-80 underline-offset-2 hover:underline"
+                href={playback.track.artistUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open artist on Spotify"
+              >
+                {playback.track.artist}
+              </a>
+            ) : (
+              <div className="truncate text-xs opacity-80">{playback.track.artist}</div>
+            )}
           </div>
 
           <div className="h-1 rounded-sm border border-black-1">
             <div className="h-full bg-black-1" style={{ width: `${progressPercentage}%` }} />
           </div>
 
-          <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em]">
-            <div className="flex items-center gap-1">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center text-[10px] uppercase tracking-[0.18em]">
+            <span className="justify-self-start">{currentProgress}</span>
+            <div className="flex items-center justify-center">
               {isPlaying ? <IoMdPause className="h-4 w-4" /> : <IoMdPlay className="h-4 w-4" />}
-              <span>{isPlaying ? "Now Playing" : "Last Played"}</span>
             </div>
-            <span>{currentProgress}</span>
+            <span className="justify-self-end">{trackLength}</span>
           </div>
 
           <div className="text-[10px] opacity-70">
             {isPlaying
-              ? `Track length ${formatDuration(playback.track.durationMs)}`
+              ? "Playing on Spotify"
               : playedAt
                 ? `Played at ${playedAt} on Spotify`
                 : "Opened from Spotify"}

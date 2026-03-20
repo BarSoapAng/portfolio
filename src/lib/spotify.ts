@@ -22,6 +22,9 @@ type SpotifyErrorResponse = {
 
 type SpotifyArtist = {
   name: string;
+  external_urls: {
+    spotify: string;
+  };
 };
 
 type SpotifyImage = {
@@ -64,6 +67,7 @@ export type SpotifyPlaybackState = {
   track: {
     title: string;
     artist: string;
+    artistUrl: string | null;
     album: string;
     artworkUrl: string | null;
     spotifyUrl: string;
@@ -74,6 +78,8 @@ export type SpotifyPlaybackState = {
   message: string | null;
 };
 
+type NormalizedSpotifyTrack = NonNullable<SpotifyPlaybackState["track"]>;
+
 type SpotifyRequestResult<T> =
   | { ok: true; status: number; data: T | null }
   | { ok: false; status: number; message: string };
@@ -81,6 +87,7 @@ type SpotifyRequestResult<T> =
 const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;
 const spotifyClientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 const spotifyRefreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
+let lastKnownTrack: NormalizedSpotifyTrack | null = null;
 
 function getConfiguredCredentials() {
   if (!spotifyClientId || !spotifyClientSecret || !spotifyRefreshToken) {
@@ -215,10 +222,11 @@ function normalizeTrack(
     progressMs: number | null;
     playedAt: string | null;
   },
-): SpotifyPlaybackState["track"] {
+): NormalizedSpotifyTrack {
   return {
     title: track.name,
     artist: track.artists.map((artist) => artist.name).join(", "),
+    artistUrl: track.artists[0]?.external_urls.spotify ?? null,
     album: track.album.name,
     artworkUrl: track.album.images[0]?.url ?? null,
     spotifyUrl: track.external_urls.spotify,
@@ -226,6 +234,12 @@ function normalizeTrack(
     durationMs: track.duration_ms,
     playedAt: details.playedAt,
   };
+}
+
+function rememberTrack(track: NormalizedSpotifyTrack) {
+  lastKnownTrack = track;
+
+  return track;
 }
 
 async function getCurrentlyPlaying(accessToken: string) {
@@ -288,10 +302,21 @@ export async function getSpotifyPlaybackState(): Promise<SpotifyPlaybackState> {
   if (currentResponse.data?.is_playing && currentResponse.data.item) {
     return {
       status: "playing",
-      track: normalizeTrack(currentResponse.data.item, {
+      track: rememberTrack(normalizeTrack(currentResponse.data.item, {
         progressMs: currentResponse.data.progress_ms,
         playedAt: null,
-      }),
+      })),
+      message: null,
+    };
+  }
+
+  if (currentResponse.data?.item) {
+    return {
+      status: "recent",
+      track: rememberTrack(normalizeTrack(currentResponse.data.item, {
+        progressMs: currentResponse.data.progress_ms,
+        playedAt: null,
+      })),
       message: null,
     };
   }
@@ -299,6 +324,14 @@ export async function getSpotifyPlaybackState(): Promise<SpotifyPlaybackState> {
   const recentResponse = await getRecentlyPlayed(tokenResponse.accessToken);
 
   if (!recentResponse.ok) {
+    if (lastKnownTrack) {
+      return {
+        status: "recent",
+        track: lastKnownTrack,
+        message: `Spotify recently played is temporarily unavailable (${recentResponse.status}). Showing the last known track instead.`,
+      };
+    }
+
     return {
       status: "unavailable",
       track: null,
@@ -309,6 +342,14 @@ export async function getSpotifyPlaybackState(): Promise<SpotifyPlaybackState> {
   const recentTrack = recentResponse.data?.items[0];
 
   if (!recentTrack) {
+    if (lastKnownTrack) {
+      return {
+        status: "recent",
+        track: lastKnownTrack,
+        message: "Spotify returned no recent tracks. Showing the last known track instead.",
+      };
+    }
+
     return {
       status: "unavailable",
       track: null,
@@ -318,10 +359,10 @@ export async function getSpotifyPlaybackState(): Promise<SpotifyPlaybackState> {
 
   return {
     status: "recent",
-    track: normalizeTrack(recentTrack.track, {
+    track: rememberTrack(normalizeTrack(recentTrack.track, {
       progressMs: null,
       playedAt: recentTrack.played_at,
-    }),
+    })),
     message: null,
   };
 }

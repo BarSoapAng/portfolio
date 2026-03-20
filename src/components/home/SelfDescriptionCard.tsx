@@ -43,15 +43,15 @@ export default function RetroHomepageCard() {
             <b className="text-green-1">Hello hello!</b> This is a place where I share my experiences, thoughts, and my FAV tried and tested macro-friendly recipes :3
           </div>
 
-          <div>
+          <div className='h-full flex flex-col'>
             {/* Me info */}
             <div className="border-2 border-b-0 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-1 text-sm">
               I loveee{' '}
               <IllumiHover />
               , playing League of Legends, and coding sites like these. But more than anything, <b>I LOVE FOOD</b>!
             </div>
-            <div className="border-2 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-1 text-sm">
-              I yap too much so if you want to know me better, check out this page {'<3'}
+            <div className="flex-1 border-2 border-sand-1 border-b-white-1 bg-cream-2 px-3 py-1 text-sm">
+              I yap too much so if you want to know me better, check out <a className="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-red-500 after:transition-all after:duration-300 hover:after:w-full" href="/blog/who-am-i">this page</a> {'<3'}
             </div>
           </div>
         </div>
