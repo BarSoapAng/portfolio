@@ -69,6 +69,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
     ? Math.max(playback.track.progressMs ?? 0, 0)
     : playback.track.durationMs;
   const currentProgress = formatDuration(currentProgressMs);
+  const trackLength = formatDuration(playback.track.durationMs);
   const progressPercentage = isPlaying
     ? Math.min((currentProgressMs / playback.track.durationMs) * 100, 100)
     : 100;
@@ -118,17 +119,17 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
             <div className="h-full bg-black-1" style={{ width: `${progressPercentage}%` }} />
           </div>
 
-          <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em]">
-            <div className="flex items-center gap-1">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center text-[10px] uppercase tracking-[0.18em]">
+            <span className="justify-self-start">{currentProgress}</span>
+            <div className="flex items-center justify-center">
               {isPlaying ? <IoMdPause className="h-4 w-4" /> : <IoMdPlay className="h-4 w-4" />}
-              <span>{isPlaying ? "Now Playing" : "Last Played"}</span>
             </div>
-            <span>{currentProgress}</span>
+            <span className="justify-self-end">{trackLength}</span>
           </div>
 
           <div className="text-[10px] opacity-70">
             {isPlaying
-              ? `Track length ${formatDuration(playback.track.durationMs)}`
+              ? "Playing on Spotify"
               : playedAt
                 ? `Played at ${playedAt} on Spotify`
                 : "Opened from Spotify"}
