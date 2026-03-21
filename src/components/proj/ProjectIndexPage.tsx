@@ -10,6 +10,8 @@ type ProjectIndexPageProps = {
 };
 
 const CARD_EMOJIS = ["🪩", "💾", "🕹️", "🍓", "📼", "🎧"];
+const PROJECT_MARQUEE_TEXT =
+  "SUPER COOL PROJECTS | 10% OFF ENTIRE STORE | LOL IDK WHAT TO PUT HERE BUT I REALLY WANTED TO INCORPORATE THIS EFFECT | ARE YOU HAVING FUN? | I'D LOVE TO CHAT WITH YOU! |";
 
 function EmptyState() {
   return (
@@ -49,7 +51,14 @@ export default function ProjectIndexPage({ projects }: ProjectIndexPageProps) {
             </div>
           </div>
         </section>
-
+        <div className="retro-marquee border-2 border-[#0d2743] bg-[#8ff0ff] py-1 text-[11px] uppercase tracking-[0.14em] text-[#0d2743]">
+          <div className="retro-marquee-wrap-track">
+            <span className="retro-marquee-wrap-item">{PROJECT_MARQUEE_TEXT}</span>
+            <span className="retro-marquee-wrap-item" aria-hidden="true">
+              {PROJECT_MARQUEE_TEXT}
+            </span>
+          </div>
+        </div>
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
           <section className="space-y-4">
             {projects.length === 0 ? <EmptyState /> : null}
