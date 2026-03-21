@@ -4,7 +4,7 @@ export type WorkFrontmatter = {
   title: string;
   company: string;
   period: string;
-  location: string;
+  order: number;
   date: string;
   summary: string;
   published: boolean;

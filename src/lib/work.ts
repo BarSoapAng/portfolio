@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import type { WorkFrontmatter, WorkSummary } from "./work-shared";
 import {
   createMdxCollectionReader,
+  requireNumberField,
   parseTagsField,
   requireBooleanField,
   requireDateField,
@@ -14,7 +15,7 @@ const WORK_FIELD_PARSERS = {
   title: requireStringField("title"),
   company: requireStringField("company"),
   period: requireStringField("period"),
-  location: requireStringField("location"),
+  order: requireNumberField("order"),
   date: requireDateField(),
   summary: requireStringField("summary"),
   published: requireBooleanField("published"),

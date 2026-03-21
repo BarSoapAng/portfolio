@@ -47,6 +47,14 @@ export function requireBoolean(value: unknown, key: string, fileName: string): b
   return value;
 }
 
+export function requireNumber(value: unknown, key: string, fileName: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`Expected "${key}" to be a finite number in ${fileName}.`);
+  }
+
+  return value;
+}
+
 export function requireDate(value: unknown, fileName: string): string {
   const date = requireString(value, "date", fileName);
 
@@ -63,6 +71,10 @@ export function requireStringField(key: string): FieldParser<string> {
 
 export function requireBooleanField(key: string): FieldParser<boolean> {
   return (value, fileName) => requireBoolean(value, key, fileName);
+}
+
+export function requireNumberField(key: string): FieldParser<number> {
+  return (value, fileName) => requireNumber(value, key, fileName);
 }
 
 export function requireDateField(): FieldParser<string> {
@@ -116,7 +128,16 @@ function readMdxCollection<TFields extends { date: string; published: boolean }>
       ...parseFrontmatter(directory, fileName, options.fieldParsers),
     }))
     .filter((entry) => entry.published)
-    .sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
+    .sort((left, right) => {
+      const leftOrder = (left as { order?: unknown }).order;
+      const rightOrder = (right as { order?: unknown }).order;
+
+      if (typeof leftOrder === "number" && typeof rightOrder === "number") {
+        return leftOrder - rightOrder;
+      }
+
+      return Date.parse(right.date) - Date.parse(left.date);
+    });
 }
 
 function cloneEntry<TFields extends { date: string; published: boolean }>(

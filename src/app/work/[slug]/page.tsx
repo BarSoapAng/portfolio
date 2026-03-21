@@ -67,8 +67,6 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
                     <span>|</span>
                     <span>{entry.period}</span>
                     <span>|</span>
-                    <span>{entry.location}</span>
-                    <span>|</span>
                     <span>Filed {formatWorkDate(entry.date)}</span>
                   </div>
 
