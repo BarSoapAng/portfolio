@@ -3,10 +3,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import star1 from "@assets/star1.gif";
-import star2 from "@assets/star2.gif";
 import SillyMarquee from "@components/work/SillyMarquee";
-import { formatWorkDate, type WorkSummary } from "@lib/work-shared";
+import { type WorkSummary } from "@lib/work-shared";
 
 type WorkExperienceStackProps = {
   entries: WorkSummary[];
@@ -49,42 +47,27 @@ function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: St
           : { top: topOffset, y, rotate, transformOrigin: "center top", zIndex: index + 1 }
       }
     >
-      <div className="flex h-full flex-col gap-4 border-[3px] border-[#fff98a] bg-[#fff8d4] px-4 py-4">
-        <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-[#415b6f]">
-          <span>{entry.company}</span>
-          <span>|</span>
-          <span>{entry.period}</span>
-          <span>|</span>
-        </div>
+      <Link href={`/work/${entry.slug}`} className="block h-full">
+        <div className="flex h-full flex-col gap-4 border-[3px] border-[#fff98a] bg-[#fff8d4] px-4 py-4">
+          <div className="flex justify-between items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-[#415b6f]">
+            <span>{entry.company}</span>
+            <span>{entry.period}</span>
+          </div>
 
-        <div className="space-y-3">
-          <h2 className="text-2xl leading-tight text-[#14344e]">
-            <Link className="underline decoration-[#d7005f] underline-offset-4" href={`/work/${entry.slug}`}>
+          <div className="space-y-3">
+            <h2 className="text-2xl leading-tight text-[#14344e] underline decoration-[#d7005f] underline-offset-4">
               {entry.title}
-            </Link>
-          </h2>
-          <p className="text-sm leading-6 text-[#284a63]">{entry.summary}</p>
-        </div>
+            </h2>
+            <p className="text-sm leading-6 text-[#284a63]">{entry.summary}</p>
+          </div>
 
-        <div className="flex flex-wrap gap-2">
-          {entry.tags.map((tag) => (
-            <Tag key={tag} label={tag} />
-          ))}
-        </div>
-
-        <div className="mt-auto flex items-center justify-between gap-2">
-          <span className="text-[11px] uppercase tracking-[0.12em] text-[#415b6f]">Filed {formatWorkDate(entry.date)}</span>
-          <div className="flex items-center gap-2">
-            <img src={index % 2 === 0 ? star1.src : star2.src} alt="" className="h-6 w-6 object-contain" />
-            <Link
-              className="inline-flex border-2 border-[#0d2743] bg-[#7ee8ff] px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-[#0d2743] [box-shadow:inset_2px_2px_0_#f7feff,inset_-2px_-2px_0_#187ca7] transition hover:bg-[#97eeff]"
-              href={`/work/${entry.slug}`}
-            >
-              Open File
-            </Link>
+          <div className="flex flex-wrap gap-2">
+            {entry.tags.map((tag) => (
+              <Tag key={tag} label={tag} />
+            ))}
           </div>
         </div>
-      </div>
+      </Link>
     </motion.article>
   );
 }
@@ -131,7 +114,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     offset: ["start start", "end end"],
   });
   const cardTop = titleHeight + TITLE_TO_STACK_GAP_PX;
-  const bottomPaddingHeight = Math.max(0, Math.round(titleHeight - 6));
+  const bottomPaddingHeight = Math.max(0, Math.round(titleHeight + 30));
 
   return (
     <section ref={stackRef} className="relative flex min-w-0 flex-col overflow-visible">
@@ -147,7 +130,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
           />
         ))}
       </div>
-      <div className="mt-3 w-screen" style={{ marginLeft: -stackLeft }}>
+      <div className="mt-5 w-screen" style={{ marginLeft: -stackLeft }}>
         <SillyMarquee height={bottomPaddingHeight} />
       </div>
     </section>
