@@ -23,7 +23,7 @@ function EmptyState() {
         <h2 className="text-2xl text-blue-1">No projects yet</h2>
         <p className="mt-2 text-sm leading-6 text-gray-1">
           Add <code>.mdx</code> files inside <code>content/project</code> with frontmatter fields:
-          <code> title</code>, <code>date</code>, <code>summary</code>, <code>published</code>, and <code>tags</code>.
+          <code> title</code>, <code>order</code>, <code>date</code>, <code>summary</code>, <code>published</code>, and <code>tags</code>.
         </p>
       </div>
     </article>
@@ -68,38 +68,35 @@ export default function ProjPage() {
 
             {projects.map((project, index) => (
               <article key={project.slug} className="border-4 border-blue-1 bg-paper-1 p-1 shadow-retro-lg">
-                <div className="flex h-full flex-col gap-4 border-2 border-blue-1 bg-cream-1 px-4 py-4">
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-blue-1">
-                    <span>{formatProjectDate(project.date)}</span>
-                    <span>{CARD_EMOJIS[index % CARD_EMOJIS.length]}</span>
-                    {project.tags.map((tag) => (
-                      <TagLabel
-                        key={tag}
-                        className="border border-sand-1 bg-paper-2 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1"
-                        label={tag}
-                      />
-                    ))}
-                  </div>
+                <Link href={`/proj/${project.slug}`} className="block h-full">
+                  <div className="flex h-full flex-col gap-4 border-2 border-blue-1 bg-cream-1 px-4 py-4">
+                    <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-blue-1">
+                      <span>{formatProjectDate(project.date)}</span>
+                      <span>{CARD_EMOJIS[index % CARD_EMOJIS.length]}</span>
+                      {project.tags.map((tag) => (
+                        <TagLabel
+                          key={tag}
+                          className="border border-sand-1 bg-paper-2 px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-sand-1"
+                          label={tag}
+                        />
+                      ))}
+                    </div>
 
-                  <div className="space-y-3">
-                    <h2 className="text-2xl leading-tight text-gray-2 sm:text-3xl">
-                      <Link className="underline decoration-orange-1 underline-offset-4" href={`/proj/${project.slug}`}>
+                    <div className="space-y-3">
+                      <h2 className="text-2xl leading-tight text-gray-2 underline decoration-orange-1 underline-offset-4 sm:text-3xl">
                         {project.title}
-                      </Link>
-                    </h2>
-                    <p className="max-w-3xl text-sm leading-6 text-gray-1">{project.summary}</p>
-                  </div>
+                      </h2>
+                      <p className="max-w-3xl text-sm leading-6 text-gray-1">{project.summary}</p>
+                    </div>
 
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Link
-                      className="inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2"
-                      href={`/proj/${project.slug}`}
-                    >
-                      Open project page
-                    </Link>
-                    <img src={index % 2 === 0 ? starTwo.src : starOne.src} className="w-6" alt="" />
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80">
+                        Open project page
+                      </span>
+                      <img src={index % 2 === 0 ? starTwo.src : starOne.src} className="w-6" alt="" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </article>
             ))}
           </section>

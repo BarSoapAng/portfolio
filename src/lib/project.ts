@@ -7,11 +7,13 @@ import {
   parseTagsField,
   requireBooleanField,
   requireDateField,
+  requireNumberField,
   requireStringField,
 } from "./mdx-collection";
 
 const PROJECT_FIELD_PARSERS = {
   title: requireStringField("title"),
+  order: requireNumberField("order"),
   date: requireDateField(),
   summary: requireStringField("summary"),
   published: requireBooleanField("published"),

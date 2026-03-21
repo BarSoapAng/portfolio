@@ -48,11 +48,19 @@ export function requireBoolean(value: unknown, key: string, fileName: string): b
 }
 
 export function requireNumber(value: unknown, key: string, fileName: string): number {
-  if (typeof value !== "number" || !Number.isFinite(value)) {
-    throw new Error(`Expected "${key}" to be a finite number in ${fileName}.`);
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
   }
 
-  return value;
+  if (typeof value === "string") {
+    const parsed = Number(value.trim());
+
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+
+  throw new Error(`Expected "${key}" to be a finite number in ${fileName}.`);
 }
 
 export function requireDate(value: unknown, fileName: string): string {

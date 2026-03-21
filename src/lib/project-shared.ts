@@ -2,6 +2,7 @@ import { formatLongDate } from "./format-date";
 
 export type ProjectFrontmatter = {
   title: string;
+  order: number;
   date: string;
   summary: string;
   published: boolean;
