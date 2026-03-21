@@ -6,9 +6,10 @@ import { motion } from "framer-motion";
 import pika from "@assets/work/pika.gif";
 import siamesefall from "@assets/work/siamesefall715.gif";
 import sing from "@assets/work/sing.gif";
+import cat1 from "@assets/work/cat1.gif"
+import borb from "@assets/work/borb.gif"
 
 const DEFAULT_MARQUEE_HEIGHT_PX = 300;
-const OFFSCREEN_DELAY_MS = 500;
 const SPEED_PX_PER_SECOND = 100;
 
 type GifConfig = {
@@ -34,15 +35,17 @@ function getRandomTop(trackHeight: number, spriteHeight: number): number {
 }
 
 const GIFS: GifConfig[] = [
-  { id: "pika", asset: pika, width: pika.width, height: pika.height, spawnOffsetX: 0 },
+  { id: "pika", asset: pika, width: pika.width, height: pika.height, spawnOffsetX: 200 },
   {
     id: "siamesefall",
     asset: siamesefall,
     width: siamesefall.width,
     height: siamesefall.height - 50,
-    spawnOffsetX: 250,
+    spawnOffsetX: 500,
   },
-  { id: "sing", asset: sing, width: sing.width, height: sing.height, spawnOffsetX: 400 },
+  { id: "sing", asset: sing, width: sing.width, height: sing.height, spawnOffsetX: 720 },
+  { id: "cat1", asset: cat1, width: cat1.width, height: cat1.height, spawnOffsetX: 890 },
+  { id: "borb", asset: borb, width: borb.width, height: borb.height - 30, spawnOffsetX: 1042 },
 ];
 
 function createInitialState(trackHeight: number): GifState[] {
@@ -63,7 +66,6 @@ export default function SillyMarquee({ height = DEFAULT_MARQUEE_HEIGHT_PX }: Sil
   const marqueeHeight = Math.max(0, Math.round(height));
   const initialSpawnHeight = marqueeHeight > 0 ? marqueeHeight : DEFAULT_MARQUEE_HEIGHT_PX;
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const timeoutsRef = useRef<Record<string, number>>({});
   const [containerWidth, setContainerWidth] = useState(0);
   const [gifStates, setGifStates] = useState<GifState[]>(() => createInitialState(initialSpawnHeight));
 
@@ -87,38 +89,19 @@ export default function SillyMarquee({ height = DEFAULT_MARQUEE_HEIGHT_PX }: Sil
     };
   }, []);
 
-  useEffect(() => {
-    const timeoutMap = timeoutsRef.current;
-
-    return () => {
-      for (const timeoutId of Object.values(timeoutMap)) {
-        window.clearTimeout(timeoutId);
-      }
-    };
-  }, []);
-
   const queueRespawn = (gifId: string, spriteHeight: number) => {
-    const existingTimeoutId = timeoutsRef.current[gifId];
-    if (existingTimeoutId) {
-      window.clearTimeout(existingTimeoutId);
-    }
-
-    timeoutsRef.current[gifId] = window.setTimeout(() => {
-      setGifStates((currentStates) =>
-        currentStates.map((state) =>
-          state.id === gifId
-            ? {
-              ...state,
-              cycle: state.cycle + 1,
-              top: getRandomTop(marqueeHeight, spriteHeight),
-              initialDelay: 0,
-            }
-            : state,
-        ),
-      );
-
-      delete timeoutsRef.current[gifId];
-    }, OFFSCREEN_DELAY_MS);
+    setGifStates((currentStates) =>
+      currentStates.map((state) =>
+        state.id === gifId
+          ? {
+            ...state,
+            cycle: state.cycle + 1,
+            top: getRandomTop(marqueeHeight, spriteHeight),
+            initialDelay: 0,
+          }
+          : state,
+      ),
+    );
   };
 
   const trackWidth = containerWidth > 0 ? containerWidth : 1200;

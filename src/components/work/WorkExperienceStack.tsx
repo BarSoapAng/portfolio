@@ -55,7 +55,6 @@ function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: St
           <span>|</span>
           <span>{entry.period}</span>
           <span>|</span>
-          <span>{entry.location}</span>
         </div>
 
         <div className="space-y-3">
