@@ -139,10 +139,8 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
 
           <div className="text-[10px] opacity-70">
             {isPlaying
-              ? "Playing on Spotify"
-              : playedAt
-                ? `Played at ${playedAt} on Spotify`
-                : "Opened from Spotify"}
+              ? "Vibin', jammin', join up!"
+              : "Not listening to anything rn :/"}
           </div>
         </div>
       </div>
