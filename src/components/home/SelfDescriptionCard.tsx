@@ -1,7 +1,7 @@
 import IllumiHover from './effects/IllumiHover'
 
-import selfie from '@assets/selfie.jpg'
-import catJump from '@assets/cat-jump.gif'
+import selfie from '@assets/home/selfie.jpg'
+import catJump from '@assets/home/cat-jump.gif'
 
 export default function RetroHomepageCard() {
   return (

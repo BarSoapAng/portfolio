@@ -1,7 +1,7 @@
 import Link from "next/link";
-import catJump from "@assets/cat-jump.gif";
-import catWaving from "@assets/cat_waving.gif";
-import leo from "@assets/leo.gif";
+import catJump from "@assets/home/cat-jump.gif";
+import catWaving from "@assets/home/cat_waving.gif";
+import leo from "@assets/home/leo.gif";
 import star1 from "@assets/star1.gif";
 import WorkExperienceStack from "@components/work/WorkExperienceStack";
 import { type WorkSummary } from "@lib/work-shared";

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import catJump from "@assets/cat-jump.gif";
-import catWaving from "@assets/cat_waving.gif";
+import catJump from "@assets/home/cat-jump.gif";
+import catWaving from "@assets/home/cat_waving.gif";
 import star1 from "@assets/star1.gif";
 import star2 from "@assets/star2.gif";
 import TagLabel from "@components/ui/TagLabel";

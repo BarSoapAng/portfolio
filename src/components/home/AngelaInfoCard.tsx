@@ -1,4 +1,4 @@
-import leo from '@assets/leo.gif'
+import leo from '@assets/home/leo.gif'
 import SparkleHover from './effects/SparkleHover';
 
 export default function AngelaInfoCard() {

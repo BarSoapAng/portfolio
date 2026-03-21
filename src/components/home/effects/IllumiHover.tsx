@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-import illumi from '@assets/illumi.jpg'
-import notIllumi from '@assets/not-illumi.jpg'
+import illumi from '@assets/home/illumi.jpg'
+import notIllumi from '@assets/home/not-illumi.jpg'
 
 export default function PersonalHover() {
   const [hovered, setHovered] = useState(false);

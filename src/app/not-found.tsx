@@ -1,4 +1,4 @@
-import Detective from "@assets/detective_magnifying_glass.gif";
+import Detective from "@assets/404/detective_magnifying_glass.gif";
 import NavbarLink from "@components/ui/NavbarLink";
 
 export default function NotFound() {

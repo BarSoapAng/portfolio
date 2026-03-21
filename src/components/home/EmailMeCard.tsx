@@ -1,4 +1,4 @@
-import gif from '@assets/email-me.gif'
+import gif from '@assets/home/email-me.gif'
 
 export default function EmailMeCard() {
   return(

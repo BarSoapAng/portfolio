@@ -1,7 +1,7 @@
 import Link from "next/link";
 import starOne from "@assets/star1.gif";
 import starTwo from "@assets/star2.gif";
-import catWaving from "@assets/cat_waving.gif";
+import catWaving from "@assets/home/cat_waving.gif";
 import TagLabel from "@components/ui/TagLabel";
 import { formatProjectDate, type ProjectSummary } from "@lib/project-shared";
 
