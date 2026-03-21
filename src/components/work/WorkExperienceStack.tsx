@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import star1 from "@assets/star1.gif";
 import star2 from "@assets/star2.gif";
+import SillyMarquee from "@components/work/SillyMarquee";
 import { formatWorkDate, type WorkSummary } from "@lib/work-shared";
 
 type WorkExperienceStackProps = {
@@ -19,7 +20,7 @@ type StackedWorkCardProps = {
   scrollYProgress: MotionValue<number>;
 };
 
-const TITLE_TO_STACK_GAP_PX = 24;
+const TITLE_TO_STACK_GAP_PX = 22;
 
 function Tag({ label }: { label: string }) {
   return (
@@ -35,10 +36,8 @@ function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: St
   const step = total <= 0 ? 1 : 1 / total;
   const start = index * step;
   const end = Math.min(1, start + step);
-  const finalScale = 1 - Math.min(0.24, index * 0.04);
 
   const y = useTransform(scrollYProgress, [start, end], [0, -Math.min(64, index * 12)]);
-  const scale = useTransform(scrollYProgress, [start, end], [1, finalScale]);
   const rotate = useTransform(scrollYProgress, [start, end], [baseTilt, baseTilt * 0.1]);
 
   return (
@@ -47,7 +46,7 @@ function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: St
       style={
         prefersReducedMotion
           ? { top: topOffset, rotate: baseTilt, zIndex: index + 1 }
-          : { top: topOffset, y, scale, rotate, transformOrigin: "center top", zIndex: index + 1 }
+          : { top: topOffset, y, rotate, transformOrigin: "center top", zIndex: index + 1 }
       }
     >
       <div className="flex h-full flex-col gap-4 border-[3px] border-[#fff98a] bg-[#fff8d4] px-4 py-4">
@@ -129,20 +128,23 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     offset: ["start start", "end end"],
   });
   const cardTop = titleHeight + TITLE_TO_STACK_GAP_PX;
-  const bottomPadding = titleHeight - 6;
+  const bottomPaddingHeight = Math.max(0, Math.round(titleHeight - 6));
 
   return (
-    <section ref={stackRef} className="relative flex min-w-0 flex-col gap-12" style={{ paddingBottom: bottomPadding }}>
-      {entries.map((entry, index) => (
-        <StackedWorkCard
-          key={entry.slug}
-          entry={entry}
-          index={index}
-          total={entries.length}
-          topOffset={cardTop}
-          scrollYProgress={scrollYProgress}
-        />
-      ))}
+    <section ref={stackRef} className="relative flex min-w-0 flex-col">
+      <div className="flex min-w-0 flex-col gap-12">
+        {entries.map((entry, index) => (
+          <StackedWorkCard
+            key={entry.slug}
+            entry={entry}
+            index={index}
+            total={entries.length}
+            topOffset={cardTop}
+            scrollYProgress={scrollYProgress}
+          />
+        ))}
+      </div>
+      <SillyMarquee height={bottomPaddingHeight} />
     </section>
   );
 }
