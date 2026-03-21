@@ -7,6 +7,9 @@ import background from "@assets/bg.gif";
 export const metadata: Metadata = {
   title: "Angela's Universe",
   description: "Portfolio website",
+  icons: {
+    icon: "/webIcon.png",
+  },
 };
 
 type RootLayoutProps = {
