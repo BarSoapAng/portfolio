@@ -5,7 +5,6 @@ import EmailMeCard from '@components/home/EmailMeCard'
 import StatsCard from '@components/home/StatsCard'
 import SiteVisitorCounter from '@components/home/SiteVisitorCounter'
 import TopBlogOverview from '@components/navigation/TopBlogOverview'
-
 import wavingCat from '@assets/home/cat_waving.gif'
 
 function HomePage() {
