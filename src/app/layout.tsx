@@ -20,7 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <img src={background.src} className="absolute z-[-1] h-full w-full object-cover" alt="" />
         <div className="flex h-dvh w-dvw flex-col overflow-hidden">
           <Navbar />
-          <main className="min-h-0 flex-1 overflow-auto p-2">
+          <main className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-2">
             {children}
           </main>
         </div>

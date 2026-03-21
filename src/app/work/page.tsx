@@ -36,11 +36,10 @@ export default function WorkPage() {
       <section>
         <section className="sticky top-0 z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]">
           <div className="border-[3px] border-[#fff98a] bg-[#fff4bf] px-4 py-4">
-            <p className="m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">experience board.exe</p>
-            <h1 className="mt-2 text-3xl leading-tight text-[#16324a]">Work</h1>
+            <p className="m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">Check it out</p>
+            <h1 className="mt-2 text-3xl leading-tight text-[#16324a]">Experiences</h1>
             <p className="mt-2 text-sm leading-6 text-[#204764]">
-              Every card is generated from a file in <code>content/work</code>. Add or edit an MDX file and this board
-              updates automatically.
+              Where I've worked and working at!
             </p>
           </div>
         </section>

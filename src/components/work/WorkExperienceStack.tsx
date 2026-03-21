@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import star1 from "@assets/star1.gif";
@@ -20,7 +20,7 @@ type StackedWorkCardProps = {
   scrollYProgress: MotionValue<number>;
 };
 
-const TITLE_TO_STACK_GAP_PX = 22;
+const TITLE_TO_STACK_GAP_PX = 10;
 
 function Tag({ label }: { label: string }) {
   return (
@@ -93,8 +93,9 @@ function StackedWorkCard({ entry, index, total, topOffset, scrollYProgress }: St
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   const stackRef = useRef<HTMLElement | null>(null);
   const [titleHeight, setTitleHeight] = useState(0);
+  const [stackLeft, setStackLeft] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const stackNode = stackRef.current;
     if (!stackNode) {
       return;
@@ -107,14 +108,17 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
 
     const measure = () => {
       const nextTitleHeight = titleNode.getBoundingClientRect().height;
+      const nextStackLeft = stackNode.getBoundingClientRect().left;
 
       setTitleHeight(nextTitleHeight);
+      setStackLeft(nextStackLeft);
     };
 
     measure();
 
     const observer = new ResizeObserver(measure);
     observer.observe(titleNode);
+    observer.observe(stackNode);
     window.addEventListener("resize", measure);
 
     return () => {
@@ -131,8 +135,8 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
   const bottomPaddingHeight = Math.max(0, Math.round(titleHeight - 6));
 
   return (
-    <section ref={stackRef} className="relative flex min-w-0 flex-col">
-      <div className="flex min-w-0 flex-col gap-12">
+    <section ref={stackRef} className="relative flex min-w-0 flex-col overflow-visible">
+      <div className="flex min-w-0 flex-col gap-7">
         {entries.map((entry, index) => (
           <StackedWorkCard
             key={entry.slug}
@@ -144,7 +148,9 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
           />
         ))}
       </div>
-      <SillyMarquee height={bottomPaddingHeight} />
+      <div className="mt-3 w-screen" style={{ marginLeft: -stackLeft }}>
+        <SillyMarquee height={bottomPaddingHeight} />
+      </div>
     </section>
   );
 }
