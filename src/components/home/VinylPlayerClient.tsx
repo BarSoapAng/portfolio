@@ -23,17 +23,6 @@ function formatDuration(ms: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-function formatPlayedAt(playedAt: string | null) {
-  if (!playedAt) {
-    return null;
-  }
-
-  return new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(new Date(playedAt));
-}
-
 export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) {
   const router = useRouter();
   const refreshIntervalMs =
@@ -68,7 +57,6 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
   }
 
   const isPlaying = playback.status === "playing";
-  const playedAt = formatPlayedAt(playback.track.playedAt);
   const currentProgressMs = isPlaying
     ? Math.max(playback.track.progressMs ?? 0, 0)
     : playback.track.durationMs;
