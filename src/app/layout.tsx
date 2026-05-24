@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Navbar from "@components/navigation/Navbar";
 import background from "@assets/bg.gif";
 
@@ -19,11 +20,19 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="overflow-hidden font-sans">
-        <img src={background.src} className="absolute z-[-1] h-full w-full object-cover" alt="" />
+      <body className="font-sans antialiased">
+        <Image
+          src={background}
+          alt=""
+          aria-hidden="true"
+          fill
+          priority
+          unoptimized
+          className="fixed inset-0 -z-10 h-full w-full object-cover"
+        />
         <div className="flex h-dvh w-dvw flex-col overflow-hidden">
           <Navbar />
-          <main className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-2">
+          <main className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
             {children}
           </main>
         </div>

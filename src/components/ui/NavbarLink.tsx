@@ -9,21 +9,27 @@ export default function NavbarLink({ className = "" }) {
 
   return (
     <nav
+      aria-label="Primary"
       className={[
-        "flex flex-wrap items-center justify-end gap-2",
+        "flex flex-wrap items-center justify-end gap-1.5 sm:gap-2",
         className,
       ].join(" ")}
     >
       {routes.map((page) => {
-        const isActive = pathname === page.path;
+        const isActive = pathname === page.path || pathname?.startsWith(page.path + "/");
 
         return (
           <Link
             key={page.path}
             href={page.path}
+            aria-current={isActive ? "page" : undefined}
             className={[
-              "inline-flex min-w-[86px] border-2 border-gray-2 bg-blue-2 px-3 py-1 text-center text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:bg-blue-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2",
-              isActive ? "bg-sand-2 text-black-1 shadow-inset-sand" : "",
+              "inline-flex min-w-[68px] items-center justify-center border-2 border-gray-2 px-3 py-1 text-center text-xs font-bold uppercase tracking-[0.08em] transition-transform duration-100 sm:min-w-[86px]",
+              "hover:-translate-y-0.5 active:translate-y-0",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-1",
+              isActive
+                ? "bg-sand-2 text-black-1 shadow-inset-sand"
+                : "bg-blue-2 text-gray-2 shadow-inset-blue hover:bg-blue-2/85",
             ].join(" ")}
           >
             {page.label}

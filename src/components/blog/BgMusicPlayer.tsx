@@ -52,11 +52,18 @@ export default function BgMusicPlayer() {
       />
       <button
         onClick={toggle}
-        className="hover:cursor-pointer"
-        aria-label={playing ? "Pause music" : "Play music"}
+        className="group flex h-12 w-12 items-center justify-center border-2 border-gray-2 bg-paper-1 text-gray-2 shadow-retro-md transition hover:-translate-y-0.5 hover:bg-cream-1 hover:shadow-retro-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-1 focus-visible:ring-offset-2"
+        aria-label={playing ? "Pause background music" : "Play background music"}
         title={playing ? "Pause music" : "Play music"}
       >
-        {playing ? <IoMdPause className="h-5 w-5" /> : <IoMdPlay className="h-5 w-5" />}
+        {playing ? (
+          <IoMdPause className="h-5 w-5" />
+        ) : (
+          <IoMdPlay className="h-5 w-5 translate-x-[1px]" />
+        )}
+        <span className="sr-only">
+          {playing ? "Pause background music" : "Play background music"}
+        </span>
       </button>
     </div>
   );

@@ -75,40 +75,49 @@ export default function RadarChart() {
     ],
   }), [chartColors]);
 
-const options: ChartOptions<'radar'> = {
-  maintainAspectRatio: false,
-  scales: {
-    r: {
-      min: 0,
-      max: 5,
-      ticks: {
-        stepSize: 1,
-        backdropColor: 'transparent',
-        display: false,
-      },
-      grid: {
-        color: 'rgba(0,0,0,0.2)',
-      },
-      pointLabels: {
-        font: {
-          size: 9,
-          weight: 'bold',
+  const options: ChartOptions<'radar'> = useMemo(() => ({
+    maintainAspectRatio: false,
+    responsive: true,
+    animation: {
+      duration: 600,
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 5,
+        ticks: {
+          stepSize: 1,
+          backdropColor: 'transparent',
+          display: false,
+        },
+        grid: {
+          color: chartColors.grid,
+        },
+        angleLines: {
+          color: chartColors.grid,
+        },
+        pointLabels: {
+          color: '#1f3442',
+          font: {
+            size: 9,
+            weight: 'bold',
+          },
         },
       },
     },
-  },
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      titleFont: {
-        weight: 'bold' as const,
+    plugins: {
+      legend: {
+        display: false,
       },
-      displayColors: false,
+      tooltip: {
+        backgroundColor: '#1f3442',
+        titleFont: {
+          weight: 'bold' as const,
+        },
+        displayColors: false,
+      },
     },
-  },
-}
+  }), [chartColors])
 
   return (
     <div className="flex h-full w-full items-center justify-center">

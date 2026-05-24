@@ -43,67 +43,69 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
   const { default: WorkContent } = await import(`../../../../content/work/${slug}.mdx`);
 
   return (
-    <main className="px-4 py-6 text-[#1e3043] sm:px-6">
+    <main className="px-4 py-6 text-gray-2 sm:px-6">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <Link
-            className="inline-flex border-2 border-[#0d2743] bg-[#7ee8ff] px-3 py-1 font-mono text-xs font-bold uppercase tracking-[0.08em] text-[#0d2743] [box-shadow:inset_2px_2px_0_#f7feff,inset_-2px_-2px_0_#187ca7] transition hover:bg-[#9aeeff]"
+            className="inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 font-mono text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:-translate-y-0.5 hover:bg-blue-2/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2"
             href="/work"
           >
-            Back to Work
+            ← Back to work
           </Link>
-          <span className="animate-pulse border-2 border-[#0d2743] bg-[#ffe66a] px-2 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[#0d2743]">
+          <span className="animate-pulse border-2 border-gray-2 bg-sand-2 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-black-1">
             y2k memory file
           </span>
         </div>
 
-        <article className="border-[3px] border-[#0d2743] bg-[#ff9ed2] p-1 font-mono shadow-[7px_7px_0_rgba(13,39,67,0.25)]">
-          <div className="border-[3px] border-[#fff98a] bg-[#fff6cf] px-4 py-4 sm:px-7 sm:py-6">
-            <header className="space-y-4 border-b-2 border-dashed border-[#1f4864] pb-5">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="space-y-3">
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-[#36546c]">
-                    <span>{entry.company}</span>
-                    <span>|</span>
+        <article className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
+          <div className="border-2 border-pink-1 bg-cream-1 px-4 py-4 sm:px-7 sm:py-6">
+            <header className="space-y-4 border-b-2 border-dashed border-pink-1/60 pb-5">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="min-w-0 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-sand-1">
+                    <span className="font-bold">{entry.company}</span>
+                    <span aria-hidden>•</span>
                     <span>{entry.period}</span>
-                    <span>|</span>
+                    <span aria-hidden>•</span>
                     <span>Filed {formatWorkDate(entry.date)}</span>
                   </div>
 
-                  <h1 className="text-3xl leading-tight text-[#133651] sm:text-4xl">{entry.title}</h1>
-                  <p className="max-w-3xl text-sm leading-6 text-[#284a63]">{entry.summary}</p>
+                  <h1 className="text-3xl leading-tight text-gray-2 sm:text-4xl">
+                    {entry.title}
+                  </h1>
+                  <p className="max-w-3xl text-sm leading-6 text-gray-1">{entry.summary}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {entry.tags.map((tag) => (
                       <TagLabel
                         key={tag}
-                        className="border-2 border-[#0c2b43] bg-[#ffe66a] px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-[#0c2b43]"
+                        className="inline-block border-2 border-gray-2 bg-sand-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-black-1"
                         label={tag}
                       />
                     ))}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-1">
+                <div className="grid shrink-0 grid-cols-2 gap-1">
                   <img
                     src={catJump.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-[#0d2743] bg-[#9befff] object-contain"
+                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
                   />
                   <img
                     src={star1.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-[#0d2743] bg-[#9befff] object-contain"
+                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
                   />
                   <img
                     src={catWaving.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-[#0d2743] bg-[#9befff] object-contain"
+                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
                   />
                   <img
                     src={star2.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-[#0d2743] bg-[#9befff] object-contain"
+                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
                   />
                 </div>
               </div>

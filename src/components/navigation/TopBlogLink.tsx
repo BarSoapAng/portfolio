@@ -8,19 +8,21 @@ type TopBlogLinkProps = {
 
 export default function TopBlogLink({ dateLabel, href, title }: TopBlogLinkProps) {
   return (
-    <div className="border-2 border-[#8b6b4a] border-b-white bg-[#f2c28f] p-1">
+    <div className="border-2 border-sand-1 bg-cream-2 p-1">
       <Link
-        className="flex min-h-[64px] items-center border-2 border-[#8b6b4a] border-b-white bg-[#fff7e7] px-3 py-2 text-[#2f2418] transition hover:bg-[#fff1d2]"
+        className="flex min-h-[64px] items-center border-2 border-sand-1 bg-paper-1 px-3 py-2 text-sand-1 transition hover:bg-cream-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sand-2 focus-visible:ring-offset-1 focus-visible:ring-offset-cream-2"
         href={href}
       >
         <div className="min-w-0">
           <div
-            className="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] leading-tight"
+            className="overflow-hidden text-ellipsis whitespace-nowrap text-[14px] leading-tight text-gray-2"
             title={title}
           >
             {title}
           </div>
-          <div className="mt-1 text-[11px] uppercase tracking-[0.08em] text-[#6a4d2d]">{dateLabel}</div>
+          <div className="mt-1 text-[10px] uppercase tracking-[0.08em] text-sand-1">
+            {dateLabel}
+          </div>
         </div>
       </Link>
     </div>

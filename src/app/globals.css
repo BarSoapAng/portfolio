@@ -1,10 +1,6 @@
 @import "tailwindcss";
 @config "../../tailwind.config.js";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --font-default: "Trebuchet MS", "Segoe UI", Tahoma, Verdana, sans-serif;
 
@@ -26,11 +22,16 @@
 
   --color-red-1: #dc2626;
   --color-green-1: #16a34a;
+  --color-green-2: #bbf7d0;
+  --color-green-3: #166534;
   --color-purple-1: #9333ea;
   --color-pink-1: #db2777;
   --color-orange-1: #ea580c;
 
   --shadow-gray-1-12: rgb(52 83 98 / 0.12);
+  --shadow-gray-1-14: rgb(52 83 98 / 0.14);
+  --shadow-gray-1-18: rgb(52 83 98 / 0.18);
+  --shadow-gray-1-25: rgb(52 83 98 / 0.25);
 }
 
 * {
@@ -69,11 +70,33 @@ body {
 }
 
 ::selection {
-  background-color: pink;
+  background-color: var(--color-pink-1);
+  color: var(--color-paper-1);
 }
 
 ::-moz-selection {
-  background-color: pink;
+  background-color: var(--color-pink-1);
+  color: var(--color-paper-1);
+}
+
+/* Custom scrollbar (retro chunky) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-paper-2);
+  border-left: 1px solid var(--color-sand-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand-1);
+  border: 2px solid var(--color-paper-2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sand-2);
 }
 
 h1 {
@@ -233,6 +256,37 @@ h2 {
   --mdx-pre-border-color: var(--color-blue-1);
   --mdx-pre-background: var(--color-gray-2);
   --mdx-pre-color: var(--color-paper-2);
+}
+
+/* Retro raised-bevel utility (Win98 style: light top/left, dark bottom/right) */
+.retro-bevel {
+  border-top: 2px solid var(--color-paper-1);
+  border-left: 2px solid var(--color-paper-1);
+  border-right: 2px solid var(--color-sand-1);
+  border-bottom: 2px solid var(--color-sand-1);
+}
+
+.retro-bevel-inset {
+  border-top: 2px solid var(--color-sand-1);
+  border-left: 2px solid var(--color-sand-1);
+  border-right: 2px solid var(--color-paper-1);
+  border-bottom: 2px solid var(--color-paper-1);
+}
+
+/* Subtle CRT-style scanline overlay (optional, applied via class) */
+.retro-scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.03) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  z-index: 1;
 }
 
 .retro-marquee {

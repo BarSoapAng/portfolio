@@ -3,19 +3,26 @@ import NavbarLink from "@components/ui/NavbarLink";
 
 export default function NotFound() {
   return (
-    <main className="flex flex-row gap-5 h-full items-center justify-center">
+    <main className="flex h-full flex-col items-center justify-center gap-6 px-6 py-10 sm:flex-row sm:gap-10">
       <img
         src={Detective.src}
-        className="w-40"
+        alt="A pixel detective searching with a magnifying glass"
+        className="w-32 sm:w-40"
       />
-      <section>
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-sand-1">Error 404</p>
-        <h1 className="mt-3 text-4xl leading-tight text-gray-2">Page Not Found</h1>
-        <p className="my-4 max-w-2xl text-sm leading-7 text-gray-1">
-          Errmmm I don't think this page exists :( Checkout these pages instead!
-        </p>
+      <section className="border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md">
+        <div className="border-2 border-sand-1 bg-cream-1 px-5 py-5">
+          <p className="m-0 text-xs font-bold uppercase tracking-[0.18em] text-sand-1">
+            Error 404
+          </p>
+          <h1 className="mt-2 text-3xl leading-tight text-gray-2 sm:text-4xl">
+            Page Not Found
+          </h1>
+          <p className="my-4 max-w-2xl text-sm leading-7 text-gray-1">
+            Errmmm I don&apos;t think this page exists :( Check out these pages instead!
+          </p>
 
-        <NavbarLink className="justify-start gap-5"></NavbarLink>
+          <NavbarLink className="justify-start gap-3" />
+        </div>
       </section>
     </main>
   );

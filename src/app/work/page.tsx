@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import typing_yay from "@assets/work/typing_yay.gif";
-import typing_nah from "@assets/work/typing_nay.gif"
+import typing_nah from "@assets/work/typing_nay.gif";
 import WorkExperienceStack from "@components/work/WorkExperienceStack";
 import { getAllWorkEntries } from "@lib/work";
 
@@ -13,33 +13,37 @@ export default function WorkPage() {
   const entries = getAllWorkEntries();
 
   return (
-    <main className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-      <aside className="lg:sticky lg:top-0 lg:self-start">
-        <section className="border-[3px] border-[#0d2743] bg-[#ff8ec8] p-1 font-mono shadow-[7px_7px_0_rgba(13,39,67,0.28)]">
-          <div className="space-y-2 border-[3px] border-[#fff98a] bg-[#ffe9a3] p-3">
-            <p className="text-center text-xs font-bold uppercase tracking-[0.12em] text-[#d7005f] mb-4">
-              click cards for details
+    <main className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+      <aside className="lg:sticky lg:top-4 lg:self-start">
+        <section className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
+          <div className="space-y-2 border-2 border-pink-1 bg-cream-1 p-3">
+            <p className="m-0 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-pink-1">
+              ✦ click cards for details ✦
             </p>
             <img
               src={typing_nah.src}
-              alt=""
-              className="w-full border-2 border-black bg-blue-300 object-contain"
+              alt="A pixel character typing furiously"
+              className="w-full border-2 border-gray-2 bg-blue-2 object-contain"
             />
-            <div className="flex items-center gap-4 border-2 border-black bg-white px-2 py-1 text-[12px]">
+            <div className="flex items-center gap-3 border-2 border-gray-2 bg-paper-1 px-3 py-1.5 text-xs">
               <img src={typing_yay.src} alt="" className="h-7 w-7 object-contain" />
-              <span className="uppercase">{entries.length} roles explored</span>
+              <span className="font-semibold uppercase tracking-wider text-gray-2">
+                {entries.length} {entries.length === 1 ? "role" : "roles"} explored
+              </span>
             </div>
           </div>
         </section>
       </aside>
 
       <section>
-        <section className="sticky top-0 z-40 border-[3px] border-[#0d2743] bg-[#7ee8ff] p-1 font-mono shadow-[6px_6px_0_rgba(13,39,67,0.2)]">
-          <div className="border-[3px] border-[#fff98a] bg-[#fff4bf] px-4 py-4">
-            <p className="animate-pulse m-0 text-[11px] font-bold uppercase tracking-[0.2em] text-[#d7005f]">Check it out</p>
-            <h1 className="mt-2 text-3xl leading-tight text-[#16324a]">Experiences</h1>
-            <p className="mt-2 text-sm leading-6 text-[#204764]">
-              Where I've worked and working at!
+        <section className="sticky top-0 z-30 border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md">
+          <div className="border-2 border-blue-1 bg-cream-1 px-4 py-4">
+            <p className="m-0 animate-pulse text-[11px] font-bold uppercase tracking-[0.2em] text-pink-1">
+              ★ Check it out ★
+            </p>
+            <h1 className="mt-2 text-3xl leading-tight text-gray-2">Experiences</h1>
+            <p className="mt-2 text-sm leading-6 text-gray-1">
+              Where I&apos;ve worked and where I&apos;m working now!
             </p>
           </div>
         </section>
