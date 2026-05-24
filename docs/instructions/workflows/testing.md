@@ -2,12 +2,12 @@
 
 ## Always
 
-- Run `npm run lint` for `*.js`, `*.jsx`, `*.ts`, and `*.tsx` changes.
+- Run `pnpm run lint` for `*.js`, `*.jsx`, `*.ts`, and `*.tsx` changes.
 - Treat required validation commands as pre-commit requirements when they apply, not post-commit cleanup.
 
 ## Build Verification
 
-Run `npm run build` when the change affects:
+Run `pnpm run build` when the change affects:
 
 - route files under `src/app/`
 - route behavior or navigation, including the root redirect in `src/app/page.tsx`

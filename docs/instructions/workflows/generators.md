@@ -8,7 +8,7 @@
 ## Asset And Framework Outputs
 
 - `.next/` contains framework build output and should not be treated as a hand-maintained generated artifact.
-- `package-lock.json` is a package manager lockfile and should be updated only through normal dependency management commands.
+- `pnpm-lock.yaml` is the package manager lockfile and should be updated only through normal pnpm dependency management commands.
 
 ## Reporting
 

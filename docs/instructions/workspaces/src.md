@@ -47,5 +47,5 @@
 
 ## Validation
 
-- Run `npm run lint` after changing linted source files in `src/`.
-- Run `npm run build` when route behavior, layout, global CSS, rendering, or production asset loading changes.
+- Run `pnpm run lint` after changing linted source files in `src/`.
+- Run `pnpm run build` when route behavior, layout, global CSS, rendering, or production asset loading changes.
