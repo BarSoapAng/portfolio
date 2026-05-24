@@ -3,7 +3,7 @@ import NavbarLink from "@components/ui/NavbarLink";
 
 export default function NotFound() {
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-6 px-6 py-10 sm:flex-row sm:gap-10">
+    <div className="flex h-full flex-col items-center justify-center gap-6 px-4 py-10 sm:flex-row sm:gap-10 sm:px-6">
       <img
         src={Detective.src}
         alt="A pixel detective searching with a magnifying glass"
@@ -24,6 +24,6 @@ export default function NotFound() {
           <NavbarLink className="justify-start gap-3" />
         </div>
       </section>
-    </main>
+    </div>
   );
 }

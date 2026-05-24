@@ -43,7 +43,7 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
   const { default: WorkContent } = await import(`../../../../content/work/${slug}.mdx`);
 
   return (
-    <main className="px-4 py-6 text-gray-2 sm:px-6">
+    <div className="px-3 py-4 text-gray-2 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <Link
@@ -58,7 +58,7 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
         </div>
 
         <article className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
-          <div className="border-2 border-pink-1 bg-cream-1 px-4 py-4 sm:px-7 sm:py-6">
+          <div className="border-2 border-pink-1 bg-cream-1 px-3 py-3 sm:px-7 sm:py-6">
             <header className="space-y-4 border-b-2 border-dashed border-pink-1/60 pb-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0 space-y-3">
@@ -70,7 +70,7 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
                     <span>Filed {formatWorkDate(entry.date)}</span>
                   </div>
 
-                  <h1 className="text-3xl leading-tight text-gray-2 sm:text-4xl">
+                  <h1 className="text-2xl leading-tight text-gray-2 sm:text-3xl md:text-4xl">
                     {entry.title}
                   </h1>
                   <p className="max-w-3xl text-sm leading-6 text-gray-1">{entry.summary}</p>
@@ -86,26 +86,26 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
                   </div>
                 </div>
 
-                <div className="grid shrink-0 grid-cols-2 gap-1">
+                <div className="hidden shrink-0 grid-cols-2 gap-1 sm:grid">
                   <img
                     src={catJump.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
+                    className="h-12 w-12 border-2 border-gray-2 bg-blue-2 object-contain md:h-14 md:w-14"
                   />
                   <img
                     src={star1.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
+                    className="h-12 w-12 border-2 border-gray-2 bg-blue-2 object-contain md:h-14 md:w-14"
                   />
                   <img
                     src={catWaving.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
+                    className="h-12 w-12 border-2 border-gray-2 bg-blue-2 object-contain md:h-14 md:w-14"
                   />
                   <img
                     src={star2.src}
                     alt=""
-                    className="h-14 w-14 border-2 border-gray-2 bg-blue-2 object-contain"
+                    className="h-12 w-12 border-2 border-gray-2 bg-blue-2 object-contain md:h-14 md:w-14"
                   />
                 </div>
               </div>
@@ -117,6 +117,6 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
           </div>
         </article>
       </div>
-    </main>
+    </div>
   );
 }

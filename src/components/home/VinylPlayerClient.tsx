@@ -83,8 +83,8 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
 
   return (
     <VinylShell>
-      <div className="flex h-full items-center gap-4">
-        <div className="relative h-24 w-24 shrink-0">
+      <div className="flex h-full items-center gap-3 sm:gap-4">
+        <div className="relative h-20 w-20 shrink-0 sm:h-24 sm:w-24">
           {/* Vinyl backing disc */}
           <div className="absolute inset-0 rounded-full bg-gray-2 shadow-[inset_0_0_0_2px_var(--color-black-1)]" />
           {playback.track.artworkUrl ? (

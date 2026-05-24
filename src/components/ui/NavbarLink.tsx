@@ -24,7 +24,7 @@ export default function NavbarLink({ className = "" }) {
             href={page.path}
             aria-current={isActive ? "page" : undefined}
             className={[
-              "inline-flex min-w-[68px] items-center justify-center border-2 border-gray-2 px-3 py-1 text-center text-xs font-bold uppercase tracking-[0.08em] transition-transform duration-100 sm:min-w-[86px]",
+              "inline-flex min-w-[52px] items-center justify-center border-2 border-gray-2 px-2 py-1 text-center text-[11px] font-bold uppercase tracking-[0.08em] transition-transform duration-100 sm:min-w-[86px] sm:px-3 sm:text-xs",
               "hover:-translate-y-0.5 active:translate-y-0",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-1 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-1",
               isActive

@@ -13,7 +13,7 @@ export default function WorkPage() {
   const entries = getAllWorkEntries();
 
   return (
-    <main className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+    <div className="mx-auto grid w-full max-w-6xl gap-4 px-3 py-4 sm:px-6 sm:py-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
       <aside className="lg:sticky lg:top-4 lg:self-start">
         <section className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
           <div className="space-y-2 border-2 border-pink-1 bg-cream-1 p-3">
@@ -23,10 +23,10 @@ export default function WorkPage() {
             <img
               src={typing_nah.src}
               alt="A pixel character typing furiously"
-              className="w-full border-2 border-gray-2 bg-blue-2 object-contain"
+              className="mx-auto w-full max-w-[260px] border-2 border-gray-2 bg-blue-2 object-contain lg:max-w-none"
             />
             <div className="flex items-center gap-3 border-2 border-gray-2 bg-paper-1 px-3 py-1.5 text-xs">
-              <img src={typing_yay.src} alt="" className="h-7 w-7 object-contain" />
+              <img src={typing_yay.src} alt="" className="h-7 w-7 shrink-0 object-contain" />
               <span className="font-semibold uppercase tracking-wider text-gray-2">
                 {entries.length} {entries.length === 1 ? "role" : "roles"} explored
               </span>
@@ -37,11 +37,13 @@ export default function WorkPage() {
 
       <section>
         <section className="sticky top-0 z-30 border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md">
-          <div className="border-2 border-blue-1 bg-cream-1 px-4 py-4">
-            <p className="m-0 animate-pulse text-[11px] font-bold uppercase tracking-[0.2em] text-pink-1">
+          <div className="border-2 border-blue-1 bg-cream-1 px-3 py-3 sm:px-4 sm:py-4">
+            <p className="m-0 animate-pulse text-[10px] font-bold uppercase tracking-[0.2em] text-pink-1 sm:text-[11px]">
               ★ Check it out ★
             </p>
-            <h1 className="mt-2 text-3xl leading-tight text-gray-2">Experiences</h1>
+            <h1 className="mt-2 text-2xl leading-tight text-gray-2 sm:text-3xl">
+              Experiences
+            </h1>
             <p className="mt-2 text-sm leading-6 text-gray-1">
               Where I&apos;ve worked and where I&apos;m working now!
             </p>
@@ -49,6 +51,6 @@ export default function WorkPage() {
         </section>
         <WorkExperienceStack entries={entries} />
       </section>
-    </main>
+    </div>
   );
 }

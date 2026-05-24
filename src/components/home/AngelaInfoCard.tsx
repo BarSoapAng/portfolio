@@ -6,14 +6,14 @@ export default function AngelaInfoCard() {
     <div className="h-full w-full border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md">
       <div className="h-full w-full border-2 border-pink-1 bg-paper-1">
         {/* Header */}
-        <div className="border-b-2 border-pink-1 bg-gradient-to-r from-pink-1/15 via-paper-1 to-pink-1/15 px-4 py-1">
-          <h2 className="m-0 text-lg font-bold tracking-tight text-red-1">
+        <div className="border-b-2 border-pink-1 bg-gradient-to-r from-pink-1/15 via-paper-1 to-pink-1/15 px-3 py-1 sm:px-4">
+          <h2 className="m-0 text-base font-bold tracking-tight text-red-1 sm:text-lg">
             ♡ Information ♡
           </h2>
         </div>
 
         {/* Row 1 */}
-        <div className="flex items-center justify-between border-b-2 border-pink-1 px-4 py-2">
+        <div className="flex items-center justify-between gap-3 border-b-2 border-pink-1 px-3 py-2 sm:px-4">
           <p className="m-0 text-sm leading-snug text-blue-1">
             <span className="font-semibold">Height:</span> 165cm
             <br />
@@ -23,17 +23,17 @@ export default function AngelaInfoCard() {
         </div>
 
         {/* Row 2 */}
-        <div className="border-b-2 border-pink-1 px-4 py-2 text-sm text-blue-1">
+        <div className="border-b-2 border-pink-1 px-3 py-2 text-sm text-blue-1 sm:px-4">
           <span className="font-semibold">Chinese Zodiac:</span> Dog
         </div>
 
         {/* Row 3 (sparkle) */}
-        <div className="border-b-2 border-pink-1 px-4 py-2 text-sm">
+        <div className="border-b-2 border-pink-1 px-3 py-2 text-sm sm:px-4">
           <SparkleHover />
         </div>
 
         {/* Row 4 */}
-        <div className="px-4 py-2 text-sm">
+        <div className="px-3 py-2 text-sm sm:px-4">
           <span className="font-semibold text-black-1">Favorite Food:</span>{" "}
           <span className="text-blue-1">japanese beef curry</span>
         </div>

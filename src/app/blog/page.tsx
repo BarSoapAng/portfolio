@@ -14,7 +14,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <main className="px-4 py-6 text-gray-2 sm:px-6">
+    <div className="px-3 py-4 text-gray-2 sm:px-6 sm:py-6">
       <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
         <aside className="lg:sticky lg:top-4">
           <TopBlogOverview posts={posts} />
@@ -43,8 +43,8 @@ export default function BlogPage() {
                     ))}
                   </div>
 
-                  <div className="space-y-3">
-                    <h2 className="text-2xl leading-tight text-gray-2 decoration-sand-2 underline-offset-4 group-hover:underline">
+                  <div className="space-y-2 sm:space-y-3">
+                    <h2 className="text-xl leading-tight text-gray-2 decoration-sand-2 underline-offset-4 group-hover:underline sm:text-2xl">
                       {post.title}
                     </h2>
                     <p className="text-sm leading-6 text-gray-1">{post.summary}</p>
@@ -61,6 +61,6 @@ export default function BlogPage() {
           ))}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

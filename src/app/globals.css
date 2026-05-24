@@ -125,12 +125,16 @@ h2 {
 
 .mdx-prose h2 {
   margin-top: var(--mdx-h2-margin-top, 2rem);
-  font-size: var(--mdx-h2-size, 1.6rem);
+  font-size: clamp(1.25rem, 1rem + 1vw, var(--mdx-h2-size, 1.6rem));
 }
 
 .mdx-prose h3 {
   margin-top: var(--mdx-h3-margin-top, 1.5rem);
-  font-size: var(--mdx-h3-size, 1.3rem);
+  font-size: clamp(1.1rem, 0.95rem + 0.75vw, var(--mdx-h3-size, 1.3rem));
+}
+
+.mdx-prose pre {
+  font-size: 0.85rem;
 }
 
 .mdx-prose p,

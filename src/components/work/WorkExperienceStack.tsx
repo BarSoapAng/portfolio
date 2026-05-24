@@ -2,13 +2,7 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import SillyMarquee from "@components/work/SillyMarquee";
 import { type WorkSummary } from "@lib/work-shared";
 
@@ -19,12 +13,26 @@ type WorkExperienceStackProps = {
 type StackedWorkCardProps = {
   entry: WorkSummary;
   index: number;
-  total: number;
   topOffset: number;
-  scrollYProgress: MotionValue<number>;
+  isStacking: boolean;
 };
 
 const TITLE_TO_STACK_GAP_PX = 12;
+const MIN_BOTTOM_PADDING_PX = 200;
+const BOTTOM_BREATHING_ROOM_PX = 32;
+const STACKING_BREAKPOINT_PX = 768; // matches Tailwind `md`
+
+function findScrollViewport(node: HTMLElement | null): HTMLElement | null {
+  let current = node?.parentElement ?? null;
+  while (current && current !== document.body) {
+    const overflowY = window.getComputedStyle(current).overflowY;
+    if (overflowY === "auto" || overflowY === "scroll" || overflowY === "overlay") {
+      return current;
+    }
+    current = current.parentElement;
+  }
+  return null;
+}
 
 function Tag({ label }: { label: string }) {
   return (
@@ -34,43 +42,37 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-function StackedWorkCard({
-  entry,
-  index,
-  total,
-  topOffset,
-  scrollYProgress,
-}: StackedWorkCardProps) {
+function StackedWorkCard({ entry, index, topOffset, isStacking }: StackedWorkCardProps) {
   const prefersReducedMotion = useReducedMotion();
-  const baseTilt = index % 2 === 0 ? -0.4 : 0.35;
-  const step = total <= 0 ? 1 : 1 / total;
-  const start = index * step;
-  const end = Math.min(1, start + step);
-
-  const y = useTransform(scrollYProgress, [start, end], [0, -Math.min(48, index * 10)]);
-  const rotate = useTransform(scrollYProgress, [start, end], [baseTilt, baseTilt * 0.1]);
+  // Static tilt so the stacked pile looks hand-placed (no scroll animation,
+  // so every card ends at the same y — the last card pins exactly to the
+  // position of the first card).
+  const baseTilt = index % 2 === 0 ? -0.5 : 0.45;
 
   return (
     <motion.article
-      className="sticky border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md transition-shadow hover:shadow-retro-lg"
-      style={
-        prefersReducedMotion
-          ? { top: topOffset, rotate: baseTilt, zIndex: index + 1 }
-          : { top: topOffset, y, rotate, transformOrigin: "center top", zIndex: index + 1 }
-      }
+      className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md transition-[transform,box-shadow] duration-200 hover:shadow-retro-lg md:sticky md:hover:-translate-y-0.5"
+      style={{
+        // Sticky only applies when position: sticky is set by md:sticky.
+        // Setting top on a static element is a no-op, so it's safe at all sizes.
+        top: isStacking ? topOffset : undefined,
+        transform: prefersReducedMotion ? undefined : `rotate(${baseTilt}deg)`,
+        zIndex: index + 1,
+        transformOrigin: "center top",
+      }}
     >
       <Link
         href={`/work/${entry.slug}`}
         className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-1 focus-visible:ring-offset-2"
       >
-        <div className="flex h-full flex-col gap-4 border-2 border-pink-1 bg-cream-1 px-4 py-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] uppercase tracking-[0.12em] text-sand-1">
+        <div className="flex h-full flex-col gap-3 border-2 border-pink-1 bg-cream-1 px-4 py-4 sm:gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[10px] uppercase tracking-[0.12em] text-sand-1 sm:text-[11px]">
             <span className="font-bold">{entry.company}</span>
             <span>{entry.period}</span>
           </div>
 
-          <div className="space-y-3">
-            <h2 className="text-2xl leading-tight text-gray-2 decoration-pink-1 underline-offset-4 hover:underline">
+          <div className="space-y-2 sm:space-y-3">
+            <h2 className="text-xl leading-tight text-gray-2 decoration-pink-1 underline-offset-4 hover:underline sm:text-2xl">
               {entry.title}
             </h2>
             <p className="text-sm leading-6 text-gray-1">{entry.summary}</p>
@@ -90,20 +92,23 @@ function StackedWorkCard({
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   const stackRef = useRef<HTMLElement | null>(null);
   const [titleHeight, setTitleHeight] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
+  const [isStacking, setIsStacking] = useState(false);
 
   useLayoutEffect(() => {
     const stackNode = stackRef.current;
-    if (!stackNode) {
-      return;
-    }
+    if (!stackNode) return;
 
     const titleNode = stackNode.previousElementSibling;
-    if (!(titleNode instanceof HTMLElement)) {
-      return;
-    }
+    if (!(titleNode instanceof HTMLElement)) return;
+
+    const scrollViewport = findScrollViewport(stackNode);
 
     const measure = () => {
       setTitleHeight(titleNode.getBoundingClientRect().height);
+      const height = scrollViewport?.clientHeight ?? window.innerHeight;
+      setViewportHeight(height);
+      setIsStacking(window.innerWidth >= STACKING_BREAKPOINT_PX);
     };
 
     measure();
@@ -111,6 +116,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     const observer = new ResizeObserver(measure);
     observer.observe(titleNode);
     observer.observe(stackNode);
+    if (scrollViewport) observer.observe(scrollViewport);
     window.addEventListener("resize", measure);
 
     return () => {
@@ -119,16 +125,23 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     };
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: stackRef,
-    offset: ["start start", "end end"],
-  });
   const cardTop = titleHeight + TITLE_TO_STACK_GAP_PX;
-  const bottomPaddingHeight = Math.max(200, Math.round(titleHeight + 30));
+
+  // When stacking, the section needs enough trailing scroll room for the
+  // last sticky card to reach the same top offset as the first card. The
+  // remaining space below the title (viewport - title) is the exact amount
+  // of scroll the user must travel for the last card to fully pin.
+  const remainingViewport = Math.max(
+    0,
+    viewportHeight - titleHeight - TITLE_TO_STACK_GAP_PX - BOTTOM_BREATHING_ROOM_PX,
+  );
+  const bottomPaddingHeight = isStacking
+    ? Math.max(MIN_BOTTOM_PADDING_PX, remainingViewport)
+    : MIN_BOTTOM_PADDING_PX;
 
   return (
     <section ref={stackRef} className="relative flex min-w-0 flex-col overflow-visible">
-      <div className="flex min-w-0 flex-col gap-7 pt-4">
+      <div className="flex min-w-0 flex-col gap-5 pt-4 sm:gap-7">
         {entries.length === 0 ? (
           <article className="border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md">
             <div className="border-2 border-sand-1 bg-cream-1 px-4 py-5 text-sm text-gray-1">
@@ -141,9 +154,8 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
               key={entry.slug}
               entry={entry}
               index={index}
-              total={entries.length}
               topOffset={cardTop}
-              scrollYProgress={scrollYProgress}
+              isStacking={isStacking}
             />
           ))
         )}

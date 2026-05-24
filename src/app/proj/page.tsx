@@ -35,16 +35,20 @@ export default function ProjPage() {
   const projects = getAllProjects();
 
   return (
-    <main className="px-4 py-6 text-gray-2 sm:px-6">
+    <div className="px-3 py-4 text-gray-2 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
         <section className="border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-lg">
-          <div className="grid items-center gap-3 border-2 border-blue-1 bg-gradient-to-r from-cream-2 via-paper-1 to-blue-2 px-4 py-4 md:grid-cols-[56px_minmax(0,1fr)_96px]">
-            <img src={starOne.src} alt="" className="w-12 animate-bounce" />
+          <div className="grid items-center gap-3 border-2 border-blue-1 bg-gradient-to-r from-cream-2 via-paper-1 to-blue-2 px-3 py-3 sm:px-4 sm:py-4 md:grid-cols-[48px_minmax(0,1fr)_80px] md:gap-4">
+            <img
+              src={starOne.src}
+              alt=""
+              className="hidden w-12 animate-bounce md:block"
+            />
             <div>
-              <p className="m-0 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-1">
+              <p className="m-0 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-1 sm:text-[11px]">
                 Project Index 2003.exe
               </p>
-              <h1 className="mt-2 text-3xl leading-tight text-gray-2 sm:text-4xl">
+              <h1 className="mt-2 text-2xl leading-tight text-gray-2 sm:text-3xl md:text-4xl">
                 Proj Lab <span aria-hidden>[retro icons]</span>
               </h1>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-gray-1">
@@ -52,7 +56,7 @@ export default function ProjPage() {
                 Each card opens a full project page with its own long-form writeup.
               </p>
             </div>
-            <div className="justify-self-start md:justify-self-end">
+            <div className="hidden md:block md:justify-self-end">
               <img
                 src={catWaving.src}
                 alt="Waving cat"
@@ -92,8 +96,8 @@ export default function ProjPage() {
                       ))}
                     </div>
 
-                    <div className="space-y-3">
-                      <h2 className="text-2xl leading-tight text-gray-2 decoration-orange-1 underline-offset-4 group-hover:underline sm:text-3xl">
+                    <div className="space-y-2 sm:space-y-3">
+                      <h2 className="text-xl leading-tight text-gray-2 decoration-orange-1 underline-offset-4 group-hover:underline sm:text-2xl md:text-3xl">
                         {project.title}
                       </h2>
                       <p className="max-w-3xl text-sm leading-6 text-gray-1">
@@ -132,6 +136,6 @@ export default function ProjPage() {
           </aside>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

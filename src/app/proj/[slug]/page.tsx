@@ -41,7 +41,7 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
   const { default: ProjectContent } = await import(`../../../../content/project/${slug}.mdx`);
 
   return (
-    <main className="px-4 py-6 text-gray-2 sm:px-6">
+    <div className="px-3 py-4 text-gray-2 sm:px-6 sm:py-6">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <Link
@@ -57,7 +57,7 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
 
         <article className="border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-lg">
           <div className="border-2 border-blue-1 bg-cream-1">
-            <header className="border-b-2 border-blue-1 bg-gradient-to-r from-blue-2 via-paper-1 to-cream-2 px-4 py-4 sm:px-6">
+            <header className="border-b-2 border-blue-1 bg-gradient-to-r from-blue-2 via-paper-1 to-cream-2 px-3 py-3 sm:px-6 sm:py-4">
               <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-blue-1">
                 <span>{formatProjectDate(project.date)}</span>
                 <span aria-hidden className="text-orange-1">
@@ -67,7 +67,7 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
                   <TagLabel key={tag} label={tag} />
                 ))}
               </div>
-              <h1 className="mt-3 text-3xl leading-tight text-gray-2 sm:text-4xl">
+              <h1 className="mt-3 text-2xl leading-tight text-gray-2 sm:text-3xl md:text-4xl">
                 {project.title}
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-6 text-gray-1">
@@ -75,7 +75,7 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
               </p>
             </header>
 
-            <div className="grid gap-4 p-4 sm:p-6 md:grid-cols-[220px_minmax(0,1fr)]">
+            <div className="grid gap-4 p-3 sm:p-6 md:grid-cols-[200px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)]">
               <aside className="space-y-2 border-2 border-blue-1 bg-paper-2 p-3 text-[11px] uppercase tracking-[0.1em] text-blue-1">
                 <p className="m-0 font-bold">status:</p>
                 <p className="m-0">archived + documented</p>
@@ -97,6 +97,6 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
           </div>
         </article>
       </div>
-    </main>
+    </div>
   );
 }

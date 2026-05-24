@@ -41,7 +41,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { default: PostContent } = await import(`../../../../content/blog/${slug}.mdx`);
 
   return (
-    <main className="px-4 py-6 text-gray-2 sm:px-6">
+    <div className="px-3 py-4 text-gray-2 sm:px-6 sm:py-6">
       <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
         <aside className="lg:sticky lg:top-4">
           <TopBlogOverview posts={posts} />
@@ -58,7 +58,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
           </div>
 
           <article className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
-            <div className="border-2 border-sand-1 bg-cream-1 px-5 py-5 sm:px-8 sm:py-7">
+            <div className="border-2 border-sand-1 bg-cream-1 px-4 py-4 sm:px-8 sm:py-7">
               <header className="border-b-2 border-dashed border-sand-2 pb-5">
                 <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-sand-1">
                   <span>{formatPostDate(post.date)}</span>
@@ -67,7 +67,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
                   ))}
                 </div>
 
-                <h1 className="mt-3 text-3xl leading-tight text-gray-2 sm:text-4xl">
+                <h1 className="mt-3 text-2xl leading-tight text-gray-2 sm:text-3xl md:text-4xl">
                   {post.title}
                 </h1>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-1">{post.summary}</p>
@@ -80,6 +80,6 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
           </article>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

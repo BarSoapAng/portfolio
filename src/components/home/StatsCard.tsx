@@ -14,7 +14,7 @@ export default function StatsCard() {
   return (
     <div className="h-full w-full border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md">
       <div className="h-full w-full border-2 border-green-3 bg-green-2 p-1 font-mono text-gray-2">
-        <div className="grid h-full gap-1 sm:grid-cols-[minmax(0,1fr)_220px]">
+        <div className="grid h-full gap-1 sm:grid-cols-[minmax(0,1fr)_180px] md:grid-cols-[minmax(0,1fr)_200px] lg:grid-cols-[minmax(0,1fr)_220px]">
           <div className="flex flex-col gap-1 text-sm">
             {stats.map(({ label, value }) => (
               <div
@@ -44,7 +44,7 @@ export default function StatsCard() {
             </div>
           </div>
 
-          <div className="hidden h-full min-h-0 border-2 border-green-3 bg-paper-1 px-2 py-2 sm:block">
+          <div className="hidden h-full min-h-[180px] border-2 border-green-3 bg-paper-1 px-2 py-2 sm:block">
             <RadarChart />
           </div>
         </div>

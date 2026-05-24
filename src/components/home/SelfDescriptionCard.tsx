@@ -8,9 +8,9 @@ export default function SelfDescriptionCard() {
   return (
     <div className="h-full w-full border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md">
       <div className="h-full w-full border-2 border-sand-1 bg-cream-1 p-1 text-black-1">
-        <div className="grid h-full gap-1 sm:grid-cols-[220px_minmax(0,1fr)]">
+        <div className="grid h-full gap-1 md:grid-cols-[200px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)]">
           {/* Left image box */}
-          <div className="relative h-full min-h-[260px] w-full overflow-hidden border-2 border-sand-1 bg-cream-2">
+          <div className="relative h-full min-h-[200px] w-full overflow-hidden border-2 border-sand-1 bg-cream-2 sm:min-h-[260px]">
             <img
               src={selfie.src}
               alt="Angela's selfie"
@@ -25,16 +25,16 @@ export default function SelfDescriptionCard() {
           {/* Right content */}
           <div className="flex min-h-0 flex-col gap-1">
             {/* Header */}
-            <div className="flex items-center justify-between gap-2 border-2 border-sand-1 bg-cream-2 px-4 py-2">
-              <img src={catJump.src} className="inline-block w-7" alt="" />
-              <h1 className="m-0 text-center text-2xl font-bold tracking-tight text-purple-1">
+            <div className="flex items-center justify-between gap-2 border-2 border-sand-1 bg-cream-2 px-3 py-2 sm:px-4">
+              <img src={catJump.src} className="inline-block w-6 sm:w-7" alt="" />
+              <h1 className="m-0 text-center text-xl font-bold tracking-tight text-purple-1 sm:text-2xl">
                 Welcome
               </h1>
-              <img src={catJump.src} className="inline-block w-7" alt="" />
+              <img src={catJump.src} className="inline-block w-6 sm:w-7" alt="" />
             </div>
 
             {/* Subheader */}
-            <div className="flex items-center justify-center gap-2 border-2 border-sand-1 bg-cream-2 px-3 py-1 text-center text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-0 border-2 border-sand-1 bg-cream-2 px-3 py-1 text-center text-xs sm:text-sm">
               <span className="text-blue-1">[Angela&apos;s Second Home]</span>
               <span className="text-pink-1">
                 [<LiveClock />]
