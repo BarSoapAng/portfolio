@@ -166,14 +166,14 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
             />
           ))
         )}
-      </div>
-      <div
-        className={[
-          "overflow-hidden bg-paper-1/40",
-          isStacking ? "" : "mt-6 border-y-2 border-gray-2",
-        ].join(" ")}
-      >
-        <SillyMarquee height={bottomPaddingHeight} />
+        <div
+          className={[
+            "overflow-hidden bg-paper-1/40",
+            isStacking ? "-mt-5 sm:-mt-7" : "border-y-2 border-gray-2",
+          ].join(" ")}
+        >
+          <SillyMarquee height={bottomPaddingHeight} />
+        </div>
       </div>
     </section>
   );
