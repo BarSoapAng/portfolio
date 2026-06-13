@@ -36,7 +36,7 @@ export default function WorkPage() {
       </aside>
 
       <section>
-        <section className="sticky top-4 z-30 border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md sm:top-6">
+        <section className="z-30 border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md md:sticky md:top-6">
           <div className="border-2 border-blue-1 bg-cream-1 px-3 py-3 sm:px-4 sm:py-4">
             <p className="m-0 animate-pulse text-[10px] font-bold uppercase tracking-[0.2em] text-pink-1 sm:text-[11px]">
               Check it out
