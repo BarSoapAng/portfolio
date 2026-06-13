@@ -18,7 +18,7 @@ export default function WorkPage() {
         <section className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
           <div className="space-y-2 border-2 border-pink-1 bg-cream-1 p-3">
             <p className="m-0 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-pink-1">
-              ✦ click cards for details ✦
+              click cards for details
             </p>
             <img
               src={typing_nah.src}
@@ -39,7 +39,7 @@ export default function WorkPage() {
         <section className="sticky top-0 z-30 border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md">
           <div className="border-2 border-blue-1 bg-cream-1 px-3 py-3 sm:px-4 sm:py-4">
             <p className="m-0 animate-pulse text-[10px] font-bold uppercase tracking-[0.2em] text-pink-1 sm:text-[11px]">
-              ★ Check it out ★
+              Check it out
             </p>
             <h1 className="mt-2 text-2xl leading-tight text-gray-2 sm:text-3xl">
               Experiences

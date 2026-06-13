@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, type Ref } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import SillyMarquee from "@components/work/SillyMarquee";
@@ -15,9 +15,9 @@ type StackedWorkCardProps = {
   index: number;
   topOffset: number;
   isStacking: boolean;
+  cardRef?: Ref<HTMLElement>;
 };
 
-const TITLE_TO_STACK_GAP_PX = 12;
 const MIN_BOTTOM_PADDING_PX = 200;
 const BOTTOM_BREATHING_ROOM_PX = 32;
 const STACKING_BREAKPOINT_PX = 768; // matches Tailwind `md`
@@ -42,19 +42,19 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-function StackedWorkCard({ entry, index, topOffset, isStacking }: StackedWorkCardProps) {
+function StackedWorkCard({ entry, index, topOffset, isStacking, cardRef }: StackedWorkCardProps) {
   const prefersReducedMotion = useReducedMotion();
-  // Static tilt so the stacked pile looks hand-placed (no scroll animation,
-  // so every card ends at the same y — the last card pins exactly to the
-  // position of the first card).
+  // Static tilt keeps the pile hand-placed while every sticky card shares
+  // the first card's resting top position.
   const baseTilt = index % 2 === 0 ? -0.5 : 0.45;
 
   return (
     <motion.article
+      ref={cardRef}
       className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md transition-[transform,box-shadow] duration-200 hover:shadow-retro-lg md:sticky md:hover:-translate-y-0.5"
       style={{
         // Sticky only applies when position: sticky is set by md:sticky.
-        // Setting top on a static element is a no-op, so it's safe at all sizes.
+        // Setting top on a static element is a no-op, so it is safe at all sizes.
         top: isStacking ? topOffset : undefined,
         transform: prefersReducedMotion ? undefined : `rotate(${baseTilt}deg)`,
         zIndex: index + 1,
@@ -91,7 +91,8 @@ function StackedWorkCard({ entry, index, topOffset, isStacking }: StackedWorkCar
 
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   const stackRef = useRef<HTMLElement | null>(null);
-  const [titleHeight, setTitleHeight] = useState(0);
+  const firstCardRef = useRef<HTMLElement | null>(null);
+  const [cardTop, setCardTop] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
   const [isStacking, setIsStacking] = useState(false);
 
@@ -105,7 +106,12 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     const scrollViewport = findScrollViewport(stackNode);
 
     const measure = () => {
-      setTitleHeight(titleNode.getBoundingClientRect().height);
+      const viewportTop = scrollViewport?.getBoundingClientRect().top ?? 0;
+      const firstCardTop = firstCardRef.current
+        ? firstCardRef.current.getBoundingClientRect().top - viewportTop
+        : titleNode.getBoundingClientRect().height;
+
+      setCardTop(Math.max(0, Math.round(firstCardTop)));
       const height = scrollViewport?.clientHeight ?? window.innerHeight;
       setViewportHeight(height);
       setIsStacking(window.innerWidth >= STACKING_BREAKPOINT_PX);
@@ -116,6 +122,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     const observer = new ResizeObserver(measure);
     observer.observe(titleNode);
     observer.observe(stackNode);
+    if (firstCardRef.current) observer.observe(firstCardRef.current);
     if (scrollViewport) observer.observe(scrollViewport);
     window.addEventListener("resize", measure);
 
@@ -125,15 +132,11 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     };
   }, []);
 
-  const cardTop = titleHeight + TITLE_TO_STACK_GAP_PX;
-
   // When stacking, the section needs enough trailing scroll room for the
-  // last sticky card to reach the same top offset as the first card. The
-  // remaining space below the title (viewport - title) is the exact amount
-  // of scroll the user must travel for the last card to fully pin.
+  // last sticky card to reach the same top offset as the first card.
   const remainingViewport = Math.max(
     0,
-    viewportHeight - titleHeight - TITLE_TO_STACK_GAP_PX - BOTTOM_BREATHING_ROOM_PX,
+    viewportHeight - cardTop - BOTTOM_BREATHING_ROOM_PX,
   );
   const bottomPaddingHeight = isStacking
     ? Math.max(MIN_BOTTOM_PADDING_PX, remainingViewport)
@@ -145,7 +148,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
         {entries.length === 0 ? (
           <article className="border-2 border-gray-2 bg-paper-1 p-1 shadow-retro-md">
             <div className="border-2 border-sand-1 bg-cream-1 px-4 py-5 text-sm text-gray-1">
-              No work entries yet — add MDX files to <code>content/work</code>.
+              No work entries yet - add MDX files to <code>content/work</code>.
             </div>
           </article>
         ) : (
@@ -156,6 +159,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
               index={index}
               topOffset={cardTop}
               isStacking={isStacking}
+              cardRef={index === 0 ? firstCardRef : undefined}
             />
           ))
         )}
