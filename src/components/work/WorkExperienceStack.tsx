@@ -19,7 +19,6 @@ type StackedWorkCardProps = {
 };
 
 const MIN_BOTTOM_PADDING_PX = 200;
-const BOTTOM_BREATHING_ROOM_PX = 32;
 const STACKING_BREAKPOINT_PX = 768; // matches Tailwind `md`
 
 function findScrollViewport(node: HTMLElement | null): HTMLElement | null {
@@ -92,7 +91,9 @@ function StackedWorkCard({ entry, index, topOffset, isStacking, cardRef }: Stack
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   const stackRef = useRef<HTMLElement | null>(null);
   const firstCardRef = useRef<HTMLElement | null>(null);
+  const lastCardRef = useRef<HTMLElement | null>(null);
   const [cardTop, setCardTop] = useState(0);
+  const [lastCardHeight, setLastCardHeight] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
   const [isStacking, setIsStacking] = useState(false);
 
@@ -112,6 +113,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
         : titleNode.getBoundingClientRect().height;
 
       setCardTop(Math.max(0, Math.round(firstCardTop)));
+      setLastCardHeight(Math.round(lastCardRef.current?.getBoundingClientRect().height ?? 0));
       const height = scrollViewport?.clientHeight ?? window.innerHeight;
       setViewportHeight(height);
       setIsStacking(window.innerWidth >= STACKING_BREAKPOINT_PX);
@@ -123,6 +125,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     observer.observe(titleNode);
     observer.observe(stackNode);
     if (firstCardRef.current) observer.observe(firstCardRef.current);
+    if (lastCardRef.current) observer.observe(lastCardRef.current);
     if (scrollViewport) observer.observe(scrollViewport);
     window.addEventListener("resize", measure);
 
@@ -133,13 +136,10 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
   }, []);
 
   // When stacking, the section needs enough trailing scroll room for the
-  // last sticky card to reach the same top offset as the first card.
-  const remainingViewport = Math.max(
-    0,
-    viewportHeight - cardTop - BOTTOM_BREATHING_ROOM_PX,
-  );
+  // last sticky card to reach the same top offset as the first card, then stop.
+  const exactStackEndSpacer = Math.max(0, viewportHeight - cardTop - lastCardHeight);
   const bottomPaddingHeight = isStacking
-    ? Math.max(MIN_BOTTOM_PADDING_PX, remainingViewport)
+    ? exactStackEndSpacer
     : MIN_BOTTOM_PADDING_PX;
 
   return (
@@ -159,12 +159,20 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
               index={index}
               topOffset={cardTop}
               isStacking={isStacking}
-              cardRef={index === 0 ? firstCardRef : undefined}
+              cardRef={(node) => {
+                if (index === 0) firstCardRef.current = node;
+                if (index === entries.length - 1) lastCardRef.current = node;
+              }}
             />
           ))
         )}
       </div>
-      <div className="mt-6 overflow-hidden border-y-2 border-gray-2 bg-paper-1/40">
+      <div
+        className={[
+          "overflow-hidden bg-paper-1/40",
+          isStacking ? "" : "mt-6 border-y-2 border-gray-2",
+        ].join(" ")}
+      >
         <SillyMarquee height={bottomPaddingHeight} />
       </div>
     </section>
