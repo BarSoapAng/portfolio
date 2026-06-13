@@ -14,7 +14,7 @@ export default function WorkPage() {
 
   return (
     <div className="mx-auto grid w-full max-w-6xl gap-4 px-3 py-4 sm:px-6 sm:py-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-      <aside className="lg:sticky lg:top-4 lg:self-start">
+      <aside className="lg:sticky lg:top-6 lg:self-start">
         <section className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
           <div className="space-y-2 border-2 border-pink-1 bg-cream-1 p-3">
             <p className="m-0 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-pink-1">
