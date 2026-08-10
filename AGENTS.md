@@ -21,7 +21,7 @@
 ## Global Rules
 
 - This repo is a single Next.js application, not a monorepo.
-- Root project tooling is defined in `package.json`, `pnpm-lock.yaml`, `.nvmrc`, `tsconfig.json`, `eslint.config.js`, `tailwind.config.js`, and `postcss.config.mjs`.
+- Root project tooling is defined in `package.json`, `pnpm-lock.yaml`, `.nvmrc`, `tsconfig.json`, and `eslint.config.js`.
 - Assume the current checkout is an already-created Git worktree unless the user explicitly instructs otherwise.
 - Run `pnpm` commands from the repo root unless a more specific doc says otherwise.
 - Do not invent generator, migration, or CI steps that are not supported by the current repo state.

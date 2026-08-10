@@ -9,7 +9,7 @@
 
 - `src/app/`: route entrypoints, layout, and global styles
 - `src/components/`: reusable UI components
-- `src/components/home/`: reusable home-page cards and effects
+- `src/components/home/`: reusable home-page content
 - `src/views/`: route view modules imported by App Router entrypoints
 - `src/assets/`: imported local images and GIF assets
 - `src/routes.ts`: shared route metadata used by navigation
@@ -36,11 +36,16 @@
     - `@views/*`
 - Keep import paths consistent within a file. Avoid mixing old and new component locations for the same feature.
 
+## Visual Presentation
+
+- Keep the application on a white background with black text.
+- Use semantic HTML headings and body elements with their browser-default presentation.
+- Do not add custom decorative styling, color themes, or animated visual effects without an explicit user decision.
+
 ## Home Feature Notes
 
 - `src/app/home/page.tsx` currently defines the home page layout directly.
 - Reusable home UI belongs in `src/components/home/`.
-- Interactive home effects live in `src/components/home/effects/`.
 - There is no `src/views/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
 - `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
 - The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
