@@ -50,7 +50,7 @@ function StackedWorkCard({ entry, index, topOffset, isStacking, cardRef }: Stack
   return (
     <motion.article
       ref={cardRef}
-      className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md transition-[transform,box-shadow] duration-200 hover:shadow-retro-lg md:sticky md:hover:-translate-y-0.5"
+      className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-md transition-[box-shadow] duration-200 hover:shadow-retro-lg md:sticky"
       style={{
         // Sticky only applies when position: sticky is set by md:sticky.
         // Setting top on a static element is a no-op, so it is safe at all sizes.
@@ -71,8 +71,8 @@ function StackedWorkCard({ entry, index, topOffset, isStacking, cardRef }: Stack
           </div>
 
           <div className="space-y-2 sm:space-y-3">
-            <h2 className="text-xl leading-tight text-gray-2 decoration-pink-1 underline-offset-4 hover:underline sm:text-2xl">
-              {entry.title}
+            <h2 className="text-xl leading-tight text-gray-2 sm:text-2xl">
+              <span className="animated-link-underline">{entry.title}</span>
             </h2>
             <p className="text-sm leading-6 text-gray-1">{entry.summary}</p>
           </div>

@@ -22,7 +22,7 @@ export default function PersonalHover() {
 
   return (
     <span
-      className="relative inline-block text-orange-1 underline cursor-pointer"
+      className="animated-link-underline relative inline-block cursor-pointer text-orange-1"
       onMouseEnter={() => {
         setPhase("imageA");
         setHovered(true);

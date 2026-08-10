@@ -34,6 +34,16 @@ function getRandomTop(trackHeight: number, spriteHeight: number): number {
   return Math.floor(Math.random() * (maxTop + 1));
 }
 
+function getInitialTop(trackHeight: number, spriteHeight: number, index: number): number {
+  const maxTop = Math.max(0, trackHeight - spriteHeight);
+  if (maxTop === 0) {
+    return 0;
+  }
+
+  const step = maxTop / Math.max(1, GIFS.length - 1);
+  return Math.round(step * index);
+}
+
 const GIFS: GifConfig[] = [
   { id: "pika", asset: pika, width: pika.width, height: pika.height, spawnOffsetX: 200 },
   {
@@ -52,7 +62,7 @@ function createInitialState(trackHeight: number): GifState[] {
   return GIFS.map((gif, index) => ({
     id: gif.id,
     cycle: 0,
-    top: getRandomTop(trackHeight, gif.height),
+    top: getInitialTop(trackHeight, gif.height, index),
     initialDelay: index * 0.55,
     spawnOffsetX: gif.spawnOffsetX,
   }));

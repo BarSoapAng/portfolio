@@ -113,6 +113,22 @@ img {
   max-width: 100%;
 }
 
+.animated-link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 2px;
+  text-decoration: none;
+  transition: background-size 240ms ease;
+}
+
+.animated-link-underline:hover,
+.animated-link-underline:focus-visible,
+.group:hover .animated-link-underline,
+.group:focus-within .animated-link-underline {
+  background-size: 100% 2px;
+}
+
 .mdx-prose {
   color: var(--mdx-color-text);
 }
@@ -149,10 +165,18 @@ img {
 }
 
 .mdx-prose a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 var(--mdx-link-decoration-thickness, 2px);
   color: var(--mdx-link-color, var(--color-blue-1));
-  text-decoration: var(--mdx-link-decoration, underline);
-  text-decoration-thickness: var(--mdx-link-decoration-thickness, 2px);
-  text-underline-offset: var(--mdx-link-underline-offset, 0.2em);
+  text-decoration: none;
+  transition: background-size 240ms ease;
+}
+
+.mdx-prose a:hover,
+.mdx-prose a:focus-visible {
+  background-size: 100% var(--mdx-link-decoration-thickness, 2px);
 }
 
 .mdx-prose ul,

@@ -88,15 +88,19 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
           {/* Vinyl backing disc */}
           <div className="absolute inset-0 rounded-full bg-gray-2 shadow-[inset_0_0_0_2px_var(--color-black-1)]" />
           {playback.track.artworkUrl ? (
-            <img
-              src={playback.track.artworkUrl}
-              className="absolute inset-1 rounded-full border-2 border-black-1 object-cover"
+            <div
+              className="absolute inset-1 overflow-hidden rounded-full border-2 border-black-1"
               style={{
                 animation: "spin 5s linear infinite",
                 animationPlayState: isPlaying ? "running" : "paused",
               }}
-              alt={`${playback.track.album} album art`}
-            />
+            >
+              <img
+                src={playback.track.artworkUrl}
+                className="h-full w-full object-cover"
+                alt={`${playback.track.album} album art`}
+              />
+            </div>
           ) : (
             <div className="absolute inset-1 rounded-full border-2 border-black-1 bg-cream-2" />
           )}
@@ -110,7 +114,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <div className="flex flex-col">
             <a
-              className="truncate text-sm font-bold text-gray-2 hover:underline"
+              className="animated-link-underline inline-block max-w-full truncate text-sm font-bold text-gray-2"
               href={playback.track.spotifyUrl}
               target="_blank"
               rel="noreferrer"
@@ -120,7 +124,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
             </a>
             {playback.track.artistUrl ? (
               <a
-                className="truncate text-xs text-gray-1 underline-offset-2 hover:underline"
+                className="animated-link-underline inline-block max-w-full truncate text-xs text-gray-1"
                 href={playback.track.artistUrl}
                 target="_blank"
                 rel="noreferrer"

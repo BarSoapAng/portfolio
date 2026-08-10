@@ -44,8 +44,8 @@ export default function BlogPage() {
                   </div>
 
                   <div className="space-y-2 sm:space-y-3">
-                    <h2 className="text-xl leading-tight text-gray-2 decoration-sand-2 underline-offset-4 group-hover:underline sm:text-2xl">
-                      {post.title}
+                    <h2 className="text-xl leading-tight text-gray-2 sm:text-2xl">
+                      <span className="animated-link-underline">{post.title}</span>
                     </h2>
                     <p className="text-sm leading-6 text-gray-1">{post.summary}</p>
                   </div>

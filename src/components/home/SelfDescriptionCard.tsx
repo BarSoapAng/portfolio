@@ -56,7 +56,7 @@ export default function SelfDescriptionCard() {
               <div className="flex-1 border-2 border-sand-1 bg-cream-2 px-3 py-1 text-sm leading-relaxed">
                 I yap too much so if you want to know me better, check out{" "}
                 <a
-                  className="relative inline-block font-semibold text-blue-1 after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-0 after:bg-red-1 after:transition-all after:duration-300 hover:after:w-full"
+                  className="animated-link-underline inline-block font-semibold text-blue-1"
                   href="/blog/who-am-i"
                 >
                   this page

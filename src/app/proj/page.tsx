@@ -97,8 +97,8 @@ export default function ProjPage() {
                     </div>
 
                     <div className="space-y-2 sm:space-y-3">
-                      <h2 className="text-xl leading-tight text-gray-2 decoration-orange-1 underline-offset-4 group-hover:underline sm:text-2xl md:text-3xl">
-                        {project.title}
+                      <h2 className="text-xl leading-tight text-gray-2 sm:text-2xl md:text-3xl">
+                        <span className="animated-link-underline">{project.title}</span>
                       </h2>
                       <p className="max-w-3xl text-sm leading-6 text-gray-1">
                         {project.summary}
