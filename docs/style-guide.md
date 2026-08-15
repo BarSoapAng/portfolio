@@ -14,8 +14,8 @@ while warm neutrals keep content readable.
 
 - **Warm, not stark:** use cream backgrounds and off-white surfaces instead of pure
   white page fields.
-- **Crafted, not cluttered:** pair fine borders, soft shadows, and gently uneven corner
-  radii with generous empty space.
+- **Crafted, not cluttered:** pair fine borders and gently uneven corner radii with
+  generous empty space.
 - **Traditional, not formal:** use the handwritten Amatic SC display face for headings
   and a quiet sans serif for longer reading.
 - **Pink leads:** reserve sage and wood for tags, quotes, code, and small supporting
@@ -35,7 +35,7 @@ these values to matching `--color-*` custom properties.
 | `surfaceMuted` | `#f4ebe4` | Quiet fills and inline code |
 | `primary` | `#a94065` | Links, selected states, and primary actions |
 | `primaryHover` | `#87334f` | Hover states and strong pink headings |
-| `primarySoft` | `#f9dce5` | Decorative grid, selection, and soft shadows |
+| `primarySoft` | `#f9dce5` | Decorative grid and selection |
 | `onPrimary` | `#ffffff` | Text placed on primary pink |
 | `text` | `#3e302d` | Default copy |
 | `textMuted` | `#6f5953` | Supporting copy and metadata |
@@ -91,7 +91,7 @@ spacing values so its rhythm stays legible.
 ## Components And Layout
 
 - Keep reading content within the existing `70rem` page container.
-- Use warm surfaces, a quiet border, and the soft-pink offset shadow for primary cards.
+- Use warm surfaces and a quiet border for primary cards.
 - Use pill shapes for tags and selected navigation states; keep content cards gently
   squared with the asymmetric farmhouse radius.
 - Use the dusty-rose grid only as a low-contrast page texture. Do not repeat it inside

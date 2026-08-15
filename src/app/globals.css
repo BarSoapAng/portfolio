@@ -38,7 +38,6 @@ body > header {
   padding: var(--space-4) max(var(--space-4), calc((100vw - 70rem) / 2));
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 var(--space-1) 0 var(--color-primary-soft);
 }
 
 body > header p {
@@ -84,7 +83,6 @@ main > :is(header, section, article, aside, dl) {
   border: 1px solid var(--color-border);
   border-radius: var(--space-2) var(--space-6);
   background: var(--color-surface);
-  box-shadow: 0 var(--space-2) 0 var(--color-primary-soft);
 }
 
 section > article {
