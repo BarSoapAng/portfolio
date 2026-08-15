@@ -16,8 +16,8 @@ while warm neutrals keep content readable.
   white page fields.
 - **Crafted, not cluttered:** pair fine borders, soft shadows, and gently uneven corner
   radii with generous empty space.
-- **Traditional, not formal:** use the display serif for headings and a quiet sans serif
-  for longer reading.
+- **Traditional, not formal:** use the handwritten Amatic SC display face for headings
+  and a quiet sans serif for longer reading.
 - **Pink leads:** reserve sage and wood for tags, quotes, code, and small supporting
   details.
 - **Content stays practical:** decoration must not compete with navigation, writing, or
@@ -51,8 +51,8 @@ needs.
 
 ## Typography
 
-The source of truth is [`src/lib/font.ts`](../src/lib/font.ts). All stacks use local
-system fonts, so the site does not depend on a font download.
+The source of truth is [`src/lib/font.ts`](../src/lib/font.ts). Next.js loads and
+optimizes Amatic SC for the display role; body and mono text use local system fonts.
 
 | Role | Token | Guidance |
 | --- | --- | --- |

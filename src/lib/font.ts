@@ -1,6 +1,14 @@
+import { Amatic_SC } from "next/font/google";
+
+const amaticSc = Amatic_SC({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
 export const font = {
   family: {
-    display: '"Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif',
+    display: amaticSc.style.fontFamily,
     body: '"Avenir Next", Avenir, "Segoe UI", sans-serif',
     mono: '"SFMono-Regular", Consolas, "Liberation Mono", monospace',
   },
