@@ -10,8 +10,8 @@
 - `src/app/`: route entrypoints, layout, and global styles
 - `src/components/`: reusable UI components
 - `src/components/home/`: reusable home-page content
-- `src/views/`: route view modules imported by App Router entrypoints
 - `src/assets/`: imported local images and GIF assets
+- `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
 - `content/work/`: local MDX work entries loaded by the App Router work routes
@@ -22,8 +22,6 @@
 - Put actual route files in `src/app/**/page.tsx`.
 - `src/app/page.tsx` currently redirects `/` to `/home`.
 - Use `next/navigation` redirects only in route entrypoints or other server-safe locations that already follow Next.js rules.
-- Do not put application view modules in `src/pages/`; Next.js treats that directory as the legacy Pages Router and will generate accidental routes from it.
-- Keep App Router view modules in `src/views/` instead.
 - `src/app/blog/page.tsx` and `src/app/blog/[slug]/page.tsx` load blog content from `content/blog/`, where each `.mdx` filename becomes its slug.
 - `src/app/work/page.tsx` and `src/app/work/[slug]/page.tsx` load work content from `content/work/`, where each `.mdx` filename becomes its slug.
 - `src/app/proj/page.tsx` and `src/app/proj/[slug]/page.tsx` load project content from `content/project/`, where each `.mdx` filename becomes its slug.
@@ -33,20 +31,20 @@
 - Prefer the configured aliases from `tsconfig.json` when they make imports easier to read:
     - `@components/*`
     - `@assets/*`
-    - `@views/*`
+    - `@lib/*`
 - Keep import paths consistent within a file. Avoid mixing old and new component locations for the same feature.
 
 ## Visual Presentation
 
-- Keep the application on a white background with black text.
-- Use semantic HTML headings and body elements with their browser-default presentation.
-- Do not add custom decorative styling, color themes, or animated visual effects without an explicit user decision.
+- Follow the [farmhouse pink style guide](../../style-guide.md).
+- Keep shared color, font, and spacing values in `src/lib/colors.ts`, `src/lib/font.ts`, and `src/lib/spacing.ts`.
+- Map shared values to global CSS custom properties in `src/app/layout.tsx`; use those properties in `src/app/globals.css`.
+- Pink is the primary theme color. Treat sage and wood as supporting accents rather than competing themes.
 
 ## Home Feature Notes
 
 - `src/app/home/page.tsx` currently defines the home page layout directly.
 - Reusable home UI belongs in `src/components/home/`.
-- There is no `src/views/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
 - `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
 - The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
 

@@ -3,5 +3,5 @@ type TagLabelProps = {
 };
 
 export default function TagLabel({ label }: TagLabelProps) {
-  return <span>{label} </span>;
+  return <span className="tag-label">{label}</span>;
 }
