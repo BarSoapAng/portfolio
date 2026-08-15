@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 
 import type { SpotifyPlaybackState } from "@lib/spotify";
 
+import styles from "./VinylPlayer.module.css";
+
 type VinylPlayerClientProps = {
   playback: SpotifyPlaybackState;
 };
@@ -38,11 +40,17 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
 
   if (!playback.track) {
     return (
-      <section>
-        <h2>Spotify · offline</h2>
-        <p>Nothing spinning right now.</p>
-        {playback.message ? <p>{playback.message}</p> : null}
-        <p>Configure Spotify on the server to show current track.</p>
+      <section className={styles.player} aria-label="Spotify player">
+        <div className={styles.artworkFallback} aria-hidden="true">
+          <span>&#9835;</span>
+        </div>
+        <div className={styles.details}>
+          <p className={styles.status}>Spotify offline</p>
+          <h2 className={styles.title}>Nothing spinning right now</h2>
+          <p className={styles.message}>
+            {playback.message ?? "Configure Spotify on the server to show the current track."}
+          </p>
+        </div>
       </section>
     );
   }
@@ -55,42 +63,80 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
   const trackLength = formatDuration(playback.track.durationMs);
 
   return (
-    <section>
-      {playback.track.artworkUrl ? (
-        <img
-          src={playback.track.artworkUrl}
-          alt={`${playback.track.album} album art`}
-          width={96}
-          height={96}
-        />
-      ) : null}
-      <h2>
-        <a
-          href={playback.track.spotifyUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Open track on Spotify"
-        >
-          {playback.track.title}
-        </a>
-      </h2>
-      {playback.track.artistUrl ? (
-        <p>
+    <section className={styles.player} aria-label="Spotify player">
+      <div className={styles.artwork}>
+        {playback.track.artworkUrl ? (
+          <img
+            src={playback.track.artworkUrl}
+            alt={`${playback.track.album} album art`}
+            width={160}
+            height={160}
+          />
+        ) : (
+          <span aria-hidden="true">&#9835;</span>
+        )}
+        <span className={styles.playbackIcon} aria-hidden="true">
+          {isPlaying ? "\u275A\u275A" : "\u25B6"}
+        </span>
+      </div>
+
+      <div className={styles.details}>
+        <p className={styles.status}>
+          <span className={isPlaying ? styles.liveDot : styles.idleDot} aria-hidden="true" />
+          {isPlaying ? "Now playing" : "Recently played"}
+        </p>
+
+        <div className={styles.trackInfo}>
+          <h2 className={styles.title}>
+            <a
+              href={playback.track.spotifyUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open ${playback.track.title} on Spotify`}
+            >
+              {playback.track.title}
+            </a>
+          </h2>
+          {playback.track.artistUrl ? (
+            <p className={styles.artist}>
+              <a
+                href={playback.track.artistUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${playback.track.artist} on Spotify`}
+              >
+                {playback.track.artist}
+              </a>
+            </p>
+          ) : (
+            <p className={styles.artist}>{playback.track.artist}</p>
+          )}
+        </div>
+
+        <div className={styles.timeline}>
+          <progress
+            aria-label="Track progress"
+            value={currentProgressMs}
+            max={playback.track.durationMs}
+          />
+          <div className={styles.timestamps} aria-hidden="true">
+            <span>{currentProgress}</span>
+            <span>{trackLength}</span>
+          </div>
+        </div>
+
+        <div className={styles.footer}>
+          <p>{isPlaying ? "vibin', jammin', join up!" : "last heard - not playing rn :/"}</p>
           <a
-            href={playback.track.artistUrl}
+            className={styles.spotifyLink}
+            href={playback.track.spotifyUrl}
             target="_blank"
             rel="noreferrer"
-            aria-label="Open artist on Spotify"
           >
-            {playback.track.artist}
+            Open in Spotify <span aria-hidden="true">&#8599;</span>
           </a>
-        </p>
-      ) : (
-        <p>{playback.track.artist}</p>
-      )}
-      <p>Track progress: {currentProgress} of {trackLength}</p>
-      <p>{isPlaying ? "Playing" : "Paused"}</p>
-      <p>{isPlaying ? "♪ vibin', jammin', join up!" : "last heard — not playing rn :/"}</p>
+        </div>
+      </div>
     </section>
   );
 }

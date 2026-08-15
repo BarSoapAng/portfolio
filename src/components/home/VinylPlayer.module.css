@@ -1,0 +1,230 @@
+.player {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-6);
+  background:
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--color-primary-soft) 75%, transparent),
+      transparent 45%
+    ),
+    var(--color-surface);
+}
+
+.artwork,
+.artworkFallback {
+  position: relative;
+  display: grid;
+  width: 10rem;
+  aspect-ratio: 1;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--space-4);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-hover);
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+}
+
+.artwork img {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  box-shadow: none;
+  object-fit: cover;
+}
+
+.playbackIcon {
+  position: absolute;
+  inset: auto var(--space-3) var(--space-3) auto;
+  display: grid;
+  width: var(--space-12);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid color-mix(in srgb, var(--color-on-primary) 75%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary-hover) 88%, transparent);
+  color: var(--color-on-primary);
+  font-size: var(--font-size-sm);
+  letter-spacing: -0.2em;
+  line-height: 1;
+  backdrop-filter: blur(0.25rem);
+}
+
+.details {
+  min-width: 0;
+}
+
+.status {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-block-end: var(--space-2);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.liveDot,
+.idleDot {
+  width: var(--space-2);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.liveDot {
+  box-shadow: 0 0 0 var(--space-1) var(--color-primary-soft);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.idleDot {
+  background: var(--color-text-muted);
+}
+
+.trackInfo {
+  min-width: 0;
+}
+
+.title {
+  overflow: hidden;
+  margin-block-end: 0;
+  font-size: var(--font-size-2xl);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title a:hover {
+  color: var(--color-primary);
+}
+
+.artist,
+.message {
+  overflow: hidden;
+  margin-block-end: var(--space-4);
+  color: var(--color-text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.artist a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.timeline progress {
+  display: block;
+  width: 100%;
+  height: var(--space-2);
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+}
+
+.timeline progress::-webkit-progress-bar {
+  border-radius: 999px;
+  background: var(--color-surface-muted);
+}
+
+.timeline progress::-webkit-progress-value {
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.timeline progress::-moz-progress-bar {
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.timestamps {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: var(--space-1);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+}
+
+.footer {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: var(--space-4);
+}
+
+.footer p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.spotifyLink {
+  flex: 0 0 auto;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.spotifyLink:hover {
+  background: var(--color-primary-hover);
+  color: var(--color-on-primary);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 38rem) {
+  .player {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .artwork,
+  .artworkFallback {
+    align-self: start;
+    width: 5rem;
+  }
+
+  .playbackIcon {
+    display: none;
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot {
+    animation: none;
+  }
+}
