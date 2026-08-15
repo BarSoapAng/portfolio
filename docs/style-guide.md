@@ -35,7 +35,7 @@ these values to matching `--color-*` custom properties.
 | `surfaceMuted` | `#f4ebe4` | Quiet fills and inline code |
 | `primary` | `#a94065` | Links, selected states, and primary actions |
 | `primaryHover` | `#87334f` | Hover states and strong pink headings |
-| `primarySoft` | `#f9dce5` | Decorative grid and selection |
+| `primarySoft` | `#f9dce5` | Low-opacity decorative grid and selection |
 | `onPrimary` | `#ffffff` | Text placed on primary pink |
 | `text` | `#3e302d` | Default copy |
 | `textMuted` | `#6f5953` | Supporting copy and metadata |
@@ -91,9 +91,10 @@ spacing values so its rhythm stays legible.
 ## Components And Layout
 
 - Keep reading content within the existing `70rem` page container.
-- Use warm surfaces and a quiet border for primary cards.
-- Use pill shapes for tags and selected navigation states; keep content cards gently
-  squared with the asymmetric farmhouse radius.
+- Let the page canvas show through primary content containers and use spacing instead
+  of borders or fills to separate them.
+- Use pill shapes for tags and selected navigation states; reserve asymmetric rounded
+  corners for intentionally framed elements such as images.
 - Use the dusty-rose grid only as a low-contrast page texture. Do not repeat it inside
   cards.
 - Keep interactive text pink and always retain a visible focus outline.
