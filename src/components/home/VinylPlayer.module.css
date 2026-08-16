@@ -1,11 +1,12 @@
 .player {
   display: grid;
-  grid-template-columns: 10rem minmax(0, 1fr);
-  gap: var(--space-8);
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--space-4);
   align-items: center;
   overflow: hidden;
+  padding: var(--space-4);
   border: 1px solid var(--color-border);
-  border-radius: var(--space-6);
+  border-radius: var(--space-4);
   background:
     radial-gradient(
       circle at top right,
@@ -17,9 +18,8 @@
 
 .artwork,
 .artworkFallback {
-  position: relative;
   display: grid;
-  width: 10rem;
+  width: 6rem;
   aspect-ratio: 1;
   place-items: center;
   overflow: hidden;
@@ -37,23 +37,6 @@
   border-radius: inherit;
   box-shadow: none;
   object-fit: cover;
-}
-
-.playbackIcon {
-  position: absolute;
-  inset: auto var(--space-3) var(--space-3) auto;
-  display: grid;
-  width: var(--space-12);
-  aspect-ratio: 1;
-  place-items: center;
-  border: 2px solid color-mix(in srgb, var(--color-on-primary) 75%, transparent);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--color-primary-hover) 88%, transparent);
-  color: var(--color-on-primary);
-  font-size: var(--font-size-sm);
-  letter-spacing: -0.2em;
-  line-height: 1;
-  backdrop-filter: blur(0.25rem);
 }
 
 .details {
@@ -96,7 +79,7 @@
 .title {
   overflow: hidden;
   margin-block-end: 0;
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -113,7 +96,7 @@
 .artist,
 .message {
   overflow: hidden;
-  margin-block-end: var(--space-4);
+  margin-block-end: var(--space-2);
   color: var(--color-text-muted);
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -164,7 +147,7 @@
   gap: var(--space-4);
   align-items: center;
   justify-content: space-between;
-  margin-block-start: var(--space-4);
+  margin-block-start: var(--space-2);
 }
 
 .footer p {
@@ -175,7 +158,7 @@
 
 .spotifyLink {
   flex: 0 0 auto;
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-3);
   border: 1px solid var(--color-primary);
   border-radius: 999px;
   background: var(--color-primary);
@@ -199,18 +182,15 @@
 
 @media (max-width: 38rem) {
   .player {
-    grid-template-columns: 5rem minmax(0, 1fr);
-    gap: var(--space-4);
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-3);
   }
 
   .artwork,
   .artworkFallback {
     align-self: start;
-    width: 5rem;
-  }
-
-  .playbackIcon {
-    display: none;
+    width: 4rem;
   }
 
   .title {

@@ -75,9 +75,6 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
         ) : (
           <span aria-hidden="true">&#9835;</span>
         )}
-        <span className={styles.playbackIcon} aria-hidden="true">
-          {isPlaying ? "\u275A\u275A" : "\u25B6"}
-        </span>
       </div>
 
       <div className={styles.details}>
