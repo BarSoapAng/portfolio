@@ -1,4 +1,5 @@
 import TopBlogLink from "./TopBlogLink";
+import styles from "./TopBlogOverview.module.css";
 import { getTopPosts } from "@lib/blog";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 
@@ -12,9 +13,9 @@ export default function TopBlogOverview({ posts }: TopBlogOverviewProps) {
   const overviewPosts = posts ?? getTopPosts(DISPLAY_LIMIT);
 
   return (
-    <section>
+    <aside className={styles.sidebar} aria-labelledby="top-blogs-heading">
       <header>
-        <h2>★ Top Blogs ★</h2>
+        <h2 id="top-blogs-heading">★ Top Blogs ★</h2>
         <p>latest published posts</p>
       </header>
 
@@ -32,6 +33,6 @@ export default function TopBlogOverview({ posts }: TopBlogOverviewProps) {
           ))}
         </ul>
       )}
-    </section>
+    </aside>
   );
 }

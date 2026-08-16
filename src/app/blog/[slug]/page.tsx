@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import TopBlogOverview from "@components/navigation/TopBlogOverview";
+import styles from "@components/navigation/TopBlogOverview.module.css";
 import TagLabel from "@components/ui/TagLabel";
 import { buildPostMetadata, getAllPostSlugs, getAllPosts, getPostBySlug } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
@@ -41,9 +42,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { default: PostContent } = await import(`../../../../content/blog/${slug}.mdx`);
 
   return (
-    <main>
-      <TopBlogOverview posts={posts} />
-
+    <main className={styles.page}>
       <p>
         <Link href="/blog">← Back to blog</Link>
       </p>
@@ -62,6 +61,8 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
 
         <PostContent />
       </article>
+
+      <TopBlogOverview posts={posts} />
     </main>
   );
 }

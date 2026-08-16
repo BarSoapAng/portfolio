@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TopBlogOverview from "@components/navigation/TopBlogOverview";
+import styles from "@components/navigation/TopBlogOverview.module.css";
 import TagLabel from "@components/ui/TagLabel";
 import { getAllPosts } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
@@ -14,9 +15,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <main>
-      <TopBlogOverview posts={posts} />
-
+    <main className={styles.page}>
       <section>
         {posts.length === 0 ? (
           <p>
@@ -42,6 +41,8 @@ export default function BlogPage() {
           </article>
         ))}
       </section>
+
+      <TopBlogOverview posts={posts} />
     </main>
   );
 }
