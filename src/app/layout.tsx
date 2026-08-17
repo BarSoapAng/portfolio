@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import Navbar from "@components/navigation/Navbar";
 import { colors } from "@lib/colors";
 import { font } from "@lib/font";
+import { radius } from "@lib/radius";
 import { spacing } from "@lib/spacing";
 
 export const metadata: Metadata = {
@@ -55,6 +56,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           "--line-height-tight": font.lineHeight.tight,
           "--line-height-normal": font.lineHeight.normal,
           "--line-height-relaxed": font.lineHeight.relaxed,
+          "--radius-small": radius.small,
+          "--radius-medium": radius.medium,
+          "--radius-large": radius.large,
+          "--radius-pill": radius.pill,
+          "--radius-circle": radius.circle,
           "--space-0": spacing.none,
           "--space-1": spacing.xxs,
           "--space-2": spacing.xs,

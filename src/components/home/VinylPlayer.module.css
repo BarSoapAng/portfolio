@@ -6,7 +6,7 @@
   overflow: hidden;
   padding: var(--space-4);
   border: 1px solid var(--color-border);
-  border-radius: var(--space-4);
+  border-radius: var(--radius-large);
   background:
     radial-gradient(
       circle at top right,
@@ -23,7 +23,7 @@
   aspect-ratio: 1;
   place-items: center;
   overflow: hidden;
-  border-radius: var(--space-4);
+  border-radius: var(--radius-large);
   background: var(--color-primary-soft);
   color: var(--color-primary-hover);
   font-family: var(--font-display);
@@ -59,7 +59,7 @@
 .idleDot {
   width: var(--space-2);
   aspect-ratio: 1;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background: var(--color-primary);
 }
 
@@ -113,23 +113,23 @@
   height: var(--space-2);
   overflow: hidden;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-surface-muted);
   color: var(--color-primary);
 }
 
 .timeline progress::-webkit-progress-bar {
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-surface-muted);
 }
 
 .timeline progress::-webkit-progress-value {
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-primary);
 }
 
 .timeline progress::-moz-progress-bar {
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-primary);
 }
 
@@ -160,7 +160,7 @@
   flex: 0 0 auto;
   padding: var(--space-1) var(--space-3);
   border: 1px solid var(--color-primary);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-primary);
   color: var(--color-on-primary);
   font-size: var(--font-size-sm);

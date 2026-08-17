@@ -37,8 +37,9 @@
 ## Visual Presentation
 
 - Follow the [farmhouse pink style guide](../../style-guide.md).
-- Keep shared color, font, and spacing values in `src/lib/colors.ts`, `src/lib/font.ts`, and `src/lib/spacing.ts`.
+- Keep shared color, font, radius, and spacing values in `src/lib/colors.ts`, `src/lib/font.ts`, `src/lib/radius.ts`, and `src/lib/spacing.ts`.
 - Map shared values to global CSS custom properties in `src/app/layout.tsx`; use those properties in `src/app/globals.css`.
+- Use the symmetric radius tokens for rounded corners. Do not use asymmetric corner radii, raw radius values, or spacing tokens as radii.
 - Pink is the primary theme color. Treat sage and wood as supporting accents rather than competing themes.
 
 ## Home Feature Notes

@@ -14,7 +14,7 @@ while warm neutrals keep content readable.
 
 - **Warm, not stark:** use cream backgrounds and off-white surfaces instead of pure
   white page fields.
-- **Crafted, not cluttered:** pair fine borders and gently uneven corner radii with
+- **Crafted, not cluttered:** pair fine borders and gently rounded corners with
   generous empty space.
 - **Traditional, not formal:** use the handwritten Amatic SC display face for headings
   and a quiet sans serif for longer reading.
@@ -88,13 +88,29 @@ a 4px base and is exposed as `--space-*` custom properties.
 Prefer adjacent steps on the scale. A component should usually use no more than three
 spacing values so its rhythm stays legible.
 
+## Border Radius
+
+The source of truth is [`src/lib/radius.ts`](../src/lib/radius.ts). The root layout
+exposes the scale as `--radius-*` custom properties.
+
+| Token | Value | Typical use |
+| --- | --- | --- |
+| `small` | `0.25rem` | Compact controls and subtle rounding |
+| `medium` | `0.5rem` | Cards and content containers |
+| `large` | `1rem` | Prominent panels and media frames |
+| `pill` | `999px` | Tags and selected navigation states |
+| `circle` | `50%` | Square avatars, discs, and icon buttons |
+
+Use the same radius on every corner. Do not use asymmetric or individually rounded
+corners. Choose the closest radius token instead of copying a raw value or reusing a
+spacing token.
+
 ## Components And Layout
 
 - Keep reading content within the existing `70rem` page container.
 - Let the page canvas show through primary content containers and use spacing instead
   of borders or fills to separate them.
-- Use pill shapes for tags and selected navigation states; reserve asymmetric rounded
-  corners for intentionally framed elements such as images.
+- Use pill shapes for tags and selected navigation states.
 - Use the dusty-rose grid only as a low-contrast page texture. Do not repeat it inside
   cards.
 - Keep interactive text pink and always retain a visible focus outline.
@@ -108,6 +124,7 @@ CSS custom properties:
 ```tsx
 import { colors } from "@lib/colors";
 import { font } from "@lib/font";
+import { radius } from "@lib/radius";
 import { spacing } from "@lib/spacing";
 
 const calloutStyle = {
@@ -115,6 +132,7 @@ const calloutStyle = {
   color: colors.text,
   fontFamily: font.family.body,
   padding: spacing.lg,
+  borderRadius: radius.medium,
 };
 ```
 

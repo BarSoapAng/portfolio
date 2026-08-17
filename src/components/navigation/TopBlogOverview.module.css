@@ -20,7 +20,7 @@
   top: var(--space-8);
   padding: var(--space-6);
   border: 1px solid var(--color-border);
-  border-radius: var(--space-2);
+  border-radius: var(--radius-medium);
   background: var(--color-surface);
 }
 
