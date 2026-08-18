@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styles from "./SiteVisitorCounter.module.css";
 
 const VISITOR_COUNTER_KEY = "portfolio-site-visitor-count";
 
@@ -26,11 +27,16 @@ export default function SiteVisitorCounter() {
   }, []);
 
   return (
-    <>
-      <p>
-        Visitor # {visitorCount === null ? "..." : visitorCount.toLocaleString()}
+    <aside className={styles.counter} aria-label="Personal visit counter">
+      <p className={styles.label}>Secret visitor society</p>
+      <p className={styles.message} aria-live="polite">
+        Your visit number is{" "}
+        <strong>
+          {visitorCount === null ? "…" : `#${visitorCount.toLocaleString()}`}
+        </strong>
+        .
       </p>
-      <p>secret visitor society says hello.</p>
-    </>
+      <p className={styles.note}>Counted privately in this browser.</p>
+    </aside>
   );
 }
