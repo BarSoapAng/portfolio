@@ -14,6 +14,8 @@ const POST_FIELD_PARSERS = {
   title: requireStringField("title"),
   date: requireDateField(),
   summary: requireStringField("summary"),
+  thumbnail: requireStringField("thumbnail"),
+  thumbnailAlt: requireStringField("thumbnailAlt"),
   published: requireBooleanField("published"),
   tags: parseTagsField,
 } satisfies {

@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import catJump from "@assets/home/cat-jump.gif";
+import catWaving from "@assets/home/cat_waving.gif";
+import ContentImage from "@components/ui/ContentImage";
 import TagLabel from "@components/ui/TagLabel";
 import { buildWorkMetadata, getAllWorkSlugs, getWorkBySlug } from "@lib/work";
 import { formatWorkDate } from "@lib/work-shared";
@@ -46,7 +49,7 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
       </p>
 
       <article>
-        <header>
+        <header className="content-detail-header">
           <p>
             <strong>{entry.company}</strong> <span aria-hidden>•</span> {entry.period}{" "}
             <span aria-hidden>•</span> Filed {formatWorkDate(entry.date)}
@@ -58,7 +61,15 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
               <TagLabel key={tag} label={tag} />
             ))}
           </p>
+          <div aria-hidden className="content-detail-gifs">
+            <img alt="" src={catJump.src} />
+            <img alt="" src={catWaving.src} />
+          </div>
         </header>
+
+        <figure className="content-hero">
+          <ContentImage alt={entry.thumbnailAlt} src={entry.thumbnail} variant="hero" />
+        </figure>
 
         <WorkContent />
       </article>

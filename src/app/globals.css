@@ -98,6 +98,90 @@ section > article:last-child {
   border-bottom: 0;
 }
 
+.content-index,
+.content-card {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.content-card {
+  padding-block: var(--space-6);
+}
+
+.content-card__body > :last-child,
+.work-gif-panel > :last-child {
+  margin-block-end: 0;
+}
+
+.content-image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.content-image--thumbnail,
+.content-image--hero {
+  aspect-ratio: 16 / 9;
+}
+
+.content-image--hero {
+  border-radius: var(--radius-large);
+}
+
+.content-hero {
+  margin: var(--space-8) 0;
+}
+
+.content-detail-header {
+  position: relative;
+  padding-inline-end: 11rem;
+}
+
+.content-detail-gifs {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: end;
+  gap: var(--space-3);
+}
+
+.content-detail-gifs img,
+.work-gif-panel img {
+  border: 0;
+  box-shadow: none;
+  image-rendering: pixelated;
+}
+
+.content-detail-gifs img:first-child {
+  width: var(--space-12);
+}
+
+.content-detail-gifs img:last-child {
+  width: 7rem;
+}
+
+.work-gif-panel {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.work-gif-panel > img {
+  width: 7.625rem;
+}
+
+.work-gif-panel > p:last-child {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.work-gif-panel p img {
+  width: var(--space-12);
+}
+
 h1,
 h2,
 h3 {
@@ -215,5 +299,14 @@ dd {
 
   main > :is(header, section, article, aside, dl) {
     padding: var(--space-6);
+  }
+
+  .content-detail-header {
+    padding-inline-end: 0;
+  }
+
+  .content-detail-gifs {
+    position: static;
+    justify-content: center;
   }
 }

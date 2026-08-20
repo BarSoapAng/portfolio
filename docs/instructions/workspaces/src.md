@@ -26,6 +26,12 @@
 - `src/app/work/page.tsx` and `src/app/work/[slug]/page.tsx` load work content from `content/work/`, where each `.mdx` filename becomes its slug.
 - `src/app/proj/page.tsx` and `src/app/proj/[slug]/page.tsx` load project content from `content/project/`, where each `.mdx` filename becomes its slug.
 
+## Content Images
+
+- Published blog and work MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
+- Store content thumbnails in `public/images/content/` and reference them with root-relative paths such as `/images/content/example.webp`.
+- Blog and work listing pages render these images as thumbnails; their detail pages reuse the same images as larger heroes.
+
 ## Import Conventions
 
 - Prefer the configured aliases from `tsconfig.json` when they make imports easier to read:

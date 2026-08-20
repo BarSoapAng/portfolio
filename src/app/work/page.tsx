@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import typingNah from "@assets/work/typing_nay.gif";
+import typingYay from "@assets/work/typing_yay.gif";
 import WorkExperienceStack from "@components/work/WorkExperienceStack";
 import { getAllWorkEntries } from "@lib/work";
 
@@ -18,9 +20,11 @@ export default function WorkPage() {
         <p>Where I&apos;ve worked and where I&apos;m working now!</p>
       </header>
 
-      <aside>
+      <aside className="work-gif-panel">
         <p>click cards for details</p>
+        <img alt="A pixel character typing furiously" src={typingNah.src} />
         <p>
+          <img alt="" aria-hidden src={typingYay.src} />
           {entries.length} {entries.length === 1 ? "role" : "roles"} explored
         </p>
       </aside>

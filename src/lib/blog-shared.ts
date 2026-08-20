@@ -4,6 +4,8 @@ export type PostFrontmatter = {
   title: string;
   date: string;
   summary: string;
+  thumbnail: string;
+  thumbnailAlt: string;
   published: boolean;
   tags: string[];
 };
