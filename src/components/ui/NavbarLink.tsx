@@ -11,7 +11,8 @@ export default function NavbarLink() {
     <nav aria-label="Primary">
       <ul>
         {routes.map((page) => {
-          const isActive = pathname === page.path || pathname?.startsWith(page.path + "/");
+          const isActive =
+            pathname === page.activePath || pathname?.startsWith(page.activePath + "/");
 
           return (
             <li key={page.path}>

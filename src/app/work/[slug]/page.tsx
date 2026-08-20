@@ -44,7 +44,7 @@ export default async function WorkPostRoute({ params }: WorkPostRouteProps) {
   return (
     <main>
       <p>
-        <Link href="/work">← Back to work</Link>{" "}
+        <Link href="/home#work">← Back to work</Link>{" "}
         <span>y2k memory file</span>
       </p>
 

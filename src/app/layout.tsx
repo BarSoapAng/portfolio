@@ -77,6 +77,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <Navbar />
         {children}
+        <footer>
+          <p>© 2026 Angela · Made with care.</p>
+        </footer>
       </body>
     </html>
   );

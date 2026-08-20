@@ -23,14 +23,15 @@
 - `src/app/page.tsx` currently redirects `/` to `/home`.
 - Use `next/navigation` redirects only in route entrypoints or other server-safe locations that already follow Next.js rules.
 - `src/app/blog/page.tsx` and `src/app/blog/[slug]/page.tsx` load blog content from `content/blog/`, where each `.mdx` filename becomes its slug.
-- `src/app/work/page.tsx` and `src/app/work/[slug]/page.tsx` load work content from `content/work/`, where each `.mdx` filename becomes its slug.
-- `src/app/proj/page.tsx` and `src/app/proj/[slug]/page.tsx` load project content from `content/project/`, where each `.mdx` filename becomes its slug.
+- `src/app/work/page.tsx` redirects to the home work section; `src/app/work/[slug]/page.tsx` loads work content from `content/work/`, where each `.mdx` filename becomes its slug.
+- `src/app/proj/page.tsx` redirects to the home projects section; `src/app/proj/[slug]/page.tsx` loads project content from `content/project/`, where each `.mdx` filename becomes its slug.
 
 ## Content Images
 
-- Published blog and work MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
+- Published blog, project, and work MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
 - Store content thumbnails in `public/images/content/` and reference them with root-relative paths such as `/images/content/example.webp`.
-- Blog and work listing pages render these images as thumbnails; their detail pages reuse the same images as larger heroes.
+- Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
+- Home renders work entries as a text-only list; work detail pages retain their larger hero images.
 
 ## Import Conventions
 
@@ -50,7 +51,8 @@
 
 ## Home Feature Notes
 
-- `src/app/home/page.tsx` currently defines the home page layout directly.
+- `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
+- `/work` and `/proj` redirect to the matching home-page sections; work and project detail routes remain standalone.
 - Reusable home UI belongs in `src/components/home/`.
 - `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
 - The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.

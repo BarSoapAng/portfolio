@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import TagLabel from "@components/ui/TagLabel";
+import ContentImage from "@components/ui/ContentImage";
 import { buildProjectMetadata, getAllProjectSlugs, getProjectBySlug } from "@lib/project";
 import { formatProjectDate } from "@lib/project-shared";
 
@@ -41,7 +41,7 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
   return (
     <main>
       <p>
-        <Link href="/proj">← Back to proj index</Link>{" "}
+        <Link href="/home#projects">← Back to projects</Link>{" "}
         <span>Project Log</span>
       </p>
 
@@ -50,13 +50,15 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
           <p>
             <span>{formatProjectDate(project.date)}</span>{" "}
             <span aria-hidden>🧃</span>{" "}
-            {project.tags.map((tag) => (
-              <TagLabel key={tag} label={tag} />
-            ))}
+            <span className="entry-tags">{project.tags.join(" · ")}</span>
           </p>
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
         </header>
+
+        <figure className="content-hero">
+          <ContentImage alt={project.thumbnailAlt} src={project.thumbnail} variant="hero" />
+        </figure>
 
         <aside>
           <p>

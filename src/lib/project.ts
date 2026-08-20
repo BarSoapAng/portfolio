@@ -16,6 +16,8 @@ const PROJECT_FIELD_PARSERS = {
   order: requireNumberField("order"),
   date: requireDateField(),
   summary: requireStringField("summary"),
+  thumbnail: requireStringField("thumbnail"),
+  thumbnailAlt: requireStringField("thumbnailAlt"),
   published: requireBooleanField("published"),
   tags: parseTagsField,
 } satisfies {
