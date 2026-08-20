@@ -98,13 +98,16 @@ section > article:last-child {
   border-bottom: 0;
 }
 
-.content-index,
-.content-card {
+.content-index {
   display: grid;
   gap: var(--space-6);
 }
 
 .content-card {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-4);
   padding-block: var(--space-6);
 }
 
@@ -308,5 +311,9 @@ dd {
   .content-detail-gifs {
     position: static;
     justify-content: center;
+  }
+
+  .content-card {
+    grid-template-columns: 7rem minmax(0, 1fr);
   }
 }
