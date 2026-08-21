@@ -36,7 +36,7 @@
 ## Blog Content Types
 
 - Use only `eng`, `career`, `life`, and `fun` in published blog `tags` frontmatter.
-- The blog index exposes these values as filter pills and combines them with debounced title, summary, and type search.
+- The blog index exposes these values in a filter dropdown beside debounced title, summary, and type search.
 
 ## Import Conventions
 

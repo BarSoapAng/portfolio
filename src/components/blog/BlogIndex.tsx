@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { FaFilter } from "react-icons/fa6";
 import ContentImage from "@components/ui/ContentImage";
 import TagLabel from "@components/ui/TagLabel";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
@@ -36,29 +37,29 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
     <div>
       <section className="blog-controls" aria-label="Filter blog posts">
         <label htmlFor="blog-search">Search</label>
-        <input
-          id="blog-search"
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search posts"
-          type="search"
-          value={query}
-        />
-        <div className="blog-filters" role="group" aria-label="Filter by content type">
-          {(["all", "eng", "career", "life", "fun"] as const).map((type) => (
-            <button
-              aria-pressed={selectedType === type}
-              className="tag-label"
-              key={type}
-              onClick={() => setSelectedType(type)}
-              type="button"
+        <div className="blog-search-row">
+          <input
+            id="blog-search"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search posts"
+            type="search"
+            value={query}
+          />
+          <label className="blog-filter-select">
+            <FaFilter aria-hidden />
+            <select
+              aria-label="Filter by content type"
+              onChange={(event) => setSelectedType(event.target.value as BlogType | "all")}
+              value={selectedType}
             >
-              {type}
-            </button>
-          ))}
+              <option value="all">All types</option>
+              <option value="eng">Eng</option>
+              <option value="career">Career</option>
+              <option value="life">Life</option>
+              <option value="fun">Fun</option>
+            </select>
+          </label>
         </div>
-        <p className="blog-result-count" aria-live="polite">
-          {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
-        </p>
       </section>
 
       <section className="content-index">
