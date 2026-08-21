@@ -1,4 +1,4 @@
-import LiveClock from "./LiveClock";
+import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
 import selfie from "@assets/home/selfie.jpg";
 
@@ -8,9 +8,6 @@ export default function SelfDescriptionCard() {
       <img src={selfie.src} alt="Angela's selfie" width={220} />
       <div>
         <h1>Welcome</h1>
-        <p>
-          [Angela&apos;s Second Home] [<LiveClock />]
-        </p>
         <p>
           <strong>Hello hello!</strong> This is a place where I share my experiences,
           thoughts, and my FAV tried and tested macro-friendly recipes :3
@@ -26,16 +23,24 @@ export default function SelfDescriptionCard() {
         <nav className="home-socials" aria-label="Social media">
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/ang018/">LinkedIn</a>
+              <a aria-label="LinkedIn" href="https://www.linkedin.com/in/ang018/">
+                <FaLinkedinIn aria-hidden />
+              </a>
             </li>
             <li>
-              <a href="https://github.com/BarSoapAng">GitHub</a>
+              <a aria-label="GitHub" href="https://github.com/BarSoapAng">
+                <FaGithub aria-hidden />
+              </a>
             </li>
             <li>
-              <a href="https://x.com/barsoapang">X</a>
+              <a aria-label="X" href="https://x.com/barsoapang">
+                <FaXTwitter aria-hidden />
+              </a>
             </li>
             <li>
-              <a href="https://www.instagram.com/barsoapang">Instagram</a>
+              <a aria-label="Instagram" href="https://www.instagram.com/barsoapang">
+                <FaInstagram aria-hidden />
+              </a>
             </li>
           </ul>
         </nav>

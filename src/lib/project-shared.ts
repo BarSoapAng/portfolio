@@ -1,5 +1,3 @@
-import { formatLongDate } from "./format-date";
-
 export type ProjectFrontmatter = {
   title: string;
   order: number;
@@ -14,7 +12,3 @@ export type ProjectFrontmatter = {
 export type ProjectSummary = ProjectFrontmatter & {
   slug: string;
 };
-
-export function formatProjectDate(date: string): string {
-  return formatLongDate(date);
-}

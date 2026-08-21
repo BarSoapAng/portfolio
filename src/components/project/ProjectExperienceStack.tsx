@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ContentImage from "@components/ui/ContentImage";
-import { formatProjectDate, type ProjectSummary } from "@lib/project-shared";
+import { type ProjectSummary } from "@lib/project-shared";
 
 type ProjectExperienceStackProps = {
   projects: ProjectSummary[];
@@ -21,7 +21,6 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
             </Link>
             <div className="content-card__body">
               <p>
-                <span>{formatProjectDate(project.date)}</span>{" "}
                 <span className="entry-tags">{project.tags.join(" · ")}</span>
               </p>
               <h2>

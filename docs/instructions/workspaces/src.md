@@ -14,7 +14,7 @@
 - `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
-- `content/work/`: local MDX work entries loaded by the App Router work routes
+- `content/work/`: local MDX work entries rendered in the home-page work section
 - `content/project/`: local MDX project entries loaded by the App Router project routes
 
 ## Routing Rules
@@ -23,15 +23,20 @@
 - `src/app/page.tsx` currently redirects `/` to `/home`.
 - Use `next/navigation` redirects only in route entrypoints or other server-safe locations that already follow Next.js rules.
 - `src/app/blog/page.tsx` and `src/app/blog/[slug]/page.tsx` load blog content from `content/blog/`, where each `.mdx` filename becomes its slug.
-- `src/app/work/page.tsx` redirects to the home work section; `src/app/work/[slug]/page.tsx` loads work content from `content/work/`, where each `.mdx` filename becomes its slug.
+- `src/app/work/page.tsx` redirects to the home work section; work entries do not have standalone detail routes.
 - `src/app/proj/page.tsx` redirects to the home projects section; `src/app/proj/[slug]/page.tsx` loads project content from `content/project/`, where each `.mdx` filename becomes its slug.
 
 ## Content Images
 
-- Published blog, project, and work MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
+- Published blog and project MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
 - Store content thumbnails in `public/images/content/` and reference them with root-relative paths such as `/images/content/example.webp`.
 - Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
-- Home renders work entries as a text-only list; work detail pages retain their larger hero images.
+- Home renders work entries as a text-only list without thumbnail fields or standalone detail pages.
+
+## Blog Content Types
+
+- Use only `eng`, `career`, `life`, and `fun` in published blog `tags` frontmatter.
+- The blog index exposes these values as filter pills and combines them with debounced title, summary, and type search.
 
 ## Import Conventions
 
@@ -52,7 +57,7 @@
 ## Home Feature Notes
 
 - `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
-- `/work` and `/proj` redirect to the matching home-page sections; work and project detail routes remain standalone.
+- `/work` and `/proj` redirect to the matching home-page sections; only project entries retain standalone detail routes.
 - Reusable home UI belongs in `src/components/home/`.
 - `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
 - The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.

@@ -7,8 +7,6 @@ export type WorkFrontmatter = {
   order: number;
   date: string;
   summary: string;
-  thumbnail: string;
-  thumbnailAlt: string;
   published: boolean;
   tags: string[];
 };

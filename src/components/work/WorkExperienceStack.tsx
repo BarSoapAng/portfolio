@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { type WorkSummary } from "@lib/work-shared";
 
 type WorkExperienceStackProps = {
@@ -16,12 +15,11 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
         entries.map((entry) => (
           <article className="work-entry" key={entry.slug}>
             <div className="content-card__body">
-              <p>
-                <strong>{entry.company}</strong> {entry.period}
+              <p className="work-entry__meta">
+                <strong>{entry.company}</strong>
+                <span>{entry.period}</span>
               </p>
-              <h2>
-                <Link href={`/work/${entry.slug}`}>{entry.title}</Link>
-              </h2>
+              <h2>{entry.title}</h2>
               <p>
                 <span className="entry-tags">{entry.tags.join(" · ")}</span>
               </p>

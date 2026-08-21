@@ -1,6 +1,5 @@
 import "server-only";
 
-import type { Metadata } from "next";
 import type { WorkFrontmatter, WorkSummary } from "./work-shared";
 import {
   createMdxCollectionReader,
@@ -18,8 +17,6 @@ const WORK_FIELD_PARSERS = {
   order: requireNumberField("order"),
   date: requireDateField(),
   summary: requireStringField("summary"),
-  thumbnail: requireStringField("thumbnail"),
-  thumbnailAlt: requireStringField("thumbnailAlt"),
   published: requireBooleanField("published"),
   tags: parseTagsField,
 } satisfies {
@@ -33,32 +30,4 @@ const workCollection = createMdxCollectionReader<WorkFrontmatter>({
 
 export function getAllWorkEntries(): WorkSummary[] {
   return workCollection.getAll();
-}
-
-export function getAllWorkSlugs(): string[] {
-  return workCollection.getSlugs();
-}
-
-export function getWorkBySlug(slug: string): WorkSummary | null {
-  return workCollection.getBySlug(slug);
-}
-
-export function buildWorkMetadata(entry: WorkSummary): Metadata {
-  return {
-    title: `${entry.title} @ ${entry.company} | Work | Angela's Universe`,
-    description: entry.summary,
-    keywords: entry.tags,
-    openGraph: {
-      title: `${entry.title} @ ${entry.company}`,
-      description: entry.summary,
-      type: "article",
-      publishedTime: entry.date,
-      tags: entry.tags,
-    },
-    twitter: {
-      card: "summary",
-      title: `${entry.title} @ ${entry.company}`,
-      description: entry.summary,
-    },
-  };
 }

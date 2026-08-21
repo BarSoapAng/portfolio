@@ -1,15 +1,21 @@
-import { Amatic_SC } from "next/font/google";
+import { Berkshire_Swash, Nunito } from "next/font/google";
 
-const amaticSc = Amatic_SC({
+const berkshireSwash = Berkshire_Swash({
   display: "swap",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "400",
+});
+
+const nunito = Nunito({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["200", "500", "700"],
 });
 
 export const font = {
   family: {
-    display: amaticSc.style.fontFamily,
-    body: '"Avenir Next", Avenir, "Segoe UI", sans-serif',
+    display: berkshireSwash.style.fontFamily,
+    body: nunito.style.fontFamily,
     mono: '"SFMono-Regular", Consolas, "Liberation Mono", monospace',
   },
   size: {
@@ -22,7 +28,7 @@ export const font = {
     "3xl": "clamp(2.25rem, 6vw, 4rem)",
   },
   weight: {
-    regular: 400,
+    regular: 200,
     medium: 500,
     bold: 700,
   },

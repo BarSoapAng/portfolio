@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ContentImage from "@components/ui/ContentImage";
 import { buildProjectMetadata, getAllProjectSlugs, getProjectBySlug } from "@lib/project";
-import { formatProjectDate } from "@lib/project-shared";
 
 type ProjectRouteProps = {
   params: Promise<{
@@ -48,7 +47,6 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
       <article>
         <header>
           <p>
-            <span>{formatProjectDate(project.date)}</span>{" "}
             <span aria-hidden>🧃</span>{" "}
             <span className="entry-tags">{project.tags.join(" · ")}</span>
           </p>
