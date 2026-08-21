@@ -3,6 +3,7 @@
   grid-template-columns: var(--space-16) minmax(0, 1fr);
   gap: var(--space-3);
   align-items: center;
+  max-width: 32rem;
   overflow: hidden;
   padding: var(--space-3);
   border: 1px solid var(--color-border);
