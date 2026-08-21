@@ -78,10 +78,12 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
       </div>
 
       <div className={styles.details}>
-        <p className={styles.status}>
-          <span className={isPlaying ? styles.liveDot : styles.idleDot} aria-hidden="true" />
-          {isPlaying ? "Now playing" : "Recently played"}
-        </p>
+        {isPlaying ? (
+          <p className={styles.status}>
+            <span className={styles.liveDot} aria-hidden="true" />
+            Now playing
+          </p>
+        ) : null}
 
         <div className={styles.trackInfo}>
           <h2 className={styles.title}>
