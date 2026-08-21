@@ -1,11 +1,13 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
+import GlobalStyle from "./GlobalStyle";
+import Footer from "@components/layout/Footer";
 import Navbar from "@components/navigation/Navbar";
 import { colors } from "@lib/colors";
 import { font } from "@lib/font";
 import { radius } from "@lib/radius";
 import { spacing } from "@lib/spacing";
+import StyledComponentsRegistry from "@lib/StyledComponentsRegistry";
 
 export const metadata: Metadata = {
   title: "Angela's Universe",
@@ -75,11 +77,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
       }
     >
       <body>
-        <Navbar />
-        {children}
-        <footer>
-          <p>© Angela 2026 · Made with love {"<3"}</p>
-        </footer>
+        <StyledComponentsRegistry>
+          <GlobalStyle />
+          <Navbar />
+          {children}
+          <Footer />
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

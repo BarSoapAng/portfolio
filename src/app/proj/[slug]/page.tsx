@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ContentImage from "@components/ui/ContentImage";
+import { ContentHero, EntryTags } from "@components/ui/ContentStyles";
 import { buildProjectMetadata, getAllProjectSlugs, getProjectBySlug } from "@lib/project";
 
 type ProjectRouteProps = {
@@ -48,15 +49,15 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
         <header>
           <p>
             <span aria-hidden>🧃</span>{" "}
-            <span className="entry-tags">{project.tags.join(" · ")}</span>
+            <EntryTags>{project.tags.join(" · ")}</EntryTags>
           </p>
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
         </header>
 
-        <figure className="content-hero">
+        <ContentHero>
           <ContentImage alt={project.thumbnailAlt} src={project.thumbnail} variant="hero" />
-        </figure>
+        </ContentHero>
 
         <aside>
           <p>

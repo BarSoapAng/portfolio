@@ -1,4 +1,6 @@
+import { ContentCardBody, ContentIndex, EntryTags } from "@components/ui/ContentStyles";
 import { type WorkSummary } from "@lib/work-shared";
+import { WorkEntry, WorkMeta } from "./WorkExperienceStack.styles";
 
 type WorkExperienceStackProps = {
   entries: WorkSummary[];
@@ -6,26 +8,26 @@ type WorkExperienceStackProps = {
 
 export default function WorkExperienceStack({ entries }: WorkExperienceStackProps) {
   return (
-    <div className="content-index">
+    <ContentIndex>
       {entries.length === 0 ? (
         <p>
           No work entries yet - add MDX files to <code>content/work</code>.
         </p>
       ) : (
         entries.map((entry) => (
-          <article className="work-entry" key={entry.slug}>
-            <div className="content-card__body">
+          <WorkEntry key={entry.slug}>
+            <ContentCardBody>
               <h2>
                 {entry.title} - {entry.company}
               </h2>
-              <p className="work-entry__meta">{entry.period}</p>
+              <WorkMeta>{entry.period}</WorkMeta>
               <p>
-                <span className="entry-tags">{entry.tags.join(" · ")}</span>
+                <EntryTags>{entry.tags.join(" · ")}</EntryTags>
               </p>
-            </div>
-          </article>
+            </ContentCardBody>
+          </WorkEntry>
         ))
       )}
-    </div>
+    </ContentIndex>
   );
 }

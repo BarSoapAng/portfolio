@@ -1,11 +1,12 @@
 import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
 import selfie from "@assets/home/selfie.jpg";
+import { Hero, HeroImage, Socials } from "./SelfDescriptionCard.styles";
 
 export default function SelfDescriptionCard() {
   return (
-    <section className="home-hero">
-      <img src={selfie.src} alt="Angela's selfie" width={220} />
+    <Hero>
+      <HeroImage src={selfie.src} alt="Angela's selfie" width={220} />
       <div>
         <h1>Welcome</h1>
         <p>
@@ -20,7 +21,7 @@ export default function SelfDescriptionCard() {
           I yap too much so if you want to know me better, check out{" "}
           <a href="/blog/who-am-i">this page</a> {"<3"}
         </p>
-        <nav className="home-socials" aria-label="Social media">
+        <Socials aria-label="Social media">
           <ul>
             <li>
               <a aria-label="LinkedIn" href="https://www.linkedin.com/in/ang018/">
@@ -43,8 +44,8 @@ export default function SelfDescriptionCard() {
               </a>
             </li>
           </ul>
-        </nav>
+        </Socials>
       </div>
-    </section>
+    </Hero>
   );
 }

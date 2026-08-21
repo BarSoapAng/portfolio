@@ -4,6 +4,7 @@ import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkExperienceStack from "@components/work/WorkExperienceStack";
 import { getAllProjects } from "@lib/project";
 import { getAllWorkEntries } from "@lib/work";
+import { IndexSection } from "./HomePage.styles";
 
 function HomePage() {
   const projects = getAllProjects();
@@ -14,15 +15,15 @@ function HomePage() {
       <SelfDescriptionCard />
       <VinylPlayer />
 
-      <section className="home-index-section" id="work">
+      <IndexSection id="work">
         <h2>Work</h2>
         <WorkExperienceStack entries={workEntries} />
-      </section>
+      </IndexSection>
 
-      <section className="home-index-section" id="projects">
+      <IndexSection id="projects">
         <h2>Projects</h2>
         <ProjectExperienceStack projects={projects} />
-      </section>
+      </IndexSection>
     </main>
   );
 }

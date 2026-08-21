@@ -1,3 +1,7 @@
+"use client";
+
+import styled from "styled-components";
+
 const stats = [
   { label: "Archetype", value: "Shapeshifter" },
   { label: "Impressions", value: "4M+" },
@@ -7,9 +11,23 @@ const stats = [
 const CAFFEINE_LEVEL = 2;
 const CAFFEINE_MAX = 5;
 
+const Stats = styled.dl`
+  div {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) 2fr;
+    gap: var(--space-4);
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  dd {
+    margin: 0;
+  }
+`;
+
 export default function StatsCard() {
   return (
-    <dl>
+    <Stats>
       {stats.map(({ label, value }) => (
         <div key={label}>
           <dt>{label}:</dt>
@@ -42,6 +60,6 @@ export default function StatsCard() {
         <dt>Design</dt>
         <dd>3 of 5</dd>
       </div>
-    </dl>
+    </Stats>
   );
 }

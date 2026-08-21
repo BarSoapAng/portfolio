@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaFilter } from "react-icons/fa6";
+import {
+  BlogContentIndex,
+  BlogControls,
+  BlogFilterSelect,
+  BlogSearchRow,
+} from "@components/blog/BlogIndex.styles";
 import ContentImage from "@components/ui/ContentImage";
+import { ContentCard, ContentCardBody } from "@components/ui/ContentStyles";
 import TagLabel from "@components/ui/TagLabel";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 
@@ -35,9 +42,9 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
 
   return (
     <div>
-      <section className="blog-controls" aria-label="Filter blog posts">
+      <BlogControls aria-label="Filter blog posts">
         <label htmlFor="blog-search">Search</label>
-        <div className="blog-search-row">
+        <BlogSearchRow>
           <input
             id="blog-search"
             onChange={(event) => setQuery(event.target.value)}
@@ -45,7 +52,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
             type="search"
             value={query}
           />
-          <label className="blog-filter-select">
+          <BlogFilterSelect>
             <FaFilter aria-hidden />
             <select
               aria-label="Filter by content type"
@@ -58,19 +65,19 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
               <option value="life">Life</option>
               <option value="fun">Fun</option>
             </select>
-          </label>
-        </div>
-      </section>
+          </BlogFilterSelect>
+        </BlogSearchRow>
+      </BlogControls>
 
-      <section className="content-index">
+      <BlogContentIndex as="section">
         {filteredPosts.length === 0 ? <p>No posts match those filters.</p> : null}
 
         {filteredPosts.map((post) => (
-          <article className="content-card" key={post.slug}>
+          <ContentCard key={post.slug}>
             <Link aria-label={`Read ${post.title}`} href={`/blog/${post.slug}`}>
               <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="thumbnail" />
             </Link>
-            <div className="content-card__body">
+            <ContentCardBody>
               <p>
                 <span>{formatPostDate(post.date)}</span>{" "}
                 {post.tags.map((tag) => (
@@ -84,10 +91,10 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
               <p>
                 <Link href={`/blog/${post.slug}`}>Read entry →</Link>
               </p>
-            </div>
-          </article>
+            </ContentCardBody>
+          </ContentCard>
         ))}
-      </section>
+      </BlogContentIndex>
     </div>
   );
 }

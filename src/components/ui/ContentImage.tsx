@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { StyledContentImage } from "@components/ui/ContentImage.styles";
 
 type ContentImageProps = {
   alt: string;
@@ -8,9 +8,9 @@ type ContentImageProps = {
 
 export default function ContentImage({ alt, src, variant }: ContentImageProps) {
   return (
-    <Image
+    <StyledContentImage
+      $variant={variant}
       alt={alt}
-      className={`content-image content-image--${variant}`}
       height={900}
       sizes={variant === "hero" ? "(max-width: 70rem) 100vw, 70rem" : "(max-width: 52rem) 100vw, 42rem"}
       src={src}

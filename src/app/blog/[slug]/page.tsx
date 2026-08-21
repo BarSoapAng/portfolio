@@ -4,6 +4,7 @@ import Link from "next/link";
 import TopBlogOverview from "@components/navigation/TopBlogOverview";
 import styles from "@components/navigation/TopBlogOverview.module.css";
 import ContentImage from "@components/ui/ContentImage";
+import { ContentHero } from "@components/ui/ContentStyles";
 import TagLabel from "@components/ui/TagLabel";
 import { buildPostMetadata, getAllPostSlugs, getAllPosts, getPostBySlug } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
@@ -60,9 +61,9 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
           <p>{post.summary}</p>
         </header>
 
-        <figure className="content-hero">
+        <ContentHero>
           <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="hero" />
-        </figure>
+        </ContentHero>
 
         <PostContent />
       </article>
