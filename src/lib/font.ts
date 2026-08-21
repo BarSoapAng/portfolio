@@ -1,20 +1,22 @@
-import { Berkshire_Swash, Nunito } from "next/font/google";
+import localFont from "next/font/local";
 
-const berkshireSwash = Berkshire_Swash({
+const amaticSc = localFont({
   display: "swap",
-  subsets: ["latin"],
-  weight: "400",
+  src: [
+    { path: "../assets/fonts/amatic-sc-regular-latin.woff2", weight: "400" },
+    { path: "../assets/fonts/amatic-sc-bold-latin.woff2", weight: "700" },
+  ],
 });
 
-const nunito = Nunito({
+const nunito = localFont({
   display: "swap",
-  subsets: ["latin"],
-  weight: ["200", "500", "700"],
+  src: "../assets/fonts/nunito-latin.woff2",
+  weight: "200 700",
 });
 
 export const font = {
   family: {
-    display: berkshireSwash.style.fontFamily,
+    display: amaticSc.style.fontFamily,
     body: nunito.style.fontFamily,
     mono: '"SFMono-Regular", Consolas, "Liberation Mono", monospace',
   },
