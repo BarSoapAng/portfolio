@@ -124,17 +124,9 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
           </div>
         </div>
 
-        <div className={styles.footer}>
-          <p>{isPlaying ? "vibin', jammin', join up!" : "last heard - not playing rn :/"}</p>
-          <a
-            className={styles.spotifyLink}
-            href={playback.track.spotifyUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open in Spotify <span aria-hidden="true">&#8599;</span>
-          </a>
-        </div>
+        <p className={styles.footer}>
+          {isPlaying ? "vibin', jammin', join up!" : "last heard - not playing rn :/"}
+        </p>
       </div>
     </section>
   );

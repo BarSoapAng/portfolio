@@ -15,11 +15,10 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
         entries.map((entry) => (
           <article className="work-entry" key={entry.slug}>
             <div className="content-card__body">
-              <p className="work-entry__meta">
-                <strong>{entry.company}</strong>
-                <span>{entry.period}</span>
-              </p>
-              <h2>{entry.title}</h2>
+              <h2>
+                {entry.title} - {entry.company}
+              </h2>
+              <p className="work-entry__meta">{entry.period}</p>
               <p>
                 <span className="entry-tags">{entry.tags.join(" · ")}</span>
               </p>

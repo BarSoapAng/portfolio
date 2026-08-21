@@ -134,34 +134,10 @@
 }
 
 .footer {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-  justify-content: space-between;
   margin-block-start: var(--space-1);
-}
-
-.footer p {
-  margin: 0;
+  margin-block-end: 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-xs);
-}
-
-.spotifyLink {
-  flex: 0 0 auto;
-  padding: var(--space-1) var(--space-2);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-pill);
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-}
-
-.spotifyLink:hover {
-  background: var(--color-primary-hover);
-  color: var(--color-on-primary);
 }
 
 @keyframes pulse {
@@ -175,11 +151,6 @@
   .artwork,
   .artworkFallback {
     align-self: start;
-  }
-
-  .footer {
-    align-items: flex-start;
-    flex-direction: column;
   }
 }
 

@@ -30,7 +30,7 @@ export const font = {
     "3xl": "clamp(2.25rem, 6vw, 4rem)",
   },
   weight: {
-    regular: 200,
+    regular: 400,
     medium: 500,
     bold: 700,
   },
