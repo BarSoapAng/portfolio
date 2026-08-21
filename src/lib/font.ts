@@ -36,7 +36,7 @@ export const font = {
   },
   lineHeight: {
     tight: 1.15,
-    normal: 1.6,
+    normal: 1.45,
     relaxed: 1.75,
   },
 } as const;
