@@ -2,6 +2,7 @@ import "server-only";
 
 import type { Metadata } from "next";
 import type { ProjectFrontmatter, ProjectSummary } from "./project-shared";
+import { requireContentImageField } from "./content-images";
 import {
   createMdxCollectionReader,
   parseTagsField,
@@ -16,7 +17,7 @@ const PROJECT_FIELD_PARSERS = {
   order: requireNumberField("order"),
   date: requireDateField(),
   summary: requireStringField("summary"),
-  thumbnail: requireStringField("thumbnail"),
+  thumbnail: requireContentImageField("thumbnail"),
   thumbnailAlt: requireStringField("thumbnailAlt"),
   published: requireBooleanField("published"),
   tags: parseTagsField,

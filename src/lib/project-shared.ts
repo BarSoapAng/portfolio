@@ -1,9 +1,11 @@
+import type { StaticImageData } from "next/image";
+
 export type ProjectFrontmatter = {
   title: string;
   order: number;
   date: string;
   summary: string;
-  thumbnail: string;
+  thumbnail: StaticImageData;
   thumbnailAlt: string;
   published: boolean;
   tags: string[];

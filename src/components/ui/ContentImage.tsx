@@ -1,8 +1,9 @@
+import type { StaticImageData } from "next/image";
 import { StyledContentImage } from "@components/ui/ContentImage.styles";
 
 type ContentImageProps = {
   alt: string;
-  src: string;
+  src: StaticImageData;
   variant: "thumbnail" | "hero";
 };
 

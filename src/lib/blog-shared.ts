@@ -1,10 +1,11 @@
+import type { StaticImageData } from "next/image";
 import { formatLongDate } from "./format-date";
 
 export type PostFrontmatter = {
   title: string;
   date: string;
   summary: string;
-  thumbnail: string;
+  thumbnail: StaticImageData;
   thumbnailAlt: string;
   published: boolean;
   tags: string[];

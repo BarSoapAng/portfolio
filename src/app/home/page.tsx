@@ -1,3 +1,4 @@
+import sectionDivider from "@assets/decorative/botanical-section-divider.png";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
 import VinylPlayer from "@components/home/VinylPlayer";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
@@ -14,18 +15,14 @@ function HomePage() {
     <main>
       <SelfDescriptionCard />
       <SectionDivider
-        src="/images/decorative/botanical-section-divider.png"
+        src={sectionDivider}
         alt=""
-        width={2073}
-        height={319}
         aria-hidden="true"
       />
       <VinylPlayer />
       <SectionDivider
-        src="/images/decorative/botanical-section-divider.png"
+        src={sectionDivider}
         alt=""
-        width={2073}
-        height={319}
         aria-hidden="true"
       />
 
@@ -34,10 +31,8 @@ function HomePage() {
         <WorkExperienceStack entries={workEntries} />
       </IndexSection>
       <SectionDivider
-        src="/images/decorative/botanical-section-divider.png"
+        src={sectionDivider}
         alt=""
-        width={2073}
-        height={319}
         aria-hidden="true"
       />
 

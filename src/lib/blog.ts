@@ -2,6 +2,7 @@ import "server-only";
 
 import type { Metadata } from "next";
 import type { PostFrontmatter, PostSummary } from "./blog-shared";
+import { requireContentImageField } from "./content-images";
 import {
   createMdxCollectionReader,
   parseTagsField,
@@ -14,7 +15,7 @@ const POST_FIELD_PARSERS = {
   title: requireStringField("title"),
   date: requireDateField(),
   summary: requireStringField("summary"),
-  thumbnail: requireStringField("thumbnail"),
+  thumbnail: requireContentImageField("thumbnail"),
   thumbnailAlt: requireStringField("thumbnailAlt"),
   published: requireBooleanField("published"),
   tags: parseTagsField,
