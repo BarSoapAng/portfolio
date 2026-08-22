@@ -8,6 +8,13 @@ export const WorkEntry = styled.article`
   }
 `;
 
+export const Company = styled.span`
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+`;
+
 export const WorkMeta = styled.p`
   display: flex;
   flex-wrap: wrap;

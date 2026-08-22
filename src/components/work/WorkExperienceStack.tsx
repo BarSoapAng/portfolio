@@ -1,6 +1,6 @@
 import { ContentCardBody, ContentIndex, EntryTags } from "@components/ui/ContentStyles";
 import { type WorkSummary } from "@lib/work-shared";
-import { WorkEntry, WorkMeta } from "./WorkExperienceStack.styles";
+import { Company, WorkEntry, WorkMeta } from "./WorkExperienceStack.styles";
 
 type WorkExperienceStackProps = {
   entries: WorkSummary[];
@@ -18,7 +18,7 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
           <WorkEntry key={entry.slug}>
             <ContentCardBody>
               <h2>
-                {entry.title} - {entry.company}
+                {entry.title} - <Company>{entry.company}</Company>
               </h2>
               <WorkMeta>{entry.period}</WorkMeta>
               <p>
