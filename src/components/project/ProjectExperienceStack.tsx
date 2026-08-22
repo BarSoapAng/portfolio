@@ -17,7 +17,7 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
     <ContentIndex>
       {projects.length === 0 ? (
         <p>
-          No projects yet - add MDX files to <code>content/project</code>.
+          No projects yet.
         </p>
       ) : (
         projects.map((project) => (
@@ -26,16 +26,13 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
               <ContentImage alt={project.thumbnailAlt} src={project.thumbnail} variant="thumbnail" />
             </Link>
             <ContentCardBody>
-              <p>
-                <EntryTags>{project.tags.join(" · ")}</EntryTags>
-              </p>
               <h2>
                 <Link href={`/proj/${project.slug}`}>{project.title}</Link>
               </h2>
-              <p>{project.summary}</p>
               <p>
-                <Link href={`/proj/${project.slug}`}>Open project page →</Link>
+                <EntryTags>{project.tags.join(" · ")}</EntryTags>
               </p>
+              <p>{project.summary}</p>
             </ContentCardBody>
           </ContentCard>
         ))
