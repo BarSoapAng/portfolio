@@ -41,11 +41,11 @@ export const BlogSearchRow = styled.div`
 `;
 
 export const BlogFilterSelect = styled.label`
+  position: relative;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
   margin: 0;
-  padding-inline-start: var(--space-3);
+  padding: var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
   background: var(--color-surface);
@@ -57,12 +57,13 @@ export const BlogFilterSelect = styled.label`
   }
 
   select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
     border: 0;
     outline: none;
-    background: transparent;
-    color: var(--color-text);
+    opacity: 0;
     cursor: pointer;
-    font: inherit;
   }
 `;
 
