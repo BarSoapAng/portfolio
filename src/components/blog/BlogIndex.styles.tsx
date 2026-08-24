@@ -44,16 +44,17 @@ export const BlogFilterSelect = styled.label`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  width: var(--space-4xl);
   margin: 0;
   padding: var(--space-3);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
-  background: var(--color-surface);
   color: var(--color-accent);
   cursor: pointer;
 
   &:focus-within {
-    background: var(--color-primary-soft);
+    outline: 2px solid var(--color-primary);
+    outline-offset: var(--space-xxs);
   }
 
   select {
@@ -62,8 +63,21 @@ export const BlogFilterSelect = styled.label`
     width: 100%;
     border: 0;
     outline: none;
-    opacity: 0;
+    appearance: none;
+    background: transparent;
+    color: transparent;
     cursor: pointer;
+    font: inherit;
+  }
+
+  option {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  option:checked {
+    background: var(--color-primary-soft);
+    color: var(--color-primary-hover);
   }
 `;
 
