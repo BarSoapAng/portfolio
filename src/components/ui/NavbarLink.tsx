@@ -21,7 +21,6 @@ export default function NavbarLink() {
                 aria-current={isActive ? "page" : undefined}
                 aria-label={page.label}
                 href={page.path}
-                title={page.label}
               >
                 {page.path === "/home" ? <FaHouse aria-hidden /> : <FaBookOpen aria-hidden />}
               </Link>
