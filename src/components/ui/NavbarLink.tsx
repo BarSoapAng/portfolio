@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaBookOpen, FaHouse } from "react-icons/fa6";
 import { routes } from "../../routes";
 
 export default function NavbarLink() {
@@ -16,8 +17,13 @@ export default function NavbarLink() {
 
           return (
             <li key={page.path}>
-              <Link href={page.path} aria-current={isActive ? "page" : undefined}>
-                {page.label}
+              <Link
+                aria-current={isActive ? "page" : undefined}
+                aria-label={page.label}
+                href={page.path}
+                title={page.label}
+              >
+                {page.path === "/home" ? <FaHouse aria-hidden /> : <FaBookOpen aria-hidden />}
               </Link>
             </li>
           );

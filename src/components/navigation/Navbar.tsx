@@ -29,7 +29,9 @@ const SiteHeader = styled.header`
   }
 
   nav a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-pill);
     font-size: var(--font-size-lg);
