@@ -54,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   main > :is(header, section, article, aside, dl) {
-    padding: var(--space-8);
+    padding-block: var(--space-8);
   }
 
   h1,
@@ -142,7 +142,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     main > :is(header, section, article, aside, dl) {
-      padding: var(--space-6);
+      padding-block: var(--space-6);
     }
   }
 `;
