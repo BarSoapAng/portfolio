@@ -43,9 +43,9 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
   return (
     <div>
       <BlogControls aria-label="Filter blog posts">
-        <label htmlFor="blog-search">Search</label>
         <BlogSearchRow>
           <input
+            aria-label="Search posts"
             id="blog-search"
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search posts"

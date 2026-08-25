@@ -4,18 +4,9 @@ import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
 
 export const BlogControls = styled.section`
-  padding: var(--space-8);
-
-  > label {
-    display: block;
-    margin-block-end: var(--space-2);
-    color: var(--color-primary-hover);
-    font-weight: var(--font-weight-bold);
-  }
-
   input {
     width: 100%;
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-medium);
     background: var(--color-surface);
@@ -47,7 +38,7 @@ export const BlogFilterSelect = styled.label`
   justify-content: flex-end;
   width: var(--space-4xl);
   margin: 0;
-  padding: var(--space-3);
+  padding: var(--space-2);
   border-radius: var(--radius-medium);
   color: var(--color-accent);
   cursor: pointer;
