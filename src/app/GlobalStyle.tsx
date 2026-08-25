@@ -44,7 +44,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   main {
-    width: min(calc(100% - (2 * var(--space-4))), 70rem);
+    width: min(calc(100% - (2 * var(--space-4))), 1000px);
     margin-inline: auto;
     padding-block: var(--space-12);
   }
