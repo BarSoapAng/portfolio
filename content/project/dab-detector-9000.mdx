@@ -1,0 +1,29 @@
+---
+title: "DAB Detector 9000"
+order: 3
+date: "2026-03-29"
+summary: "A webcam-powered computer-vision toy that recognizes a dab, launches chaotic MLG effects, plays audio, and captures the moment."
+thumbnail: "dab-detector-9000.jpg"
+thumbnailAlt: "DAB Detector 9000 applying a rainbow overlay, pixel sunglasses, and animated stickers to a webcam frame"
+published: true
+tags:
+  - computer-vision
+  - mediapipe
+  - javascript
+---
+
+[Try it live](https://stupiddd.vercel.app) · [GitHub repository](https://github.com/BarSoapAng/STUPIDDD)
+
+## What I built
+
+DAB Detector 9000 turns a webcam feed into an intentionally over-the-top pose detector. When the arm geometry matches a dab, the browser adds rainbow color effects, pixel sunglasses, bouncing sprites, and a soundtrack.
+
+After the pose holds for several frames, the app automatically exports a still image so the result can escape the browser.
+
+## Technical highlights
+
+- MediaPipe Pose Landmarker running against live browser video
+- pose classification based on shoulder, elbow, wrist, and visibility data
+- GPU initialization with a CPU fallback
+- canvas-based effects, image compositing, and automatic JPEG export
+- a parallel Python implementation using OpenCV, Pygame, and Pillow
