@@ -14,11 +14,6 @@ function HomePage() {
   return (
     <main>
       <SelfDescriptionCard />
-      <SectionDivider
-        src={sectionDivider}
-        alt=""
-        aria-hidden="true"
-      />
       <VinylPlayer />
       <SectionDivider
         src={sectionDivider}

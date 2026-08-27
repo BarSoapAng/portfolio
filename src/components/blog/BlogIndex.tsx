@@ -88,9 +88,6 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                 <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </h2>
               <p>{post.summary}</p>
-              <p>
-                <Link href={`/blog/${post.slug}`}>Read entry →</Link>
-              </p>
             </ContentCardBody>
           </ContentCard>
         ))}

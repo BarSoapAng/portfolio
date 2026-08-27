@@ -8,7 +8,7 @@ type TagLabelProps = {
 
 const Label = styled.span`
   display: inline-block;
-  margin: var(--space-1) var(--space-1) var(--space-1) 0;
+  margin: var(--space-1) var(--space-1) 0 0;
   padding: var(--space-1) var(--space-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);

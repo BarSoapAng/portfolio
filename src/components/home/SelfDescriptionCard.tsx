@@ -8,9 +8,9 @@ export default function SelfDescriptionCard() {
     <Hero>
       <HeroImage src={selfie.src} alt="Angela's selfie" width={220} />
       <div>
-        <h1>Welcome</h1>
+        <h1>Hello hello!</h1>
         <p>
-          <strong>Hello hello!</strong> This is a place where I share my experiences,
+          This is a place where I share my experiences,
           thoughts, and my FAV tried and tested macro-friendly recipes :3
         </p>
         <p>

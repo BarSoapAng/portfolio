@@ -15,8 +15,7 @@ export default function TopBlogOverview({ posts }: TopBlogOverviewProps) {
   return (
     <aside className={styles.sidebar} aria-labelledby="top-blogs-heading">
       <header>
-        <h2 id="top-blogs-heading">★ Top Blogs ★</h2>
-        <p>latest published posts</p>
+        <h2 id="top-blogs-heading">Top Blogs</h2>
       </header>
 
       {overviewPosts.length === 0 ? (

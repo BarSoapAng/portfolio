@@ -36,26 +36,6 @@ const Carousel = styled.div`
   padding-block-end: var(--space-8);
 `;
 
-const CarouselHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-inline: var(--space-4);
-  color: var(--color-text-muted);
-
-  p {
-    margin: 0;
-    font-size: var(--font-size-sm);
-  }
-`;
-
-const DragGlyph = styled.span`
-  color: var(--color-primary);
-  font-size: var(--font-size-xl);
-  line-height: 1;
-`;
-
 const CarouselViewport = styled.div`
   position: relative;
   isolation: isolate;
@@ -73,7 +53,11 @@ const CarouselTrack = styled(motion.ul)`
     var(--space-8)
     max(var(--space-4), calc((100cqw - clamp(17rem, 58vw, 23rem)) / 2))
     var(--space-24);
-  gap: var(--space-6);
+  gap: clamp(
+    calc(var(--space-24) + var(--space-16)),
+    18vw,
+    calc(var(--space-24) + var(--space-24))
+  );
   list-style: none;
   cursor: grab;
   touch-action: pan-y;
@@ -270,13 +254,9 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
 
   return (
     <Carousel>
-      <CarouselHeader>
-        <p id="project-carousel-instructions">Drag the Polaroids to explore</p>
-        <DragGlyph aria-hidden="true">↔</DragGlyph>
-      </CarouselHeader>
       <CarouselViewport ref={carouselRef}>
         <CarouselTrack
-          aria-describedby="project-carousel-instructions"
+          aria-label="Project carousel. Drag horizontally to explore."
           drag="x"
           dragConstraints={carouselRef}
           dragElastic={0.12}
