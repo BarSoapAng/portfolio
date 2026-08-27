@@ -27,7 +27,13 @@ type ProjectPolaroidProps = {
 };
 
 const Carousel = styled.div`
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  overflow: hidden;
+  overflow: clip;
   margin-inline: calc(-1 * var(--space-4));
+  padding-block-end: var(--space-8);
 `;
 
 const CarouselHeader = styled.div`
@@ -51,8 +57,11 @@ const DragGlyph = styled.span`
 `;
 
 const CarouselViewport = styled.div`
+  position: relative;
+  isolation: isolate;
   container-type: inline-size;
   overflow: hidden;
+  overflow: clip;
   padding-block: var(--space-4);
 `;
 
