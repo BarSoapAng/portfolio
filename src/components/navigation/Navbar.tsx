@@ -19,6 +19,10 @@ const SiteHeader = styled.header`
     font-weight: var(--font-weight-bold);
   }
 
+  > p a {
+    text-decoration: none;
+  }
+
   nav ul {
     display: flex;
     flex-wrap: wrap;
