@@ -179,7 +179,7 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
                 initial={shouldReduceMotion ? false : { opacity: 0, rotate: rotation, y: curveOffset + 12 }}
                 key={project.slug}
                 transition={{ delay: index * 0.08, duration: 0.35 }}
-                whileHover={shouldReduceMotion ? undefined : { rotate: 0, y: curveOffset - 8 }}
+                whileHover={shouldReduceMotion ? undefined : { y: curveOffset - 8 }}
               >
                 <ProjectLink
                   aria-label={`View ${project.title}`}
