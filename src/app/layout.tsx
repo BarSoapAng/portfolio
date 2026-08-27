@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import GlobalStyle from "./GlobalStyle";
 import Footer from "@components/layout/Footer";
+import SocialLinks from "@components/layout/SocialLinks";
 import Navbar from "@components/navigation/Navbar";
 import { colors } from "@lib/colors";
 import { font } from "@lib/font";
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <GlobalStyle />
           <Navbar />
           {children}
+          <SocialLinks />
           <Footer />
         </StyledComponentsRegistry>
       </body>
