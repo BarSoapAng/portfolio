@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
 import type { SpotifyPlaybackState } from "@lib/spotify";
+import { EntryTags } from "@components/ui/ContentStyles";
 
 import styles from "./VinylPlayer.module.css";
 
@@ -12,16 +13,12 @@ type VinylPlayerClientProps = {
   playback: SpotifyPlaybackState;
 };
 
-function formatDuration(ms: number) {
-  const totalSeconds = Math.floor(ms / 1_000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-}
-
 export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) {
   const router = useRouter();
+  const isPlaying = playback.status === "playing";
+  const [currentProgressMs, setCurrentProgressMs] = useState(() =>
+    isPlaying ? Math.max(playback.track?.progressMs ?? 0, 0) : 0,
+  );
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -32,6 +29,30 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
       window.clearInterval(interval);
     };
   }, [router]);
+
+  useEffect(() => {
+    const track = playback.track;
+
+    if (!isPlaying || !track) {
+      return;
+    }
+
+    const startingProgressMs = Math.max(track.progressMs ?? 0, 0);
+    const startedAt = Date.now();
+    const progressInterval = window.setInterval(() => {
+      setCurrentProgressMs(
+        Math.min(startingProgressMs + Date.now() - startedAt, track.durationMs),
+      );
+    }, 1_000);
+    const refreshTimeout = window.setTimeout(() => {
+      router.refresh();
+    }, Math.max(track.durationMs - startingProgressMs, 1_000));
+
+    return () => {
+      window.clearInterval(progressInterval);
+      window.clearTimeout(refreshTimeout);
+    };
+  }, [isPlaying, playback.track, router]);
 
   if (!playback.track) {
     return (
@@ -49,13 +70,6 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
       </section>
     );
   }
-
-  const isPlaying = playback.status === "playing";
-  const currentProgressMs = isPlaying
-    ? Math.max(playback.track.progressMs ?? 0, 0)
-    : 0;
-  const currentProgress = formatDuration(currentProgressMs);
-  const trackLength = formatDuration(playback.track.durationMs);
 
   return (
     <section className={styles.player} aria-label="Spotify player">
@@ -85,7 +99,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
             </a>
           </h2>
           {playback.track.artistUrl ? (
-            <p className={styles.artist}>
+            <EntryTags className={styles.artist}>
               <a
                 href={playback.track.artistUrl}
                 target="_blank"
@@ -94,9 +108,9 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
               >
                 {playback.track.artist}
               </a>
-            </p>
+            </EntryTags>
           ) : (
-            <p className={styles.artist}>{playback.track.artist}</p>
+            <EntryTags className={styles.artist}>{playback.track.artist}</EntryTags>
           )}
         </div>
 
@@ -106,15 +120,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
             value={currentProgressMs}
             max={playback.track.durationMs}
           />
-          <div className={styles.timestamps} aria-hidden="true">
-            <span>{currentProgress}</span>
-            <span>{trackLength}</span>
-          </div>
         </div>
-
-        <p className={styles.footer}>
-          {isPlaying ? "vibin', jammin', join up!" : "last heard - not playing rn :/"}
-        </p>
       </div>
     </section>
   );
