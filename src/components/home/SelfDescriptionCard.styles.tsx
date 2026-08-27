@@ -21,7 +21,28 @@ export const HeroImage = styled.img`
   }
 `;
 
+export const HeroContent = styled.div`
+  min-width: 0;
+`;
+
+export const HeroActions = styled.div`
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+
+  @media (max-width: 42rem) {
+    flex-direction: column;
+    align-items: stretch;
+
+    > nav {
+      order: -1;
+    }
+  }
+`;
+
 export const Socials = styled.nav`
+  flex: 0 0 auto;
+
   ul {
     display: flex;
     flex-wrap: wrap;

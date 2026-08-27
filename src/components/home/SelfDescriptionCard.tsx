@@ -1,13 +1,20 @@
 import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 
 import selfie from "@assets/home/selfie.jpg";
-import { Hero, HeroImage, Socials } from "./SelfDescriptionCard.styles";
+import VinylPlayer from "./VinylPlayer";
+import {
+  Hero,
+  HeroActions,
+  HeroContent,
+  HeroImage,
+  Socials,
+} from "./SelfDescriptionCard.styles";
 
 export default function SelfDescriptionCard() {
   return (
     <Hero>
       <HeroImage src={selfie.src} alt="Angela's selfie" width={220} />
-      <div>
+      <HeroContent>
         <h1>Hello hello!</h1>
         <p>
           This is a place where I share my experiences,
@@ -21,31 +28,34 @@ export default function SelfDescriptionCard() {
           I yap too much so if you want to know me better, check out{" "}
           <a href="/blog/who-am-i">this page</a> {"<3"}
         </p>
-        <Socials aria-label="Social media">
-          <ul>
-            <li>
-              <a aria-label="LinkedIn" href="https://www.linkedin.com/in/ang018/">
-                <FaLinkedinIn aria-hidden />
-              </a>
-            </li>
-            <li>
-              <a aria-label="GitHub" href="https://github.com/BarSoapAng">
-                <FaGithub aria-hidden />
-              </a>
-            </li>
-            <li>
-              <a aria-label="X" href="https://x.com/barsoapang">
-                <FaXTwitter aria-hidden />
-              </a>
-            </li>
-            <li>
-              <a aria-label="Instagram" href="https://www.instagram.com/barsoapang">
-                <FaInstagram aria-hidden />
-              </a>
-            </li>
-          </ul>
-        </Socials>
-      </div>
+        <HeroActions>
+          <VinylPlayer />
+          <Socials aria-label="Social media">
+            <ul>
+              <li>
+                <a aria-label="LinkedIn" href="https://www.linkedin.com/in/ang018/">
+                  <FaLinkedinIn aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a aria-label="GitHub" href="https://github.com/BarSoapAng">
+                  <FaGithub aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a aria-label="X" href="https://x.com/barsoapang">
+                  <FaXTwitter aria-hidden />
+                </a>
+              </li>
+              <li>
+                <a aria-label="Instagram" href="https://www.instagram.com/barsoapang">
+                  <FaInstagram aria-hidden />
+                </a>
+              </li>
+            </ul>
+          </Socials>
+        </HeroActions>
+      </HeroContent>
     </Hero>
   );
 }

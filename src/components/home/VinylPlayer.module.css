@@ -1,6 +1,8 @@
 .player {
   display: grid;
   grid-template-columns: var(--space-16) minmax(0, 1fr);
+  width: 100%;
+  max-width: 24rem;
   gap: var(--space-3);
   align-items: center;
   overflow: hidden;
@@ -143,6 +145,12 @@
   50% {
     opacity: 0.45;
     transform: scale(0.8);
+  }
+}
+
+@media (max-width: 42rem) {
+  .player {
+    max-width: none;
   }
 }
 

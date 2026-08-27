@@ -1,6 +1,5 @@
 import sectionDivider from "@assets/decorative/poro-section-divider.png";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
-import VinylPlayer from "@components/home/VinylPlayer";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkExperienceStack from "@components/work/WorkExperienceStack";
 import { getAllProjects } from "@lib/project";
@@ -14,7 +13,6 @@ function HomePage() {
   return (
     <main>
       <SelfDescriptionCard />
-      <VinylPlayer />
       <SectionDivider
         src={sectionDivider}
         alt=""
