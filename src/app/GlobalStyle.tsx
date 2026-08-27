@@ -94,7 +94,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a:hover {
-    color: var(--color-primary-hover);
+    color: color-mix(in srgb, var(--color-primary-hover) 70%, var(--color-text));
+  }
+
+  nav[aria-label="Social media"] a:hover {
+    color: color-mix(in srgb, var(--color-accent) 40%, var(--color-text));
   }
 
   a:focus-visible {
