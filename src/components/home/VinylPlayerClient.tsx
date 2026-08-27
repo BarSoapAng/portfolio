@@ -12,9 +12,6 @@ type VinylPlayerClientProps = {
   playback: SpotifyPlaybackState;
 };
 
-const PLAYING_REFRESH_INTERVAL_MS = 1_000;
-const IDLE_REFRESH_INTERVAL_MS = 30_000;
-
 function formatDuration(ms: number) {
   const totalSeconds = Math.floor(ms / 1_000);
   const minutes = Math.floor(totalSeconds / 60);
@@ -25,18 +22,16 @@ function formatDuration(ms: number) {
 
 export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) {
   const router = useRouter();
-  const refreshIntervalMs =
-    playback.status === "playing" ? PLAYING_REFRESH_INTERVAL_MS : IDLE_REFRESH_INTERVAL_MS;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       router.refresh();
-    }, refreshIntervalMs);
+    }, 45_000);
 
     return () => {
       window.clearInterval(interval);
     };
-  }, [refreshIntervalMs, router]);
+  }, [router]);
 
   if (!playback.track) {
     return (
