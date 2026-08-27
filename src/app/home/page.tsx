@@ -1,4 +1,4 @@
-import sectionDivider from "@assets/decorative/botanical-section-divider.png";
+import sectionDivider from "@assets/decorative/poro-section-divider.png";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
 import VinylPlayer from "@components/home/VinylPlayer";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
