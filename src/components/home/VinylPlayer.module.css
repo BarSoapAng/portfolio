@@ -81,7 +81,7 @@
 }
 
 .title a:hover {
-  color: var(--color-primary);
+  color: color-mix(in srgb, var(--color-primary) 65%, black);
 }
 
 .artist,
@@ -97,6 +97,10 @@
 .artist a {
   color: inherit;
   text-decoration: none;
+}
+
+.artist a:hover {
+  color: color-mix(in srgb, var(--color-accent) 65%, black);
 }
 
 .timeline progress {
