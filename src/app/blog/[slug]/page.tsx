@@ -4,8 +4,7 @@ import Link from "next/link";
 import TopBlogOverview from "@components/navigation/TopBlogOverview";
 import styles from "@components/navigation/TopBlogOverview.module.css";
 import ContentImage from "@components/ui/ContentImage";
-import { ContentHero } from "@components/ui/ContentStyles";
-import TagLabel from "@components/ui/TagLabel";
+import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
 import { buildPostMetadata, getAllPostSlugs, getAllPosts, getPostBySlug } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
 
@@ -47,18 +46,12 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
     <main className={styles.page}>
       <p>
         <Link className={styles.backLink} href="/blog">
-          ← Back to blog
+          ← Back to blogs
         </Link>
       </p>
 
       <article>
         <header>
-          <p>
-            <span>{formatPostDate(post.date)}</span>{" "}
-            {post.tags.map((tag) => (
-              <TagLabel key={tag} label={tag} />
-            ))}
-          </p>
           <h1>{post.title}</h1>
           <p>{post.summary}</p>
         </header>
@@ -66,6 +59,8 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
         <ContentHero>
           <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="hero" />
         </ContentHero>
+
+        <BlogDate>{formatPostDate(post.date)}</BlogDate>
 
         <PostContent />
       </article>

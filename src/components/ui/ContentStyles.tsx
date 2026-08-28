@@ -39,6 +39,11 @@ export const EntryTags = styled.span`
   font-size: var(--font-size-sm);
 `;
 
+export const BlogDate = styled(EntryTags)`
+  display: block;
+  margin-block-end: 50px;
+`;
+
 export const ContentHero = styled.figure`
-  margin: var(--space-8) 0;
+  margin: var(--space-6) 0;
 `;
