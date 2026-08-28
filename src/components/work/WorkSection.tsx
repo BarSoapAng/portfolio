@@ -99,7 +99,7 @@ const PawTrail = styled.div`
 
 function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps) {
   const opacity = useTransform(progress, (value) =>
-    shouldReduceMotion || value >= (index + 1) / total ? 1 : 0,
+    shouldReduceMotion || value >= ((index + 1) / total) * 0.7 ? 1 : 0,
   );
 
   return (
@@ -116,7 +116,7 @@ export default function WorkSection({ entries }: WorkSectionProps) {
   const totalPaws = Math.max(entries.length - 1, 0) * pawsPerConnector;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 75%", "end 40%"],
+    offset: ["start 90%", "end 85%"],
   });
 
   return (

@@ -1,10 +1,12 @@
 import { Fragment, type ReactNode } from "react";
-import { ContentCardBody, EntryTags } from "@components/ui/ContentStyles";
+import { ContentCardBody } from "@components/ui/ContentStyles";
 import { type WorkSummary } from "@lib/work-shared";
 import {
   WorkEntry,
   WorkHeading,
+  WorkDetails,
   Company,
+  Period,
   WorkIndex,
 } from "./WorkExperienceStack.styles";
 
@@ -30,9 +32,11 @@ export default function WorkExperienceStack({
               <ContentCardBody>
                 <WorkHeading>
                   <h2>{entry.title}</h2>
-                  <EntryTags>{entry.period}</EntryTags>
                 </WorkHeading>
-                <Company>{entry.company}</Company>
+                <WorkDetails>
+                  <Company>{entry.company}</Company>
+                  <Period>{entry.period}</Period>
+                </WorkDetails>
               </ContentCardBody>
             </WorkEntry>
             {index < entries.length - 1 ? renderConnector?.(index) : null}
