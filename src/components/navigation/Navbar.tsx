@@ -9,7 +9,9 @@ const SiteHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
-  padding: var(--space-4) max(var(--space-4), calc((100vw - 70rem) / 2));
+  width: min(calc(100% - (2 * var(--space-4))), 1000px);
+  margin-inline: auto;
+  padding-block: var(--space-4);
   font-family: var(--font-display);
 
   > p {
