@@ -1,5 +1,4 @@
 import selfie from "@assets/home/selfie.jpg";
-import VinylPlayer from "./VinylPlayer";
 import {
   Hero,
   HeroContent,
@@ -24,7 +23,6 @@ export default function SelfDescriptionCard() {
           I yap too much so if you want to know me better, check out{" "}
           <a href="/blog/who-am-i">this page</a> {"<3"}
         </p>
-        <VinylPlayer />
       </HeroContent>
     </Hero>
   );

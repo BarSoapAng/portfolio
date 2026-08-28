@@ -61,8 +61,8 @@
 - `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
 - `/work` and `/proj` redirect to the matching home-page sections; only project entries retain standalone detail routes.
 - Reusable home UI belongs in `src/components/home/`.
-- `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
-- The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
+- The Spotify player code remains in `src/components/home/VinylPlayer.tsx`, `src/components/home/VinylPlayerClient.tsx`, and `src/lib/spotify.ts`, but it is not rendered or called by the application.
+- If the Spotify player is re-enabled, it expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
 
 ## Validation
 
