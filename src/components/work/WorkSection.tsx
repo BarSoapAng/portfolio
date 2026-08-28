@@ -26,6 +26,7 @@ type PawPrintProps = {
 };
 
 type AnimatedPawTrailProps = {
+  firstPawIndex: number;
   index: number;
   pawCount: number;
   progress: MotionValue<number>;
@@ -189,18 +190,23 @@ const PawTrail = styled.div`
 `;
 
 function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps) {
+  const visibleOpacity =
+    total === 1 ? 1 : 0.3 + (index / (total - 1)) * 0.7;
   const opacity = useTransform(progress, (value) =>
-    value >= ((index + 1) / total) * 0.8 ? 1 : 0,
+    value >= ((index + 1) / total) * 0.8 ? visibleOpacity : 0,
   );
 
   return (
-    <motion.span style={{ opacity: shouldReduceMotion ? 1 : opacity }}>
+    <motion.span
+      style={{ opacity: shouldReduceMotion ? visibleOpacity : opacity }}
+    >
       <FaPaw />
     </motion.span>
   );
 }
 
 function AnimatedPawTrail({
+  firstPawIndex,
   index,
   pawCount,
   progress,
@@ -262,7 +268,7 @@ function AnimatedPawTrail({
       <div>
         {Array.from({ length: pawCount }, (_, pawIndex) => (
           <PawPrint
-            index={index * pawCount + pawIndex}
+            index={firstPawIndex + pawIndex}
             key={pawIndex}
             progress={progress}
             shouldReduceMotion={shouldReduceMotion}
@@ -278,7 +284,11 @@ export default function WorkSection({ entries }: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const pawsPerConnector = 7;
-  const totalPaws = Math.max(entries.length - 1, 0) * pawsPerConnector;
+  const pawCounts = Array.from(
+    { length: Math.max(entries.length - 1, 0) },
+    (_, index) => (index === 1 ? pawsPerConnector - 1 : pawsPerConnector),
+  );
+  const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 65%", "end 60%"],
@@ -291,8 +301,11 @@ export default function WorkSection({ entries }: WorkSectionProps) {
         entries={entries}
         renderConnector={(connectorIndex) => (
           <AnimatedPawTrail
+            firstPawIndex={pawCounts
+              .slice(0, connectorIndex)
+              .reduce((total, count) => total + count, 0)}
             index={connectorIndex}
-            pawCount={pawsPerConnector}
+            pawCount={pawCounts[connectorIndex]}
             progress={scrollYProgress}
             shouldReduceMotion={shouldReduceMotion}
             totalPaws={totalPaws}
