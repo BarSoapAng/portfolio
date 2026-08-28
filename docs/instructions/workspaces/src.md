@@ -14,7 +14,7 @@
 - `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
-- `content/work/`: local MDX work entries rendered in the home-page work section
+- `content/work.json`: work entries rendered in the home-page work section; each entry contains only `title`, `company`, and `period`
 - `content/project/`: local MDX project entries loaded by the App Router project routes
 
 ## Routing Rules

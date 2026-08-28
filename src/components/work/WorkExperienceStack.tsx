@@ -15,11 +15,11 @@ export default function WorkExperienceStack({ entries }: WorkExperienceStackProp
     <ContentIndex>
       {entries.length === 0 ? (
         <p>
-          No work entries yet - add MDX files to <code>content/work</code>.
+          No work entries yet - add them to <code>content/work.json</code>.
         </p>
       ) : (
         entries.map((entry) => (
-          <WorkEntry key={entry.slug}>
+          <WorkEntry key={`${entry.company}-${entry.title}-${entry.period}`}>
             <ContentCardBody>
               <WorkHeading>
                 <h2>{entry.title}</h2>
