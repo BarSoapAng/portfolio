@@ -2,13 +2,28 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+  useVelocity,
+  type MotionValue,
+} from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
 import { type ProjectSummary } from "@lib/project-shared";
 
 type ProjectExperienceStackProps = {
   projects: ProjectSummary[];
+};
+
+type ProjectPolaroidProps = {
+  index: number;
+  project: ProjectSummary;
+  shouldReduceMotion: boolean | null;
+  swing: MotionValue<number>;
 };
 
 const Carousel = styled.div`
@@ -31,7 +46,9 @@ const CarouselViewport = styled.div`
 `;
 
 const CarouselTrack = styled(motion.ul)`
+  position: relative;
   display: flex;
+  isolation: isolate;
   width: max-content;
   margin: 0;
   padding:
@@ -47,6 +64,20 @@ const CarouselTrack = styled(motion.ul)`
   &:active {
     cursor: grabbing;
   }
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    top: calc(var(--space-8) - var(--space-3));
+    right: 0;
+    left: 0;
+    height: var(--space-6);
+    border-block: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
+    background: var(--color-primary-soft);
+    box-shadow: 0 var(--space-1) var(--space-2)
+      color-mix(in srgb, var(--color-wood) 15%, transparent);
+    content: "";
+  }
 `;
 
 const Polaroid = styled(motion.li)`
@@ -60,25 +91,18 @@ const Polaroid = styled(motion.li)`
   box-shadow:
     0 0.75rem 1.75rem color-mix(in srgb, var(--color-wood) 18%, transparent),
     0 0 0 1px color-mix(in srgb, var(--color-surface) 70%, transparent);
-  transform-origin: center var(--space-2);
+  transform-origin: center top;
 
   &::before {
     position: absolute;
     z-index: 1;
-    top: calc(-1 * var(--space-2));
+    top: calc(-1 * var(--space-1));
     left: 50%;
-    width: var(--space-3);
+    width: var(--space-2);
     aspect-ratio: 1;
     border: 1px solid var(--color-primary-hover);
     border-radius: var(--radius-circle);
-    background: radial-gradient(
-      circle at 35% 30%,
-      var(--color-on-primary) 0 10%,
-      var(--color-primary) 28% 62%,
-      var(--color-primary-hover) 100%
-    );
-    box-shadow: 0 var(--space-1) var(--space-2)
-      color-mix(in srgb, var(--color-wood) 35%, transparent);
+    background: var(--color-primary);
     content: "";
     pointer-events: none;
     transform: translateX(-50%);
@@ -139,9 +163,57 @@ const EmptyMessage = styled.p`
   padding-inline: var(--space-4);
 `;
 
+function ProjectPolaroid({
+  index,
+  project,
+  shouldReduceMotion,
+  swing,
+}: ProjectPolaroidProps) {
+  const restingRotation = ((index % 3) + 1) * (index % 2 === 0 ? -1 : 1);
+  const rotation = useTransform(swing, (currentSwing) => restingRotation + currentSwing);
+
+  return (
+    <Polaroid
+      animate={{ opacity: 1 }}
+      initial={shouldReduceMotion ? false : { opacity: 0 }}
+      style={{ rotate: shouldReduceMotion ? restingRotation : rotation }}
+      transition={{ delay: index * 0.08, duration: 0.35 }}
+    >
+      <ProjectLink
+        aria-label={`View ${project.title}`}
+        draggable={false}
+        href={`/proj/${project.slug}`}
+      >
+        <PolaroidPhoto>
+          <ContentImage
+            alt={project.thumbnailAlt}
+            src={project.thumbnail}
+            variant="thumbnail"
+          />
+        </PolaroidPhoto>
+        <PolaroidCaption>
+          <h3>{project.title}</h3>
+          <ProjectTags>{project.tags.join(" · ")}</ProjectTags>
+          <p>{project.summary}</p>
+        </PolaroidCaption>
+      </ProjectLink>
+    </Polaroid>
+  );
+}
+
 export default function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const wasDraggingRef = useRef(false);
+  const trackX = useMotionValue(0);
+  const trackVelocity = useVelocity(trackX);
+  const swingTarget = useTransform(trackVelocity, [-1400, 0, 1400], [7, 0, -7], {
+    clamp: true,
+  });
+  const swing = useSpring(swingTarget, {
+    damping: 8,
+    mass: 0.45,
+    stiffness: 90,
+  });
   const shouldReduceMotion = useReducedMotion();
 
   if (projects.length === 0) {
@@ -176,39 +248,17 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
           onDragStart={() => {
             wasDraggingRef.current = true;
           }}
+          style={{ x: trackX }}
         >
-          {projects.map((project, index) => {
-            const rotation = (index % 3 + 1) * (index % 2 === 0 ? -1 : 1);
-
-            return (
-              <Polaroid
-                animate={{ opacity: 1 }}
-                initial={shouldReduceMotion ? false : { opacity: 0 }}
-                key={project.slug}
-                style={{ rotate: rotation }}
-                transition={{ delay: index * 0.08, duration: 0.35 }}
-              >
-                <ProjectLink
-                  aria-label={`View ${project.title}`}
-                  draggable={false}
-                  href={`/proj/${project.slug}`}
-                >
-                  <PolaroidPhoto>
-                    <ContentImage
-                      alt={project.thumbnailAlt}
-                      src={project.thumbnail}
-                      variant="thumbnail"
-                    />
-                  </PolaroidPhoto>
-                  <PolaroidCaption>
-                    <h3>{project.title}</h3>
-                    <ProjectTags>{project.tags.join(" · ")}</ProjectTags>
-                    <p>{project.summary}</p>
-                  </PolaroidCaption>
-                </ProjectLink>
-              </Polaroid>
-            );
-          })}
+          {projects.map((project, index) => (
+            <ProjectPolaroid
+              index={index}
+              key={project.slug}
+              project={project}
+              shouldReduceMotion={shouldReduceMotion}
+              swing={swing}
+            />
+          ))}
         </CarouselTrack>
       </CarouselViewport>
     </Carousel>
