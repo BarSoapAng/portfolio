@@ -41,7 +41,7 @@ const Section = styled(IndexSection)`
 const PawTrail = styled.div`
   position: relative;
   width: 100%;
-  height: var(--space-12);
+  height: var(--space-8);
   color: var(--color-primary);
   pointer-events: none;
 
@@ -78,80 +78,91 @@ const PawTrail = styled.div`
   }
 
   span:nth-child(2) {
-    translate: 0 var(--space-2);
+    translate: 0 var(--space-1);
   }
 
   span:nth-child(3) {
-    translate: 0 var(--space-4);
+    translate: 0 var(--space-2);
   }
 
   span:nth-child(4) {
-    translate: 0 var(--space-6);
+    translate: 0 var(--space-3);
   }
 
   span:nth-child(5) {
-    translate: 0 var(--space-8);
+    translate: 0 var(--space-4);
   }
 
   span:nth-child(6) {
-    translate: 0 calc(var(--space-8) + var(--space-2));
+    translate: 0 var(--space-6);
   }
 
   span:nth-child(7) {
-    translate: 0 calc(var(--space-12) - var(--space-1));
+    translate: 0 calc(var(--space-8) - var(--space-1));
   }
 
   &[data-trail="0"] span:nth-child(2) {
-    translate: var(--space-1) var(--space-2);
+    translate: var(--space-1) var(--space-1);
   }
 
   &[data-trail="0"] span:nth-child(4) {
-    translate: calc(-1 * var(--space-1)) var(--space-6);
+    translate: calc(-1 * var(--space-1)) var(--space-3);
   }
 
   &[data-trail="0"] span:nth-child(6) {
-    translate: var(--space-2) calc(var(--space-8) + var(--space-2));
-  }
-
-  &[data-trail="1"] span:nth-child(2) {
-    translate: calc(-1 * var(--space-2)) var(--space-2);
-  }
-
-  &[data-trail="1"] span:nth-child(4) {
     translate: var(--space-2) var(--space-6);
   }
 
+  &[data-trail="1"] span:nth-child(2) {
+    translate: calc(-1 * var(--space-2)) var(--space-1);
+  }
+
+  &[data-trail="1"] span:nth-child(4) {
+    translate: var(--space-2) var(--space-3);
+  }
+
   &[data-trail="1"] span:nth-child(5) {
-    translate: calc(-1 * var(--space-1)) var(--space-8);
-  }
-
-  &[data-trail="2"] span:nth-child(3) {
-    translate: var(--space-1) var(--space-4);
-  }
-
-  &[data-trail="2"] span:nth-child(4) {
-    translate: calc(-1 * var(--space-2)) var(--space-6);
-  }
-
-  &[data-trail="2"] span:nth-child(6) {
-    translate: var(--space-1) calc(var(--space-8) + var(--space-2));
-  }
-
-  &[data-trail="3"] span:nth-child(2) {
-    translate: var(--space-2) var(--space-2);
-  }
-
-  &[data-trail="3"] span:nth-child(3) {
     translate: calc(-1 * var(--space-1)) var(--space-4);
   }
 
+  &[data-trail="2"] span:nth-child(3) {
+    translate: var(--space-1) var(--space-2);
+  }
+
+  &[data-trail="2"] span:nth-child(4) {
+    translate: calc(-1 * var(--space-2)) var(--space-3);
+  }
+
+  &[data-trail="2"] span:nth-child(6) {
+    translate: var(--space-1) var(--space-6);
+  }
+
+  &[data-trail="3"] span:nth-child(2) {
+    translate: var(--space-2) var(--space-1);
+  }
+
+  &[data-trail="3"] span:nth-child(3) {
+    translate: calc(-1 * var(--space-1)) var(--space-2);
+  }
+
   &[data-trail="3"] span:nth-child(5) {
-    translate: var(--space-1) var(--space-8);
+    translate: var(--space-1) var(--space-4);
   }
 
   &[data-trail="3"] span:nth-child(6) {
-    translate: calc(-1 * var(--space-1))
-      calc(var(--space-8) + var(--space-2));
+    translate: calc(-1 * var(--space-1)) var(--space-6);
+  }
+
+  &[data-trail="4"] span:nth-child(2) {
+    translate: calc(-1 * var(--space-1)) var(--space-1);
+  }
+
+  &[data-trail="4"] span:nth-child(4) {
+    translate: var(--space-2) var(--space-3);
+  }
+
+  &[data-trail="4"] span:nth-child(6) {
+    translate: calc(-1 * var(--space-1)) var(--space-6);
   }
 
   span:nth-child(odd) {

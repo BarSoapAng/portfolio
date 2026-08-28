@@ -7,7 +7,7 @@ export const WorkIndex = styled(ContentIndex)`
   gap: 0;
 
   > article {
-    padding-block: var(--space-4);
+    padding-block: var(--space-2);
     border: 0;
   }
 `;
@@ -21,39 +21,42 @@ export const WorkEntry = styled.article`
   }
 
   &:nth-of-type(even) {
-    margin-inline-end: 18%;
     justify-self: end;
   }
 
-  &:nth-of-type(4n + 3) {
-    margin-inline-start: 13%;
+  &:nth-of-type(2) {
+    margin-inline-end: 28%;
   }
 
-  &:nth-of-type(4n) {
-    margin-inline-end: 0;
+  &:nth-of-type(3) {
+    margin-inline-start: 20%;
   }
 
-  &:nth-of-type(4n + 1):not(:first-of-type) {
-    margin-inline-start: 24%;
+  &:nth-of-type(4) {
+    margin-inline-end: 22%;
+  }
+
+  &:nth-of-type(5) {
+    margin-inline-start: 32%;
   }
 
   @media (max-width: 42rem) {
     max-width: 90%;
 
-    &:nth-of-type(even) {
-      margin-inline-end: 10%;
+    &:nth-of-type(2) {
+      margin-inline-end: 20%;
     }
 
-    &:nth-of-type(4n + 3) {
-      margin-inline-start: 6%;
+    &:nth-of-type(3) {
+      margin-inline-start: 12%;
     }
 
-    &:nth-of-type(4n) {
-      margin-inline-end: 0;
+    &:nth-of-type(4) {
+      margin-inline-end: 16%;
     }
 
-    &:nth-of-type(4n + 1):not(:first-of-type) {
-      margin-inline-start: 16%;
+    &:nth-of-type(5) {
+      margin-inline-start: 22%;
     }
   }
 `;
