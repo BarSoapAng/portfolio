@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    scrollbar-color: var(--color-accent) var(--color-accent-soft);
+    scrollbar-color: var(--color-primary-soft) var(--color-surface);
     scrollbar-width: thin;
   }
 
@@ -20,12 +20,12 @@ const GlobalStyle = createGlobalStyle`
 
   *::-webkit-scrollbar-track,
   *::-webkit-scrollbar-corner {
-    background: var(--color-accent-soft);
+    background: var(--color-surface);
   }
 
   *::-webkit-scrollbar-thumb {
     border-radius: var(--radius-pill);
-    background: var(--color-accent);
+    background: var(--color-primary-soft);
   }
 
   html {
