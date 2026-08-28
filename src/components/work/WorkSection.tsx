@@ -271,13 +271,19 @@ function AnimatedPawTrail({
     };
 
     positionTrail();
+    const animationFrame = window.requestAnimationFrame(positionTrail);
 
     const resizeObserver = new ResizeObserver(positionTrail);
     resizeObserver.observe(trail);
     resizeObserver.observe(previousEntry);
     resizeObserver.observe(nextEntry);
+    window.addEventListener("resize", positionTrail);
 
-    return () => resizeObserver.disconnect();
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("resize", positionTrail);
+      resizeObserver.disconnect();
+    };
   }, [index]);
 
   return (
