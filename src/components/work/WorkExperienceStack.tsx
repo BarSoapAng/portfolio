@@ -58,7 +58,6 @@ export default function WorkExperienceStack({
                     data-cursor="help"
                     onMouseEnter={positionJobTitle}
                     onMouseLeave={resetJobTitlePosition}
-                    onMouseMove={positionJobTitle}
                     type="button"
                   >
                     {entry.company}
