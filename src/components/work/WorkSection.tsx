@@ -10,7 +10,6 @@ import {
 } from "framer-motion";
 import { FaPaw } from "react-icons/fa";
 import styled from "styled-components";
-import { ContentIndex } from "@components/ui/ContentStyles";
 import { type WorkSummary } from "@lib/work-shared";
 import { IndexSection } from "../../app/home/HomePage.styles";
 import WorkExperienceStack from "./WorkExperienceStack";
@@ -28,45 +27,57 @@ type PawPrintProps = {
 
 const Section = styled(IndexSection)`
   position: relative;
-
-  > ${ContentIndex} {
-    padding-inline-end: var(--space-24);
-  }
-
-  @media (max-width: 42rem) {
-    > ${ContentIndex} {
-      padding-inline-end: var(--space-12);
-    }
-  }
 `;
 
 const PawTrail = styled.div`
-  position: absolute;
-  top: var(--space-16);
-  right: 0;
-  bottom: var(--space-6);
-  width: var(--space-16);
+  width: 24%;
+  height: var(--space-16);
+  justify-self: center;
   color: var(--color-primary);
   pointer-events: none;
 
   > div {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
   }
 
   span {
     display: flex;
+    align-self: center;
+    justify-self: center;
   }
 
-  span:nth-child(odd) {
-    transform: translateX(calc(-1 * var(--space-2))) rotate(164deg);
+  span:first-child {
+    align-self: start;
+  }
+
+  span:last-child {
+    align-self: end;
+  }
+
+  &[data-direction="right"] span:first-child,
+  &[data-direction="left"] span:last-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  &[data-direction="right"] span:last-child,
+  &[data-direction="left"] span:first-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  &[data-direction="right"] span {
+    transform: rotate(145deg);
+  }
+
+  &[data-direction="left"] span {
+    transform: rotate(215deg);
   }
 
   span:nth-child(even) {
-    transform: translateX(var(--space-2)) rotate(196deg);
+    translate: 0 var(--space-1);
   }
 
   svg {
@@ -77,9 +88,8 @@ const PawTrail = styled.div`
   }
 
   @media (max-width: 42rem) {
-    top: var(--space-12);
-    bottom: var(--space-4);
-    width: var(--space-8);
+    width: 30%;
+    height: var(--space-12);
 
     svg {
       width: calc(var(--space-4) - var(--space-1));
@@ -102,6 +112,8 @@ function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps)
 export default function WorkSection({ entries }: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const pawsPerConnector = 3;
+  const totalPaws = Math.max(entries.length - 1, 0) * pawsPerConnector;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 75%", "end 40%"],
@@ -110,20 +122,31 @@ export default function WorkSection({ entries }: WorkSectionProps) {
   return (
     <Section id="work" ref={sectionRef}>
       <h2>Work</h2>
-      <WorkExperienceStack entries={entries} />
-      <PawTrail aria-hidden="true">
-        <div>
-          {Array.from({ length: 10 }, (_, index) => (
-            <PawPrint
-              index={index}
-              key={index}
-              progress={scrollYProgress}
-              shouldReduceMotion={shouldReduceMotion}
-              total={10}
-            />
-          ))}
-        </div>
-      </PawTrail>
+      <WorkExperienceStack
+        entries={entries}
+        renderConnector={(connectorIndex) => (
+          <PawTrail
+            aria-hidden="true"
+            data-direction={connectorIndex % 2 === 0 ? "right" : "left"}
+          >
+            <div>
+              {Array.from({ length: pawsPerConnector }, (_, pawIndex) => {
+                const index = connectorIndex * pawsPerConnector + pawIndex;
+
+                return (
+                  <PawPrint
+                    index={index}
+                    key={index}
+                    progress={scrollYProgress}
+                    shouldReduceMotion={shouldReduceMotion}
+                    total={totalPaws}
+                  />
+                );
+              })}
+            </div>
+          </PawTrail>
+        )}
+      />
     </Section>
   );
 }
