@@ -16,10 +16,7 @@ const GlobalStyle = createGlobalStyle`
   @media (any-hover: hover) and (any-pointer: fine) {
     html,
     body {
-      cursor:
-        url("/cursors/animated/default.ani"),
-        url("/cursors/static/default.cur"),
-        default;
+      cursor: url("/cursors/static/default.cur"), default;
     }
 
     :where(
@@ -37,10 +34,7 @@ const GlobalStyle = createGlobalStyle`
       [role="button"],
       [role="link"]
     ) {
-      cursor:
-        url("/cursors/animated/pointer.ani"),
-        url("/cursors/static/pointer.cur"),
-        pointer;
+      cursor: url("/cursors/static/pointer.cur"), pointer;
     }
 
     :where(
@@ -55,17 +49,11 @@ const GlobalStyle = createGlobalStyle`
       textarea,
       [contenteditable="true"]
     ) {
-      cursor:
-        url("/cursors/animated/text.ani"),
-        url("/cursors/static/text.cur"),
-        text;
+      cursor: url("/cursors/static/text.cur"), text;
     }
 
     [aria-busy="true"] {
-      cursor:
-        url("/cursors/animated/wait.ani"),
-        url("/cursors/static/wait.cur"),
-        wait;
+      cursor: url("/cursors/static/wait.cur"), wait;
     }
 
     :where(
@@ -73,117 +61,32 @@ const GlobalStyle = createGlobalStyle`
       [data-cursor="move"],
       [data-cursor="move"] *
     ) {
-      cursor:
-        url("/cursors/animated/move.ani"),
-        url("/cursors/static/move.cur"),
-        move;
+      cursor: url("/cursors/static/move.cur"), move;
     }
 
     :where([data-cursor="move"]:active, [data-cursor="move"]:active *) {
-      cursor:
-        url("/cursors/animated/move.ani"),
-        url("/cursors/static/move.cur"),
-        grabbing;
+      cursor: url("/cursors/static/move.cur"), grabbing;
     }
 
     [data-cursor="ew-resize"] {
-      cursor:
-        url("/cursors/animated/ew-resize.ani"),
-        url("/cursors/static/ew-resize.cur"),
-        ew-resize;
+      cursor: url("/cursors/static/ew-resize.cur"), ew-resize;
     }
 
     [data-cursor="ns-resize"] {
-      cursor:
-        url("/cursors/animated/ns-resize.ani"),
-        url("/cursors/static/ns-resize.cur"),
-        ns-resize;
+      cursor: url("/cursors/static/ns-resize.cur"), ns-resize;
     }
 
     [data-cursor="nwse-resize"] {
-      cursor:
-        url("/cursors/animated/nwse-resize.ani"),
-        url("/cursors/static/nwse-resize.cur"),
-        nwse-resize;
+      cursor: url("/cursors/static/nwse-resize.cur"), nwse-resize;
     }
 
     [data-cursor="nesw-resize"] {
-      cursor:
-        url("/cursors/animated/nesw-resize.ani"),
-        url("/cursors/static/nesw-resize.cur"),
-        nesw-resize;
+      cursor: url("/cursors/static/nesw-resize.cur"), nesw-resize;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      html,
-      body {
-        cursor: url("/cursors/static/default.cur"), default;
-      }
-
-      :where(
-        a[href],
-        button,
-        input[type="button"],
-        input[type="checkbox"],
-        input[type="file"],
-        input[type="radio"],
-        input[type="reset"],
-        input[type="submit"],
-        label[for],
-        select,
-        summary,
-        [role="button"],
-        [role="link"]
-      ) {
-        cursor: url("/cursors/static/pointer.cur"), pointer;
-      }
-
-      :where(
-        input:not([type]),
-        input[type="email"],
-        input[type="number"],
-        input[type="password"],
-        input[type="search"],
-        input[type="tel"],
-        input[type="text"],
-        input[type="url"],
-        textarea,
-        [contenteditable="true"]
-      ) {
-        cursor: url("/cursors/static/text.cur"), text;
-      }
-
-      [aria-busy="true"] {
-        cursor: url("/cursors/static/wait.cur"), wait;
-      }
-
-      :where(
-        [draggable="true"],
-        [data-cursor="move"],
-        [data-cursor="move"] *
-      ) {
-        cursor: url("/cursors/static/move.cur"), move;
-      }
-
-      :where([data-cursor="move"]:active, [data-cursor="move"]:active *) {
-        cursor: url("/cursors/static/move.cur"), grabbing;
-      }
-
-      [data-cursor="ew-resize"] {
-        cursor: url("/cursors/static/ew-resize.cur"), ew-resize;
-      }
-
-      [data-cursor="ns-resize"] {
-        cursor: url("/cursors/static/ns-resize.cur"), ns-resize;
-      }
-
-      [data-cursor="nwse-resize"] {
-        cursor: url("/cursors/static/nwse-resize.cur"), nwse-resize;
-      }
-
-      [data-cursor="nesw-resize"] {
-        cursor: url("/cursors/static/nesw-resize.cur"), nesw-resize;
-      }
+    html[data-custom-cursor="true"],
+    html[data-custom-cursor="true"] * {
+      cursor: none !important;
     }
   }
 
