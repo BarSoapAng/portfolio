@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -23,7 +23,7 @@ type ProjectPolaroidProps = {
   index: number;
   project: ProjectSummary;
   shouldReduceMotion: boolean | null;
-  swing: MotionValue<number>;
+  swingTarget: MotionValue<number>;
 };
 
 const Carousel = styled.div`
@@ -43,12 +43,27 @@ const CarouselViewport = styled.div`
   overflow: hidden;
   overflow: clip;
   padding-block: var(--space-4);
+
+  &::before {
+    position: absolute;
+    z-index: 0;
+    top: calc(var(--space-4) + var(--space-8) - var(--space-3));
+    right: 0;
+    left: 0;
+    height: var(--space-6);
+    border-block: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
+    background: var(--color-primary-soft);
+    box-shadow: 0 var(--space-1) var(--space-2)
+      color-mix(in srgb, var(--color-wood) 15%, transparent);
+    content: "";
+    pointer-events: none;
+  }
 `;
 
 const CarouselTrack = styled(motion.ul)`
   position: relative;
+  z-index: 1;
   display: flex;
-  isolation: isolate;
   width: max-content;
   margin: 0;
   padding:
@@ -60,23 +75,10 @@ const CarouselTrack = styled(motion.ul)`
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
+  will-change: transform;
 
   &:active {
     cursor: grabbing;
-  }
-
-  &::before {
-    position: absolute;
-    z-index: -1;
-    top: calc(var(--space-8) - var(--space-3));
-    right: 0;
-    left: 0;
-    height: var(--space-6);
-    border-block: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
-    background: var(--color-primary-soft);
-    box-shadow: 0 var(--space-1) var(--space-2)
-      color-mix(in srgb, var(--color-wood) 15%, transparent);
-    content: "";
   }
 `;
 
@@ -92,6 +94,7 @@ const Polaroid = styled(motion.li)`
     0 0.75rem 1.75rem color-mix(in srgb, var(--color-wood) 18%, transparent),
     0 0 0 1px color-mix(in srgb, var(--color-surface) 70%, transparent);
   transform-origin: center top;
+  will-change: transform;
 
   &::before {
     position: absolute;
@@ -163,13 +166,18 @@ const EmptyMessage = styled.p`
   padding-inline: var(--space-4);
 `;
 
-function ProjectPolaroid({
+const ProjectPolaroid = memo(function ProjectPolaroid({
   index,
   project,
   shouldReduceMotion,
-  swing,
+  swingTarget,
 }: ProjectPolaroidProps) {
   const restingRotation = ((index % 3) + 1) * (index % 2 === 0 ? -1 : 1);
+  const swing = useSpring(swingTarget, {
+    damping: 7 + (index % 3),
+    mass: 0.55 + (index % 2) * 0.08,
+    stiffness: 72 + (index % 3) * 6,
+  });
   const rotation = useTransform(swing, (currentSwing) => restingRotation + currentSwing);
 
   return (
@@ -199,20 +207,16 @@ function ProjectPolaroid({
       </ProjectLink>
     </Polaroid>
   );
-}
+});
 
-export default function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
+function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const wasDraggingRef = useRef(false);
   const trackX = useMotionValue(0);
   const trackVelocity = useVelocity(trackX);
-  const swingTarget = useTransform(trackVelocity, [-1400, 0, 1400], [7, 0, -7], {
+  const trackAcceleration = useVelocity(trackVelocity);
+  const swingTarget = useTransform(trackAcceleration, [-45000, 0, 45000], [8, 0, -8], {
     clamp: true,
-  });
-  const swing = useSpring(swingTarget, {
-    damping: 8,
-    mass: 0.45,
-    stiffness: 90,
   });
   const shouldReduceMotion = useReducedMotion();
 
@@ -256,7 +260,7 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
               key={project.slug}
               project={project}
               shouldReduceMotion={shouldReduceMotion}
-              swing={swing}
+              swingTarget={swingTarget}
             />
           ))}
         </CarouselTrack>
@@ -264,3 +268,5 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
     </Carousel>
   );
 }
+
+export default memo(ProjectExperienceStack);
