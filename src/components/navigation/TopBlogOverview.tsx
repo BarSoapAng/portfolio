@@ -10,7 +10,7 @@ type TopBlogOverviewProps = {
 };
 
 export default function TopBlogOverview({ posts }: TopBlogOverviewProps) {
-  const overviewPosts = posts ?? getTopPosts(DISPLAY_LIMIT);
+  const overviewPosts = (posts ?? getTopPosts(DISPLAY_LIMIT)).slice(0, DISPLAY_LIMIT);
 
   return (
     <aside className={styles.sidebar} aria-labelledby="top-blogs-heading">
