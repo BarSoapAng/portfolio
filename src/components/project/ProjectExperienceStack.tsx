@@ -1,29 +1,14 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useRef } from "react";
 import Link from "next/link";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
 import { type ProjectSummary } from "@lib/project-shared";
 
 type ProjectExperienceStackProps = {
   projects: ProjectSummary[];
-};
-
-type ProjectPolaroidProps = {
-  geometryVersion: MotionValue<number>;
-  index: number;
-  project: ProjectSummary;
-  shouldReduceMotion: boolean | null;
-  trackX: MotionValue<number>;
-  viewportRef: RefObject<HTMLDivElement | null>;
 };
 
 const Carousel = styled.div`
@@ -65,6 +50,7 @@ const CarouselTrack = styled(motion.ul)`
 `;
 
 const Polaroid = styled(motion.li)`
+  position: relative;
   width: clamp(17rem, 58vw, 23rem);
   flex: 0 0 auto;
   padding: var(--space-3) var(--space-3) var(--space-6);
@@ -74,7 +60,29 @@ const Polaroid = styled(motion.li)`
   box-shadow:
     0 0.75rem 1.75rem color-mix(in srgb, var(--color-wood) 18%, transparent),
     0 0 0 1px color-mix(in srgb, var(--color-surface) 70%, transparent);
-  transform-origin: center;
+  transform-origin: center var(--space-2);
+
+  &::before {
+    position: absolute;
+    z-index: 1;
+    top: calc(-1 * var(--space-2));
+    left: 50%;
+    width: var(--space-3);
+    aspect-ratio: 1;
+    border: 1px solid var(--color-primary-hover);
+    border-radius: var(--radius-circle);
+    background: radial-gradient(
+      circle at 35% 30%,
+      var(--color-on-primary) 0 10%,
+      var(--color-primary) 28% 62%,
+      var(--color-primary-hover) 100%
+    );
+    box-shadow: 0 var(--space-1) var(--space-2)
+      color-mix(in srgb, var(--color-wood) 35%, transparent);
+    content: "";
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
 `;
 
 const ProjectLink = styled(Link)`
@@ -131,118 +139,10 @@ const EmptyMessage = styled.p`
   padding-inline: var(--space-4);
 `;
 
-function ProjectPolaroid({
-  geometryVersion,
-  index,
-  project,
-  shouldReduceMotion,
-  trackX,
-  viewportRef,
-}: ProjectPolaroidProps) {
-  const cardRef = useRef<HTMLLIElement>(null);
-  const horizontalPosition = useTransform(
-    [trackX, geometryVersion],
-    ([currentTrackX]) => {
-      const card = cardRef.current;
-      const viewport = viewportRef.current;
-
-      if (!card || !viewport) {
-        return 0;
-      }
-
-      return (
-        card.offsetLeft +
-        card.offsetWidth / 2 +
-        Number(currentTrackX) -
-        viewport.clientWidth / 2
-      );
-    },
-  );
-  const arcY = useTransform(horizontalPosition, (distanceFromCenter) => {
-    const viewport = viewportRef.current;
-
-    if (!viewport || shouldReduceMotion) {
-      return 0;
-    }
-
-    const radius = Math.max(viewport.clientWidth * 1.15, 640);
-    const horizontalDistance = Math.min(Math.abs(distanceFromCenter), radius * 0.82);
-
-    return radius - Math.sqrt(radius ** 2 - horizontalDistance ** 2);
-  });
-  const arcRotation = useTransform(horizontalPosition, (distanceFromCenter) => {
-    const viewport = viewportRef.current;
-
-    if (!viewport || shouldReduceMotion) {
-      return 0;
-    }
-
-    const radius = Math.max(viewport.clientWidth * 1.15, 640);
-    const horizontalDistance = Math.max(
-      radius * -0.82,
-      Math.min(distanceFromCenter, radius * 0.82),
-    );
-
-    return Math.asin(horizontalDistance / radius) * (180 / Math.PI);
-  });
-  const arcDepth = useTransform(horizontalPosition, (distanceFromCenter) =>
-    Math.max(0, Math.round(1000 - Math.abs(distanceFromCenter))),
-  );
-
-  return (
-    <Polaroid
-      animate={{ opacity: 1 }}
-      initial={shouldReduceMotion ? false : { opacity: 0 }}
-      ref={cardRef}
-      style={{ rotate: arcRotation, y: arcY, zIndex: arcDepth }}
-      transition={{ delay: index * 0.08, duration: 0.35 }}
-    >
-      <ProjectLink
-        aria-label={`View ${project.title}`}
-        draggable={false}
-        href={`/proj/${project.slug}`}
-      >
-        <PolaroidPhoto>
-          <ContentImage
-            alt={project.thumbnailAlt}
-            src={project.thumbnail}
-            variant="thumbnail"
-          />
-        </PolaroidPhoto>
-        <PolaroidCaption>
-          <h3>{project.title}</h3>
-          <ProjectTags>{project.tags.join(" · ")}</ProjectTags>
-          <p>{project.summary}</p>
-        </PolaroidCaption>
-      </ProjectLink>
-    </Polaroid>
-  );
-}
-
 export default function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const wasDraggingRef = useRef(false);
-  const geometryVersion = useMotionValue(0);
-  const trackX = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    const viewport = carouselRef.current;
-
-    if (!viewport) {
-      return;
-    }
-
-    const updateGeometry = () => {
-      geometryVersion.set(geometryVersion.get() + 1);
-    };
-    const resizeObserver = new ResizeObserver(updateGeometry);
-
-    updateGeometry();
-    resizeObserver.observe(viewport);
-
-    return () => resizeObserver.disconnect();
-  }, [geometryVersion]);
 
   if (projects.length === 0) {
     return <EmptyMessage>No projects yet.</EmptyMessage>;
@@ -276,19 +176,39 @@ export default function ProjectExperienceStack({ projects }: ProjectExperienceSt
           onDragStart={() => {
             wasDraggingRef.current = true;
           }}
-          style={{ x: trackX }}
         >
-          {projects.map((project, index) => (
-            <ProjectPolaroid
-              geometryVersion={geometryVersion}
-              index={index}
-              key={project.slug}
-              project={project}
-              shouldReduceMotion={shouldReduceMotion}
-              trackX={trackX}
-              viewportRef={carouselRef}
-            />
-          ))}
+          {projects.map((project, index) => {
+            const rotation = (index % 3 + 1) * (index % 2 === 0 ? -1 : 1);
+
+            return (
+              <Polaroid
+                animate={{ opacity: 1 }}
+                initial={shouldReduceMotion ? false : { opacity: 0 }}
+                key={project.slug}
+                style={{ rotate: rotation }}
+                transition={{ delay: index * 0.08, duration: 0.35 }}
+              >
+                <ProjectLink
+                  aria-label={`View ${project.title}`}
+                  draggable={false}
+                  href={`/proj/${project.slug}`}
+                >
+                  <PolaroidPhoto>
+                    <ContentImage
+                      alt={project.thumbnailAlt}
+                      src={project.thumbnail}
+                      variant="thumbnail"
+                    />
+                  </PolaroidPhoto>
+                  <PolaroidCaption>
+                    <h3>{project.title}</h3>
+                    <ProjectTags>{project.tags.join(" · ")}</ProjectTags>
+                    <p>{project.summary}</p>
+                  </PolaroidCaption>
+                </ProjectLink>
+              </Polaroid>
+            );
+          })}
         </CarouselTrack>
       </CarouselViewport>
     </Carousel>
