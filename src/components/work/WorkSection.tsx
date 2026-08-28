@@ -101,10 +101,23 @@ const PawTrail = styled.div`
   }
 
   span:nth-child(odd) {
-    transform: rotate(calc(var(--trail-angle) - 32deg));
+    transform:
+      rotate(calc(var(--trail-angle) - 90deg))
+      translateY(calc(-1 * var(--space-1)))
+      rotate(calc(90deg - var(--trail-angle)));
   }
 
   span:nth-child(even) {
+    transform:
+      rotate(calc(var(--trail-angle) - 90deg)) translateY(var(--space-1))
+      rotate(calc(90deg - var(--trail-angle)));
+  }
+
+  span:nth-child(odd) svg {
+    transform: rotate(calc(var(--trail-angle) - 32deg));
+  }
+
+  span:nth-child(even) svg {
     transform: rotate(calc(var(--trail-angle) + 32deg));
   }
 
