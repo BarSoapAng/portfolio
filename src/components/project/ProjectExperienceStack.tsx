@@ -197,7 +197,7 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
       </PolaroidPhoto>
       <PolaroidCaption>
         <h3>
-          <ProjectLink draggable={false} href={`/proj/${project.slug}`}>
+          <ProjectLink data-cursor="pointer" draggable={false} href={`/proj/${project.slug}`}>
             {project.title}
           </ProjectLink>
         </h3>
