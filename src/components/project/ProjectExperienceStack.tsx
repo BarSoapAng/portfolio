@@ -68,7 +68,7 @@ const CarouselTrack = styled(motion.ul)`
   margin: 0;
   padding:
     var(--space-8)
-    max(var(--space-4), calc((100cqw - clamp(17rem, 58vw, 23rem)) / 2))
+    max(var(--space-4), calc((100cqw - clamp(16rem, 54vw, 21rem)) / 2))
     var(--space-24);
   gap: var(--space-24);
   list-style: none;
@@ -84,9 +84,9 @@ const CarouselTrack = styled(motion.ul)`
 
 const Polaroid = styled(motion.li)`
   position: relative;
-  width: clamp(17rem, 58vw, 23rem);
+  width: clamp(16rem, 54vw, 21rem);
   flex: 0 0 auto;
-  padding: var(--space-3) var(--space-3) var(--space-6);
+  padding: var(--space-3) var(--space-3) var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
   background: var(--color-surface);
@@ -132,34 +132,26 @@ const ProjectLink = styled(Link)`
 
 const PolaroidPhoto = styled.div`
   img {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1;
     border: 0;
-    border-radius: var(--radius-small);
+    border-radius: 0;
     box-shadow: none;
     pointer-events: none;
   }
 `;
 
 const PolaroidCaption = styled.div`
-  padding: var(--space-4) var(--space-2) 0;
+  display: grid;
+  min-height: var(--space-16);
+  padding: var(--space-3) var(--space-2) 0;
+  place-items: center;
+  text-align: center;
 
   h3 {
-    margin-block-end: var(--space-2);
+    margin: 0;
     font-size: var(--font-size-2xl);
     transition: color 160ms ease;
   }
-
-  p {
-    margin-block-end: var(--space-3);
-    color: var(--color-text-muted);
-  }
-`;
-
-const ProjectTags = styled.span`
-  display: block;
-  margin-block-end: var(--space-3);
-  color: var(--color-accent);
-  font-size: var(--font-size-sm);
 `;
 
 const EmptyMessage = styled.p`
@@ -174,9 +166,9 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
 }: ProjectPolaroidProps) {
   const restingRotation = ((index % 3) + 1) * (index % 2 === 0 ? -1 : 1);
   const swing = useSpring(swingTarget, {
-    damping: 7 + (index % 3),
+    damping: 12 + (index % 2),
     mass: 0.55 + (index % 2) * 0.08,
-    stiffness: 72 + (index % 3) * 6,
+    stiffness: 90 + (index % 3) * 4,
   });
   const rotation = useTransform(swing, (currentSwing) => restingRotation + currentSwing);
 
@@ -201,8 +193,6 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
         </PolaroidPhoto>
         <PolaroidCaption>
           <h3>{project.title}</h3>
-          <ProjectTags>{project.tags.join(" · ")}</ProjectTags>
-          <p>{project.summary}</p>
         </PolaroidCaption>
       </ProjectLink>
     </Polaroid>
@@ -215,9 +205,12 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
   const trackX = useMotionValue(0);
   const trackVelocity = useVelocity(trackX);
   const trackAcceleration = useVelocity(trackVelocity);
-  const swingTarget = useTransform(trackAcceleration, [-45000, 0, 45000], [8, 0, -8], {
-    clamp: true,
-  });
+  const swingTarget = useTransform(
+    trackAcceleration,
+    [-65000, -12000, 12000, 65000],
+    [3, 0, 0, -3],
+    { clamp: true },
+  );
   const shouldReduceMotion = useReducedMotion();
 
   if (projects.length === 0) {
@@ -231,13 +224,13 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
           aria-label="Project carousel. Drag horizontally to explore."
           drag="x"
           dragConstraints={carouselRef}
-          dragElastic={0.12}
+          dragElastic={0.08}
           dragMomentum={!shouldReduceMotion}
           dragTransition={{
-            bounceDamping: 24,
-            bounceStiffness: 180,
-            power: 0.18,
-            timeConstant: 260,
+            bounceDamping: 32,
+            bounceStiffness: 220,
+            power: 0.14,
+            timeConstant: 220,
           }}
           onClickCapture={(event) => {
             if (wasDraggingRef.current) {
