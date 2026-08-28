@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    scrollbar-color: var(--color-primary) var(--color-primary-soft);
+    scrollbar-color: var(--color-accent) var(--color-accent-soft);
     scrollbar-width: thin;
   }
 
@@ -20,16 +20,12 @@ const GlobalStyle = createGlobalStyle`
 
   *::-webkit-scrollbar-track,
   *::-webkit-scrollbar-corner {
-    background: var(--color-primary-soft);
+    background: var(--color-accent-soft);
   }
 
   *::-webkit-scrollbar-thumb {
     border-radius: var(--radius-pill);
-    background: var(--color-primary);
-  }
-
-  *::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary-hover);
+    background: var(--color-accent);
   }
 
   html {
