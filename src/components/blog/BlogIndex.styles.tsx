@@ -29,7 +29,7 @@ export const BlogContentCard = styled(ContentCard)`
   padding-inline-end: var(--space-6);
 
   > a img {
-    aspect-ratio: 1;
+    aspect-ratio: 4 / 3;
   }
 `;
 
