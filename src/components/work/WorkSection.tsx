@@ -58,6 +58,18 @@ const PawTrail = styled.div`
     flex-direction: row-reverse;
   }
 
+  &[data-direction="right"] {
+    --trail-angle: 95deg;
+
+    > div {
+      width: calc(var(--trail-width, 70%) - var(--space-4));
+    }
+  }
+
+  &[data-direction="left"] {
+    --trail-angle: 265deg;
+  }
+
   span {
     display: flex;
     align-self: start;
@@ -88,20 +100,12 @@ const PawTrail = styled.div`
     translate: 0 calc(var(--space-12) - var(--space-1));
   }
 
-  &[data-direction="right"] span:nth-child(odd) {
-    transform: rotate(125deg);
+  span:nth-child(odd) {
+    transform: rotate(calc(var(--trail-angle) - 32deg));
   }
 
-  &[data-direction="right"] span:nth-child(even) {
-    transform: rotate(155deg);
-  }
-
-  &[data-direction="left"] span:nth-child(odd) {
-    transform: rotate(235deg);
-  }
-
-  &[data-direction="left"] span:nth-child(even) {
-    transform: rotate(205deg);
+  span:nth-child(even) {
+    transform: rotate(calc(var(--trail-angle) + 32deg));
   }
 
   svg {
@@ -166,6 +170,10 @@ function AnimatedPawTrail({
         `${Math.min(start, end) - trailBounds.left}px`,
       );
       trail.style.setProperty("--trail-width", `${Math.abs(end - start)}px`);
+      trail.style.setProperty(
+        "--trail-angle",
+        `${90 + (Math.atan2(trailBounds.height, end - start) * 180) / Math.PI}deg`,
+      );
     };
 
     positionTrail();
@@ -202,7 +210,7 @@ export default function WorkSection({ entries }: WorkSectionProps) {
   const totalPaws = Math.max(entries.length - 1, 0) * pawsPerConnector;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 90%", "end 85%"],
+    offset: ["start 65%", "end 60%"],
   });
 
   return (
