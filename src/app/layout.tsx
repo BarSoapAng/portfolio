@@ -4,6 +4,7 @@ import GlobalStyle from "./GlobalStyle";
 import Footer from "@components/layout/Footer";
 import SocialLinks from "@components/layout/SocialLinks";
 import Navbar from "@components/navigation/Navbar";
+import AnimatedCursor from "@components/ui/AnimatedCursor";
 import { colors } from "@lib/colors";
 import { font } from "@lib/font";
 import { radius } from "@lib/radius";
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
+          <AnimatedCursor />
           <Navbar />
           {children}
           <SocialLinks />

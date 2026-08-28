@@ -235,6 +235,7 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
       <CarouselViewport ref={carouselRef}>
         <CarouselTrack
           aria-label="Project carousel. Drag horizontally to explore."
+          data-cursor="move"
           drag="x"
           dragConstraints={carouselRef}
           dragElastic={0.04}

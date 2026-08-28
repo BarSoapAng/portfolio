@@ -55,6 +55,13 @@ const GlobalStyle = createGlobalStyle`
     line-height: var(--line-height-normal);
   }
 
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body,
+    body * {
+      cursor: none !important;
+    }
+  }
+
   ::selection {
     background: var(--color-primary-soft);
     color: var(--color-primary-hover);

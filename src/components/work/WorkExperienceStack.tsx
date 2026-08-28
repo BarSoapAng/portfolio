@@ -31,7 +31,11 @@ export default function WorkExperienceStack({
             <WorkEntry>
               <WorkHeading>
                 <CompanyName>
-                  <Company aria-describedby={`work-title-${index}`} type="button">
+                  <Company
+                    aria-describedby={`work-title-${index}`}
+                    data-cursor="help"
+                    type="button"
+                  >
                     {entry.company}
                   </Company>
                 </CompanyName>
