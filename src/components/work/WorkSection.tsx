@@ -70,7 +70,7 @@ const PawTrail = styled.div`
   }
 
   svg {
-    width: var(--space-6);
+    width: calc(var(--space-6) - var(--space-1));
     height: auto;
     opacity: 0.7;
     filter: drop-shadow(0 var(--space-1) var(--space-1) var(--color-primary-soft));
@@ -82,7 +82,7 @@ const PawTrail = styled.div`
     width: var(--space-8);
 
     svg {
-      width: var(--space-4);
+      width: calc(var(--space-4) - var(--space-1));
     }
   }
 `;
@@ -113,13 +113,13 @@ export default function WorkSection({ entries }: WorkSectionProps) {
       <WorkExperienceStack entries={entries} />
       <PawTrail aria-hidden="true">
         <div>
-          {Array.from({ length: 9 }, (_, index) => (
+          {Array.from({ length: 10 }, (_, index) => (
             <PawPrint
               index={index}
               key={index}
               progress={scrollYProgress}
               shouldReduceMotion={shouldReduceMotion}
-              total={9}
+              total={10}
             />
           ))}
         </div>
