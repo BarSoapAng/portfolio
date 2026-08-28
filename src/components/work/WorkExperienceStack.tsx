@@ -1,11 +1,11 @@
 import { Fragment, type ReactNode } from "react";
-import { ContentCardBody } from "@components/ui/ContentStyles";
 import { type WorkSummary } from "@lib/work-shared";
 import {
   WorkEntry,
   WorkHeading,
-  WorkDetails,
   Company,
+  CompanyName,
+  JobTitle,
   Period,
   WorkIndex,
 } from "./WorkExperienceStack.styles";
@@ -29,15 +29,17 @@ export default function WorkExperienceStack({
         entries.map((entry, index) => (
           <Fragment key={`${entry.company}-${entry.title}-${entry.period}`}>
             <WorkEntry>
-              <ContentCardBody>
-                <WorkHeading>
-                  <h2>{entry.title}</h2>
-                </WorkHeading>
-                <WorkDetails>
-                  <Company>{entry.company}</Company>
-                  <Period>{entry.period}</Period>
-                </WorkDetails>
-              </ContentCardBody>
+              <WorkHeading>
+                <CompanyName>
+                  <Company aria-describedby={`work-title-${index}`} type="button">
+                    {entry.company}
+                  </Company>
+                </CompanyName>
+                <JobTitle id={`work-title-${index}`} role="tooltip">
+                  {entry.title}
+                </JobTitle>
+              </WorkHeading>
+              <Period>{entry.period}</Period>
             </WorkEntry>
             {index < entries.length - 1 ? renderConnector?.(index) : null}
           </Fragment>

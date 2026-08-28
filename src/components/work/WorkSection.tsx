@@ -30,22 +30,26 @@ const Section = styled(IndexSection)`
 `;
 
 const PawTrail = styled.div`
-  width: 24%;
+  width: 42%;
   height: var(--space-16);
   justify-self: center;
   color: var(--color-primary);
   pointer-events: none;
 
   > div {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 100%;
+  }
+
+  &[data-direction="left"] > div {
+    flex-direction: row-reverse;
   }
 
   span {
     display: flex;
     align-self: center;
-    justify-self: center;
   }
 
   span:first-child {
@@ -56,16 +60,19 @@ const PawTrail = styled.div`
     align-self: end;
   }
 
-  &[data-direction="right"] span:first-child,
-  &[data-direction="left"] span:last-child {
-    grid-column: 1;
-    grid-row: 1;
+  span:nth-child(2) {
+    align-self: end;
+    translate: var(--space-1) calc(-1 * var(--space-3));
   }
 
-  &[data-direction="right"] span:last-child,
-  &[data-direction="left"] span:first-child {
-    grid-column: 3;
-    grid-row: 1;
+  span:nth-child(3) {
+    align-self: start;
+    translate: calc(-1 * var(--space-1)) var(--space-3);
+  }
+
+  span:nth-child(4) {
+    align-self: end;
+    translate: var(--space-2) calc(-1 * var(--space-1));
   }
 
   &[data-direction="right"] span {
@@ -76,8 +83,44 @@ const PawTrail = styled.div`
     transform: rotate(215deg);
   }
 
-  span:nth-child(even) {
-    translate: 0 var(--space-1);
+  &[data-direction="right"] span:first-child {
+    transform: rotate(142deg);
+  }
+
+  &[data-direction="right"] span:last-child {
+    transform: rotate(148deg);
+  }
+
+  &[data-direction="left"] span:first-child {
+    transform: rotate(218deg);
+  }
+
+  &[data-direction="left"] span:last-child {
+    transform: rotate(212deg);
+  }
+
+  &[data-direction="right"] span:nth-child(2) {
+    transform: rotate(154deg);
+  }
+
+  &[data-direction="right"] span:nth-child(3) {
+    transform: rotate(138deg);
+  }
+
+  &[data-direction="right"] span:nth-child(4) {
+    transform: rotate(150deg);
+  }
+
+  &[data-direction="left"] span:nth-child(2) {
+    transform: rotate(207deg);
+  }
+
+  &[data-direction="left"] span:nth-child(3) {
+    transform: rotate(222deg);
+  }
+
+  &[data-direction="left"] span:nth-child(4) {
+    transform: rotate(211deg);
   }
 
   svg {
@@ -87,12 +130,28 @@ const PawTrail = styled.div`
     filter: drop-shadow(0 var(--space-1) var(--space-1) var(--color-primary-soft));
   }
 
+  span:nth-child(2) svg,
+  span:nth-child(5) svg {
+    width: var(--space-4);
+    opacity: 0.62;
+  }
+
+  span:nth-child(3) svg {
+    width: calc(var(--space-6) - var(--space-2));
+    opacity: 0.78;
+  }
+
   @media (max-width: 42rem) {
-    width: 30%;
-    height: var(--space-12);
+    width: 48%;
+    height: var(--space-16);
 
     svg {
       width: calc(var(--space-4) - var(--space-1));
+    }
+
+    span:nth-child(2) svg,
+    span:nth-child(5) svg {
+      width: calc(var(--space-3) + var(--space-1));
     }
   }
 `;
@@ -112,7 +171,7 @@ function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps)
 export default function WorkSection({ entries }: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const pawsPerConnector = 3;
+  const pawsPerConnector = 5;
   const totalPaws = Math.max(entries.length - 1, 0) * pawsPerConnector;
   const { scrollYProgress } = useScroll({
     target: sectionRef,
