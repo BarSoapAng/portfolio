@@ -47,12 +47,17 @@ const PawTrail = styled.div`
 
   > div {
     position: absolute;
-    left: var(--trail-left, 15%);
+    left: var(--trail-left);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: var(--trail-width, 70%);
+    width: var(--trail-width);
     height: 100%;
+    visibility: hidden;
+  }
+
+  &[data-positioned="true"] > div {
+    visibility: visible;
   }
 
   &[data-direction="left"] > div {
@@ -63,7 +68,7 @@ const PawTrail = styled.div`
     --trail-angle: 95deg;
 
     > div {
-      width: calc(var(--trail-width, 70%) - var(--space-4));
+      width: calc(var(--trail-width) - var(--space-4));
     }
   }
 
@@ -226,12 +231,13 @@ function AnimatedPawTrail({
   totalPaws,
 }: AnimatedPawTrailProps) {
   const trailRef = useRef<HTMLDivElement>(null);
-  const direction = index % 2 === 0 ? "right" : "left";
 
   useLayoutEffect(() => {
     const trail = trailRef.current;
-    const previousEntry = trail?.previousElementSibling;
-    const nextEntry = trail?.nextElementSibling;
+    const workEntries =
+      trail?.parentElement?.querySelectorAll<HTMLElement>(":scope > article");
+    const previousEntry = workEntries?.[index];
+    const nextEntry = workEntries?.[index + 1];
 
     if (
       !trail ||
@@ -245,6 +251,8 @@ function AnimatedPawTrail({
       const trailBounds = trail.getBoundingClientRect();
       const previousBounds = previousEntry.getBoundingClientRect();
       const nextBounds = nextEntry.getBoundingClientRect();
+      const direction =
+        nextBounds.left >= previousBounds.left ? "right" : "left";
       const start =
         direction === "right" ? previousBounds.right : previousBounds.left;
       const end = direction === "right" ? nextBounds.left : nextBounds.right;
@@ -258,6 +266,8 @@ function AnimatedPawTrail({
         "--trail-angle",
         `${90 + (Math.atan2(trailBounds.height, end - start) * 180) / Math.PI}deg`,
       );
+      trail.dataset.direction = direction;
+      trail.dataset.positioned = "true";
     };
 
     positionTrail();
@@ -268,12 +278,12 @@ function AnimatedPawTrail({
     resizeObserver.observe(nextEntry);
 
     return () => resizeObserver.disconnect();
-  }, [direction]);
+  }, [index]);
 
   return (
     <PawTrail
       aria-hidden="true"
-      data-direction={direction}
+      data-direction={index % 2 === 0 ? "right" : "left"}
       data-trail={index}
       ref={trailRef}
     >
