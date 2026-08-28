@@ -141,16 +141,28 @@ const PolaroidPhoto = styled.div`
 `;
 
 const PolaroidCaption = styled.div`
-  display: grid;
-  min-height: var(--space-16);
+  display: flex;
+  min-height: var(--space-24);
   padding: var(--space-3) var(--space-2) 0;
-  place-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 
   h3 {
     margin: 0;
     font-size: var(--font-size-2xl);
     transition: color 160ms ease;
+  }
+
+  p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: var(--space-1) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 `;
 
@@ -166,7 +178,7 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
 }: ProjectPolaroidProps) {
   const restingRotation = ((index % 3) + 1) * (index % 2 === 0 ? -1 : 1);
   const swing = useSpring(swingTarget, {
-    damping: 14 + (index % 2),
+    damping: 13 + (index % 2),
     mass: 0.75 + (index % 2) * 0.08,
     stiffness: 86 + (index % 3) * 4,
   });
@@ -193,6 +205,7 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
         </PolaroidPhoto>
         <PolaroidCaption>
           <h3>{project.title}</h3>
+          <p>{project.summary}</p>
         </PolaroidCaption>
       </ProjectLink>
     </Polaroid>
@@ -229,8 +242,8 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
           dragTransition={{
             bounceDamping: 36,
             bounceStiffness: 240,
-            power: 0.15,
-            timeConstant: 245,
+            power: 0.12,
+            timeConstant: 210,
           }}
           onClickCapture={(event) => {
             if (wasDraggingRef.current) {
