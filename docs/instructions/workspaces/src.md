@@ -36,6 +36,7 @@
 ## Blog Content Types
 
 - Use only `eng`, `career`, `life`, and `fun` in published blog `tags` frontmatter.
+- Set optional blog frontmatter `pinned: true` to place a post before unpinned posts in the blog index and Top Blogs. Multiple pinned posts are ordered newest first.
 - The blog index exposes these values in a filter dropdown beside debounced title, summary, and type search.
 
 ## Import Conventions

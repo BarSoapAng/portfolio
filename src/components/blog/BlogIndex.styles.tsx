@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { ContentIndex } from "@components/ui/ContentStyles";
+import { ContentCard, ContentIndex } from "@components/ui/ContentStyles";
 
 export const BlogControls = styled.section`
   input {
@@ -74,4 +74,18 @@ export const BlogFilterSelect = styled.label`
 
 export const BlogContentIndex = styled(ContentIndex)`
   margin-block-start: var(--space-8);
+`;
+
+export const BlogContentCard = styled(ContentCard)`
+  position: relative;
+  padding-inline-end: var(--space-6);
+`;
+
+export const PinnedPostIcon = styled.span`
+  position: absolute;
+  inset-block-start: var(--space-6);
+  inset-inline-end: 0;
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  line-height: 1;
 `;

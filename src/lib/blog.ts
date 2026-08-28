@@ -6,6 +6,7 @@ import { requireContentImageField } from "./content-images";
 import {
   createMdxCollectionReader,
   parseTagsField,
+  requireBoolean,
   requireBooleanField,
   requireDateField,
   requireStringField,
@@ -17,6 +18,7 @@ const POST_FIELD_PARSERS = {
   summary: requireStringField("summary"),
   thumbnail: requireContentImageField("thumbnail"),
   thumbnailAlt: requireStringField("thumbnailAlt"),
+  pinned: (value, fileName) => (value === undefined ? false : requireBoolean(value, "pinned", fileName)),
   published: requireBooleanField("published"),
   tags: parseTagsField,
 } satisfies {
@@ -29,7 +31,13 @@ const postCollection = createMdxCollectionReader<PostFrontmatter>({
 });
 
 export function getAllPosts(): PostSummary[] {
-  return postCollection.getAll();
+  return postCollection.getAll().sort((left, right) => {
+    if (left.pinned !== right.pinned) {
+      return left.pinned ? -1 : 1;
+    }
+
+    return Date.parse(right.date) - Date.parse(left.date);
+  });
 }
 
 export function getAllPostSlugs(): string[] {
@@ -41,7 +49,7 @@ export function getPostBySlug(slug: string): PostSummary | null {
 }
 
 export function getTopPosts(limit: number): PostSummary[] {
-  return postCollection.getTop(limit);
+  return getAllPosts().slice(0, Math.max(0, limit));
 }
 
 export function buildPostMetadata(post: PostSummary): Metadata {

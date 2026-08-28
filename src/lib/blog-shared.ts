@@ -7,6 +7,7 @@ export type PostFrontmatter = {
   summary: string;
   thumbnail: StaticImageData;
   thumbnailAlt: string;
+  pinned: boolean;
   published: boolean;
   tags: string[];
 };

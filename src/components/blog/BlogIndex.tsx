@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaFilter } from "react-icons/fa6";
+import { FaFilter, FaThumbtack } from "react-icons/fa6";
 import {
+  BlogContentCard,
   BlogContentIndex,
   BlogControls,
   BlogFilterSelect,
   BlogSearchRow,
+  PinnedPostIcon,
 } from "@components/blog/BlogIndex.styles";
 import ContentImage from "@components/ui/ContentImage";
-import { ContentCard, ContentCardBody } from "@components/ui/ContentStyles";
+import { ContentCardBody } from "@components/ui/ContentStyles";
 import TagLabel from "@components/ui/TagLabel";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 
@@ -73,7 +75,12 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
         {filteredPosts.length === 0 ? <p>No posts match those filters.</p> : null}
 
         {filteredPosts.map((post) => (
-          <ContentCard key={post.slug}>
+          <BlogContentCard key={post.slug}>
+            {post.pinned ? (
+              <PinnedPostIcon aria-label="Pinned post" role="img" title="Pinned post">
+                <FaThumbtack aria-hidden />
+              </PinnedPostIcon>
+            ) : null}
             <Link aria-label={`Read ${post.title}`} href={`/blog/${post.slug}`}>
               <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="thumbnail" />
             </Link>
@@ -89,7 +96,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
               </h2>
               <p>{post.summary}</p>
             </ContentCardBody>
-          </ContentCard>
+          </BlogContentCard>
         ))}
       </BlogContentIndex>
     </div>
