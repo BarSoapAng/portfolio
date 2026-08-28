@@ -2,21 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaFilter, FaThumbtack } from "react-icons/fa6";
+import { FaThumbtack } from "react-icons/fa6";
 import {
   BlogContentCard,
   BlogContentIndex,
   BlogControls,
-  BlogFilterSelect,
-  BlogSearchRow,
   PinnedPostIcon,
 } from "@components/blog/BlogIndex.styles";
 import ContentImage from "@components/ui/ContentImage";
-import { ContentCardBody } from "@components/ui/ContentStyles";
-import TagLabel from "@components/ui/TagLabel";
+import { ContentCardBody, EntryTags } from "@components/ui/ContentStyles";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
-
-type BlogType = "eng" | "career" | "life" | "fun";
 
 type BlogIndexProps = {
   posts: PostSummary[];
@@ -25,7 +20,6 @@ type BlogIndexProps = {
 export default function BlogIndex({ posts }: BlogIndexProps) {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [selectedType, setSelectedType] = useState<BlogType | "all">("all");
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -36,39 +30,22 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
   }, [query]);
 
   const filteredPosts = posts.filter((post) => {
-    const matchesType = selectedType === "all" || post.tags.includes(selectedType);
-    const searchableText = `${post.title} ${post.summary} ${post.tags.join(" ")}`.toLowerCase();
+    const searchableText = `${post.title} ${post.summary}`.toLowerCase();
 
-    return matchesType && searchableText.includes(debouncedQuery);
+    return searchableText.includes(debouncedQuery);
   });
 
   return (
     <div>
-      <BlogControls aria-label="Filter blog posts">
-        <BlogSearchRow>
-          <input
-            aria-label="Search posts"
-            id="blog-search"
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search posts"
-            type="search"
-            value={query}
-          />
-          <BlogFilterSelect>
-            <FaFilter aria-hidden />
-            <select
-              aria-label="Filter by content type"
-              onChange={(event) => setSelectedType(event.target.value as BlogType | "all")}
-              value={selectedType}
-            >
-              <option value="all">All types</option>
-              <option value="eng">Eng</option>
-              <option value="career">Career</option>
-              <option value="life">Life</option>
-              <option value="fun">Fun</option>
-            </select>
-          </BlogFilterSelect>
-        </BlogSearchRow>
+      <BlogControls aria-label="Search blog posts">
+        <input
+          aria-label="Search posts"
+          id="blog-search"
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search posts"
+          type="search"
+          value={query}
+        />
       </BlogControls>
 
       <BlogContentIndex as="section">
@@ -86,10 +63,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
             </Link>
             <ContentCardBody>
               <p>
-                <span>{formatPostDate(post.date)}</span>{" "}
-                {post.tags.map((tag) => (
-                  <TagLabel key={tag} label={tag} />
-                ))}
+                <EntryTags>{formatPostDate(post.date)}</EntryTags>
               </p>
               <h2>
                 <Link href={`/blog/${post.slug}`}>{post.title}</Link>
