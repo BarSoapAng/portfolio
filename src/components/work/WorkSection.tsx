@@ -49,78 +49,39 @@ const PawTrail = styled.div`
 
   span {
     display: flex;
-    align-self: center;
-  }
-
-  span:first-child {
     align-self: start;
-  }
-
-  span:last-child {
-    align-self: end;
   }
 
   span:nth-child(2) {
-    align-self: end;
-    translate: var(--space-1) calc(-1 * var(--space-3));
+    translate: 0 var(--space-3);
   }
 
   span:nth-child(3) {
-    align-self: start;
-    translate: calc(-1 * var(--space-1)) var(--space-3);
+    translate: 0 var(--space-6);
   }
 
   span:nth-child(4) {
-    align-self: end;
-    translate: var(--space-2) calc(-1 * var(--space-1));
+    translate: 0 calc(var(--space-8) + var(--space-1));
   }
 
-  &[data-direction="right"] span {
-    transform: rotate(145deg);
+  span:nth-child(5) {
+    translate: 0 calc(var(--space-12) - var(--space-1));
   }
 
-  &[data-direction="left"] span {
-    transform: rotate(215deg);
+  &[data-direction="right"] span:nth-child(odd) {
+    transform: rotate(140deg);
   }
 
-  &[data-direction="right"] span:first-child {
-    transform: rotate(142deg);
-  }
-
-  &[data-direction="right"] span:last-child {
-    transform: rotate(148deg);
-  }
-
-  &[data-direction="left"] span:first-child {
-    transform: rotate(218deg);
-  }
-
-  &[data-direction="left"] span:last-child {
-    transform: rotate(212deg);
-  }
-
-  &[data-direction="right"] span:nth-child(2) {
-    transform: rotate(154deg);
-  }
-
-  &[data-direction="right"] span:nth-child(3) {
-    transform: rotate(138deg);
-  }
-
-  &[data-direction="right"] span:nth-child(4) {
+  &[data-direction="right"] span:nth-child(even) {
     transform: rotate(150deg);
   }
 
-  &[data-direction="left"] span:nth-child(2) {
-    transform: rotate(207deg);
+  &[data-direction="left"] span:nth-child(odd) {
+    transform: rotate(220deg);
   }
 
-  &[data-direction="left"] span:nth-child(3) {
-    transform: rotate(222deg);
-  }
-
-  &[data-direction="left"] span:nth-child(4) {
-    transform: rotate(211deg);
+  &[data-direction="left"] span:nth-child(even) {
+    transform: rotate(210deg);
   }
 
   svg {
@@ -130,28 +91,12 @@ const PawTrail = styled.div`
     filter: drop-shadow(0 var(--space-1) var(--space-1) var(--color-primary-soft));
   }
 
-  span:nth-child(2) svg,
-  span:nth-child(5) svg {
-    width: var(--space-4);
-    opacity: 0.62;
-  }
-
-  span:nth-child(3) svg {
-    width: calc(var(--space-6) - var(--space-2));
-    opacity: 0.78;
-  }
-
   @media (max-width: 42rem) {
     width: 48%;
     height: var(--space-16);
 
     svg {
       width: calc(var(--space-4) - var(--space-1));
-    }
-
-    span:nth-child(2) svg,
-    span:nth-child(5) svg {
-      width: calc(var(--space-3) + var(--space-1));
     }
   }
 `;
