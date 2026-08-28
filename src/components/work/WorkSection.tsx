@@ -157,22 +157,23 @@ const PawTrail = styled.div`
   span:nth-child(odd) {
     transform:
       rotate(calc(var(--trail-angle) - 90deg))
-      translateY(calc(-1 * var(--space-2)))
+      translateY(calc(-1 * var(--space-2) - var(--space-1)))
       rotate(calc(90deg - var(--trail-angle)));
   }
 
   span:nth-child(even) {
     transform:
-      rotate(calc(var(--trail-angle) - 90deg)) translateY(var(--space-2))
+      rotate(calc(var(--trail-angle) - 90deg))
+      translateY(calc(var(--space-2) + var(--space-1)))
       rotate(calc(90deg - var(--trail-angle)));
   }
 
   span:nth-child(odd) svg {
-    transform: rotate(calc(var(--trail-angle) - 26deg));
+    transform: rotate(calc(var(--trail-angle) - 20deg));
   }
 
   span:nth-child(even) svg {
-    transform: rotate(calc(var(--trail-angle) + 26deg));
+    transform: rotate(calc(var(--trail-angle) + 20deg));
   }
 
   svg {
@@ -191,7 +192,7 @@ const PawTrail = styled.div`
 
 function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps) {
   const visibleOpacity =
-    total === 1 ? 1 : 0.3 + (index / (total - 1)) * 0.7;
+    total === 1 ? 1 : 0.4 + (index / (total - 1)) * 0.6;
   const opacity = useTransform(progress, (value) =>
     value >= ((index + 1) / total) * 0.8 ? visibleOpacity : 0,
   );
