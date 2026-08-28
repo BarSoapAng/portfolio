@@ -46,7 +46,9 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   return (
     <main className={styles.page}>
       <p>
-        <Link href="/blog">← Back to blog</Link>
+        <Link className={styles.backLink} href="/blog">
+          ← Back to blog
+        </Link>
       </p>
 
       <article>
