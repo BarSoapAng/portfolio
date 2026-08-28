@@ -1,4 +1,6 @@
-import { Fragment, type ReactNode } from "react";
+"use client";
+
+import { Fragment, type MouseEvent, type ReactNode } from "react";
 import { type WorkSummary } from "@lib/work-shared";
 import {
   WorkEntry,
@@ -14,6 +16,26 @@ type WorkExperienceStackProps = {
   entries: WorkSummary[];
   renderConnector?: (index: number) => ReactNode;
 };
+
+function getJobTitle(event: MouseEvent<HTMLButtonElement>) {
+  return event.currentTarget.parentElement?.nextElementSibling;
+}
+
+function positionJobTitle(event: MouseEvent<HTMLButtonElement>) {
+  const tooltip = getJobTitle(event);
+
+  if (!(tooltip instanceof HTMLElement)) {
+    return;
+  }
+
+  tooltip.style.setProperty("--tooltip-x", `${event.clientX}px`);
+  tooltip.style.setProperty("--tooltip-y", `${event.clientY}px`);
+  tooltip.setAttribute("data-cursor-positioned", "true");
+}
+
+function resetJobTitlePosition(event: MouseEvent<HTMLButtonElement>) {
+  getJobTitle(event)?.removeAttribute("data-cursor-positioned");
+}
 
 export default function WorkExperienceStack({
   entries,
@@ -34,6 +56,9 @@ export default function WorkExperienceStack({
                   <Company
                     aria-describedby={`work-title-${index}`}
                     data-cursor="help"
+                    onMouseEnter={positionJobTitle}
+                    onMouseLeave={resetJobTitlePosition}
+                    onMouseMove={positionJobTitle}
                     type="button"
                   >
                     {entry.company}

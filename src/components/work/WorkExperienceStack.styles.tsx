@@ -78,11 +78,9 @@ export const JobTitle = styled.span`
   width: max-content;
   max-width: min(18rem, 80vw);
   padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--color-accent);
   border-radius: var(--radius-medium);
-  background: var(--color-primary-hover);
-  box-shadow: 0 var(--space-1) var(--space-2)
-    color-mix(in srgb, var(--color-primary) 35%, transparent);
+  background: var(--color-accent);
   color: var(--color-on-primary);
   font-family: var(--font-body);
   font-size: var(--font-size-sm);
@@ -97,9 +95,18 @@ export const JobTitle = styled.span`
     visibility 140ms ease;
   visibility: hidden;
 
-  ${WorkEntry}:nth-of-type(even) & {
+  ${WorkEntry}:nth-of-type(even) &:not([data-cursor-positioned="true"]) {
     right: 0;
     left: auto;
+  }
+
+  &[data-cursor-positioned="true"] {
+    position: fixed;
+    top: var(--tooltip-y);
+    right: auto;
+    bottom: auto;
+    left: var(--tooltip-x);
+    transform: translateY(-100%);
   }
 
   ${CompanyName}:hover + &,
