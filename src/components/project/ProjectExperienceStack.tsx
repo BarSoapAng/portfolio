@@ -53,11 +53,7 @@ const CarouselTrack = styled(motion.ul)`
     var(--space-8)
     max(var(--space-4), calc((100cqw - clamp(17rem, 58vw, 23rem)) / 2))
     var(--space-24);
-  gap: clamp(
-    calc(var(--space-24) + var(--space-16)),
-    18vw,
-    calc(var(--space-24) + var(--space-24))
-  );
+  gap: var(--space-24);
   list-style: none;
   cursor: grab;
   touch-action: pan-y;
