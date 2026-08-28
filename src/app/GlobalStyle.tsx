@@ -9,8 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    scrollbar-color: color-mix(in srgb, var(--color-accent) 60%, white)
-      var(--color-accent-soft);
+    scrollbar-color: var(--color-accent) var(--color-accent-soft);
     scrollbar-width: thin;
   }
 
@@ -26,10 +25,6 @@ const GlobalStyle = createGlobalStyle`
 
   *::-webkit-scrollbar-thumb {
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--color-accent) 60%, white);
-  }
-
-  *::-webkit-scrollbar-thumb:hover {
     background: var(--color-accent);
   }
 
