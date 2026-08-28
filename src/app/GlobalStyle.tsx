@@ -9,6 +9,27 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    scrollbar-color: var(--color-primary) var(--color-primary-soft);
+    scrollbar-width: thin;
+  }
+
+  *::-webkit-scrollbar {
+    width: var(--space-3);
+    height: var(--space-3);
+  }
+
+  *::-webkit-scrollbar-track,
+  *::-webkit-scrollbar-corner {
+    background: var(--color-primary-soft);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: var(--radius-pill);
+    background: var(--color-primary);
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-hover);
   }
 
   html {
