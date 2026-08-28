@@ -16,7 +16,7 @@ export const BlogControls = styled.section`
 
   input:focus-visible {
     outline: none;
-    background: var(--color-primary-soft);
+    border-color: color-mix(in srgb, var(--color-border) 75%, var(--color-text));
   }
 `;
 
