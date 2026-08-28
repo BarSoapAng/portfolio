@@ -25,15 +25,15 @@ export const WorkEntry = styled.article`
   }
 
   &:nth-of-type(2) {
-    margin-inline-end: 28%;
+    margin-inline-end: 32%;
   }
 
   &:nth-of-type(3) {
-    margin-inline-start: 20%;
+    margin-inline-start: 12%;
   }
 
   &:nth-of-type(4) {
-    margin-inline-end: 22%;
+    margin-inline-end: 14%;
   }
 
   &:nth-of-type(5) {
@@ -44,15 +44,15 @@ export const WorkEntry = styled.article`
     max-width: 90%;
 
     &:nth-of-type(2) {
-      margin-inline-end: 20%;
+      margin-inline-end: 24%;
     }
 
     &:nth-of-type(3) {
-      margin-inline-start: 12%;
+      margin-inline-start: 6%;
     }
 
     &:nth-of-type(4) {
-      margin-inline-end: 16%;
+      margin-inline-end: 10%;
     }
 
     &:nth-of-type(5) {
