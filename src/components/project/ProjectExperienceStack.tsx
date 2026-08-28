@@ -113,16 +113,13 @@ const Polaroid = styled(motion.li)`
 `;
 
 const ProjectLink = styled(Link)`
-  display: block;
   color: var(--color-text);
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
-    color: var(--color-text);
-
-    h3 {
-      color: var(--color-primary);
-    }
+    color: var(--color-primary);
+    text-decoration: underline;
   }
 
   &:focus-visible {
@@ -191,23 +188,21 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
       style={{ rotate: shouldReduceMotion ? restingRotation : rotation }}
       transition={{ delay: index * 0.08, duration: 0.35 }}
     >
-      <ProjectLink
-        aria-label={`View ${project.title}`}
-        draggable={false}
-        href={`/proj/${project.slug}`}
-      >
-        <PolaroidPhoto>
-          <ContentImage
-            alt={project.thumbnailAlt}
-            src={project.thumbnail}
-            variant="thumbnail"
-          />
-        </PolaroidPhoto>
-        <PolaroidCaption>
-          <h3>{project.title}</h3>
-          <p>{project.summary}</p>
-        </PolaroidCaption>
-      </ProjectLink>
+      <PolaroidPhoto>
+        <ContentImage
+          alt={project.thumbnailAlt}
+          src={project.thumbnail}
+          variant="thumbnail"
+        />
+      </PolaroidPhoto>
+      <PolaroidCaption>
+        <h3>
+          <ProjectLink draggable={false} href={`/proj/${project.slug}`}>
+            {project.title}
+          </ProjectLink>
+        </h3>
+        <p>{project.summary}</p>
+      </PolaroidCaption>
     </Polaroid>
   );
 });
