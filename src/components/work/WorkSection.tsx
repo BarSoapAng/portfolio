@@ -66,10 +66,6 @@ const PawTrail = styled.div`
 
   &[data-direction="right"] {
     --trail-angle: 95deg;
-
-    > div {
-      width: calc(var(--trail-width) - var(--space-4));
-    }
   }
 
   &[data-direction="left"] {
@@ -252,7 +248,10 @@ function AnimatedPawTrail({
       const previousBounds = previousEntry.getBoundingClientRect();
       const nextBounds = nextEntry.getBoundingClientRect();
       const direction =
-        nextBounds.left >= previousBounds.left ? "right" : "left";
+        nextBounds.left + nextBounds.width / 2 >=
+        previousBounds.left + previousBounds.width / 2
+          ? "right"
+          : "left";
       const start =
         direction === "right" ? previousBounds.right : previousBounds.left;
       const end = direction === "right" ? nextBounds.left : nextBounds.right;
