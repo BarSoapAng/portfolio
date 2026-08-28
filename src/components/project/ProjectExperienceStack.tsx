@@ -166,9 +166,9 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
 }: ProjectPolaroidProps) {
   const restingRotation = ((index % 3) + 1) * (index % 2 === 0 ? -1 : 1);
   const swing = useSpring(swingTarget, {
-    damping: 12 + (index % 2),
-    mass: 0.55 + (index % 2) * 0.08,
-    stiffness: 90 + (index % 3) * 4,
+    damping: 14 + (index % 2),
+    mass: 0.75 + (index % 2) * 0.08,
+    stiffness: 86 + (index % 3) * 4,
   });
   const rotation = useTransform(swing, (currentSwing) => restingRotation + currentSwing);
 
@@ -224,13 +224,13 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
           aria-label="Project carousel. Drag horizontally to explore."
           drag="x"
           dragConstraints={carouselRef}
-          dragElastic={0.08}
+          dragElastic={0.04}
           dragMomentum={!shouldReduceMotion}
           dragTransition={{
-            bounceDamping: 32,
-            bounceStiffness: 220,
-            power: 0.14,
-            timeConstant: 220,
+            bounceDamping: 36,
+            bounceStiffness: 240,
+            power: 0.15,
+            timeConstant: 245,
           }}
           onClickCapture={(event) => {
             if (wasDraggingRef.current) {
