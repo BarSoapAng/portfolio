@@ -100,25 +100,78 @@ const PawTrail = styled.div`
     translate: 0 calc(var(--space-12) - var(--space-1));
   }
 
+  &[data-trail="0"] span:nth-child(2) {
+    translate: var(--space-1) var(--space-2);
+  }
+
+  &[data-trail="0"] span:nth-child(4) {
+    translate: calc(-1 * var(--space-1)) var(--space-6);
+  }
+
+  &[data-trail="0"] span:nth-child(6) {
+    translate: var(--space-2) calc(var(--space-8) + var(--space-2));
+  }
+
+  &[data-trail="1"] span:nth-child(2) {
+    translate: calc(-1 * var(--space-2)) var(--space-2);
+  }
+
+  &[data-trail="1"] span:nth-child(4) {
+    translate: var(--space-2) var(--space-6);
+  }
+
+  &[data-trail="1"] span:nth-child(5) {
+    translate: calc(-1 * var(--space-1)) var(--space-8);
+  }
+
+  &[data-trail="2"] span:nth-child(3) {
+    translate: var(--space-1) var(--space-4);
+  }
+
+  &[data-trail="2"] span:nth-child(4) {
+    translate: calc(-1 * var(--space-2)) var(--space-6);
+  }
+
+  &[data-trail="2"] span:nth-child(6) {
+    translate: var(--space-1) calc(var(--space-8) + var(--space-2));
+  }
+
+  &[data-trail="3"] span:nth-child(2) {
+    translate: var(--space-2) var(--space-2);
+  }
+
+  &[data-trail="3"] span:nth-child(3) {
+    translate: calc(-1 * var(--space-1)) var(--space-4);
+  }
+
+  &[data-trail="3"] span:nth-child(5) {
+    translate: var(--space-1) var(--space-8);
+  }
+
+  &[data-trail="3"] span:nth-child(6) {
+    translate: calc(-1 * var(--space-1))
+      calc(var(--space-8) + var(--space-2));
+  }
+
   span:nth-child(odd) {
     transform:
       rotate(calc(var(--trail-angle) - 90deg))
-      translateY(calc(-1 * var(--space-1)))
+      translateY(calc(-1 * var(--space-2)))
       rotate(calc(90deg - var(--trail-angle)));
   }
 
   span:nth-child(even) {
     transform:
-      rotate(calc(var(--trail-angle) - 90deg)) translateY(var(--space-1))
+      rotate(calc(var(--trail-angle) - 90deg)) translateY(var(--space-2))
       rotate(calc(90deg - var(--trail-angle)));
   }
 
   span:nth-child(odd) svg {
-    transform: rotate(calc(var(--trail-angle) - 32deg));
+    transform: rotate(calc(var(--trail-angle) - 26deg));
   }
 
   span:nth-child(even) svg {
-    transform: rotate(calc(var(--trail-angle) + 32deg));
+    transform: rotate(calc(var(--trail-angle) + 26deg));
   }
 
   svg {
@@ -200,7 +253,12 @@ function AnimatedPawTrail({
   }, [direction]);
 
   return (
-    <PawTrail aria-hidden="true" data-direction={direction} ref={trailRef}>
+    <PawTrail
+      aria-hidden="true"
+      data-direction={direction}
+      data-trail={index}
+      ref={trailRef}
+    >
       <div>
         {Array.from({ length: pawCount }, (_, pawIndex) => (
           <PawPrint

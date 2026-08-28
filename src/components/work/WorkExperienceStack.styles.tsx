@@ -21,7 +21,7 @@ export const WorkEntry = styled.article`
   }
 
   &:nth-of-type(even) {
-    margin-inline-end: 6%;
+    margin-inline-end: 18%;
     justify-self: end;
   }
 
@@ -33,15 +33,27 @@ export const WorkEntry = styled.article`
     margin-inline-end: 0;
   }
 
+  &:nth-of-type(4n + 1):not(:first-of-type) {
+    margin-inline-start: 24%;
+  }
+
   @media (max-width: 42rem) {
     max-width: 90%;
 
     &:nth-of-type(even) {
-      margin-inline-end: 2%;
+      margin-inline-end: 10%;
     }
 
     &:nth-of-type(4n + 3) {
-      margin-inline-start: 4%;
+      margin-inline-start: 6%;
+    }
+
+    &:nth-of-type(4n) {
+      margin-inline-end: 0;
+    }
+
+    &:nth-of-type(4n + 1):not(:first-of-type) {
+      margin-inline-start: 16%;
     }
   }
 `;
@@ -77,7 +89,7 @@ export const JobTitle = styled.span`
   left: 0;
   width: max-content;
   max-width: min(18rem, 80vw);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
   border: 1px solid var(--color-accent);
   border-radius: var(--radius-medium);
   background: var(--color-accent);
