@@ -9,7 +9,7 @@ const SiteHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
-  width: min(calc(100% - (2 * var(--space-4))), 1000px);
+  width: min(calc(100% - (2 * var(--space-4))), 900px);
   margin-inline: auto;
   padding-block: var(--space-4);
   font-family: var(--font-display);

@@ -4,7 +4,7 @@ import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6
 import styled from "styled-components";
 
 const Socials = styled.nav`
-  width: min(calc(100% - (2 * var(--space-4))), 1000px);
+  width: min(calc(100% - (2 * var(--space-4))), 900px);
   margin-inline: auto;
   padding-block: var(--space-8);
 

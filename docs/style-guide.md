@@ -107,7 +107,7 @@ spacing token.
 
 ## Components And Layout
 
-- Keep reading content within the existing `1000px` page container.
+- Keep reading content within the existing `900px` page container.
 - Let the page canvas show through primary content containers and use spacing instead
   of borders or fills to separate them.
 - Use pill shapes for tags and selected navigation states.
