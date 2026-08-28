@@ -84,10 +84,11 @@ const GlobalStyle = createGlobalStyle`
       cursor: url("/cursors/static/nesw-resize.cur"), nesw-resize;
     }
 
-    html[data-custom-cursor="true"],
-    html[data-custom-cursor="true"] * {
-      cursor: none !important;
-    }
+  }
+
+  html[data-custom-cursor="true"],
+  html[data-custom-cursor="true"] * {
+    cursor: none !important;
   }
 
   *::-webkit-scrollbar {
