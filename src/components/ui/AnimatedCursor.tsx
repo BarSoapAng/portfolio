@@ -13,16 +13,16 @@ import textCursor from "@assets/cursor/apng/text.png";
 import verticalResizeCursor from "@assets/cursor/apng/vertical-resize.png";
 
 const cursorImages = {
-  default: { hotspot: [9, 5], src: classicCursor.src },
-  help: { hotspot: [9, 5], src: classicCursor.src },
-  move: { hotspot: [30, 53], src: moveCursor.src },
-  "nesw-resize": { hotspot: [32, 32], src: diagonalResizeTwoCursor.src },
-  "ns-resize": { hotspot: [32, 32], src: verticalResizeCursor.src },
-  "nwse-resize": { hotspot: [32, 32], src: diagonalResizeOneCursor.src },
-  pointer: { hotspot: [29, 4], src: pointerCursor.src },
-  text: { hotspot: [8, 39], src: textCursor.src },
-  wait: { hotspot: [32, 32], src: loadingCursor.src },
-  "ew-resize": { hotspot: [32, 32], src: horizontalResizeCursor.src },
+  default: { hotspot: [7, 4], src: classicCursor.src },
+  help: { hotspot: [7, 4], src: classicCursor.src },
+  move: { hotspot: [23, 40], src: moveCursor.src },
+  "nesw-resize": { hotspot: [24, 24], src: diagonalResizeTwoCursor.src },
+  "ns-resize": { hotspot: [24, 24], src: verticalResizeCursor.src },
+  "nwse-resize": { hotspot: [24, 24], src: diagonalResizeOneCursor.src },
+  pointer: { hotspot: [22, 3], src: pointerCursor.src },
+  text: { hotspot: [6, 29], src: textCursor.src },
+  wait: { hotspot: [24, 24], src: loadingCursor.src },
+  "ew-resize": { hotspot: [24, 24], src: horizontalResizeCursor.src },
 } as const;
 
 type CursorName = keyof typeof cursorImages;
@@ -33,8 +33,8 @@ const Cursor = styled.div`
   top: 0;
   left: 0;
   display: none;
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   background: center / contain no-repeat;
   opacity: 0;
   pointer-events: none;
