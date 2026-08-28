@@ -30,7 +30,6 @@ function HomePage() {
       />
 
       <IndexSection id="projects">
-        <h2>Projects</h2>
         <ProjectExperienceStack projects={projects} />
       </IndexSection>
     </main>
