@@ -20,11 +20,6 @@ function HomePage() {
       />
 
       <WorkSection entries={workEntries} />
-      <SectionDivider
-        src={sectionDivider}
-        alt=""
-        aria-hidden="true"
-      />
 
       <IndexSection id="projects">
         <ProjectExperienceStack projects={projects} />

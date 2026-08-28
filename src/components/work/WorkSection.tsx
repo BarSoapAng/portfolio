@@ -169,11 +169,11 @@ const PawTrail = styled.div`
   }
 
   span:nth-child(odd) svg {
-    transform: rotate(calc(var(--trail-angle) - 20deg));
+    transform: rotate(calc(var(--trail-angle) - 15deg));
   }
 
   span:nth-child(even) svg {
-    transform: rotate(calc(var(--trail-angle) + 20deg));
+    transform: rotate(calc(var(--trail-angle) + 15deg));
   }
 
   svg {
@@ -297,7 +297,6 @@ export default function WorkSection({ entries }: WorkSectionProps) {
 
   return (
     <Section id="work" ref={sectionRef}>
-      <h2>Work</h2>
       <WorkExperienceStack
         entries={entries}
         renderConnector={(connectorIndex) => (

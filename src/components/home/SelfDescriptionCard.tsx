@@ -8,7 +8,7 @@ import {
 export default function SelfDescriptionCard() {
   return (
     <Hero>
-      <HeroImage src={selfie.src} alt="Angela's selfie" width={220} />
+      <HeroImage src={selfie.src} alt="Angela's selfie" width={230} />
       <HeroContent>
         <h1>Hello hello!</h1>
         <p>
