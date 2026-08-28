@@ -72,14 +72,9 @@ const CarouselTrack = styled(motion.ul)`
     var(--space-24);
   gap: var(--space-24);
   list-style: none;
-  cursor: grab;
   touch-action: pan-y;
   user-select: none;
   will-change: transform;
-
-  &:active {
-    cursor: grabbing;
-  }
 `;
 
 const Polaroid = styled(motion.li)`
@@ -235,6 +230,7 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
       <CarouselViewport ref={carouselRef}>
         <CarouselTrack
           aria-label="Project carousel. Drag horizontally to explore."
+          data-cursor="move"
           drag="x"
           dragConstraints={carouselRef}
           dragElastic={0.04}
