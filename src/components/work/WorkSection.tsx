@@ -310,10 +310,9 @@ function AnimatedPawTrail({
 export default function WorkSection({ entries }: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const pawsPerConnector = 7;
   const pawCounts = Array.from(
     { length: Math.max(entries.length - 1, 0) },
-    (_, index) => (index === 1 ? pawsPerConnector - 1 : pawsPerConnector),
+    (_, index) => (index % 2 === 0 ? 7 : 5),
   );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
