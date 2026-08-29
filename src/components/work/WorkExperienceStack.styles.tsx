@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import { ContentIndex, EntryTags } from "@components/ui/ContentStyles";
+import { smallHeadingStyles } from "@components/ui/HeadingStyles";
 
 export const WorkIndex = styled(ContentIndex)`
   gap: 0;
@@ -97,10 +98,7 @@ export const JobTitle = styled.span`
   border-radius: var(--radius-medium);
   background: var(--color-accent);
   color: var(--color-on-primary);
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-normal);
+  ${smallHeadingStyles}
   opacity: 0;
   pointer-events: none;
   translate: 0 var(--space-2);
