@@ -52,6 +52,7 @@
 - Follow the [farmhouse pink style guide](../../style-guide.md).
 - Keep shared color, font, radius, and spacing values in `src/lib/colors.ts`, `src/lib/font.ts`, `src/lib/radius.ts`, and `src/lib/spacing.ts`.
 - Map shared values to global CSS custom properties in `src/app/layout.tsx`; use those properties in styled-components and the remaining CSS modules.
+- Use the responsive heading variants in `src/components/ui/HeadingStyles.ts` for display-font headings, including component-specific heading sizes.
 - Keep document-wide resets and element defaults in the styled-components global style; colocate feature-specific rules with their components.
 - Bundle production fonts in `src/assets/fonts/` and load them with `next/font/local` so builds do not depend on Google Fonts availability.
 - Use the symmetric radius tokens for rounded corners. Do not use asymmetric corner radii, raw radius values, or spacing tokens as radii.

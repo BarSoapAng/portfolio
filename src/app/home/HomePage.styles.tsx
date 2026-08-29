@@ -3,6 +3,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
+import { largeHeadingStyles } from "@components/ui/HeadingStyles";
 
 export const SectionDivider = styled(Image)`
   display: block;
@@ -24,7 +25,7 @@ export const IndexSection = styled.section`
   scroll-margin-top: var(--space-8);
 
   > h2 {
-    font-size: var(--font-size-3xl);
+    ${largeHeadingStyles}
   }
 
   > ${ContentIndex} {

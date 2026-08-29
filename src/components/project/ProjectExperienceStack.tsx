@@ -13,6 +13,7 @@ import {
 } from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
+import { mediumHeadingStyles } from "@components/ui/HeadingStyles";
 import { type ProjectSummary } from "@lib/project-shared";
 
 type ProjectExperienceStackProps = {
@@ -148,7 +149,7 @@ const PolaroidCaption = styled.div`
 
   h3 {
     margin: 0;
-    font-size: var(--font-size-2xl);
+    ${mediumHeadingStyles}
     transition: color 160ms ease;
   }
 

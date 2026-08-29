@@ -253,8 +253,9 @@ function AnimatedPawTrail({
           ? "right"
           : "left";
       const start =
-        direction === "right" ? previousBounds.right : previousBounds.left;
-      const end = direction === "right" ? nextBounds.left : nextBounds.right;
+        direction === "right" ? previousBounds.right + 8 : previousBounds.left;
+      const end =
+        direction === "right" ? nextBounds.left : nextBounds.right - 16;
 
       trail.style.setProperty(
         "--trail-left",

@@ -1,6 +1,11 @@
 "use client";
 
 import { createGlobalStyle } from "styled-components";
+import {
+  largeHeadingStyles,
+  mediumHeadingStyles,
+  smallHeadingStyles,
+} from "@components/ui/HeadingStyles";
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -86,21 +91,18 @@ const GlobalStyle = createGlobalStyle`
   h3 {
     margin-block: 0 var(--space-3);
     color: var(--color-primary-hover);
-    font-family: var(--font-display);
-    line-height: var(--line-height-tight);
-    text-wrap: balance;
   }
 
   h1 {
-    font-size: var(--font-size-3xl);
+    ${largeHeadingStyles}
   }
 
   h2 {
-    font-size: var(--font-size-2xl);
+    ${mediumHeadingStyles}
   }
 
   h3 {
-    font-size: var(--font-size-xl);
+    ${smallHeadingStyles}
   }
 
   p,
