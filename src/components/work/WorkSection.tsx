@@ -47,11 +47,16 @@ const PawTrail = styled.div`
 
   > div {
     position: absolute;
-    left: var(--trail-left);
+    left: calc(
+      var(--trail-left) + var(--trail-left-adjustment, var(--space-0))
+    );
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: var(--trail-width);
+    width: calc(
+      var(--trail-width) - var(--trail-left-adjustment, var(--space-0)) +
+        var(--trail-right-adjustment, var(--space-0))
+    );
     height: 100%;
     visibility: hidden;
   }
@@ -70,6 +75,19 @@ const PawTrail = styled.div`
 
   &[data-direction="left"] {
     --trail-angle: 265deg;
+  }
+
+  &[data-trail="0"],
+  &[data-trail="4"] {
+    --trail-left-adjustment: var(--space-8);
+  }
+
+  &[data-trail="1"] {
+    --trail-left-adjustment: calc(-1 * var(--space-8));
+  }
+
+  &[data-trail="2"] {
+    --trail-right-adjustment: var(--space-8);
   }
 
   span {
@@ -313,7 +331,8 @@ export default function WorkSection({ entries }: WorkSectionProps) {
   const pawsPerConnector = 7;
   const pawCounts = Array.from(
     { length: Math.max(entries.length - 1, 0) },
-    (_, index) => (index === 1 ? pawsPerConnector - 1 : pawsPerConnector),
+    (_, index) =>
+      index === 1 || index === 3 ? pawsPerConnector - 1 : pawsPerConnector,
   );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
