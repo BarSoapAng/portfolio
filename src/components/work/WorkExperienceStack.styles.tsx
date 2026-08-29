@@ -110,18 +110,9 @@ export const JobTitle = styled.span`
     visibility 140ms ease;
   visibility: hidden;
 
-  ${WorkEntry}:nth-of-type(even) &:not([data-cursor-positioned="true"]) {
+  ${WorkEntry}:nth-of-type(even) & {
     right: 0;
     left: auto;
-  }
-
-  &[data-cursor-positioned="true"] {
-    position: fixed;
-    top: var(--tooltip-y);
-    right: auto;
-    bottom: auto;
-    left: var(--tooltip-x);
-    transform: translateY(-100%);
   }
 
   ${CompanyName}:hover + &,
