@@ -106,6 +106,10 @@ const PawTrail = styled.div`
     translate: 1px calc(var(--space-8) - var(--space-1));
   }
 
+  span[data-paw-spacer] {
+    width: calc(var(--space-6) - var(--space-1));
+  }
+
   &[data-trail="0"] span:nth-child(2) {
     translate: var(--space-1) var(--space-1);
   }
@@ -200,6 +204,10 @@ const PawTrail = styled.div`
   }
 
   @media (max-width: 42rem) {
+    span[data-paw-spacer] {
+      width: calc(var(--space-4) - var(--space-1));
+    }
+
     svg {
       width: calc(var(--space-4) - var(--space-1));
     }
@@ -337,6 +345,7 @@ function AnimatedPawTrail({
             total={totalPaws}
           />
         ))}
+        {index === 0 ? <span data-paw-spacer /> : null}
       </div>
     </PawTrail>
   );
@@ -355,7 +364,7 @@ export default function WorkSection() {
   ];
   const pawCounts = Array.from(
     { length: Math.max(experiences.length - 1, 0) },
-    (_, index) => (index % 2 === 0 ? 7 : 5),
+    (_, index) => (index === 0 ? 6 : index % 2 === 0 ? 7 : 5),
   );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
