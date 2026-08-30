@@ -14,13 +14,13 @@ export default function EricssonWorkExperience() {
         src={ericssonLogo}
         alt=""
         aria-hidden="true"
-        style={{ right: "28%", top: "-15%", width: "9%" }}
+        style={{ left: "-8%", top: "3%", width: "6.4%", rotate: "-2deg" }}
       />
       <WorkArtwork
         src={phone}
         alt=""
         aria-hidden="true"
-        style={{ bottom: "-10%", right: "2%", width: "24%" }}
+        style={{ bottom: "43%", left: "23%", width: "23%" }}
       />
     </WorkExperience>
   );
