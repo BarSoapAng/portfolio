@@ -17,7 +17,7 @@ export const SectionDivider = styled(Image)`
   user-select: none;
 
   & + * {
-    margin-block-start: 48px;
+    margin-block-start: 56px;
   }
 `;
 
@@ -31,4 +31,8 @@ export const IndexSection = styled.section`
   > ${ContentIndex} {
     margin-block-start: var(--space-4);
   }
+`;
+
+export const ProjectsSection = styled(IndexSection)`
+  margin-block-start: var(--space-4);
 `;

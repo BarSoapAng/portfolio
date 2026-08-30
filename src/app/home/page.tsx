@@ -3,7 +3,7 @@ import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkSection from "@components/work/WorkSection";
 import { getAllProjects } from "@lib/project";
-import { IndexSection, SectionDivider } from "./HomePage.styles";
+import { ProjectsSection, SectionDivider } from "./HomePage.styles";
 
 function HomePage() {
   const projects = getAllProjects();
@@ -19,9 +19,9 @@ function HomePage() {
 
       <WorkSection />
 
-      <IndexSection id="projects">
+      <ProjectsSection id="projects">
         <ProjectExperienceStack projects={projects} />
-      </IndexSection>
+      </ProjectsSection>
     </main>
   );
 }
