@@ -4,6 +4,7 @@ import {
   CompanyName,
   JobTitle,
   Period,
+  WorkArtworkArea,
   WorkCopy,
   WorkEntry,
   WorkHeading,
@@ -26,7 +27,7 @@ export default function WorkExperience({
 
   return (
     <WorkEntry>
-      <WorkCopy data-work-copy>
+      <WorkCopy>
         <WorkHeading>
           <CompanyName>
             <Company
@@ -43,7 +44,7 @@ export default function WorkExperience({
         </WorkHeading>
         <Period>{period}</Period>
       </WorkCopy>
-      {children}
+      <WorkArtworkArea>{children}</WorkArtworkArea>
     </WorkEntry>
   );
 }

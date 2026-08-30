@@ -16,7 +16,7 @@ export const WorkIndex = styled(ContentIndex)`
 
 export const WorkEntry = styled.article`
   position: relative;
-  width: clamp(12rem, 38vw, 24rem);
+  width: fit-content;
   max-width: 80%;
 
   &:nth-of-type(odd) {
@@ -69,9 +69,18 @@ export const WorkCopy = styled.div`
   z-index: 1;
   width: fit-content;
   max-width: 100%;
+`;
+
+export const WorkArtworkArea = styled.div`
+  position: absolute;
+  z-index: 0;
+  inset-block: 0;
+  left: 0;
+  width: min(24rem, 80vw);
 
   ${WorkEntry}:nth-of-type(even) & {
-    margin-inline-start: auto;
+    right: 0;
+    left: auto;
   }
 `;
 
