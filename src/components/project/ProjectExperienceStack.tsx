@@ -48,13 +48,19 @@ const ProjectCopy = styled.div`
   align-items: center;
 `;
 
-const ProjectDetails = styled(motion.div)`
+const ProjectDetails = styled.div`
   grid-area: 1 / 1;
+`;
 
-  > :last-child {
-    margin-block-end: 0;
+const TitleFrame = styled.div`
+  display: grid;
+
+  > h2 {
+    grid-area: 1 / 1;
   }
 `;
+
+const ProjectTitle = styled(motion.h2)``;
 
 const ProjectLink = styled(Link)`
   color: var(--color-primary-hover);
@@ -70,8 +76,17 @@ const ProjectLink = styled(Link)`
   }
 `;
 
-const ProjectDescription = styled.p`
+const DescriptionFrame = styled.div`
+  display: grid;
+
+  > p {
+    grid-area: 1 / 1;
+  }
+`;
+
+const ProjectDescription = styled(motion.p)`
   max-width: 32rem;
+  margin-block-end: 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-lg);
 `;
@@ -272,28 +287,55 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
   return (
     <ProjectShowcase>
       <ProjectCopy aria-live="polite">
-        <AnimatePresence initial={false}>
-          <ProjectDetails
-            animate={{ opacity: 1 }}
-            exit={{ opacity: shouldReduceMotion ? 1 : 0 }}
-            initial={shouldReduceMotion ? false : { opacity: 0 }}
-            key={activeProject.slug}
-            transition={{
-              duration: shouldReduceMotion ? 0 : 0.3,
-              ease: "easeInOut",
-            }}
-          >
-            <h2>
-              <ProjectLink
-                data-cursor="pointer"
-                href={`/proj/${activeProject.slug}`}
+        <ProjectDetails>
+          <TitleFrame>
+            <AnimatePresence initial={false} mode="wait">
+              <ProjectTitle
+                exit={{ opacity: 0 }}
+                key={activeProject.slug}
+                transition={{ duration: 0 }}
               >
-                {activeProject.title}
-              </ProjectLink>
-            </h2>
-            <ProjectDescription>{activeProject.summary}</ProjectDescription>
-          </ProjectDetails>
-        </AnimatePresence>
+                <ProjectLink
+                  aria-label={activeProject.title}
+                  data-cursor="pointer"
+                  href={`/proj/${activeProject.slug}`}
+                >
+                  {Array.from(activeProject.title).map((character, index) => (
+                    <motion.span
+                      animate={{ opacity: 1 }}
+                      aria-hidden="true"
+                      initial={shouldReduceMotion ? false : { opacity: 0 }}
+                      key={`${character}-${index}`}
+                      transition={{
+                        delay: shouldReduceMotion ? 0 : index * 0.03,
+                        duration: 0,
+                      }}
+                    >
+                      {character}
+                    </motion.span>
+                  ))}
+                </ProjectLink>
+              </ProjectTitle>
+            </AnimatePresence>
+          </TitleFrame>
+
+          <DescriptionFrame>
+            <AnimatePresence initial={false}>
+              <ProjectDescription
+                animate={{ opacity: 1 }}
+                exit={{ opacity: shouldReduceMotion ? 1 : 0 }}
+                initial={shouldReduceMotion ? false : { opacity: 0 }}
+                key={activeProject.slug}
+                transition={{
+                  duration: shouldReduceMotion ? 0 : 0.3,
+                  ease: "easeInOut",
+                }}
+              >
+                {activeProject.summary}
+              </ProjectDescription>
+            </AnimatePresence>
+          </DescriptionFrame>
+        </ProjectDetails>
       </ProjectCopy>
 
       <StackColumn>
