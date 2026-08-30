@@ -27,10 +27,8 @@
 
 .sidebar {
   position: fixed;
-  top: 50vh;
   inset-inline-end: max(var(--space-4), calc((100vw - 900px) / 2));
   width: 20rem;
-  transform: translateY(-50%);
   padding: var(--space-6);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
@@ -93,6 +91,5 @@
   .sidebar {
     position: static;
     width: auto;
-    transform: none;
   }
 }
