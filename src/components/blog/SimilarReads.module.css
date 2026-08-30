@@ -3,14 +3,14 @@
 }
 
 .section ul {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
   margin: var(--space-6) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .section li {
+  flex: 0 1 auto;
   padding-inline: var(--space-6);
 }
 
@@ -41,7 +41,7 @@
 
 @media (max-width: 42rem) {
   .section ul {
-    grid-template-columns: 1fr;
+    display: block;
   }
 
   .section li {
