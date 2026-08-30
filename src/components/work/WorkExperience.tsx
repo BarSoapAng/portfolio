@@ -26,7 +26,7 @@ export default function WorkExperience({
 
   return (
     <WorkEntry>
-      <WorkCopy>
+      <WorkCopy data-work-copy>
         <WorkHeading>
           <CompanyName>
             <Company

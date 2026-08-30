@@ -266,8 +266,12 @@ function AnimatedPawTrail({
     const trail = trailRef.current;
     const workEntries =
       trail?.parentElement?.querySelectorAll<HTMLElement>(":scope > article");
-    const previousEntry = workEntries?.[index];
-    const nextEntry = workEntries?.[index + 1];
+    const previousEntry = workEntries?.[index]?.querySelector<HTMLElement>(
+      "[data-work-copy]",
+    );
+    const nextEntry = workEntries?.[index + 1]?.querySelector<HTMLElement>(
+      "[data-work-copy]",
+    );
 
     if (
       !trail ||
