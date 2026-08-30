@@ -10,13 +10,14 @@ import {
 } from "framer-motion";
 import { FaPaw } from "react-icons/fa";
 import styled from "styled-components";
-import { type WorkSummary } from "@lib/work-shared";
 import { IndexSection } from "../../app/home/HomePage.styles";
+import EricssonWorkExperience from "./experiences/EricssonWorkExperience";
+import HackTheNorthWorkExperience from "./experiences/HackTheNorthWorkExperience";
+import OroWorkExperience from "./experiences/OroWorkExperience";
+import ShopifyWorkExperience from "./experiences/ShopifyWorkExperience";
+import TeslaWorkExperience from "./experiences/TeslaWorkExperience";
+import WecWorkExperience from "./experiences/WecWorkExperience";
 import WorkExperienceStack from "./WorkExperienceStack";
-
-type WorkSectionProps = {
-  entries: WorkSummary[];
-};
 
 type PawPrintProps = {
   index: number;
@@ -341,11 +342,19 @@ function AnimatedPawTrail({
   );
 }
 
-export default function WorkSection({ entries }: WorkSectionProps) {
+export default function WorkSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const experiences = [
+    <TeslaWorkExperience key="tesla" />,
+    <HackTheNorthWorkExperience key="hack-the-north" />,
+    <OroWorkExperience key="oro" />,
+    <ShopifyWorkExperience key="shopify" />,
+    <EricssonWorkExperience key="ericsson" />,
+    <WecWorkExperience key="wec" />,
+  ];
   const pawCounts = Array.from(
-    { length: Math.max(entries.length - 1, 0) },
+    { length: Math.max(experiences.length - 1, 0) },
     (_, index) => (index % 2 === 0 ? 7 : 5),
   );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
@@ -357,7 +366,7 @@ export default function WorkSection({ entries }: WorkSectionProps) {
   return (
     <Section id="work" ref={sectionRef}>
       <WorkExperienceStack
-        entries={entries}
+        experiences={experiences}
         renderConnector={(connectorIndex) => (
           <AnimatedPawTrail
             firstPawIndex={pawCounts

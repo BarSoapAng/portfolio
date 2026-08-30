@@ -14,7 +14,7 @@
 - `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
-- `content/work.json`: work entries rendered in the home-page work section; each entry contains only `title`, `company`, and `period`
+- `src/components/work/experiences/`: position-specific work entries and their artwork placement
 - `content/project/`: local MDX project entries loaded by the App Router project routes
 
 ## Routing Rules
@@ -31,7 +31,7 @@
 - Published blog and project MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
 - Store content thumbnails in `src/assets/content/`, register them in `src/lib/content-images.ts`, and reference them in frontmatter by filename such as `example.webp`.
 - Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
-- Home renders work entries as a text-only list without thumbnail fields or standalone detail pages.
+- Home work entries import their local artwork from `src/assets/work/` and render it through position-specific components. They do not have standalone detail pages.
 
 ## Blog Content Types
 
@@ -61,6 +61,7 @@
 ## Home Feature Notes
 
 - `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
+- Work entries use the shared text shell in `src/components/work/WorkExperience.tsx`; each position owns its content and percentage-based artwork placement in `src/components/work/experiences/`.
 - `/work` and `/proj` redirect to the matching home-page sections; only project entries retain standalone detail routes.
 - Reusable home UI belongs in `src/components/home/`.
 - The Spotify player code remains in `src/components/home/VinylPlayer.tsx`, `src/components/home/VinylPlayerClient.tsx`, and `src/lib/spotify.ts`, but it is not rendered or called by the application.

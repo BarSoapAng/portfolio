@@ -1,54 +1,25 @@
 import { Fragment, type ReactNode } from "react";
-import { type WorkSummary } from "@lib/work-shared";
 import {
-  WorkEntry,
-  WorkHeading,
-  Company,
-  CompanyName,
-  JobTitle,
-  Period,
   WorkIndex,
 } from "./WorkExperienceStack.styles";
 
 type WorkExperienceStackProps = {
-  entries: WorkSummary[];
+  experiences: ReactNode[];
   renderConnector?: (index: number) => ReactNode;
 };
 
 export default function WorkExperienceStack({
-  entries,
+  experiences,
   renderConnector,
 }: WorkExperienceStackProps) {
   return (
     <WorkIndex>
-      {entries.length === 0 ? (
-        <p>
-          No work entries yet - add them to <code>content/work.json</code>.
-        </p>
-      ) : (
-        entries.map((entry, index) => (
-          <Fragment key={`${entry.company}-${entry.title}-${entry.period}`}>
-            <WorkEntry>
-              <WorkHeading>
-                <CompanyName>
-                  <Company
-                    aria-describedby={`work-title-${index}`}
-                    data-cursor="help"
-                    type="button"
-                  >
-                    {entry.company}
-                  </Company>
-                </CompanyName>
-                <JobTitle id={`work-title-${index}`} role="tooltip">
-                  {entry.title}
-                </JobTitle>
-              </WorkHeading>
-              <Period>{entry.period}</Period>
-            </WorkEntry>
-            {index < entries.length - 1 ? renderConnector?.(index) : null}
-          </Fragment>
-        ))
-      )}
+      {experiences.map((experience, index) => (
+        <Fragment key={index}>
+          {experience}
+          {index < experiences.length - 1 ? renderConnector?.(index) : null}
+        </Fragment>
+      ))}
     </WorkIndex>
   );
 }

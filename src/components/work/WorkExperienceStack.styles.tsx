@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex, EntryTags } from "@components/ui/ContentStyles";
 import { smallHeadingStyles } from "@components/ui/HeadingStyles";
@@ -14,7 +15,8 @@ export const WorkIndex = styled(ContentIndex)`
 `;
 
 export const WorkEntry = styled.article`
-  width: fit-content;
+  position: relative;
+  width: clamp(12rem, 38vw, 24rem);
   max-width: 80%;
 
   &:nth-of-type(odd) {
@@ -60,6 +62,29 @@ export const WorkEntry = styled.article`
       margin-inline-start: 22%;
     }
   }
+`;
+
+export const WorkCopy = styled.div`
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  max-width: 100%;
+
+  ${WorkEntry}:nth-of-type(even) & {
+    margin-inline-start: auto;
+  }
+`;
+
+export const WorkArtwork = styled(Image)`
+  position: absolute;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  pointer-events: none;
+  user-select: none;
 `;
 
 export const Company = styled.button`
