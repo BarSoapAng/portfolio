@@ -8,7 +8,7 @@ export default function OroWorkExperience() {
     <WorkExperience
       company="Oro"
       period="Feb 2026 - Present"
-      title="Chief Product Officer"
+      title="Chief Operating Officer"
     >
       <WorkArtwork
         src={oroLogo}
