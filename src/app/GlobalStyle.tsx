@@ -151,7 +151,6 @@ const GlobalStyle = createGlobalStyle`
   img {
     max-width: 100%;
     height: auto;
-    border: var(--space-1) solid var(--color-surface);
     border-radius: var(--radius-medium);
     box-shadow: 0 0 0 1px var(--color-border);
   }
