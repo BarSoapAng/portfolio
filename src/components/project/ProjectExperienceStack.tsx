@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useLayoutEffect, useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   AnimatePresence,
@@ -166,7 +166,7 @@ const Polaroid = styled(motion.button)`
     0 0 0 1px color-mix(in srgb, var(--color-surface) 70%, transparent);
   color: inherit;
   cursor: grab;
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
   will-change: transform;
 
@@ -203,41 +203,15 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
   projectIndex,
   totalProjects,
 }: ProjectPolaroidProps) {
-  const [bottomDragConstraint, setBottomDragConstraint] = useState(0);
-  const polaroidRef = useRef<HTMLButtonElement>(null);
-  const shouldSendToBackRef = useRef(false);
   const wasDraggingRef = useRef(false);
-
-  useLayoutEffect(() => {
-    const polaroid = polaroidRef.current;
-
-    if (!polaroid) {
-      return;
-    }
-
-    const updateBottomDragConstraint = () => {
-      const polaroidBottom =
-        polaroid.getBoundingClientRect().bottom + window.scrollY;
-
-      setBottomDragConstraint(
-        Math.max(0, document.documentElement.scrollHeight - polaroidBottom),
-      );
-    };
-
-    updateBottomDragConstraint();
-    window.addEventListener("resize", updateBottomDragConstraint);
-
-    return () => {
-      window.removeEventListener("resize", updateBottomDragConstraint);
-    };
-  }, []);
 
   const handleDragEnd = (
     _event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) => {
-    shouldSendToBackRef.current =
-      Math.hypot(info.offset.x, info.offset.y) >= 110;
+    if (Math.hypot(info.offset.x, info.offset.y) >= 110) {
+      onSendToBack();
+    }
 
     window.setTimeout(() => {
       wasDraggingRef.current = false;
@@ -265,14 +239,8 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
           data-cursor="move"
           disabled={!isFront}
           drag={isFront && totalProjects > 1}
-          dragConstraints={{ bottom: bottomDragConstraint }}
-          dragElastic={0}
           dragMomentum={false}
           dragSnapToOrigin
-          dragTransition={{
-            bounceDamping: 40,
-            bounceStiffness: 400,
-          }}
           onClick={() => {
             if (!wasDraggingRef.current) {
               onSendToBack();
@@ -280,16 +248,8 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
           }}
           onDragEnd={handleDragEnd}
           onDragStart={() => {
-            shouldSendToBackRef.current = false;
             wasDraggingRef.current = true;
           }}
-          onDragTransitionEnd={() => {
-            if (shouldSendToBackRef.current) {
-              shouldSendToBackRef.current = false;
-              onSendToBack();
-            }
-          }}
-          ref={polaroidRef}
           type="button"
         >
           <PolaroidPhoto>
