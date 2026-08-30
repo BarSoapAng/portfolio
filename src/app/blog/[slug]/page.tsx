@@ -6,6 +6,7 @@ import ContentImage from "@components/ui/ContentImage";
 import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
 import { buildPostMetadata, getAllPostSlugs, getPostBySlug, getSimilarPosts } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
+import styles from "./BlogPost.module.css";
 
 type BlogPostRouteProps = {
   params: Promise<{
@@ -48,7 +49,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
         </Link>
       </p>
 
-      <article>
+      <article className={styles.article}>
         <header>
           <h1>{post.title}</h1>
           <p>{post.summary}</p>
