@@ -47,11 +47,14 @@ const PawTrail = styled.div`
 
   > div {
     position: absolute;
-    left: var(--trail-left);
+    top: var(--trail-offset-y, 0px);
+    left: calc(var(--trail-left) + var(--trail-offset-x, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: var(--trail-width);
+    width: calc(
+      var(--trail-width) + var(--trail-length-adjustment, 0px)
+    );
     height: 100%;
     visibility: hidden;
   }
@@ -199,6 +202,36 @@ const PawTrail = styled.div`
     svg {
       width: calc(var(--space-4) - var(--space-1));
     }
+  }
+
+  &[data-trail="0"] {
+    --trail-offset-x: 0px;
+    --trail-offset-y: 0px;
+    --trail-length-adjustment: 0px;
+  }
+
+  &[data-trail="1"] {
+    --trail-offset-x: 0px;
+    --trail-offset-y: 0px;
+    --trail-length-adjustment: 0px;
+  }
+
+  &[data-trail="2"] {
+    --trail-offset-x: 0px;
+    --trail-offset-y: 0px;
+    --trail-length-adjustment: 0px;
+  }
+
+  &[data-trail="3"] {
+    --trail-offset-x: 0px;
+    --trail-offset-y: 0px;
+    --trail-length-adjustment: 0px;
+  }
+
+  &[data-trail="4"] {
+    --trail-offset-x: 0px;
+    --trail-offset-y: 0px;
+    --trail-length-adjustment: 0px;
   }
 `;
 
