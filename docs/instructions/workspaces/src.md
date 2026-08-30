@@ -37,6 +37,7 @@
 
 - Use only `eng`, `career`, `life`, and `fun` in published blog `tags` frontmatter.
 - Set optional blog frontmatter `pinned: true` to place a post before unpinned posts in the blog index and Top Blogs. Multiple pinned posts are ordered newest first.
+- Set `similarReads` to exactly three unique published blog slugs. A post cannot recommend itself.
 - The blog index provides debounced title and summary search. Tag metadata is not displayed or searchable there.
 
 ## Import Conventions

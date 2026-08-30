@@ -11,15 +11,6 @@
   margin-block-start: 0;
 }
 
-.backLink {
-  text-decoration: none;
-}
-
-.page > article {
-  margin-block-start: 0;
-  padding-block-start: 0;
-}
-
 .page > .sidebar {
   grid-column: 2;
   grid-row: 1 / span 2;

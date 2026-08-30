@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import TopBlogOverview from "@components/navigation/TopBlogOverview";
-import styles from "@components/navigation/TopBlogOverview.module.css";
+import SimilarReads from "@components/blog/SimilarReads";
 import ContentImage from "@components/ui/ContentImage";
 import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
-import { buildPostMetadata, getAllPostSlugs, getAllPosts, getPostBySlug } from "@lib/blog";
+import { buildPostMetadata, getAllPostSlugs, getPostBySlug, getSimilarPosts } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
 
 type BlogPostRouteProps = {
@@ -33,8 +32,7 @@ export async function generateMetadata({ params }: BlogPostRouteProps): Promise<
 
 export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { slug } = await params;
-  const posts = getAllPosts();
-  const post = posts.find((entry) => entry.slug === slug) ?? null;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -43,9 +41,9 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { default: PostContent } = await import(`../../../../content/blog/${slug}.mdx`);
 
   return (
-    <main className={styles.page}>
+    <main>
       <p>
-        <Link className={styles.backLink} href="/blog">
+        <Link href="/blog">
           ← Back to blogs
         </Link>
       </p>
@@ -65,7 +63,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
         <PostContent />
       </article>
 
-      <TopBlogOverview posts={posts} />
+      <SimilarReads posts={getSimilarPosts(post)} />
     </main>
   );
 }

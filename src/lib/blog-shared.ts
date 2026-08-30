@@ -9,6 +9,7 @@ export type PostFrontmatter = {
   thumbnailAlt: string;
   pinned: boolean;
   published: boolean;
+  similarReads: string[];
   tags: string[];
 };
 
