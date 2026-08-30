@@ -78,6 +78,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
           <img
             src={playback.track.artworkUrl}
             alt={`${playback.track.album} album art`}
+            draggable={false}
             width={160}
             height={160}
           />

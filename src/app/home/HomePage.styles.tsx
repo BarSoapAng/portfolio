@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
 import { largeHeadingStyles } from "@components/ui/HeadingStyles";
 
-export const SectionDivider = styled(Image)`
+export const SectionDivider = styled(Image).attrs({ draggable: false })`
   display: block;
   width: 100%;
   height: auto;

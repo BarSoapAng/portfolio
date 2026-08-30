@@ -159,6 +159,8 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
     border-radius: var(--radius-medium);
     box-shadow: 0 0 0 1px var(--color-border);
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   code {

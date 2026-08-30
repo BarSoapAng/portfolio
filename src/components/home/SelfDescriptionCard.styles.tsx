@@ -14,7 +14,7 @@ export const Hero = styled.section`
   }
 `;
 
-export const HeroImage = styled.img`
+export const HeroImage = styled.img.attrs({ draggable: false })`
   width: 100%;
 
   @media (max-width: 42rem) {

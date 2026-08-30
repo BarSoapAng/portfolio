@@ -83,7 +83,7 @@ export const WorkArtworkArea = styled.div`
   }
 `;
 
-export const WorkArtwork = styled(Image)`
+export const WorkArtwork = styled(Image).attrs({ draggable: false })`
   position: absolute;
   z-index: 0;
   width: auto;
