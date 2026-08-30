@@ -93,7 +93,6 @@ const ProjectDescription = styled(motion.p)`
 
 const StackColumn = styled.div`
   position: relative;
-  isolation: isolate;
   display: grid;
   min-width: 0;
   padding-block-start: var(--space-8);
@@ -223,7 +222,7 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
     <StackCard
       $isFront={isFront}
       aria-hidden={!isFront}
-      style={{ zIndex: totalProjects - position }}
+      style={{ zIndex: totalProjects - position + 1 }}
     >
       <PolaroidPosition
         style={{
