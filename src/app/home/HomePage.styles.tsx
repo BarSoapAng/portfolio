@@ -17,7 +17,7 @@ export const SectionDivider = styled(Image)`
   user-select: none;
 
   & + * {
-    margin-block-start: var(--space-6);
+    margin-block-start: 48px;
   }
 `;
 
