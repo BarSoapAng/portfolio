@@ -14,13 +14,13 @@ export default function OroWorkExperience() {
         src={oroLogo}
         alt=""
         aria-hidden="true"
-        style={{ right: "2%", top: "-5%", width: "31%" }}
+        style={{ left: "-6%", top: "-29%", width: "12%", rotate: "-12deg" }}
       />
       <WorkArtwork
         src={oroStyled}
         alt=""
         aria-hidden="true"
-        style={{ bottom: "-10%", right: "34%", width: "25%" }}
+        style={{ bottom: "50%", left: "13%", width: "20%" }}
       />
     </WorkExperience>
   );
