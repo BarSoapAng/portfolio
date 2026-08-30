@@ -5,17 +5,25 @@
 .section ul {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-4);
   margin: var(--space-6) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .section li {
-  padding: var(--space-4);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-medium);
-  background: var(--color-surface);
+  padding-inline: var(--space-6);
+}
+
+.section li:first-child {
+  padding-inline-start: 0;
+}
+
+.section li:last-child {
+  padding-inline-end: 0;
+}
+
+.section li + li {
+  border-inline-start: 1px solid var(--color-border);
 }
 
 .section a {
@@ -34,5 +42,22 @@
 @media (max-width: 42rem) {
   .section ul {
     grid-template-columns: 1fr;
+  }
+
+  .section li {
+    padding: var(--space-4) 0;
+  }
+
+  .section li:first-child {
+    padding-block-start: 0;
+  }
+
+  .section li:last-child {
+    padding-block-end: 0;
+  }
+
+  .section li + li {
+    border-block-start: 1px solid var(--color-border);
+    border-inline-start: 0;
   }
 }
