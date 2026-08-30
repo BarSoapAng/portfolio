@@ -205,6 +205,7 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
 }: ProjectPolaroidProps) {
   const [bottomDragConstraint, setBottomDragConstraint] = useState(0);
   const polaroidRef = useRef<HTMLButtonElement>(null);
+  const shouldSendToBackRef = useRef(false);
   const wasDraggingRef = useRef(false);
 
   useLayoutEffect(() => {
@@ -235,9 +236,8 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
     _event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) => {
-    if (Math.hypot(info.offset.x, info.offset.y) >= 110) {
-      onSendToBack();
-    }
+    shouldSendToBackRef.current =
+      Math.hypot(info.offset.x, info.offset.y) >= 110;
 
     window.setTimeout(() => {
       wasDraggingRef.current = false;
@@ -269,6 +269,10 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
           dragElastic={0}
           dragMomentum={false}
           dragSnapToOrigin
+          dragTransition={{
+            bounceDamping: 40,
+            bounceStiffness: 400,
+          }}
           onClick={() => {
             if (!wasDraggingRef.current) {
               onSendToBack();
@@ -276,7 +280,14 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
           }}
           onDragEnd={handleDragEnd}
           onDragStart={() => {
+            shouldSendToBackRef.current = false;
             wasDraggingRef.current = true;
+          }}
+          onDragTransitionEnd={() => {
+            if (shouldSendToBackRef.current) {
+              shouldSendToBackRef.current = false;
+              onSendToBack();
+            }
           }}
           ref={polaroidRef}
           type="button"
