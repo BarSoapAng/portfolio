@@ -3,7 +3,6 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex, EntryTags } from "@components/ui/ContentStyles";
-import { smallHeadingStyles } from "@components/ui/HeadingStyles";
 
 export const WorkIndex = styled(ContentIndex)`
   gap: 0;
@@ -132,7 +131,6 @@ export const JobTitle = styled.span`
   border-radius: var(--radius-medium);
   background: var(--color-accent);
   color: var(--color-on-primary);
-  ${smallHeadingStyles}
   opacity: 0;
   pointer-events: none;
   translate: 0 var(--space-2);
