@@ -78,6 +78,7 @@ const ProjectDescription = styled.p`
 
 const StackColumn = styled.div`
   position: relative;
+  isolation: isolate;
   display: grid;
   min-width: 0;
   padding-block-start: var(--space-8);
@@ -87,7 +88,7 @@ const StackColumn = styled.div`
 
 const DragInstruction = styled.div`
   position: absolute;
-  z-index: 10;
+  z-index: 0;
   top: 0;
   left: var(--space-4);
   display: flex;
