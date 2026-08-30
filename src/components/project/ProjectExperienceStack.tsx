@@ -278,7 +278,7 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             key={activeProject.slug}
             transition={{
-              duration: shouldReduceMotion ? 0 : 0.2,
+              duration: shouldReduceMotion ? 0 : 0.3,
               ease: "easeInOut",
             }}
           >
