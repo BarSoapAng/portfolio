@@ -220,7 +220,7 @@ const PawTrail = styled.div`
   }
 
   &[data-trail="1"] {
-    --trail-offset-x: 0px;
+    --trail-offset-x: calc(-1 * var(--space-2));
     --trail-offset-y: 0px;
     --trail-length-adjustment: 0px;
   }
@@ -228,7 +228,7 @@ const PawTrail = styled.div`
   &[data-trail="2"] {
     --trail-offset-x: 0px;
     --trail-offset-y: 0px;
-    --trail-length-adjustment: 0px;
+    --trail-length-adjustment: calc(-1 * var(--space-2));
   }
 
   &[data-trail="3"] {
@@ -240,7 +240,7 @@ const PawTrail = styled.div`
   &[data-trail="4"] {
     --trail-offset-x: 0px;
     --trail-offset-y: 0px;
-    --trail-length-adjustment: 0px;
+    --trail-length-adjustment: var(--space-2);
   }
 `;
 
@@ -345,7 +345,15 @@ function AnimatedPawTrail({
             total={totalPaws}
           />
         ))}
-        {index === 0 ? <span data-paw-spacer /> : null}
+        {index === 0 || index === 1 || index === 4 ? (
+          <span data-paw-spacer />
+        ) : null}
+        {index === 3 ? (
+          <>
+            <span data-paw-spacer />
+            <span data-paw-spacer />
+          </>
+        ) : null}
       </div>
     </PawTrail>
   );
@@ -362,10 +370,7 @@ export default function WorkSection() {
     <EricssonWorkExperience key="ericsson" />,
     <WecWorkExperience key="wec" />,
   ];
-  const pawCounts = Array.from(
-    { length: Math.max(experiences.length - 1, 0) },
-    (_, index) => (index === 0 ? 6 : index % 2 === 0 ? 7 : 5),
-  );
+  const pawCounts = [6, 4, 7, 3, 6];
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
