@@ -33,6 +33,11 @@ const GlobalStyle = createGlobalStyle`
     background: var(--color-primary);
   }
 
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   html {
     min-width: 20rem;
     background: var(--color-background);

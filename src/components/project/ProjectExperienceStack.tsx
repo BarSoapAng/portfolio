@@ -10,7 +10,6 @@ import {
 } from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
-import { largeHeadingStyles } from "@components/ui/HeadingStyles";
 import { type ProjectSummary } from "@lib/project-shared";
 
 type ProjectExperienceStackProps = {
@@ -57,10 +56,6 @@ const ProjectDetails = styled(motion.div)`
   }
 `;
 
-const ProjectTitle = styled.h2`
-  ${largeHeadingStyles}
-`;
-
 const ProjectLink = styled(Link)`
   color: var(--color-primary-hover);
   text-decoration: none;
@@ -82,22 +77,52 @@ const ProjectDescription = styled.p`
 `;
 
 const StackColumn = styled.div`
+  position: relative;
   display: grid;
   min-width: 0;
+  padding-block-start: var(--space-8);
   gap: var(--space-2);
   justify-items: center;
+`;
+
+const DragInstruction = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  color: var(--color-primary);
+  pointer-events: none;
+
+  span {
+    font-family: var(--font-display);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    white-space: nowrap;
+    transform: rotate(-4deg);
+  }
+
+  svg {
+    width: 7rem;
+    height: auto;
+    margin-block-start: var(--space-1);
+    margin-inline-start: var(--space-2);
+    overflow: visible;
+  }
 `;
 
 const StackStage = styled.ul`
   position: relative;
   width: min(100%, 24rem);
-  height: 27rem;
+  height: 28rem;
   margin: 0;
   padding: 0;
   list-style: none;
 
   @media (max-width: 42rem) {
-    height: 25rem;
+    height: 26rem;
   }
 `;
 
@@ -116,7 +141,7 @@ const PolaroidPosition = styled(motion.div)`
 
 const Polaroid = styled(motion.button)`
   width: 100%;
-  padding: var(--space-3) var(--space-3) var(--space-8);
+  padding: var(--space-3) var(--space-3) var(--space-12);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
   background: var(--color-surface);
@@ -148,13 +173,6 @@ const PolaroidPhoto = styled.div`
     border-radius: 0;
     box-shadow: none;
   }
-`;
-
-const StackHint = styled.p`
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  text-align: center;
 `;
 
 const EmptyMessage = styled.p`
@@ -260,20 +278,34 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
               ease: "easeInOut",
             }}
           >
-            <ProjectTitle>
+            <h2>
               <ProjectLink
                 data-cursor="pointer"
                 href={`/proj/${activeProject.slug}`}
               >
                 {activeProject.title}
               </ProjectLink>
-            </ProjectTitle>
+            </h2>
             <ProjectDescription>{activeProject.summary}</ProjectDescription>
           </ProjectDetails>
         </AnimatePresence>
       </ProjectCopy>
 
       <StackColumn>
+        <DragInstruction>
+          <span>drag here!</span>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 120 70">
+            <path
+              d="M4 12C34 4 50 16 43 34C37 50 57 53 74 43C92 33 105 44 112 60"
+              fill="none"
+              stroke="currentColor"
+              strokeDasharray="7 8"
+              strokeLinecap="round"
+              strokeWidth="3"
+            />
+            <path d="m101 54 13 10 2-16Z" fill="currentColor" />
+          </svg>
+        </DragInstruction>
         <StackStage aria-label="Project photo stack">
           {projectOrder.map((projectIndex, position) => (
             <ProjectPolaroid
@@ -287,7 +319,6 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
             />
           ))}
         </StackStage>
-        <StackHint>Drag the top photo to shuffle the stack.</StackHint>
       </StackColumn>
     </ProjectShowcase>
   );
