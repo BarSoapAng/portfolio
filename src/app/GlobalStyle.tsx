@@ -65,6 +65,12 @@ const GlobalStyle = createGlobalStyle`
     line-height: var(--line-height-normal);
   }
 
+  .site-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    overflow: clip;
+  }
+
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     body,
     body * {

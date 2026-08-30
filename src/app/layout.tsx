@@ -81,11 +81,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
-          <AnimatedCursor />
-          <Navbar />
-          {children}
-          <SocialLinks />
-          <Footer />
+          <div className="site-wrapper">
+            <AnimatedCursor />
+            <Navbar />
+            {children}
+            <SocialLinks />
+            <Footer />
+          </div>
         </StyledComponentsRegistry>
       </body>
     </html>
