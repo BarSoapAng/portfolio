@@ -15,7 +15,7 @@ export default function HackTheNorthWorkExperience() {
         src={flag}
         alt=""
         aria-hidden="true"
-        style={{ top: "-20%", right: "-9%", width: "10%", rotate: "9deg" }}
+        style={{ top: "-20%", right: "-10%", width: "10%", rotate: "10deg" }}
       />
       <WorkArtwork
         src={flower}

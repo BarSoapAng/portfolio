@@ -12,8 +12,8 @@ export default function SelfDescriptionCard() {
       <HeroContent>
         <h1>Hello hello!</h1>
         <p>
-          This is a place where I share my experiences,
-          thoughts, and my FAV tried and tested macro-friendly recipes :3
+          This is a place where I share my experiences, what I'm up to, and 
+          my (not so) crazy shower thoughts :3
         </p>
         <p>
           I loveee my cat, playing League of Legends, and coding sites like these. But more
