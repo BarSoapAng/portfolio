@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { ContentCard, ContentIndex } from "@components/ui/ContentStyles";
+import { ContentCard, ContentCardBody, ContentIndex } from "@components/ui/ContentStyles";
 
 export const BlogControls = styled.section`
   input {
@@ -27,6 +27,10 @@ export const BlogContentIndex = styled(ContentIndex)`
 export const BlogContentCard = styled(ContentCard)`
   position: relative;
   padding-inline-end: var(--space-6);
+
+  ${ContentCardBody} > p:first-child {
+    margin-block-end: var(--space-1);
+  }
 
   > a img {
     aspect-ratio: 4 / 3;
