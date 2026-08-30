@@ -103,7 +103,7 @@ const PawTrail = styled.div`
   }
 
   span:nth-child(7) {
-    translate: 0 calc(var(--space-8) - var(--space-1));
+    translate: 1px calc(var(--space-8) - var(--space-1));
   }
 
   &[data-trail="0"] span:nth-child(2) {
@@ -283,11 +283,11 @@ function AnimatedPawTrail({
       const nextBounds = nextEntry.getBoundingClientRect();
       const direction =
         nextBounds.left + nextBounds.width / 2 >=
-        previousBounds.left + previousBounds.width / 2
+          previousBounds.left + previousBounds.width / 2
           ? "right"
           : "left";
       const start =
-        direction === "right" ? previousBounds.right + 8 : previousBounds.left;
+        direction === "right" ? previousBounds.right + 20 : previousBounds.left;
       const end =
         direction === "right" ? nextBounds.left : nextBounds.right - 16;
 

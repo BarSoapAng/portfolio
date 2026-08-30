@@ -8,7 +8,7 @@ export const WorkIndex = styled(ContentIndex)`
   gap: 0;
 
   > article {
-    padding-block: var(--space-2);
+    padding-block: 0;
     border: 0;
   }
 `;
@@ -27,15 +27,15 @@ export const WorkEntry = styled.article`
   }
 
   &:nth-of-type(2) {
-    margin-inline-end: 32%;
+    margin-inline-end: 37%;
   }
 
   &:nth-of-type(3) {
-    margin-inline-start: 12%;
+    margin-inline-start: 15%;
   }
 
   &:nth-of-type(4) {
-    margin-inline-end: 14%;
+    margin-inline-end: 17%;
   }
 
   &:nth-of-type(5) {

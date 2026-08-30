@@ -14,13 +14,18 @@ export default function TeslaWorkExperience() {
         src={teslaLogo}
         alt=""
         aria-hidden="true"
-        style={{ right: "35%", rotate: "-12deg", top: "-5%", width: "13%" }}
+        style={{
+          right: "43%",
+          bottom: "-3.5%",
+          rotate: "12deg",
+          width: "10%",
+        }}
       />
       <WorkArtwork
         src={cybertruck}
         alt=""
         aria-hidden="true"
-        style={{ bottom: "-15%", right: "0", width: "32%" }}
+        style={{ top: "-45%", left: "15%", width: "32%" }}
       />
     </WorkExperience>
   );
