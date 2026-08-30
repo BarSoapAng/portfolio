@@ -7,6 +7,7 @@ export const Hero = styled.section`
   grid-template-columns: minmax(9rem, 13.75rem) minmax(0, 1fr);
   align-items: center;
   gap: var(--space-8);
+  margin-bottom: var(--space-12);
 
   @media (max-width: 42rem) {
     grid-template-columns: 1fr;
