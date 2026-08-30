@@ -106,7 +106,7 @@ const DragInstruction = styled.div`
   }
 
   svg {
-    width: 7rem;
+    width: 5.25rem;
     height: auto;
     margin-block-start: var(--space-1);
     margin-inline-start: var(--space-2);
@@ -278,7 +278,7 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             key={activeProject.slug}
             transition={{
-              duration: shouldReduceMotion ? 0 : 0.16,
+              duration: shouldReduceMotion ? 0 : 0.2,
               ease: "easeInOut",
             }}
           >
