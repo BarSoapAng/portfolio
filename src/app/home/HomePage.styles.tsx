@@ -34,5 +34,5 @@ export const IndexSection = styled.section`
 `;
 
 export const ProjectsSection = styled(IndexSection)`
-  margin-block-start: var(--space-4);
+  margin-block-start: 0;
 `;
