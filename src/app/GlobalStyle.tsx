@@ -48,16 +48,17 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     background:
       linear-gradient(
-        color-mix(in srgb, var(--color-primary-soft) 50%, transparent) 1px,
+        color-mix(in srgb, var(--color-primary-soft) 35%, transparent) 1px,
         transparent 1px
       ),
       linear-gradient(
         90deg,
-        color-mix(in srgb, var(--color-primary-soft) 50%, transparent) 1px,
+        color-mix(in srgb, var(--color-primary-soft) 35%, transparent) 1px,
         transparent 1px
       ),
       var(--color-background);
-    background-size: var(--space-8) var(--space-8);
+    background-size: calc(var(--space-8) + var(--space-1))
+      calc(var(--space-8) + var(--space-1));
     color: var(--color-text);
     font-family: var(--font-body);
     font-size: var(--font-size-base);
