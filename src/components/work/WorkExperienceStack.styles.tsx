@@ -105,7 +105,7 @@ export const Company = styled.button`
   font: inherit;
   line-height: inherit;
   text-align: start;
-  cursor: help;
+  cursor: pointer;
 
   &:focus-visible {
     border-radius: var(--radius-small);

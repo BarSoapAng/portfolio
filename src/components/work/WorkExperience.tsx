@@ -32,7 +32,7 @@ export default function WorkExperience({
           <CompanyName>
             <Company
               aria-describedby={titleId}
-              data-cursor="help"
+              data-cursor="pointer"
               type="button"
             >
               {company}
