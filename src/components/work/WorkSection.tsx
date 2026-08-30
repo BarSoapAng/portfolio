@@ -250,7 +250,7 @@ const PawTrail = styled.div`
 
 function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps) {
   const visibleOpacity =
-    total === 1 ? 0.7 : 0.2 + (index / (total - 1)) * 0.5;
+    total === 1 ? 0.7 : 0.3 + (index / (total - 1)) * 0.4;
   const opacity = useTransform(progress, (value) =>
     value >= ((index + 1) / total) * 0.8 ? visibleOpacity : 0,
   );
