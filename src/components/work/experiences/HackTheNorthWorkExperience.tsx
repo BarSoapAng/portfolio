@@ -34,7 +34,7 @@ export default function HackTheNorthWorkExperience() {
         src={wordmark}
         alt=""
         aria-hidden="true"
-        style={{ left: "3%", top: "0", width: "34%" }}
+        style={{ left: "3%", rotate: "4deg", top: "0", width: "34%" }}
       />
     </WorkExperience>
   );

@@ -14,7 +14,7 @@ export default function TeslaWorkExperience() {
         src={teslaLogo}
         alt=""
         aria-hidden="true"
-        style={{ right: "35%", top: "-5%", width: "13%" }}
+        style={{ right: "35%", rotate: "-12deg", top: "-5%", width: "13%" }}
       />
       <WorkArtwork
         src={cybertruck}
