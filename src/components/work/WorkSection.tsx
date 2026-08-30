@@ -220,21 +220,21 @@ const PawTrail = styled.div`
   }
 
   &[data-trail="1"] {
-    --trail-offset-x: calc(-1 * var(--space-2));
+    --trail-offset-x: calc(-1 * var(--space-4));
     --trail-offset-y: 0px;
-    --trail-length-adjustment: 0px;
+    --trail-length-adjustment: var(--space-2);
   }
 
   &[data-trail="2"] {
     --trail-offset-x: 0px;
-    --trail-offset-y: 0px;
-    --trail-length-adjustment: calc(-1 * var(--space-2));
+    --trail-offset-y: calc(-1 * var(--space-2));
+    --trail-length-adjustment: calc(-1 * var(--space-4));
   }
 
   &[data-trail="3"] {
     --trail-offset-x: 0px;
-    --trail-offset-y: 0px;
-    --trail-length-adjustment: 0px;
+    --trail-offset-y: var(--space-2);
+    --trail-length-adjustment: var(--space-2);
   }
 
   &[data-trail="4"] {
