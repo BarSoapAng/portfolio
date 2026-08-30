@@ -93,11 +93,12 @@ const DragInstruction = styled.div`
   display: flex;
   align-items: flex-start;
   color: var(--color-primary);
+  opacity: 0.8;
   pointer-events: none;
 
   span {
     font-family: var(--font-display);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
     white-space: nowrap;
@@ -141,7 +142,7 @@ const PolaroidPosition = styled(motion.div)`
 
 const Polaroid = styled(motion.button)`
   width: 100%;
-  padding: var(--space-3) var(--space-3) var(--space-12);
+  padding: var(--space-3) var(--space-3) var(--space-16);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
   background: var(--color-surface);
@@ -210,7 +211,10 @@ const ProjectPolaroid = memo(function ProjectPolaroid({
     >
       <PolaroidPosition
         style={{
-          rotate: ((projectIndex % 3) + 1) * (projectIndex % 2 === 0 ? -1 : 1),
+          rotate:
+            ((projectIndex % 3) + 2) *
+            2 *
+            (projectIndex % 2 === 0 ? -1 : 1),
           x: ((projectIndex % 3) - 1) * 6,
           y: ((projectIndex % 4) - 1.5) * 4,
         }}
