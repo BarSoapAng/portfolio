@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import BlogPostEngagement from "@components/blog/BlogPostEngagement";
 import SimilarReads from "@components/blog/SimilarReads";
 import ContentImage from "@components/ui/ContentImage";
 import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
@@ -60,6 +61,7 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
         </ContentHero>
 
         <BlogDate>{formatPostDate(post.date)}</BlogDate>
+        <BlogPostEngagement slug={slug} />
 
         <PostContent />
       </article>

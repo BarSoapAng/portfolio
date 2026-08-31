@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { usePageViews } from "../../hooks/usePageViews";
 
 const stats = [
   { label: "Archetype", value: "Shapeshifter" },
@@ -26,6 +27,8 @@ const Stats = styled.dl`
 `;
 
 export default function StatsCard() {
+  const views = usePageViews();
+
   return (
     <Stats>
       {stats.map(({ label, value }) => (
@@ -34,6 +37,10 @@ export default function StatsCard() {
           <dd>{value}</dd>
         </div>
       ))}
+      <div>
+        <dt>Site Views:</dt>
+        <dd>{views === null ? "..." : views.toLocaleString()}</dd>
+      </div>
       <div>
         <dt>Caffeination:</dt>
         <dd>
