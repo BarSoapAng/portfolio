@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { ContentCard, ContentCardBody, ContentIndex } from "@components/ui/ContentStyles";
 
 export const BlogControls = styled.section`
+  display: flow-root;
+
   input {
     width: 100%;
     padding: var(--space-2) var(--space-4);
@@ -21,6 +23,7 @@ export const BlogControls = styled.section`
 `;
 
 export const BlogContentIndex = styled(ContentIndex)`
+  display: block;
   margin-block-start: var(--space-8);
 `;
 

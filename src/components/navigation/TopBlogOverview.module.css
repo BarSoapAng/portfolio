@@ -1,19 +1,15 @@
 .page {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
-  align-items: start;
-  column-gap: var(--space-8);
-  row-gap: 0;
+  display: flow-root;
 }
 
 .page > * {
-  grid-column: 1;
   margin-block-start: 0;
 }
 
 .page > .sidebar {
-  grid-column: 2;
-  grid-row: 1 / span 2;
+  float: right;
+  width: min(20rem, 40%);
+  margin: 0 0 var(--space-6) var(--space-8);
 }
 
 .sidebar {
@@ -69,10 +65,18 @@
 
 @media (max-width: 52rem) {
   .page {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   .page > * + * {
-    margin-block-start: var(--space-8);
+    margin-block-start: 0;
+  }
+
+  .page > .sidebar {
+    order: 1;
+    float: none;
+    width: auto;
+    margin: var(--space-8) 0 0;
   }
 }

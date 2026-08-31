@@ -14,9 +14,9 @@ export default function BlogPage() {
 
   return (
     <main className={styles.page}>
-      <BlogIndex posts={posts} />
-
       <TopBlogOverview posts={posts} />
+
+      <BlogIndex posts={posts} />
     </main>
   );
 }
