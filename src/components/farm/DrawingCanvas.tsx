@@ -30,16 +30,13 @@ const Wrapper = styled.div`
   border: 2px solid var(--color-border);
   border-radius: var(--radius-medium);
   padding: var(--space-6);
-  max-width: 320px;
-  margin: 0 auto;
-`;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-6);
 
-const Title = styled.h3`
-  font-family: var(--font-display);
-  font-size: var(--font-size-2xl);
-  color: var(--color-text);
-  margin: 0 0 var(--space-4);
-  text-align: center;
+  @media (max-width: 42rem) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const CanvasWrapper = styled.div`
@@ -47,9 +44,14 @@ const CanvasWrapper = styled.div`
   border-radius: var(--radius-small);
   display: flex;
   justify-content: center;
+  align-items: start;
   padding: var(--space-2);
   background: var(--color-surface-muted);
-  margin-bottom: var(--space-4);
+`;
+
+const Controls = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledCanvas = styled.canvas`
@@ -170,6 +172,8 @@ const Message = styled.p<{ $error?: boolean }>`
 
 export default function DrawingCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const isDrawing = useRef(false);
   const [color, setColor] = useState("#000000");
   const [brushSize, setBrushSize] = useState(6);
@@ -178,14 +182,43 @@ export default function DrawingCanvas() {
   const [isPublished, setIsPublished] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ text: string; error: boolean } | null>(null);
+  const history = useRef<ImageData[]>([]);
+  const redoStack = useRef<ImageData[]>([]);
 
   const clearCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    ctxRef.current = ctx;
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }, []);
+
+  const saveSnapshot = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = ctxRef.current;
+    if (!ctx) return;
+    history.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    if (history.current.length > 25) history.current.shift();
+    redoStack.current = [];
+  }, []);
+
+  const undo = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = ctxRef.current;
+    if (!canvas || !ctx || history.current.length === 0) return;
+    redoStack.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    ctx.putImageData(history.current.pop()!, 0, 0);
+  }, []);
+
+  const redo = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = ctxRef.current;
+    if (!canvas || !ctx || redoStack.current.length === 0) return;
+    history.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    ctx.putImageData(redoStack.current.pop()!, 0, 0);
   }, []);
 
   useEffect(() => {
@@ -195,8 +228,8 @@ export default function DrawingCanvas() {
   const getPos = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
+    const rect = rectRef.current!;
     const canvas = canvasRef.current!;
-    const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
     if ("touches" in e) {
@@ -216,8 +249,10 @@ export default function DrawingCanvas() {
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     if ("touches" in e) e.preventDefault();
-    const ctx = canvasRef.current?.getContext("2d");
+    const ctx = ctxRef.current;
     if (!ctx) return;
+    rectRef.current = canvasRef.current!.getBoundingClientRect();
+    saveSnapshot();
     const pos = getPos(e);
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
@@ -233,11 +268,13 @@ export default function DrawingCanvas() {
   ) => {
     if ("touches" in e) e.preventDefault();
     if (!isDrawing.current) return;
-    const ctx = canvasRef.current?.getContext("2d");
+    const ctx = ctxRef.current;
     if (!ctx) return;
     const pos = getPos(e);
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
   };
 
   const stopDrawing = () => {
@@ -302,7 +339,6 @@ export default function DrawingCanvas() {
 
   return (
     <Wrapper>
-      <Title>Your Plot</Title>
       <CanvasWrapper>
         <StyledCanvas
           ref={canvasRef}
@@ -318,60 +354,64 @@ export default function DrawingCanvas() {
         />
       </CanvasWrapper>
 
-      <ToolRow>
-        <Label>Color</Label>
-        {COLORS.map((c) => (
-          <ColorSwatch
-            key={c}
-            $c={c}
-            $active={!eraser && color === c}
-            onClick={() => {
-              setColor(c);
-              setEraser(false);
-            }}
-          />
-        ))}
-      </ToolRow>
+      <Controls>
+        <ToolRow>
+          <Label>Color</Label>
+          {COLORS.map((c) => (
+            <ColorSwatch
+              key={c}
+              $c={c}
+              $active={!eraser && color === c}
+              onClick={() => {
+                setColor(c);
+                setEraser(false);
+              }}
+            />
+          ))}
+        </ToolRow>
 
-      <ToolRow>
-        <Label>Size</Label>
-        {BRUSH_SIZES.map((b) => (
-          <SizeButton
-            key={b.size}
-            $active={brushSize === b.size}
-            onClick={() => setBrushSize(b.size)}
-          >
-            {b.label}
-          </SizeButton>
-        ))}
-        <ToolButton $active={eraser} onClick={() => setEraser(!eraser)}>
-          Eraser
-        </ToolButton>
-        <ToolButton onClick={clearCanvas}>Clear</ToolButton>
-      </ToolRow>
+        <ToolRow>
+          <Label>Size</Label>
+          {BRUSH_SIZES.map((b) => (
+            <SizeButton
+              key={b.size}
+              $active={brushSize === b.size}
+              onClick={() => setBrushSize(b.size)}
+            >
+              {b.label}
+            </SizeButton>
+          ))}
+          <ToolButton $active={eraser} onClick={() => setEraser(!eraser)}>
+            Eraser
+          </ToolButton>
+          <ToolButton onClick={undo}>Undo</ToolButton>
+          <ToolButton onClick={redo}>Redo</ToolButton>
+          <ToolButton onClick={clearCanvas}>Clear</ToolButton>
+        </ToolRow>
 
-      <Input
-        type="text"
-        maxLength={40}
-        placeholder="Name your creation"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <CheckboxRow>
-        <input
-          type="checkbox"
-          checked={isPublished}
-          onChange={(e) => setIsPublished(e.target.checked)}
+        <Input
+          type="text"
+          maxLength={40}
+          placeholder="Name your creation"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-        Share to gallery
-      </CheckboxRow>
 
-      <SaveButton disabled={saving} onClick={handleSave}>
-        {saving ? "Saving..." : "Plant it!"}
-      </SaveButton>
+        <CheckboxRow>
+          <input
+            type="checkbox"
+            checked={isPublished}
+            onChange={(e) => setIsPublished(e.target.checked)}
+          />
+          Share to gallery
+        </CheckboxRow>
 
-      {message && <Message $error={message.error}>{message.text}</Message>}
+        <SaveButton disabled={saving} onClick={handleSave}>
+          {saving ? "Saving..." : "Plant it!"}
+        </SaveButton>
+
+        {message && <Message $error={message.error}>{message.text}</Message>}
+      </Controls>
     </Wrapper>
   );
 }
