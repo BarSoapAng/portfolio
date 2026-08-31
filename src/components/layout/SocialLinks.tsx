@@ -22,24 +22,6 @@ const Socials = styled.nav`
     display: inline-flex;
     color: var(--color-accent);
     font-size: var(--font-size-xl);
-
-    svg {
-      width: 1em;
-      height: 1em;
-      display: block;
-    }
-  }
-
-  a[aria-label="Email"] svg {
-    transform: scale(1.12);
-    transform-origin: center;
-    overflow: visible;
-  }
-
-  a[aria-label="Email"] svg path {
-    stroke: currentColor;
-    stroke-width: 24;
-    paint-order: stroke fill;
   }
 `;
 
