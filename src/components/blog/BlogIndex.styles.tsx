@@ -24,11 +24,14 @@ export const BlogControls = styled.section`
 
 export const BlogContentIndex = styled(ContentIndex)`
   display: block;
-  margin-block-start: var(--space-8);
+  margin-block-start: var(--space-4);
 `;
 
-export const BlogContentCard = styled(ContentCard)`
+export const BlogContentCard = styled.article``;
+
+export const BlogContentCardLayout = styled(ContentCard).attrs({ as: "div" })`
   position: relative;
+  padding-block: 0;
   padding-inline-end: var(--space-6);
 
   ${ContentCardBody} > p:first-child {
@@ -42,7 +45,7 @@ export const BlogContentCard = styled(ContentCard)`
 
 export const PinnedPostIcon = styled.span`
   position: absolute;
-  inset-block-start: var(--space-6);
+  inset-block-start: 0;
   inset-inline-end: 0;
   color: var(--color-accent);
   font-size: var(--font-size-sm);

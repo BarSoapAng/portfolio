@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaThumbtack } from "react-icons/fa6";
 import {
   BlogContentCard,
+  BlogContentCardLayout,
   BlogContentIndex,
   BlogControls,
   PinnedPostIcon,
@@ -53,23 +54,25 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
 
         {filteredPosts.map((post) => (
           <BlogContentCard key={post.slug}>
-            {post.pinned ? (
-              <PinnedPostIcon aria-label="Pinned post" role="img" title="Pinned post">
-                <FaThumbtack aria-hidden />
-              </PinnedPostIcon>
-            ) : null}
-            <Link aria-label={`Read ${post.title}`} href={`/blog/${post.slug}`}>
-              <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="thumbnail" />
-            </Link>
-            <ContentCardBody>
-              <p>
-                <EntryTags>{formatPostDate(post.date)}</EntryTags>
-              </p>
-              <h2>
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
-              <p>{post.summary}</p>
-            </ContentCardBody>
+            <BlogContentCardLayout>
+              {post.pinned ? (
+                <PinnedPostIcon aria-label="Pinned post" role="img" title="Pinned post">
+                  <FaThumbtack aria-hidden />
+                </PinnedPostIcon>
+              ) : null}
+              <Link aria-label={`Read ${post.title}`} href={`/blog/${post.slug}`}>
+                <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="thumbnail" />
+              </Link>
+              <ContentCardBody>
+                <p>
+                  <EntryTags>{formatPostDate(post.date)}</EntryTags>
+                </p>
+                <h2>
+                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                </h2>
+                <p>{post.summary}</p>
+              </ContentCardBody>
+            </BlogContentCardLayout>
           </BlogContentCard>
         ))}
       </BlogContentIndex>
