@@ -10,7 +10,7 @@
 - `src/app/`: route entrypoints, layout, and the styled-components global style registry
 - `src/components/`: reusable UI components
 - `src/components/home/`: reusable home-page content
-- `src/assets/`: local image assets use WebP except for animated cursor APNGs; `public/webIcon.webp` is the only image kept in `public/`
+- `src/assets/`: local image assets use WebP except for animated cursor APNGs under `src/assets/cursor/apng/`; `public/webIcon.webp` is the only image kept in `public/`
 - `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
@@ -29,7 +29,7 @@
 ## Content Images
 
 - Published blog and project MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
-- Store content thumbnails in `src/assets/content/`, register them in `src/lib/content-images.ts`, and reference them in frontmatter by filename such as `example.webp`.
+- Store content thumbnails in `src/assets/content/`, register them in `src/lib/content-images.ts`, and reference them in frontmatter by filename such as `example.webp`. Keep the registry limited to filenames referenced by published MDX.
 - Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
 - Home work entries import their local artwork from `src/assets/work/` and render it through position-specific components. They do not have standalone detail pages.
 
