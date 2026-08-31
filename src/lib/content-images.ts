@@ -9,6 +9,7 @@ import dabDetector9000 from "@assets/content/dab-detector-9000.webp";
 import focusBuddy from "@assets/content/focus-buddy.webp";
 import frontendEngineerScrapbookStudio from "@assets/content/frontend-engineer-scrapbook-studio.webp";
 import hackTheNorthEvents from "@assets/content/hack-the-north-events.webp";
+import internetNudity from "@assets/content/internet-nudity.webp";
 import oro from "@assets/content/oro.webp";
 import oroPivot from "@assets/content/oro-pivot.webp";
 import oroPivot1 from "@assets/content/oro-pivot1.webp";
@@ -27,6 +28,7 @@ const CONTENT_IMAGES = {
   "focus-buddy.webp": focusBuddy,
   "frontend-engineer-scrapbook-studio.webp": frontendEngineerScrapbookStudio,
   "hack-the-north-events.webp": hackTheNorthEvents,
+  "internet-nudity.webp": internetNudity,
   "oro-pivot.webp": oroPivot,
   "oro-pivot1.webp": oroPivot1,
   "oro.webp": oro,
