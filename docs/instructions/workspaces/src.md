@@ -10,7 +10,7 @@
 - `src/app/`: route entrypoints, layout, and the styled-components global style registry
 - `src/components/`: reusable UI components
 - `src/components/home/`: reusable home-page content
-- `src/assets/`: local image assets use WebP except for animated cursor APNGs under `src/assets/cursor/apng/` (runtime) and `.ani` sources under `cursor/animated/` and `cursor/static/`; `public/webIcon.webp` is the only image kept in `public/`
+- `src/assets/`: local image assets use WebP except for animated cursor APNGs under `src/assets/cursor/apng/`; `public/webIcon.webp` is the only image kept in `public/`
 - `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
