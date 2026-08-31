@@ -54,7 +54,7 @@ export default function Navbar() {
   return (
     <SiteHeader>
       <p>
-        <Link href="/home">Angela&apos;s Universe</Link>
+        <Link href="/home">Angela&apos;s World</Link>
       </p>
       <NavbarLink />
     </SiteHeader>
