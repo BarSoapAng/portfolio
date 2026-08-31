@@ -10,7 +10,7 @@
 - `src/app/`: route entrypoints, layout, and the styled-components global style registry
 - `src/components/`: reusable UI components
 - `src/components/home/`: reusable home-page content
-- `src/assets/`: all local image and GIF assets; `public/webIcon.png` is the only image kept in `public/`
+- `src/assets/`: all local WebP image assets; `public/webIcon.webp` is the only image kept in `public/`
 - `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes

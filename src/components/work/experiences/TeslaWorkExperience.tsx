@@ -1,5 +1,5 @@
-import cybertruck from "@assets/work/cybertruck.png";
-import teslaLogo from "@assets/work/tesla-logo.png";
+import cybertruck from "@assets/work/cybertruck.webp";
+import teslaLogo from "@assets/work/tesla-logo.webp";
 import WorkExperience from "../WorkExperience";
 import { WorkArtwork } from "../WorkExperienceStack.styles";
 

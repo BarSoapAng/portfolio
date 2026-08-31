@@ -1,5 +1,5 @@
-import shopifyLogo from "@assets/work/shopify-logo.png";
-import shoppy from "@assets/work/shopify-shoppy.png";
+import shopifyLogo from "@assets/work/shopify-logo.webp";
+import shoppy from "@assets/work/shopify-shoppy.webp";
 import WorkExperience from "../WorkExperience";
 import { WorkArtwork } from "../WorkExperienceStack.styles";
 

@@ -1,5 +1,5 @@
-import oroLogo from "@assets/work/oro-logo.png";
-import oroStyled from "@assets/work/oro-styled.png";
+import oroLogo from "@assets/work/oro-logo.webp";
+import oroStyled from "@assets/work/oro-styled.webp";
 import WorkExperience from "../WorkExperience";
 import { WorkArtwork } from "../WorkExperienceStack.styles";
 

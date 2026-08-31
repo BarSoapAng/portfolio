@@ -1,4 +1,4 @@
-import selfie from "@assets/home/selfie.jpg";
+import selfie from "@assets/home/selfie.webp";
 import {
   Hero,
   HeroContent,

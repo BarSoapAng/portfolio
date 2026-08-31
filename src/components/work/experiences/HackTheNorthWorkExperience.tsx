@@ -1,6 +1,6 @@
-import flag from "@assets/work/htn-flag.png";
-import flower from "@assets/work/htn-flower.png";
-import logo from "@assets/work/htn-logo.png";
+import flag from "@assets/work/htn-flag.webp";
+import flower from "@assets/work/htn-flower.webp";
+import logo from "@assets/work/htn-logo.webp";
 import WorkExperience from "../WorkExperience";
 import { WorkArtwork } from "../WorkExperienceStack.styles";
 

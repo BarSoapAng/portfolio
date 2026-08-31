@@ -1,5 +1,5 @@
-import ericssonLogo from "@assets/work/ericsson-logo.png";
-import phone from "@assets/work/ericsson-phone.png";
+import ericssonLogo from "@assets/work/ericsson-logo.webp";
+import phone from "@assets/work/ericsson-phone.webp";
 import WorkExperience from "../WorkExperience";
 import { WorkArtwork } from "../WorkExperienceStack.styles";
 

@@ -1,5 +1,5 @@
-import shell from "@assets/work/wec-shell.png";
-import umbrella from "@assets/work/wec-umbrella.png";
+import shell from "@assets/work/wec-shell.webp";
+import umbrella from "@assets/work/wec-umbrella.webp";
 import WorkExperience from "../WorkExperience";
 import { WorkArtwork } from "../WorkExperienceStack.styles";
 

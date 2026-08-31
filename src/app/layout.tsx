@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Angela's World",
   description: "Portfolio website",
   icons: {
-    icon: "/webIcon.png",
+    icon: "/webIcon.webp",
   },
 };
 

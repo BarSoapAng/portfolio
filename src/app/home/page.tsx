@@ -1,4 +1,4 @@
-import sectionDivider from "@assets/decorative/poro-section-divider.png";
+import sectionDivider from "@assets/decorative/poro-section-divider.webp";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkSection from "@components/work/WorkSection";

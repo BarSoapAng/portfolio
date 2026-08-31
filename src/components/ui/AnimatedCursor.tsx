@@ -2,15 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import classicCursor from "@assets/cursor/apng/classic.png";
-import diagonalResizeOneCursor from "@assets/cursor/apng/diagonal-resize-1.png";
-import diagonalResizeTwoCursor from "@assets/cursor/apng/diagonal-resize-2.png";
-import horizontalResizeCursor from "@assets/cursor/apng/horizontal-resize.png";
-import loadingCursor from "@assets/cursor/apng/loading.png";
-import moveCursor from "@assets/cursor/apng/move.png";
-import pointerCursor from "@assets/cursor/apng/pointer.png";
-import textCursor from "@assets/cursor/apng/text.png";
-import verticalResizeCursor from "@assets/cursor/apng/vertical-resize.png";
+import classicCursor from "@assets/cursor/apng/classic.webp";
+import diagonalResizeOneCursor from "@assets/cursor/apng/diagonal-resize-1.webp";
+import diagonalResizeTwoCursor from "@assets/cursor/apng/diagonal-resize-2.webp";
+import horizontalResizeCursor from "@assets/cursor/apng/horizontal-resize.webp";
+import loadingCursor from "@assets/cursor/apng/loading.webp";
+import moveCursor from "@assets/cursor/apng/move.webp";
+import pointerCursor from "@assets/cursor/apng/pointer.webp";
+import textCursor from "@assets/cursor/apng/text.webp";
+import verticalResizeCursor from "@assets/cursor/apng/vertical-resize.webp";
 
 const cursorImages = {
   default: { hotspot: [9, 4], src: classicCursor.src },
