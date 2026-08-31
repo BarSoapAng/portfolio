@@ -1,11 +1,12 @@
 import sectionDivider from "@assets/decorative/poro-section-divider.webp";
 import BlogPreviewStrip from "@components/blog/BlogPreviewStrip";
+import DrawingCanvas from "@components/farm/DrawingCanvas";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkSection from "@components/work/WorkSection";
 import { getTopPosts } from "@lib/blog";
 import { getAllProjects } from "@lib/project";
-import { ProjectsSection, SectionDivider } from "./HomePage.styles";
+import { IndexSection, ProjectsSection, SectionDivider } from "./HomePage.styles";
 
 function HomePage() {
   const projects = getAllProjects();
@@ -25,6 +26,11 @@ function HomePage() {
       <ProjectsSection id="projects">
         <ProjectExperienceStack projects={projects} />
       </ProjectsSection>
+
+      <IndexSection>
+        <h2>Community Garden</h2>
+        <DrawingCanvas />
+      </IndexSection>
 
       <BlogPreviewStrip posts={recentPosts} />
     </main>

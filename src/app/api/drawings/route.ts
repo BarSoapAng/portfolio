@@ -7,7 +7,7 @@ const filter = new Filter();
 export async function GET() {
   const { data: drawings, error } = await supabase
     .from("drawings")
-    .select("id, name, image_data, created_at")
+    .select("id, name, image_data, visitor_id, created_at")
     .eq("is_published", true)
     .order("created_at", { ascending: false })
     .limit(100);
