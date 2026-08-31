@@ -12,7 +12,7 @@ import { spacing } from "@lib/spacing";
 import StyledComponentsRegistry from "@lib/StyledComponentsRegistry";
 
 export const metadata: Metadata = {
-  title: "Angela's Universe",
+  title: "Angela's World",
   description: "Portfolio website",
   icons: {
     icon: "/webIcon.png",
