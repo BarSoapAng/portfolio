@@ -27,7 +27,23 @@ export const BlogContentIndex = styled(ContentIndex)`
   margin-block-start: var(--space-4);
 `;
 
-export const BlogContentCard = styled.article``;
+export const BlogContentCard = styled.article`
+  && {
+    padding-block-end: 0;
+    border-block-end: 0;
+  }
+
+  &::after {
+    content: "";
+    display: flow-root;
+    margin-block-start: var(--space-6);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  &:last-child::after {
+    border-block-end: 0;
+  }
+`;
 
 export const BlogContentCardLayout = styled(ContentCard).attrs({ as: "div" })`
   position: relative;
