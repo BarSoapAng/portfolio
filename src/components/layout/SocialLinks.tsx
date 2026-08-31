@@ -1,6 +1,6 @@
 "use client";
 
-import { FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { FaAt, FaGithub, FaInstagram, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import styled from "styled-components";
 
 const Socials = styled.nav`
@@ -29,6 +29,11 @@ export default function SocialLinks() {
   return (
     <Socials aria-label="Social media">
       <ul>
+        <li>
+          <a aria-label="Email" href="mailto:a229zhou@uwaterloo.ca">
+            <FaAt aria-hidden />
+          </a>
+        </li>
         <li>
           <a aria-label="LinkedIn" href="https://www.linkedin.com/in/ang018/">
             <FaLinkedinIn aria-hidden />
