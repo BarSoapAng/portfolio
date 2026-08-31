@@ -18,6 +18,11 @@ import retroUniverseSite from "@assets/content/retro-universe-site.webp";
 import wec2026 from "@assets/content/wec-2026.webp";
 import weeknotes001 from "@assets/content/weeknotes-001.webp";
 import whoAmI from "@assets/content/who-am-i.webp";
+import dotfiles from "@assets/content/dotfiles.webp";
+import leaguePurityTest from "@assets/content/league-purity-test.webp";
+import leetcodeDiscordBot from "@assets/content/leetcode-discord-bot.webp";
+import ludus from "@assets/content/ludus.webp";
+import nodeReactTemplate from "@assets/content/node-react-template.webp";
 
 const CONTENT_IMAGES = {
   "HackTheNorth2026.webp": hackTheNorth2026,
@@ -37,6 +42,11 @@ const CONTENT_IMAGES = {
   "wec-2026.webp": wec2026,
   "weeknotes-001.webp": weeknotes001,
   "who-am-i.webp": whoAmI,
+  "dotfiles.webp": dotfiles,
+  "league-purity-test.webp": leaguePurityTest,
+  "leetcode-discord-bot.webp": leetcodeDiscordBot,
+  "ludus.webp": ludus,
+  "node-react-template.webp": nodeReactTemplate,
 } satisfies Record<string, StaticImageData>;
 
 export function requireContentImageField(key: string) {

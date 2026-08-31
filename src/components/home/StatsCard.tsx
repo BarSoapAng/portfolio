@@ -5,7 +5,7 @@ import styled from "styled-components";
 const stats = [
   { label: "Archetype", value: "Shapeshifter" },
   { label: "Impressions", value: "4M+" },
-  { label: "Projects", value: "6" },
+  { label: "Projects", value: "7" },
 ];
 
 const CAFFEINE_LEVEL = 2;

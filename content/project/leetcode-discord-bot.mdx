@@ -1,0 +1,31 @@
+---
+title: "LeetCode Discord Bot"
+order: 2
+date: "2025-03-22"
+summary: "A Discord bot that posts the daily LeetCode challenge, reports coding streaks, and gives community admins a set of announcement tools."
+thumbnail: "leetcode-discord-bot.webp"
+thumbnailAlt: "GitHub preview card for the DiscordBot repository"
+published: true
+tags:
+  - nodejs
+  - discordjs
+  - graphql
+  - automation
+---
+
+[Invite the bot](https://discord.com/oauth2/authorize?client_id=1353199876292476988) · [GitHub repository](https://github.com/BarSoapAng/DiscordBot)
+
+## What I built
+
+This Discord bot brings LeetCode practice into a community server. It automatically posts each day's challenge with its difficulty and topic tags, while a `/streak` command lets members check their maximum streak without exposing their LeetCode username in the response.
+
+It also packages recurring moderation work into permission-aware slash commands for announcements, rules, and cross-channel messages.
+
+## Technical highlights
+
+- Discord.js slash-command discovery and guild registration
+- scheduled daily challenge posts with rich embeds
+- LeetCode GraphQL requests for challenge and streak data
+- difficulty-based colors and topic metadata
+- ephemeral validation errors for private command feedback
+- administrator-only controls for announcements and server setup
