@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import {
   motion,
   useReducedMotion,
@@ -382,8 +382,47 @@ export default function WorkSection() {
     offset: ["start 65%", "end 60%"],
   });
 
+  const fadeThresholds = useMemo(() => {
+    const thresholds: number[] = [];
+    let cumulative = 0;
+    for (const count of pawCounts) {
+      cumulative += count;
+      thresholds.push((cumulative / totalPaws) * 0.8);
+    }
+    return thresholds;
+  }, []);
+
+  useLayoutEffect(() => {
+    if (shouldReduceMotion) return;
+
+    const articles =
+      sectionRef.current?.querySelectorAll<HTMLElement>("article");
+    if (!articles) return;
+
+    articles.forEach((article, index) => {
+      if (index === 0) return;
+      article.style.opacity = "0";
+      article.style.willChange = "opacity";
+    });
+
+    const unsubscribe = scrollYProgress.on("change", (value) => {
+      articles.forEach((article, index) => {
+        if (index === 0) return;
+        const threshold = fadeThresholds[index - 1];
+        const progress = Math.min(
+          1,
+          Math.max(0, (value - threshold) / 0.04),
+        );
+        article.style.opacity = String(progress);
+      });
+    });
+
+    return unsubscribe;
+  }, [scrollYProgress, shouldReduceMotion, fadeThresholds]);
+
   return (
     <Section id="work" ref={sectionRef}>
+      <h2>Experiences</h2>
       <WorkExperienceStack
         experiences={experiences}
         renderConnector={(connectorIndex) => (
