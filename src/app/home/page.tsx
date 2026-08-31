@@ -23,7 +23,6 @@ function HomePage() {
       <WorkSection />
 
       <ProjectsSection id="projects">
-        <h2>Projects</h2>
         <ProjectExperienceStack projects={projects} />
       </ProjectsSection>
 

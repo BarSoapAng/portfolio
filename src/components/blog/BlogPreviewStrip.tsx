@@ -24,7 +24,6 @@ export default function BlogPreviewStrip({ posts }: BlogPreviewStripProps) {
 
   return (
     <BlogStripSection ref={sectionRef}>
-      <h2>Recent posts</h2>
       <BlogStripGrid>
         {posts.map((post, index) => (
           <div

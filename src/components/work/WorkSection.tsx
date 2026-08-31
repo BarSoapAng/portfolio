@@ -422,7 +422,6 @@ export default function WorkSection() {
 
   return (
     <Section id="work" ref={sectionRef}>
-      <h2>Experiences</h2>
       <WorkExperienceStack
         experiences={experiences}
         renderConnector={(connectorIndex) => (
