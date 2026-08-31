@@ -1,5 +1,7 @@
 # Repository Guidance
 
+IGNORE THE LIVING DOCS IN ~/docs THIS REPO CONTAINS ITS OWN CANONICAL DOCUMENTATION
+
 ## Scope And Precedence
 
 - This file applies repo-wide.
