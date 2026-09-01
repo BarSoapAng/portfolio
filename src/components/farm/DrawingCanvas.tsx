@@ -70,16 +70,36 @@ const Label = styled.span`
   font-weight: var(--font-weight-medium);
 `;
 
-const ColorWheel = styled.button`
+const ColorControls = styled.div`
+  display: grid;
+  gap: var(--space-2);
+`;
+
+const ColorPicker = styled.div`
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--space-2);
+  width: 100%;
+`;
+
+const ColorPreview = styled.div<{ $color: string }>`
+  min-width: 0;
+  height: 7rem;
+  border-radius: var(--radius-small);
+  background: ${(p) => p.$color};
+`;
+
+const ColorField = styled.button<{ $hue: number }>`
   position: relative;
-  width: 7rem;
-  aspect-ratio: 1;
+  width: 100%;
+  height: 7rem;
   padding: 0;
-  border-radius: var(--radius-circle);
+  border-radius: var(--radius-small);
   border: 0;
   background:
-    radial-gradient(circle, #000000 0%, transparent 70%),
-    conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+    linear-gradient(to top, #000000, transparent),
+    linear-gradient(to right, #ffffff, transparent),
+    hsl(${(p) => p.$hue}, 100%, 50%);
   box-shadow: 0 0 0 1px var(--color-border);
   cursor: crosshair;
   touch-action: none;
@@ -87,8 +107,8 @@ const ColorWheel = styled.button`
 
 const ColorIndicator = styled.span<{ $color: string; $x: number; $y: number }>`
   position: absolute;
-  left: ${(p) => p.$x}%;
-  top: ${(p) => p.$y}%;
+  left: clamp(6px, ${(p) => p.$x}%, calc(100% - 6px));
+  top: clamp(6px, ${(p) => p.$y}%, calc(100% - 6px));
   width: 12px;
   height: 12px;
   translate: -50% -50%;
@@ -97,6 +117,45 @@ const ColorIndicator = styled.span<{ $color: string; $x: number; $y: number }>`
   background: ${(p) => p.$color};
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
   pointer-events: none;
+`;
+
+const HueSlider = styled.input<{ $color: string }>`
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 8px;
+  margin: var(--space-1) 0;
+  appearance: none;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    #ff0000,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #ff00ff,
+    #ff0000
+  );
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    border: 2px solid #ffffff;
+    border-radius: var(--radius-circle);
+    background: ${(p) => p.$color};
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: var(--radius-circle);
+    background: ${(p) => p.$color};
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const SizeButton = styled.button<{ $active: boolean }>`
@@ -216,10 +275,14 @@ export default function DrawingCanvas() {
   const rectRef = useRef<DOMRect | null>(null);
   const pixelRatioRef = useRef(1);
   const isDrawing = useRef(false);
-  const colorWheelRef = useRef<HTMLButtonElement>(null);
+  const colorFieldRef = useRef<HTMLButtonElement>(null);
   const isChoosingColor = useRef(false);
   const [color, setColor] = useState("#000000");
-  const [colorPosition, setColorPosition] = useState({ x: 50, y: 50 });
+  const [colorSelection, setColorSelection] = useState({
+    hue: 0,
+    saturation: 0,
+    brightness: 0,
+  });
   const [brushSize, setBrushSize] = useState(6);
   const [eraser, setEraser] = useState(false);
   const [name, setName] = useState("");
@@ -342,29 +405,36 @@ export default function DrawingCanvas() {
     isDrawing.current = false;
   };
 
-  const chooseColor = (e: React.PointerEvent<HTMLButtonElement>) => {
-    const wheel = colorWheelRef.current;
-    if (!wheel) return;
-    const rect = wheel.getBoundingClientRect();
-    const radius = rect.width / 2;
-    const offsetX = e.clientX - rect.left - radius;
-    const offsetY = e.clientY - rect.top - radius;
-    const distance = Math.hypot(offsetX, offsetY);
-    const clampedDistance = Math.min(distance, radius);
-    const scale = distance === 0 ? 0 : clampedDistance / distance;
-    const x = offsetX * scale;
-    const y = offsetY * scale;
-    const hue = (Math.atan2(y, x) * 180) / Math.PI + 90;
-    const saturation = (clampedDistance / radius) * 100;
+  const updateColor = (hue: number, saturation: number, brightness: number) => {
+    const normalizedSaturation = saturation / 100;
+    const normalizedBrightness = brightness / 100;
+    const lightness = normalizedBrightness * (1 - normalizedSaturation / 2);
+    const hslSaturation =
+      lightness === 0 || lightness === 1
+        ? 0
+        : (normalizedBrightness - lightness) / Math.min(lightness, 1 - lightness);
 
     setColor(
-      `hsl(${Math.round((hue + 360) % 360)}, ${Math.round(saturation)}%, ${Math.round(saturation / 2)}%)`,
+      `hsl(${Math.round(hue)}, ${Math.round(hslSaturation * 100)}%, ${Math.round(lightness * 100)}%)`,
     );
-    setColorPosition({
-      x: 50 + (x / radius) * 50,
-      y: 50 + (y / radius) * 50,
-    });
+    setColorSelection({ hue, saturation, brightness });
     setEraser(false);
+  };
+
+  const chooseColor = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const field = colorFieldRef.current;
+    if (!field) return;
+    const rect = field.getBoundingClientRect();
+    const saturation = Math.max(
+      0,
+      Math.min(100, ((e.clientX - rect.left) / rect.width) * 100),
+    );
+    const brightness = Math.max(
+      0,
+      Math.min(100, 100 - ((e.clientY - rect.top) / rect.height) * 100),
+    );
+
+    updateColor(colorSelection.hue, saturation, brightness);
   };
 
   const handleSave = async () => {
@@ -456,30 +526,73 @@ export default function DrawingCanvas() {
             </IconButton>
           </HistoryControls>
 
-          <ToolRow>
+          <ColorControls>
             <Label>Color</Label>
-            <ColorWheel
-              ref={colorWheelRef}
-              type="button"
-              aria-label="Choose brush color"
-              onPointerDown={(e) => {
-                e.currentTarget.setPointerCapture(e.pointerId);
-                isChoosingColor.current = true;
-                chooseColor(e);
-              }}
-              onPointerMove={(e) => {
-                if (isChoosingColor.current) chooseColor(e);
-              }}
-              onPointerUp={() => {
-                isChoosingColor.current = false;
-              }}
-              onPointerCancel={() => {
-                isChoosingColor.current = false;
-              }}
-            >
-              <ColorIndicator $color={color} $x={colorPosition.x} $y={colorPosition.y} />
-            </ColorWheel>
-          </ToolRow>
+            <ColorPicker>
+              <ColorPreview $color={color} aria-hidden="true" />
+              <ColorField
+                ref={colorFieldRef}
+                type="button"
+                $hue={colorSelection.hue}
+                aria-label="Choose color saturation and brightness"
+                onPointerDown={(e) => {
+                  e.currentTarget.setPointerCapture(e.pointerId);
+                  isChoosingColor.current = true;
+                  chooseColor(e);
+                }}
+                onPointerMove={(e) => {
+                  if (isChoosingColor.current) chooseColor(e);
+                }}
+                onPointerUp={() => {
+                  isChoosingColor.current = false;
+                }}
+                onPointerCancel={() => {
+                  isChoosingColor.current = false;
+                }}
+                onKeyDown={(e) => {
+                  if (!e.key.startsWith("Arrow")) return;
+                  e.preventDefault();
+                  const saturation = Math.max(
+                    0,
+                    Math.min(
+                      100,
+                      colorSelection.saturation +
+                        (e.key === "ArrowRight" ? 5 : e.key === "ArrowLeft" ? -5 : 0),
+                    ),
+                  );
+                  const brightness = Math.max(
+                    0,
+                    Math.min(
+                      100,
+                      colorSelection.brightness + (e.key === "ArrowUp" ? 5 : e.key === "ArrowDown" ? -5 : 0),
+                    ),
+                  );
+                  updateColor(colorSelection.hue, saturation, brightness);
+                }}
+              >
+                <ColorIndicator
+                  $color={color}
+                  $x={colorSelection.saturation}
+                  $y={100 - colorSelection.brightness}
+                />
+              </ColorField>
+              <HueSlider
+                type="range"
+                min="0"
+                max="360"
+                aria-label="Hue"
+                $color={`hsl(${colorSelection.hue}, 100%, 50%)`}
+                value={colorSelection.hue}
+                onChange={(e) =>
+                  updateColor(
+                    Number(e.target.value),
+                    colorSelection.saturation,
+                    colorSelection.brightness,
+                  )
+                }
+              />
+            </ColorPicker>
+          </ColorControls>
 
           <ToolRow>
             <Label>Size</Label>
