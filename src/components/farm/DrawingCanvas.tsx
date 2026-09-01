@@ -5,8 +5,14 @@ import styled from "styled-components";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
-import { FaBucket, FaEraser, FaPen } from "react-icons/fa6";
-import { MdUndo, MdRedo } from "react-icons/md";
+import {
+  FaArrowRotateLeft,
+  FaArrowRotateRight,
+  FaBucket,
+  FaEraser,
+  FaPen,
+  FaTrashCan,
+} from "react-icons/fa6";
 
 const filter = new Filter();
 
@@ -81,7 +87,12 @@ const ToolRow = styled.div`
 `;
 
 const HistoryControls = styled(ToolRow)`
-  justify-content: flex-end;
+  justify-content: space-between;
+`;
+
+const UndoRedoControls = styled.div`
+  display: flex;
+  gap: var(--space-2);
 `;
 
 const Label = styled.span`
@@ -525,7 +536,6 @@ export default function DrawingCanvas() {
       `hsl(${Math.round(hue)}, ${Math.round(hslSaturation * 100)}%, ${Math.round(lightness * 100)}%)`,
     );
     setColorSelection({ hue, saturation, brightness });
-    setTool("pen");
   };
 
   const chooseColor = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -623,11 +633,16 @@ export default function DrawingCanvas() {
           />
         </CanvasWrapper>
         <HistoryControls>
-          <IconButton aria-label="Undo" title="Undo" onClick={undo}>
-            <MdUndo size={16} />
-          </IconButton>
-          <IconButton aria-label="Redo" title="Redo" onClick={redo}>
-            <MdRedo size={16} />
+          <UndoRedoControls>
+            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
+              <FaArrowRotateLeft size={14} />
+            </IconButton>
+            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
+              <FaArrowRotateRight size={14} />
+            </IconButton>
+          </UndoRedoControls>
+          <IconButton aria-label="Clear" title="Clear" onClick={handleClear}>
+            <FaTrashCan size={14} />
           </IconButton>
         </HistoryControls>
       </CanvasColumn>
@@ -734,14 +749,6 @@ export default function DrawingCanvas() {
               <FaPen size={14} />
             </IconButton>
             <IconButton
-              $active={tool === "eraser"}
-              aria-label="Eraser"
-              title="Eraser"
-              onClick={() => setTool("eraser")}
-            >
-              <FaEraser size={14} />
-            </IconButton>
-            <IconButton
               $active={tool === "bucket"}
               aria-label="Fill bucket"
               title="Fill bucket"
@@ -749,12 +756,17 @@ export default function DrawingCanvas() {
             >
               <FaBucket size={14} />
             </IconButton>
+            <IconButton
+              $active={tool === "eraser"}
+              aria-label="Eraser"
+              title="Eraser"
+              onClick={() => setTool("eraser")}
+            >
+              <FaEraser size={14} />
+            </IconButton>
           </ToolRow>
 
           <StepButtons>
-            <ActionButton $variant="secondary" onClick={handleClear}>
-              Clear
-            </ActionButton>
             <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
           </StepButtons>
         </Utilities>
