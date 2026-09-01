@@ -59,8 +59,9 @@ export const GardenSection = styled(IndexSection)`
     text-align: center;
 
     svg {
-      font-size: 0.7em;
-      transform: rotate(15deg);
+      margin-inline-start: var(--space-1);
+      font-size: 0.55em;
+      transform: rotate(20deg);
     }
   }
 `;

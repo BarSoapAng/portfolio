@@ -36,6 +36,18 @@ function parseColor(color: string): [number, number, number, number] {
   return [pixel[0], pixel[1], pixel[2], pixel[3]];
 }
 
+function isCanvasEmpty(canvas: HTMLCanvasElement) {
+  const context = canvas.getContext("2d");
+  if (!context) return true;
+  const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+  for (let index = 3; index < pixels.length; index += 4) {
+    if (pixels[index] !== 0) return false;
+  }
+
+  return true;
+}
+
 const Wrapper = styled.div`
   padding: var(--space-3);
   display: grid;
@@ -71,7 +83,7 @@ const CanvasWrapper = styled.div`
   width: 100%;
   max-width: 20rem;
   background: transparent;
-  border: 2px solid var(--color-border);
+  border: 2px solid var(--color-primary);
   border-radius: var(--radius-small);
   box-sizing: border-box;
   overflow: hidden;
@@ -610,6 +622,11 @@ export default function DrawingCanvas() {
   const handleSave = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    if (isCanvasEmpty(canvas)) {
+      setMessage({ text: "Please draw something first.", error: true });
+      return;
+    }
 
     const trimmedName = name.trim().slice(0, 40);
     if (trimmedName && filter.isProfane(trimmedName)) {
