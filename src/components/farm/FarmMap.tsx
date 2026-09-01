@@ -140,7 +140,6 @@ const MapControls = styled.div`
   z-index: 50;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
 `;
 
 const MapControlButton = styled.button`
@@ -149,14 +148,16 @@ const MapControlButton = styled.button`
   justify-content: center;
   padding: var(--space-3);
   color: var(--color-primary);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-circle);
-  box-shadow: 0 2px 8px rgba(62, 48, 45, 0.12);
+  background: transparent;
+  border: none;
   cursor: pointer;
 
+  & + & {
+    border-top: 1px solid var(--color-border);
+  }
+
   &:hover {
-    background: var(--color-primary-soft);
+    color: var(--color-primary-hover);
   }
 `;
 
