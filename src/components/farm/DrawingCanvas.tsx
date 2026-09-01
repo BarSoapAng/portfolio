@@ -137,7 +137,7 @@ const ColorPicker = styled.div`
 const ColorFields = styled.div`
   display: grid;
   grid-template-columns: 7rem minmax(0, 1fr);
-  box-shadow: 0 0 0 1px var(--color-border);
+  border-radius: var(--radius-small);
   overflow: hidden;
 `;
 
