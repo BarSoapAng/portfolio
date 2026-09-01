@@ -5,6 +5,8 @@ import styled from "styled-components";
 import NavbarLink from "@components/ui/NavbarLink";
 
 const SiteHeader = styled.header`
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
