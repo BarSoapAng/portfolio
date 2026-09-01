@@ -8,16 +8,12 @@ type TagLabelProps = {
 
 const Label = styled.span`
   display: inline-block;
-  margin: var(--space-1) var(--space-1) 0 0;
-  padding: var(--space-1) var(--space-2);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
 `;
 
 export default function TagLabel({ label }: TagLabelProps) {
