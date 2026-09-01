@@ -146,11 +146,17 @@ const MapControlButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-3);
+  padding: var(--space-4);
   color: var(--color-primary);
   background: transparent;
   border: none;
+  font-size: var(--font-size-base);
   cursor: pointer;
+
+  svg {
+    stroke: currentColor;
+    stroke-width: 6;
+  }
 
   & + & {
     border-top: 1px solid var(--color-border);
