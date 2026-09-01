@@ -32,6 +32,12 @@ function HomePage() {
         <DrawingCanvas />
       </GardenSection>
 
+      <SectionDivider
+        src={sectionDivider}
+        alt=""
+        aria-hidden="true"
+      />
+
       <BlogPreviewStrip posts={recentPosts} />
     </main>
   );

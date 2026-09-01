@@ -6,7 +6,7 @@ export const Hero = styled.section`
   display: grid;
   grid-template-columns: minmax(9rem, 13.75rem) minmax(0, 1fr);
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 4.625rem);
   max-height: 900px;
   gap: var(--space-8);
   margin-bottom: var(--space-12);

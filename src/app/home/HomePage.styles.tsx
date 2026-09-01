@@ -34,13 +34,13 @@ export const IndexSection = styled.section`
 `;
 
 export const ProjectsSection = styled(IndexSection)`
-  height: 100vh;
+  height: calc(100vh - 4.625rem);
   max-height: 900px;
   margin-block-start: 0;
 `;
 
 export const GardenSection = styled(IndexSection)`
-  height: 100vh;
+  height: calc(100vh - 4.625rem);
   max-height: 900px;
 
   > h2 {
