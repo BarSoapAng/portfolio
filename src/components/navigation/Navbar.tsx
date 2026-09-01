@@ -23,6 +23,7 @@ const SiteHeader = styled.header`
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
+    white-space: nowrap;
   }
 
   > p a {
@@ -31,7 +32,7 @@ const SiteHeader = styled.header`
 
   nav ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-2);
     margin: 0;
     padding: 0;
@@ -54,11 +55,15 @@ const SiteHeader = styled.header`
   }
 
   @media ${mediaQuery.largeMobile} {
-    flex-direction: column;
-    justify-content: center;
     gap: var(--space-2);
-    height: auto;
-    padding-block: var(--space-3);
+
+    nav ul {
+      gap: var(--space-1);
+    }
+
+    nav a {
+      padding-inline: var(--space-2);
+    }
   }
 `;
 
