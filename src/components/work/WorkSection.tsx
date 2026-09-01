@@ -399,16 +399,14 @@ export default function WorkSection() {
       sectionRef.current?.querySelectorAll<HTMLElement>("article");
     if (!articles) return;
 
-    articles.forEach((article, index) => {
-      if (index === 0) return;
+    articles.forEach((article) => {
       article.style.opacity = "0";
       article.style.willChange = "opacity";
     });
 
     const unsubscribe = scrollYProgress.on("change", (value) => {
       articles.forEach((article, index) => {
-        if (index === 0) return;
-        const threshold = fadeThresholds[index - 1];
+        const threshold = index === 0 ? 0 : fadeThresholds[index - 1];
         const progress = Math.min(
           1,
           Math.max(0, (value - threshold) / 0.04),
