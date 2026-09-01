@@ -52,6 +52,8 @@ const Wrapper = styled.div`
 const CanvasWrapper = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 20rem;
   background: var(--color-surface-muted);
   border-radius: var(--radius-small);
   overflow: hidden;
