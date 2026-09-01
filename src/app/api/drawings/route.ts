@@ -20,9 +20,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const { visitor_id, name, image_data, is_published } = await request.json();
+  const { visitor_id, name, image_data } = await request.json();
 
-  if (!visitor_id || !name || !image_data) {
+  if (!visitor_id || !image_data) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
@@ -30,9 +30,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Image too large" }, { status: 400 });
   }
 
-  const trimmedName = name.trim().slice(0, 40);
+  const trimmedName = typeof name === "string" ? name.trim().slice(0, 40) : "";
+  const drawingName = trimmedName || "Untitled";
 
-  if (filter.isProfane(trimmedName)) {
+  if (filter.isProfane(drawingName)) {
     return NextResponse.json({ error: "Name contains inappropriate language" }, { status: 400 });
   }
 
@@ -40,9 +41,9 @@ export async function POST(request: NextRequest) {
     .from("drawings")
     .insert({
       visitor_id,
-      name: trimmedName,
+      name: drawingName,
       image_data,
-      is_published: is_published ?? false,
+      is_published: true,
     })
     .select("id")
     .single();

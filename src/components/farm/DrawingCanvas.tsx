@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   grid-template-columns: minmax(0, 20rem) minmax(15rem, 18rem);
   justify-content: center;
   align-items: start;
-  gap: var(--space-3);
+  gap: var(--space-4);
 
   @media (max-width: 42rem) {
     grid-template-columns: minmax(0, 20rem);
@@ -54,7 +54,7 @@ const CanvasWrapper = styled.div`
   width: 100%;
   max-width: 20rem;
   background: transparent;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-small);
   box-sizing: border-box;
   overflow: hidden;
@@ -256,17 +256,6 @@ const Input = styled.input`
   }
 `;
 
-const CheckboxRow = styled.label`
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  color: var(--color-text);
-  margin-bottom: var(--space-3);
-  cursor: pointer;
-`;
-
 const ActionButton = styled.button<{ $variant?: "primary" | "secondary" }>`
   width: 100%;
   padding: var(--space-1) var(--space-3);
@@ -300,6 +289,7 @@ const ActionButton = styled.button<{ $variant?: "primary" | "secondary" }>`
 const StepButtons = styled.div`
   display: flex;
   gap: var(--space-2);
+  margin-top: var(--space-2);
 `;
 
 const Message = styled.p<{ $error?: boolean }>`
@@ -327,7 +317,6 @@ export default function DrawingCanvas() {
   const [brushSize, setBrushSize] = useState(6);
   const [tool, setTool] = useState<DrawingTool>("pen");
   const [name, setName] = useState("");
-  const [isPublished, setIsPublished] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ text: string; error: boolean } | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
@@ -562,12 +551,7 @@ export default function DrawingCanvas() {
     if (!canvas) return;
 
     const trimmedName = name.trim().slice(0, 40);
-    if (!trimmedName) {
-      setMessage({ text: "Please name your creation!", error: true });
-      return;
-    }
-
-    if (filter.isProfane(trimmedName)) {
+    if (trimmedName && filter.isProfane(trimmedName)) {
       setMessage({ text: "Please choose a friendlier name.", error: true });
       return;
     }
@@ -593,7 +577,6 @@ export default function DrawingCanvas() {
           visitor_id: visitorId,
           name: trimmedName,
           image_data: imageData,
-          is_published: isPublished,
         }),
       });
 
@@ -604,7 +587,6 @@ export default function DrawingCanvas() {
 
       setMessage({ text: "Saved! 🌱", error: false });
       setName("");
-      setIsPublished(false);
       setStep(1);
       clearCanvas();
     } catch (err: unknown) {
@@ -780,19 +762,10 @@ export default function DrawingCanvas() {
           <Input
             type="text"
             maxLength={40}
-            placeholder="Name your creation"
+            placeholder="Name your creation (optional)"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-
-          <CheckboxRow>
-            <input
-              type="checkbox"
-              checked={isPublished}
-              onChange={(e) => setIsPublished(e.target.checked)}
-            />
-            Share to gallery
-          </CheckboxRow>
 
           <StepButtons>
             <ActionButton $variant="secondary" onClick={() => setStep(1)}>

@@ -68,6 +68,11 @@
 - The Spotify player code remains in `src/components/home/VinylPlayer.tsx`, `src/components/home/VinylPlayerClient.tsx`, and `src/lib/spotify.ts`, but it is not rendered or called by the application.
 - If the Spotify player is re-enabled, it expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
 
+## Garden Feature Notes
+
+- Garden drawing names are optional; blank names are stored as `Untitled`.
+- New garden drawings are always saved as published and appear in the shared garden.
+
 ## Validation
 
 - Run `pnpm run lint` after changing linted source files in `src/`.
