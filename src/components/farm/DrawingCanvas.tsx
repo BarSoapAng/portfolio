@@ -266,6 +266,13 @@ const StepButtons = styled.div`
   gap: var(--space-2);
 `;
 
+const DrawingActions = styled(StepButtons)`
+  > button {
+    padding-block: var(--space-1);
+    font-weight: var(--font-weight-medium);
+  }
+`;
+
 const Message = styled.p<{ $error?: boolean }>`
   font-family: var(--font-body);
   font-size: var(--font-size-sm);
@@ -640,12 +647,12 @@ export default function DrawingCanvas() {
             </IconButton>
           </ToolRow>
 
-          <StepButtons>
+          <DrawingActions>
             <ActionButton $variant="secondary" onClick={clearCanvas}>
               Clear
             </ActionButton>
             <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
-          </StepButtons>
+          </DrawingActions>
         </Utilities>
       )}
 
