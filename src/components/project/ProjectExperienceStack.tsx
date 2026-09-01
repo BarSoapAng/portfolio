@@ -64,7 +64,7 @@ const ProjectTitle = styled(motion.h2)``;
 
 const ProjectLink = styled(Link)`
   color: var(--color-primary-hover);
-  text-decoration: none;
+  text-decoration: underline;
 
   &:hover {
     color: var(--color-primary);
