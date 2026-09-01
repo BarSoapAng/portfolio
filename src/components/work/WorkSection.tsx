@@ -409,7 +409,7 @@ export default function WorkSection() {
         const threshold = index === 0 ? 0 : fadeThresholds[index - 1];
         const progress = Math.min(
           1,
-          Math.max(0, (value - threshold) / 0.04),
+          Math.max(0, (value - threshold) / 0.08),
         );
         article.style.opacity = String(progress);
       });
