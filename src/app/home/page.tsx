@@ -6,6 +6,7 @@ import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkSection from "@components/work/WorkSection";
 import { getTopPosts } from "@lib/blog";
 import { getAllProjects } from "@lib/project";
+import { FaPaw } from "react-icons/fa";
 import {
   GardenSection,
   HomeMain,
@@ -33,7 +34,10 @@ function HomePage() {
       </ProjectsSection>
 
       <GardenSection>
-        <h2>Community Garden</h2>
+        <h2>
+          Leave a Mark
+          <FaPaw aria-hidden />
+        </h2>
         <DrawingCanvas />
       </GardenSection>
 

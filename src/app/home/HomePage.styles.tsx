@@ -49,5 +49,10 @@ export const GardenSection = styled(IndexSection)`
 
   > h2 {
     ${mediumHeadingStyles}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    text-align: center;
   }
 `;

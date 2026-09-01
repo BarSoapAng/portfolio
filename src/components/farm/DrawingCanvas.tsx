@@ -285,7 +285,10 @@ const ActionButton = styled.button<{ $primary?: boolean }>`
   border-radius: var(--radius-medium);
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
+  font-weight: ${(props) =>
+    props.$primary
+      ? "var(--font-weight-bold)"
+      : "var(--font-weight-medium)"};
   line-height: var(--line-height-tight);
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
@@ -669,7 +672,6 @@ export default function DrawingCanvas() {
 
       <Utilities>
           <ColorControls>
-            <Label>Color</Label>
             <ColorPicker>
               <ColorFields>
                 <ColorPreview $color={color} aria-hidden="true" />
