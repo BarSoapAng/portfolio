@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
-import { FaEraser, FaTrashCan } from "react-icons/fa6";
+import { FaEraser, FaPen, FaTrashCan } from "react-icons/fa6";
 import { MdUndo, MdRedo } from "react-icons/md";
 
 const filter = new Filter();
@@ -17,9 +17,6 @@ const BRUSH_SIZES = [
 ];
 
 const Wrapper = styled.div`
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-medium);
   padding: var(--space-3);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
@@ -62,11 +59,8 @@ const ToolRow = styled.div`
   flex-wrap: wrap;
 `;
 
-const Divider = styled.div`
-  width: 1px;
-  height: 20px;
-  background: var(--color-border);
-  margin: 0 var(--space-1);
+const HistoryControls = styled(ToolRow)`
+  justify-content: flex-end;
 `;
 
 const Label = styled.span`
@@ -403,6 +397,15 @@ export default function DrawingCanvas() {
 
       {step === 1 && (
         <Utilities>
+          <HistoryControls>
+            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
+              <MdUndo size={16} />
+            </IconButton>
+            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
+              <MdRedo size={16} />
+            </IconButton>
+          </HistoryControls>
+
           <ToolRow>
             <Label>Color</Label>
             <ColorPicker
@@ -433,23 +436,31 @@ export default function DrawingCanvas() {
                 <BrushSizeCircle $size={b.size} />
               </SizeButton>
             ))}
+          </ToolRow>
+
+          <ToolRow>
+            <Label>Tool</Label>
+            <IconButton
+              $active={!eraser}
+              aria-label="Pen"
+              title="Pen"
+              onClick={() => setEraser(false)}
+            >
+              <FaPen size={14} />
+            </IconButton>
             <IconButton
               $active={eraser}
               aria-label="Eraser"
               title="Eraser"
-              onClick={() => setEraser(!eraser)}
+              onClick={() => setEraser(true)}
             >
               <FaEraser size={14} />
             </IconButton>
+          </ToolRow>
+
+          <ToolRow>
             <IconButton aria-label="Clear canvas" title="Clear canvas" onClick={clearCanvas}>
               <FaTrashCan size={14} />
-            </IconButton>
-            <Divider />
-            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
-              <MdUndo size={16} />
-            </IconButton>
-            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
-              <MdRedo size={16} />
             </IconButton>
           </ToolRow>
 

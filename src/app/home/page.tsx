@@ -6,7 +6,7 @@ import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkSection from "@components/work/WorkSection";
 import { getTopPosts } from "@lib/blog";
 import { getAllProjects } from "@lib/project";
-import { IndexSection, ProjectsSection, SectionDivider } from "./HomePage.styles";
+import { GardenSection, ProjectsSection, SectionDivider } from "./HomePage.styles";
 
 function HomePage() {
   const projects = getAllProjects();
@@ -27,10 +27,10 @@ function HomePage() {
         <ProjectExperienceStack projects={projects} />
       </ProjectsSection>
 
-      <IndexSection>
+      <GardenSection>
         <h2>Community Garden</h2>
         <DrawingCanvas />
-      </IndexSection>
+      </GardenSection>
 
       <BlogPreviewStrip posts={recentPosts} />
     </main>

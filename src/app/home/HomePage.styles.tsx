@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
-import { largeHeadingStyles } from "@components/ui/HeadingStyles";
+import { largeHeadingStyles, mediumHeadingStyles } from "@components/ui/HeadingStyles";
 
 export const SectionDivider = styled(Image).attrs({ draggable: false })`
   display: block;
@@ -35,4 +35,10 @@ export const IndexSection = styled.section`
 
 export const ProjectsSection = styled(IndexSection)`
   margin-block-start: 0;
+`;
+
+export const GardenSection = styled(IndexSection)`
+  > h2 {
+    ${mediumHeadingStyles}
+  }
 `;
