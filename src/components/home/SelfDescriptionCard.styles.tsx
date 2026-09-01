@@ -1,6 +1,16 @@
 "use client";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const highlightText = keyframes`
+  from {
+    background-size: 0 100%;
+  }
+
+  to {
+    background-size: 100% 100%;
+  }
+`;
 
 export const Hero = styled.section`
   display: grid;
@@ -27,4 +37,22 @@ export const HeroImage = styled.img.attrs({ draggable: false })`
 
 export const HeroContent = styled.div`
   min-width: 0;
+`;
+
+export const HighlightedGreeting = styled.span`
+  background-image: linear-gradient(
+    transparent 55%,
+    var(--color-primary-soft) 55%
+  );
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  animation: ${highlightText} 0.8s ease-out 0.25s forwards;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+
+  @media (prefers-reduced-motion: reduce) {
+    background-size: 100% 100%;
+    animation: none;
+  }
 `;

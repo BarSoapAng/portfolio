@@ -306,7 +306,7 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
                       initial={shouldReduceMotion ? false : { opacity: 0 }}
                       key={`${character}-${index}`}
                       transition={{
-                        delay: shouldReduceMotion ? 0 : index * 0.03,
+                        delay: shouldReduceMotion ? 0 : index * 0.06,
                         duration: 0,
                       }}
                     >

@@ -9,7 +9,9 @@ export const HomeMain = styled.main`
   padding-block-start: 0;
 `;
 
-export const SectionDivider = styled(Image).attrs({ draggable: false })`
+export const SectionDivider = styled(Image).attrs({ draggable: false })<{
+  $roomy?: boolean;
+}>`
   display: block;
   width: 100%;
   height: auto;
@@ -21,7 +23,8 @@ export const SectionDivider = styled(Image).attrs({ draggable: false })`
   user-select: none;
 
   & + * {
-    margin-block-start: 56px;
+    margin-block-start: ${({ $roomy }) =>
+      $roomy ? "var(--space-16)" : "56px"};
   }
 `;
 

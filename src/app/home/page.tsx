@@ -42,6 +42,7 @@ function HomePage() {
       </GardenSection>
 
       <SectionDivider
+        $roomy
         src={sectionDivider}
         alt=""
         aria-hidden="true"

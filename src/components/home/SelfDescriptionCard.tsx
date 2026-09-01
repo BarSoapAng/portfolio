@@ -1,5 +1,6 @@
 import selfie from "@assets/home/selfie.webp";
 import {
+  HighlightedGreeting,
   Hero,
   HeroContent,
   HeroImage,
@@ -10,7 +11,9 @@ export default function SelfDescriptionCard() {
     <Hero>
       <HeroImage src={selfie.src} alt="Angela's selfie" width={230} />
       <HeroContent>
-        <h1>Hello hello!</h1>
+        <h1>
+          <HighlightedGreeting>Hello hello!</HighlightedGreeting>
+        </h1>
         <p>
           This is a place where I share my experiences, what I'm up to, and 
           my (not so) crazy shower thoughts :3
