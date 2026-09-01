@@ -3,12 +3,6 @@
   padding-block-start: 0;
 }
 
-.header,
-.content {
-  width: min(100%, 46rem);
-  margin-inline: auto;
-}
-
 .summary {
   color: var(--color-text-muted);
   font-size: var(--font-size-lg);
