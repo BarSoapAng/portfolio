@@ -70,7 +70,7 @@
 
 ## Garden Feature Notes
 
-- Garden drawing names are optional; blank names are stored as `Untitled`.
+- Garden drawing names are optional; blank names are stored as `Untitled` and do not show a name tooltip.
 - New garden drawings are always saved as published and appear in the shared garden.
 - Export new drawings as 256-by-256 WebP images and upload them as multipart form data through the drawings API. PNG is the browser fallback.
 - Store new drawing images in the public Supabase Storage `drawings` bucket. The `drawings.image_data` column contains the Storage object path; legacy Base64 data URLs remain supported.

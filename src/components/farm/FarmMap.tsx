@@ -231,6 +231,7 @@ export default function FarmMap() {
   );
 
   const handleMouseEnter = useCallback((e: React.MouseEvent, name: string) => {
+    if (!name.trim() || name === "Untitled") return;
     setTooltip({ name, x: e.clientX, y: e.clientY - 30 });
   }, []);
 
