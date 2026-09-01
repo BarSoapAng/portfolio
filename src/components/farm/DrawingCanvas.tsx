@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { getVisitorId } from "@lib/visitor-id";
@@ -268,7 +269,6 @@ const Input = styled.input`
   font-size: var(--font-size-sm);
   color: var(--color-text);
   background: var(--color-surface);
-  margin-bottom: var(--space-3);
   box-sizing: border-box;
 
   &::placeholder {
@@ -315,12 +315,33 @@ const DrawingActions = styled(StepButtons)`
   margin-top: auto;
 `;
 
-const Message = styled.p<{ $error?: boolean }>`
+const StatusRow = styled.div`
+  min-height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+`;
+
+const Message = styled.span<{ $error?: boolean }>`
   font-family: var(--font-body);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: ${(p) => (p.$error ? "var(--color-primary)" : "var(--color-accent)")};
   text-align: center;
-  margin: var(--space-2) 0 0;
+`;
+
+const GardenLink = styled(Link)`
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-underline-offset: 2px;
+
+  &:hover,
+  &:active {
+    color: var(--color-primary-hover);
+  }
 `;
 
 function exportDrawing(canvas: HTMLCanvasElement) {
@@ -625,7 +646,7 @@ export default function DrawingCanvas() {
         throw new Error(data.error || "Failed to save");
       }
 
-      setMessage({ text: "Saved! 🌱", error: false });
+      setMessage({ text: "TY for contributing :)", error: false });
       setName("");
       clearCanvas();
     } catch (err: unknown) {
@@ -795,7 +816,16 @@ export default function DrawingCanvas() {
           onChange={(e) => setName(e.target.value)}
         />
 
-        {message && <Message $error={message.error}>{message.text}</Message>}
+        <StatusRow>
+          {message && (
+            <Message $error={message.error} role="status" aria-live="polite">
+              {message.text}
+            </Message>
+          )}
+          {(!message || !message.error) && (
+            <GardenLink href="/garden">View the garden →</GardenLink>
+          )}
+        </StatusRow>
 
         <DrawingActions data-button-group>
           <ActionButton $primary disabled={saving} onClick={handleSave}>
