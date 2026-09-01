@@ -44,6 +44,10 @@ export const ProjectsSection = styled(IndexSection)`
 `;
 
 export const GardenSection = styled(IndexSection)`
+  --color-primary: var(--color-accent);
+  --color-primary-hover: color-mix(in srgb, var(--color-accent) 65%, black);
+  --color-primary-soft: var(--color-accent-soft);
+
   height: calc(100vh - 74px);
   max-height: 900px;
 
