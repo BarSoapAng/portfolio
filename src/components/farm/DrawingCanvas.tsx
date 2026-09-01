@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
-import { FaEraser, FaPen } from "react-icons/fa6";
+import { FaBucket, FaEraser, FaPen } from "react-icons/fa6";
 import { MdUndo, MdRedo } from "react-icons/md";
 
 const filter = new Filter();
@@ -15,6 +15,19 @@ const BRUSH_SIZES = [
   { label: "Medium", size: 6 },
   { label: "Large", size: 12 },
 ];
+
+type DrawingTool = "pen" | "eraser" | "bucket";
+
+function parseColor(color: string): [number, number, number, number] {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+  const ctx = canvas.getContext("2d")!;
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, 1, 1);
+  const pixel = ctx.getImageData(0, 0, 1, 1).data;
+  return [pixel[0], pixel[1], pixel[2], pixel[3]];
+}
 
 const Wrapper = styled.div`
   padding: var(--space-3);
@@ -37,6 +50,13 @@ const CanvasWrapper = styled.div`
   background: var(--color-surface-muted);
   border-radius: var(--radius-small);
   overflow: hidden;
+`;
+
+const CanvasColumn = styled.div`
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 20rem;
 `;
 
 const StyledCanvas = styled.canvas`
@@ -235,7 +255,7 @@ const CheckboxRow = styled.label`
 
 const ActionButton = styled.button<{ $variant?: "primary" | "secondary" }>`
   width: 100%;
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-3);
   background: ${(p) =>
     p.$variant === "secondary" ? "var(--color-surface)" : "var(--color-primary)"};
   color: ${(p) =>
@@ -244,7 +264,9 @@ const ActionButton = styled.button<{ $variant?: "primary" | "secondary" }>`
     p.$variant === "secondary" ? "1px solid var(--color-border)" : "none"};
   border-radius: var(--radius-medium);
   font-family: var(--font-display);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
   cursor: pointer;
   transition: background 0.15s;
 
@@ -264,13 +286,6 @@ const ActionButton = styled.button<{ $variant?: "primary" | "secondary" }>`
 const StepButtons = styled.div`
   display: flex;
   gap: var(--space-2);
-`;
-
-const DrawingActions = styled(StepButtons)`
-  > button {
-    padding-block: var(--space-1);
-    font-weight: var(--font-weight-medium);
-  }
 `;
 
 const Message = styled.p<{ $error?: boolean }>`
@@ -296,7 +311,7 @@ export default function DrawingCanvas() {
     brightness: 0,
   });
   const [brushSize, setBrushSize] = useState(6);
-  const [eraser, setEraser] = useState(false);
+  const [tool, setTool] = useState<DrawingTool>("pen");
   const [name, setName] = useState("");
   const [isPublished, setIsPublished] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -313,8 +328,7 @@ export default function DrawingCanvas() {
     ctxRef.current = ctx;
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.restore();
   }, []);
 
@@ -356,8 +370,6 @@ export default function DrawingCanvas() {
     canvas.width = Math.round(rect.width * pixelRatio);
     canvas.height = Math.round(rect.height * pixelRatio);
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, rect.width, rect.height);
     ctxRef.current = ctx;
   }, []);
 
@@ -388,14 +400,21 @@ export default function DrawingCanvas() {
     const ctx = ctxRef.current;
     if (!ctx) return;
     rectRef.current = canvasRef.current!.getBoundingClientRect();
-    saveSnapshot();
     const pos = getPos(e);
+
+    if (tool === "bucket") {
+      fillArea(pos.x, pos.y);
+      return;
+    }
+
+    saveSnapshot();
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
     ctx.lineWidth = brushSize;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = eraser ? "#ffffff" : color;
+    ctx.globalCompositeOperation = tool === "eraser" ? "destination-out" : "source-over";
+    ctx.strokeStyle = color;
     isDrawing.current = true;
   };
 
@@ -417,6 +436,82 @@ export default function DrawingCanvas() {
     isDrawing.current = false;
   };
 
+  const fillArea = (logicalX: number, logicalY: number) => {
+    const canvas = canvasRef.current;
+    const ctx = ctxRef.current;
+    if (!canvas || !ctx) return;
+    const startX = Math.max(
+      0,
+      Math.min(canvas.width - 1, Math.floor(logicalX * pixelRatioRef.current)),
+    );
+    const startY = Math.max(
+      0,
+      Math.min(canvas.height - 1, Math.floor(logicalY * pixelRatioRef.current)),
+    );
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
+    const startIndex = (startY * canvas.width + startX) * 4;
+    const target = [
+      pixels[startIndex],
+      pixels[startIndex + 1],
+      pixels[startIndex + 2],
+      pixels[startIndex + 3],
+    ];
+    const replacement = parseColor(color);
+
+    if (target.every((channel, index) => channel === replacement[index])) return;
+
+    const matchesTarget = (x: number, y: number) => {
+      const index = (y * canvas.width + x) * 4;
+      return target.every((channel, offset) => pixels[index + offset] === channel);
+    };
+    const setPixel = (x: number, y: number) => {
+      const index = (y * canvas.width + x) * 4;
+      pixels[index] = replacement[0];
+      pixels[index + 1] = replacement[1];
+      pixels[index + 2] = replacement[2];
+      pixels[index + 3] = replacement[3];
+    };
+
+    saveSnapshot();
+    const stack: Array<[number, number]> = [[startX, startY]];
+    while (stack.length > 0) {
+      const [seedX, y] = stack.pop()!;
+      let x = seedX;
+      while (x >= 0 && matchesTarget(x, y)) x -= 1;
+      x += 1;
+      let spansAbove = false;
+      let spansBelow = false;
+
+      while (x < canvas.width && matchesTarget(x, y)) {
+        setPixel(x, y);
+
+        if (y > 0 && matchesTarget(x, y - 1)) {
+          if (!spansAbove) stack.push([x, y - 1]);
+          spansAbove = true;
+        } else {
+          spansAbove = false;
+        }
+
+        if (y < canvas.height - 1 && matchesTarget(x, y + 1)) {
+          if (!spansBelow) stack.push([x, y + 1]);
+          spansBelow = true;
+        } else {
+          spansBelow = false;
+        }
+
+        x += 1;
+      }
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+  };
+
+  const handleClear = () => {
+    saveSnapshot();
+    clearCanvas();
+  };
+
   const updateColor = (hue: number, saturation: number, brightness: number) => {
     const normalizedSaturation = saturation / 100;
     const normalizedBrightness = brightness / 100;
@@ -430,7 +525,7 @@ export default function DrawingCanvas() {
       `hsl(${Math.round(hue)}, ${Math.round(hslSaturation * 100)}%, ${Math.round(lightness * 100)}%)`,
     );
     setColorSelection({ hue, saturation, brightness });
-    setEraser(false);
+    setTool("pen");
   };
 
   const chooseColor = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -511,33 +606,34 @@ export default function DrawingCanvas() {
 
   return (
     <Wrapper>
-      <CanvasWrapper>
-        <StyledCanvas
-          ref={canvasRef}
-          width={300}
-          height={300}
-          onMouseDown={step === 1 ? startDrawing : undefined}
-          onMouseMove={step === 1 ? draw : undefined}
-          onMouseUp={step === 1 ? stopDrawing : undefined}
-          onMouseLeave={step === 1 ? stopDrawing : undefined}
-          onTouchStart={step === 1 ? startDrawing : undefined}
-          onTouchMove={step === 1 ? draw : undefined}
-          onTouchEnd={step === 1 ? stopDrawing : undefined}
-          style={step === 2 ? { cursor: "default" } : undefined}
-        />
-      </CanvasWrapper>
+      <CanvasColumn>
+        <CanvasWrapper>
+          <StyledCanvas
+            ref={canvasRef}
+            width={300}
+            height={300}
+            onMouseDown={step === 1 ? startDrawing : undefined}
+            onMouseMove={step === 1 ? draw : undefined}
+            onMouseUp={step === 1 ? stopDrawing : undefined}
+            onMouseLeave={step === 1 ? stopDrawing : undefined}
+            onTouchStart={step === 1 ? startDrawing : undefined}
+            onTouchMove={step === 1 ? draw : undefined}
+            onTouchEnd={step === 1 ? stopDrawing : undefined}
+            style={step === 2 ? { cursor: "default" } : undefined}
+          />
+        </CanvasWrapper>
+        <HistoryControls>
+          <IconButton aria-label="Undo" title="Undo" onClick={undo}>
+            <MdUndo size={16} />
+          </IconButton>
+          <IconButton aria-label="Redo" title="Redo" onClick={redo}>
+            <MdRedo size={16} />
+          </IconButton>
+        </HistoryControls>
+      </CanvasColumn>
 
       {step === 1 && (
         <Utilities>
-          <HistoryControls>
-            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
-              <MdUndo size={16} />
-            </IconButton>
-            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
-              <MdRedo size={16} />
-            </IconButton>
-          </HistoryControls>
-
           <ColorControls>
             <Label>Color</Label>
             <ColorPicker>
@@ -619,7 +715,7 @@ export default function DrawingCanvas() {
                 title={`${b.label} brush`}
                 onClick={() => {
                   setBrushSize(b.size);
-                  setEraser(false);
+                  setTool("pen");
                 }}
               >
                 <BrushSizeCircle $size={b.size} />
@@ -630,29 +726,37 @@ export default function DrawingCanvas() {
           <ToolRow>
             <Label>Tool</Label>
             <IconButton
-              $active={!eraser}
+              $active={tool === "pen"}
               aria-label="Pen"
               title="Pen"
-              onClick={() => setEraser(false)}
+              onClick={() => setTool("pen")}
             >
               <FaPen size={14} />
             </IconButton>
             <IconButton
-              $active={eraser}
+              $active={tool === "eraser"}
               aria-label="Eraser"
               title="Eraser"
-              onClick={() => setEraser(true)}
+              onClick={() => setTool("eraser")}
             >
               <FaEraser size={14} />
             </IconButton>
+            <IconButton
+              $active={tool === "bucket"}
+              aria-label="Fill bucket"
+              title="Fill bucket"
+              onClick={() => setTool("bucket")}
+            >
+              <FaBucket size={14} />
+            </IconButton>
           </ToolRow>
 
-          <DrawingActions>
-            <ActionButton $variant="secondary" onClick={clearCanvas}>
+          <StepButtons>
+            <ActionButton $variant="secondary" onClick={handleClear}>
               Clear
             </ActionButton>
             <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
-          </DrawingActions>
+          </StepButtons>
         </Utilities>
       )}
 
