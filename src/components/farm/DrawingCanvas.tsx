@@ -137,7 +137,6 @@ const ColorPicker = styled.div`
 const ColorFields = styled.div`
   display: grid;
   grid-template-columns: 7rem minmax(0, 1fr);
-  border-radius: var(--radius-small);
   box-shadow: 0 0 0 1px var(--color-border);
   overflow: hidden;
 `;
@@ -262,17 +261,17 @@ const IconButton = styled.button<{ $active?: boolean }>`
 
 const Input = styled.input`
   width: 100%;
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-small);
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  color: var(--color-text);
+  border-radius: var(--radius-medium);
   background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
   box-sizing: border-box;
 
-  &::placeholder {
-    color: var(--color-text-muted);
+  &:focus-visible {
+    outline: none;
+    border-color: color-mix(in srgb, var(--color-border) 75%, var(--color-text));
   }
 `;
 

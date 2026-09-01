@@ -54,5 +54,10 @@ export const GardenSection = styled(IndexSection)`
     justify-content: center;
     gap: var(--space-2);
     text-align: center;
+
+    svg {
+      font-size: 0.7em;
+      transform: rotate(15deg);
+    }
   }
 `;
