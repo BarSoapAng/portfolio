@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { mediaQuery } from "@lib/media";
 
 export const ContentIndex = styled.div`
   display: grid;
@@ -23,8 +24,12 @@ export const ContentCard = styled.article`
   gap: var(--space-4);
   padding-block: var(--space-6);
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.smallTablet} {
     grid-template-columns: 7rem minmax(0, 1fr);
+  }
+
+  @media ${mediaQuery.mobile} {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -49,6 +54,12 @@ export const BlogMeta = styled.div`
   justify-content: space-between;
   gap: var(--space-4);
   margin-block-end: 50px;
+
+  @media ${mediaQuery.mobile} {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-block-end: var(--space-8);
+  }
 `;
 
 export const ContentHero = styled.figure`

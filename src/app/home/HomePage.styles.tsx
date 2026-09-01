@@ -4,6 +4,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
 import { largeHeadingStyles, mediumHeadingStyles } from "@components/ui/HeadingStyles";
+import { mediaQuery } from "@lib/media";
 
 export const HomeMain = styled.main`
   padding-block-start: 0;
@@ -23,6 +24,18 @@ export const SectionDivider = styled(Image).attrs({ draggable: false })`
   & + * {
     margin-block-start: 56px;
   }
+
+  @media ${mediaQuery.tablet} {
+    & + * {
+      margin-block-start: var(--space-12);
+    }
+  }
+
+  @media ${mediaQuery.smallTablet} {
+    & + * {
+      margin-block-start: var(--space-8);
+    }
+  }
 `;
 
 export const IndexSection = styled.section`
@@ -41,6 +54,11 @@ export const ProjectsSection = styled(IndexSection)`
   height: calc(100vh - 74px);
   max-height: 900px;
   margin-block-start: 0;
+
+  @media ${mediaQuery.tablet} {
+    height: auto;
+    max-height: none;
+  }
 `;
 
 export const GardenSection = styled(IndexSection)`
@@ -50,6 +68,11 @@ export const GardenSection = styled(IndexSection)`
 
   height: calc(100vh - 74px);
   max-height: 900px;
+
+  @media ${mediaQuery.tablet} {
+    height: auto;
+    max-height: none;
+  }
 
   > h2 {
     ${mediumHeadingStyles}

@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
+import { mediaQuery } from "@lib/media";
 import { type ProjectSummary } from "@lib/project-shared";
 
 type ProjectExperienceStackProps = {
@@ -32,13 +33,16 @@ const ProjectShowcase = styled.div`
   align-items: center;
   gap: var(--space-12);
 
-  @media (max-width: 52rem) {
+  @media ${mediaQuery.tablet} {
+    min-height: 28rem;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.9fr);
     gap: var(--space-8);
   }
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.smallTablet} {
     min-height: 0;
     grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 `;
 
@@ -89,6 +93,10 @@ const ProjectDescription = styled(motion.p)`
   margin-block-end: 0;
   color: var(--color-text-muted);
   font-size: var(--font-size-lg);
+
+  @media ${mediaQuery.smallTablet} {
+    font-size: var(--font-size-base);
+  }
 `;
 
 const StackColumn = styled.div`
@@ -127,6 +135,16 @@ const DragInstruction = styled.div`
     margin-inline-start: var(--space-2);
     overflow: visible;
   }
+
+  @media ${mediaQuery.mobile} {
+    span {
+      font-size: var(--font-size-lg);
+    }
+
+    svg {
+      width: var(--space-16);
+    }
+  }
 `;
 
 const StackStage = styled.ul`
@@ -137,8 +155,12 @@ const StackStage = styled.ul`
   padding: 0;
   list-style: none;
 
-  @media (max-width: 42rem) {
-    height: 26rem;
+  @media ${mediaQuery.tablet} {
+    height: 25rem;
+  }
+
+  @media ${mediaQuery.smallTablet} {
+    height: 24rem;
   }
 `;
 

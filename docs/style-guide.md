@@ -108,6 +108,8 @@ spacing token.
 ## Components And Layout
 
 - Keep reading content within the existing `900px` page container.
+- Use the shared `mediaQuery` values in `src/lib/media.ts` for styled-components.
+  CSS modules should use the matching absolute pixel widths.
 - Let the page canvas show through primary content containers and use spacing instead
   of borders or fills to separate them.
 - When adjacent sections or icon-button groups need a stronger boundary, separate them
@@ -121,6 +123,18 @@ spacing token.
   cards.
 - Keep interactive text pink and always retain a visible focus outline.
 - On narrow screens, stack navigation and reduce card padding before reducing type.
+
+### Responsive Breakpoints
+
+| Name | Maximum width |
+| --- | --- |
+| `tablet` | `1024px` |
+| `smallTablet` | `768px` |
+| `largeMobile` | `640px` |
+| `mobile` | `480px` |
+
+Write responsive rules from the widest breakpoint to the narrowest so smaller-device
+overrides remain easy to follow. Use pixels for every media-query breakpoint.
 
 ## Using The Utilities
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { css } from "styled-components";
+import { mediaQuery } from "@lib/media";
 
 const headingFontStyles = css`
   font-family: var(--font-display);
@@ -13,7 +14,7 @@ export const largeHeadingStyles = css`
   ${headingFontStyles}
   font-size: var(--font-size-3xl);
 
-  @media (max-width: 52rem) {
+  @media ${mediaQuery.smallTablet} {
     font-size: var(--font-size-2xl);
   }
 `;
@@ -22,7 +23,7 @@ export const mediumHeadingStyles = css`
   ${headingFontStyles}
   font-size: var(--font-size-2xl);
 
-  @media (max-width: 52rem) {
+  @media ${mediaQuery.smallTablet} {
     font-size: var(--font-size-xl);
   }
 `;
@@ -31,7 +32,7 @@ export const smallHeadingStyles = css`
   ${headingFontStyles}
   font-size: var(--font-size-xl);
 
-  @media (max-width: 52rem) {
+  @media ${mediaQuery.smallTablet} {
     font-size: var(--font-size-lg);
   }
 `;

@@ -39,7 +39,7 @@
   font-size: var(--font-size-xs);
 }
 
-@media (max-width: 42rem) {
+@media (max-width: 640px) {
   .section ul {
     display: block;
   }

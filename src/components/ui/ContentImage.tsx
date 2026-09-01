@@ -13,7 +13,11 @@ export default function ContentImage({ alt, src, variant }: ContentImageProps) {
       $variant={variant}
       alt={alt}
       height={900}
-      sizes={variant === "hero" ? "(max-width: 900px) 100vw, 900px" : "(max-width: 52rem) 100vw, 42rem"}
+      sizes={
+        variant === "hero"
+          ? "(max-width: 900px) 100vw, 900px"
+          : "(max-width: 640px) 100vw, (max-width: 768px) 50vw, 20rem"
+      }
       src={src}
       width={1600}
     />

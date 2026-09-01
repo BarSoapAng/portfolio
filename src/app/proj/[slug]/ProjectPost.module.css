@@ -45,7 +45,7 @@
   margin-block-start: var(--space-8);
 }
 
-@media (max-width: 42rem) {
+@media (max-width: 640px) {
   .meta {
     align-items: flex-start;
     flex-direction: column;

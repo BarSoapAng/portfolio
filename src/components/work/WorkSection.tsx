@@ -11,6 +11,7 @@ import {
 import { FaPaw } from "react-icons/fa";
 import styled from "styled-components";
 import { IndexSection } from "../../app/home/HomePage.styles";
+import { mediaQuery } from "@lib/media";
 import EricssonWorkExperience from "./experiences/EricssonWorkExperience";
 import HackTheNorthWorkExperience from "./experiences/HackTheNorthWorkExperience";
 import OroWorkExperience from "./experiences/OroWorkExperience";
@@ -207,7 +208,7 @@ const PawTrail = styled.div`
     filter: drop-shadow(0 var(--space-1) var(--space-1) var(--color-primary-soft));
   }
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.smallTablet} {
     span[data-paw-spacer] {
       width: calc(var(--space-4) - var(--space-1));
     }

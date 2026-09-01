@@ -1,6 +1,7 @@
 "use client";
 
 import styled, { keyframes } from "styled-components";
+import { mediaQuery } from "@lib/media";
 
 const highlightText = keyframes`
   from {
@@ -22,16 +23,26 @@ export const Hero = styled.section`
   gap: var(--space-8);
   margin-bottom: var(--space-12);
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.tablet} {
+    min-height: 32rem;
+    height: auto;
+    max-height: none;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  @media ${mediaQuery.smallTablet} {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 `;
 
 export const HeroImage = styled.img.attrs({ draggable: false })`
   width: 100%;
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.smallTablet} {
     width: min(100%, 13.75rem);
+    justify-self: center;
   }
 `;
 

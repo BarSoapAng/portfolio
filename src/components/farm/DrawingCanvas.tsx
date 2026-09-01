@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
+import { mediaQuery } from "@lib/media";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
@@ -56,8 +57,12 @@ const Wrapper = styled.div`
   align-items: start;
   gap: var(--space-4);
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.smallTablet} {
     grid-template-columns: minmax(0, 20rem);
+  }
+
+  @media ${mediaQuery.largeMobile} {
+    padding-inline: 0;
   }
 
   [data-button-group] > button + button {
@@ -333,6 +338,11 @@ const StatusRow = styled.div`
   justify-content: center;
   gap: var(--space-2);
   white-space: nowrap;
+
+  @media ${mediaQuery.largeMobile} {
+    min-height: 0;
+    white-space: normal;
+  }
 `;
 
 const Message = styled.span<{ $error?: boolean }>`

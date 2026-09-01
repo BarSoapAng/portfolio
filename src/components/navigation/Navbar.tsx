@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import NavbarLink from "@components/ui/NavbarLink";
+import { mediaQuery } from "@lib/media";
 
 const SiteHeader = styled.header`
   position: relative;
@@ -50,6 +51,14 @@ const SiteHeader = styled.header`
   nav a[aria-current="page"] {
     color: var(--color-primary-hover);
     font-weight: var(--font-weight-bold);
+  }
+
+  @media ${mediaQuery.largeMobile} {
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-2);
+    height: auto;
+    padding-block: var(--space-3);
   }
 `;
 

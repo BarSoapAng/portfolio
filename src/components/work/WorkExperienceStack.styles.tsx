@@ -3,6 +3,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex, EntryTags } from "@components/ui/ContentStyles";
+import { mediaQuery } from "@lib/media";
 
 export const WorkIndex = styled(ContentIndex)`
   gap: 0;
@@ -42,23 +43,57 @@ export const WorkEntry = styled.article`
     margin-inline-start: 32%;
   }
 
-  @media (max-width: 42rem) {
-    max-width: 90%;
+  @media ${mediaQuery.tablet} {
+    max-width: 85%;
 
     &:nth-of-type(2) {
-      margin-inline-end: 24%;
+      margin-inline-end: 30%;
     }
 
     &:nth-of-type(3) {
-      margin-inline-start: 6%;
+      margin-inline-start: 12%;
     }
 
     &:nth-of-type(4) {
-      margin-inline-end: 10%;
+      margin-inline-end: 14%;
     }
 
     &:nth-of-type(5) {
-      margin-inline-start: 22%;
+      margin-inline-start: 26%;
+    }
+  }
+
+  @media ${mediaQuery.smallTablet} {
+    max-width: 90%;
+
+    &:nth-of-type(2) {
+      margin-inline-end: 20%;
+    }
+
+    &:nth-of-type(3) {
+      margin-inline-start: 4%;
+    }
+
+    &:nth-of-type(4) {
+      margin-inline-end: 8%;
+    }
+
+    &:nth-of-type(5) {
+      margin-inline-start: 16%;
+    }
+  }
+
+  @media ${mediaQuery.mobile} {
+    max-width: 95%;
+
+    &:nth-of-type(2),
+    &:nth-of-type(4) {
+      margin-inline-end: 4%;
+    }
+
+    &:nth-of-type(3),
+    &:nth-of-type(5) {
+      margin-inline-start: 4%;
     }
   }
 `;

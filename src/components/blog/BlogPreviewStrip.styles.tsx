@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import { mediumHeadingStyles } from "@components/ui/HeadingStyles";
 import { IndexSection } from "../../app/home/HomePage.styles";
+import { mediaQuery } from "@lib/media";
 
 export const BlogStripSection = styled(IndexSection)`
   margin-block-start: var(--space-8);
@@ -13,7 +14,15 @@ export const BlogStripGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.tablet} {
+    gap: var(--space-4);
+  }
+
+  @media ${mediaQuery.smallTablet} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media ${mediaQuery.largeMobile} {
     grid-template-columns: 1fr;
   }
 `;

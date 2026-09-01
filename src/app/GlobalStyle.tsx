@@ -6,6 +6,7 @@ import {
   mediumHeadingStyles,
   smallHeadingStyles,
 } from "@components/ui/HeadingStyles";
+import { mediaQuery } from "@lib/media";
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -179,7 +180,7 @@ const GlobalStyle = createGlobalStyle`
     color: var(--color-text-muted);
   }
 
-  @media (max-width: 42rem) {
+  @media ${mediaQuery.smallTablet} {
     main {
       padding-block: var(--space-8);
     }
