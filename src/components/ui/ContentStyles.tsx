@@ -41,6 +41,13 @@ export const EntryTags = styled.span`
 
 export const BlogDate = styled(EntryTags)`
   display: block;
+`;
+
+export const BlogMeta = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
   margin-block-end: 50px;
 `;
 

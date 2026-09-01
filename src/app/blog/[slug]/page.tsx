@@ -4,7 +4,7 @@ import Link from "next/link";
 import BlogPostEngagement from "@components/blog/BlogPostEngagement";
 import SimilarReads from "@components/blog/SimilarReads";
 import ContentImage from "@components/ui/ContentImage";
-import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
+import { BlogDate, BlogMeta, ContentHero } from "@components/ui/ContentStyles";
 import { buildPostMetadata, getAllPostSlugs, getPostBySlug, getSimilarPosts } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
 import styles from "./BlogPost.module.css";
@@ -60,8 +60,10 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
           <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="hero" />
         </ContentHero>
 
-        <BlogDate>{formatPostDate(post.date)}</BlogDate>
-        <BlogPostEngagement slug={slug} />
+        <BlogMeta>
+          <BlogDate>{formatPostDate(post.date)}</BlogDate>
+          <BlogPostEngagement slug={slug} />
+        </BlogMeta>
 
         <PostContent />
       </article>
