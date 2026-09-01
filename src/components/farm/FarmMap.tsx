@@ -139,11 +139,8 @@ const MapControls = styled.div`
   bottom: var(--space-4);
   z-index: 50;
   display: flex;
-  overflow: hidden;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  box-shadow: 0 2px 8px rgba(62, 48, 45, 0.12);
+  flex-direction: column;
+  gap: var(--space-2);
 `;
 
 const MapControlButton = styled.button`
@@ -152,13 +149,11 @@ const MapControlButton = styled.button`
   justify-content: center;
   padding: var(--space-3);
   color: var(--color-primary);
-  background: none;
-  border: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-circle);
+  box-shadow: 0 2px 8px rgba(62, 48, 45, 0.12);
   cursor: pointer;
-
-  & + & {
-    border-left: 1px solid var(--color-border);
-  }
 
   &:hover {
     background: var(--color-primary-soft);
@@ -263,8 +258,8 @@ export default function FarmMap() {
           maxScale={2}
           limitToBounds={false}
           disablePadding
-          wheel={{ step: 0.005 }}
-          pinch={{ step: 3 }}
+          wheel={{ step: 0.0025 }}
+          pinch={{ step: 2 }}
           panning={{ velocityDisabled: true }}
           onInit={syncGrid}
           onTransform={syncGrid}
@@ -298,14 +293,14 @@ export default function FarmMap() {
         <MapControlButton
           type="button"
           aria-label="Zoom in"
-          onClick={() => transformRef.current?.zoomIn(0.2)}
+          onClick={() => transformRef.current?.zoomIn(0.1)}
         >
           <FaPlus aria-hidden />
         </MapControlButton>
         <MapControlButton
           type="button"
           aria-label="Zoom out"
-          onClick={() => transformRef.current?.zoomOut(0.2)}
+          onClick={() => transformRef.current?.zoomOut(0.1)}
         >
           <FaMinus aria-hidden />
         </MapControlButton>
