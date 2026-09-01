@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
-import { FaEraser, FaPen, FaTrashCan } from "react-icons/fa6";
+import { FaEraser, FaPen } from "react-icons/fa6";
 import { MdUndo, MdRedo } from "react-icons/md";
 
 const filter = new Filter();
@@ -19,12 +19,13 @@ const BRUSH_SIZES = [
 const Wrapper = styled.div`
   padding: var(--space-3);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
+  grid-template-columns: minmax(0, 20rem) minmax(15rem, 18rem);
+  justify-content: center;
   align-items: start;
   gap: var(--space-3);
 
   @media (max-width: 42rem) {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 20rem);
   }
 `;
 
@@ -77,30 +78,35 @@ const ColorControls = styled.div`
 
 const ColorPicker = styled.div`
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
   gap: var(--space-2);
   width: 100%;
 `;
 
+const ColorFields = styled.div`
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  border-radius: var(--radius-small);
+  box-shadow: 0 0 0 1px var(--color-border);
+  overflow: hidden;
+`;
+
 const ColorPreview = styled.div<{ $color: string }>`
   min-width: 0;
-  height: 7rem;
-  border-radius: var(--radius-small);
+  width: 100%;
+  aspect-ratio: 1;
   background: ${(p) => p.$color};
 `;
 
 const ColorField = styled.button<{ $hue: number }>`
   position: relative;
   width: 100%;
-  height: 7rem;
+  height: 100%;
   padding: 0;
-  border-radius: var(--radius-small);
   border: 0;
   background:
     linear-gradient(to top, #000000, transparent),
     linear-gradient(to right, #ffffff, transparent),
     hsl(${(p) => p.$hue}, 100%, 50%);
-  box-shadow: 0 0 0 1px var(--color-border);
   cursor: crosshair;
   touch-action: none;
 `;
@@ -120,7 +126,6 @@ const ColorIndicator = styled.span<{ $color: string; $x: number; $y: number }>`
 `;
 
 const HueSlider = styled.input<{ $color: string }>`
-  grid-column: 1 / -1;
   width: 100%;
   height: 8px;
   margin: var(--space-1) 0;
@@ -529,53 +534,56 @@ export default function DrawingCanvas() {
           <ColorControls>
             <Label>Color</Label>
             <ColorPicker>
-              <ColorPreview $color={color} aria-hidden="true" />
-              <ColorField
-                ref={colorFieldRef}
-                type="button"
-                $hue={colorSelection.hue}
-                aria-label="Choose color saturation and brightness"
-                onPointerDown={(e) => {
-                  e.currentTarget.setPointerCapture(e.pointerId);
-                  isChoosingColor.current = true;
-                  chooseColor(e);
-                }}
-                onPointerMove={(e) => {
-                  if (isChoosingColor.current) chooseColor(e);
-                }}
-                onPointerUp={() => {
-                  isChoosingColor.current = false;
-                }}
-                onPointerCancel={() => {
-                  isChoosingColor.current = false;
-                }}
-                onKeyDown={(e) => {
-                  if (!e.key.startsWith("Arrow")) return;
-                  e.preventDefault();
-                  const saturation = Math.max(
-                    0,
-                    Math.min(
-                      100,
-                      colorSelection.saturation +
-                        (e.key === "ArrowRight" ? 5 : e.key === "ArrowLeft" ? -5 : 0),
-                    ),
-                  );
-                  const brightness = Math.max(
-                    0,
-                    Math.min(
-                      100,
-                      colorSelection.brightness + (e.key === "ArrowUp" ? 5 : e.key === "ArrowDown" ? -5 : 0),
-                    ),
-                  );
-                  updateColor(colorSelection.hue, saturation, brightness);
-                }}
-              >
-                <ColorIndicator
-                  $color={color}
-                  $x={colorSelection.saturation}
-                  $y={100 - colorSelection.brightness}
-                />
-              </ColorField>
+              <ColorFields>
+                <ColorPreview $color={color} aria-hidden="true" />
+                <ColorField
+                  ref={colorFieldRef}
+                  type="button"
+                  $hue={colorSelection.hue}
+                  aria-label="Choose color saturation and brightness"
+                  onPointerDown={(e) => {
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                    isChoosingColor.current = true;
+                    chooseColor(e);
+                  }}
+                  onPointerMove={(e) => {
+                    if (isChoosingColor.current) chooseColor(e);
+                  }}
+                  onPointerUp={() => {
+                    isChoosingColor.current = false;
+                  }}
+                  onPointerCancel={() => {
+                    isChoosingColor.current = false;
+                  }}
+                  onKeyDown={(e) => {
+                    if (!e.key.startsWith("Arrow")) return;
+                    e.preventDefault();
+                    const saturation = Math.max(
+                      0,
+                      Math.min(
+                        100,
+                        colorSelection.saturation +
+                          (e.key === "ArrowRight" ? 5 : e.key === "ArrowLeft" ? -5 : 0),
+                      ),
+                    );
+                    const brightness = Math.max(
+                      0,
+                      Math.min(
+                        100,
+                        colorSelection.brightness +
+                          (e.key === "ArrowUp" ? 5 : e.key === "ArrowDown" ? -5 : 0),
+                      ),
+                    );
+                    updateColor(colorSelection.hue, saturation, brightness);
+                  }}
+                >
+                  <ColorIndicator
+                    $color={color}
+                    $x={colorSelection.saturation}
+                    $y={100 - colorSelection.brightness}
+                  />
+                </ColorField>
+              </ColorFields>
               <HueSlider
                 type="range"
                 min="0"
@@ -632,13 +640,12 @@ export default function DrawingCanvas() {
             </IconButton>
           </ToolRow>
 
-          <ToolRow>
-            <IconButton aria-label="Clear canvas" title="Clear canvas" onClick={clearCanvas}>
-              <FaTrashCan size={14} />
-            </IconButton>
-          </ToolRow>
-
-          <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
+          <StepButtons>
+            <ActionButton $variant="secondary" onClick={clearCanvas}>
+              Clear
+            </ActionButton>
+            <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
+          </StepButtons>
         </Utilities>
       )}
 
