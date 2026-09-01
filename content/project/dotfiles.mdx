@@ -1,8 +1,8 @@
 ---
-title: "My Dotfiles"
+title: "Dotfiles 👀"
 order: 5
 date: "2025-11-04"
-summary: "Cross-shell Bash, Zsh, and PowerShell profiles with shortcuts for navigation, Git, worktrees, linting, and automatic Node version switching."
+summary: "My holy grail of bash & zsh aliases/scripts for navigation, Git, and worktrees."
 thumbnail: "dotfiles.webp"
 thumbnailAlt: "GitHub preview card for Angela's dotfiles repository"
 published: true
@@ -13,19 +13,19 @@ tags:
   - developer-tooling
 ---
 
-[GitHub repository](https://github.com/BarSoapAng/dotfiles)
+[GitHub Link!](https://github.com/BarSoapAng/dotfiles)
 
-## What I built
+## Quality of Life
 
-These dotfiles keep my most-used terminal workflows consistent across Bash, Zsh, and PowerShell. Each shell sources a small shared setup from `~/.dotfiles`, so a new environment can pick up the same navigation, Git, linting, and repository shortcuts without replacing the entire system profile.
+These dotfiles probably singlehandedly saved me hours of dev time. It keeps my most-used terminal workflows consistent across Bash, Zsh, and PowerShell (although I never use POSH LOL). Each shell sources a small shared setup from `~/.dotfiles`, so a new environment can pick up the same navigation, Git, linting, and repository shortcuts without replacing the entire system profile.
 
-The collection also watches each repository's `.nvmrc` and switches Node versions when needed, cutting out a tiny piece of setup friction every time I move between projects.
+The collection also watches each repository's `.nvmrc` and switches Node versions when needed, super useful for switching between projects. This script was actually developed for HTN's insanely messy node versioning haha
 
-## Technical highlights
+## The little things doing the work
 
-- dedicated Bash, Zsh, and PowerShell profiles
-- matching aliases for navigation, Git, linting, and dotfile updates
-- automatic `.nvmrc` detection and Node version switching
-- default-branch-aware checkout and rebase helpers
-- centralized worktree creation and navigation commands
-- cross-platform file-opening behavior for macOS, Linux, and Windows
+- one setup shared across dedicated Bash, Zsh, and PowerShell profiles
+- the same aliases for navigation, Git, linting, and dotfile updates everywhere
+- automatic `.nvmrc` detection and Node switching without me thinking about it
+- checkout and rebase helpers smart enough to find the default branch
+- worktree commands for creating and jumping between my many parallel realities
+- file-opening behaviour that survives macOS, Linux, and Windows

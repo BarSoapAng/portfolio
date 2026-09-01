@@ -2,7 +2,7 @@
 title: "League Purity Test"
 order: 1
 date: "2025-08-30"
-summary: "A viral 100-question League of Legends quiz that reached 50K+ users in two weeks and handled 27K+ peak daily requests."
+summary: "100 questions to find out how cooked you are by League. Somehow 50K+ people took it in two weeks."
 thumbnail: "league-purity-test.webp"
 thumbnailAlt: "League Purity Test showing a checklist of League of Legends experiences"
 published: true
@@ -13,19 +13,21 @@ tags:
   - analytics
 ---
 
-[Take the test](https://lolpuritytest.com) · [GitHub repository](https://github.com/BarSoapAng/LOLPurityTest)
+[Take the test!](https://lolpuritytest.com) · [GitHub Link!](https://github.com/BarSoapAng/LOLPurityTest)
 
-## What I built
+## 100 questions, zero dignity
 
-League Purity Test is a 100-question web quiz for comparing the delightfully questionable milestones people collect while playing League of Legends. Each checked experience lowers the player's purity score, which can then be shared through a score-specific URL or posted directly to X.
+There is a purity test for basically everything, so obviously League of Legends needed one too.
 
-The quiz reached more than 50,000 users in its first two weeks with zero downtime. At its peak it served over 27,000 requests in one day while keeping average latency below 50 milliseconds.
+I collected 100 increasingly questionable League experiences into one checklist. Every box you tick drags your purity score a little lower, and the final damage can be shared through its own results URL or posted straight to X.
 
-## Technical highlights
+The funniest part is that people actually showed up. More than 50,000 people took the test in its first two weeks! At peak, it handled 27,000+ requests in a day with zero downtime and average latency under 50ms. Not bad for a website dedicated to exposing League players LOL
 
-- responsive React and Vite single-page experience
-- score calculation from 100 checkbox responses
-- shareable results persisted in URL query parameters
+## Under the hood
+
+- a responsive React + Vite single-page app
+- score calculation across all 100 tiny confessions
+- shareable results saved in URL query parameters
 - custom Google Analytics events for submissions and shares
-- search metadata, a sitemap, and robots configuration
-- Cloudflare deployment built for low-latency traffic spikes
+- search metadata, a sitemap, and robots configuration so people could actually find it
+- Cloudflare deployment that stayed fast through the traffic spike

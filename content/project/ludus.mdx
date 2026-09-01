@@ -2,7 +2,7 @@
 title: "Ludus"
 order: 3
 date: "2026-02-05"
-summary: "An AI game-building workspace that turns prompts into Expo projects through planning and coding agents, sandboxed execution, and live previews."
+summary: "I made an AI build games for my Bloom take-home. Give Ludus a prompt and it plans, codes, runs, and previews an Expo project :P"
 thumbnail: "ludus.webp"
 thumbnailAlt: "Ludus game-building prompt interface with a pink flower mark"
 published: true
@@ -14,19 +14,19 @@ tags:
   - expo
 ---
 
-[Try Ludus](https://ludus-game.vercel.app) · [Watch the demo](https://youtu.be/tKhqD2ZhX5c)
+[Try Ludus!](https://ludus-game.vercel.app) · [Watch the demo!](https://youtu.be/tKhqD2ZhX5c)
 
-## What I built
+## An AI that builds the game for you
 
-Ludus is an AI game-building workspace created as a Bloom take-home project. A user describes a game, a planning agent turns that request into an implementation path, and a coding agent works against an Expo project with tools for reading, editing, creating, deleting, and running files.
+I built Ludus for a Bloom take-home and took the idea of an AI game builder very literally. You describe the game living in your head, one agent turns that into a plan, and another agent gets its hands dirty inside a real Expo project.
 
-The interface keeps the process visible through streamed chat, persistent threads, a browsable code tree, Monaco previews, and follow-up prompt suggestions. Generated projects run in isolated sandboxes and can be opened as live previews.
+The coding agent can read, edit, create, delete, and run files, but the fun part is that you can actually watch it happen. The chat streams in, threads stick around, the code tree is fully browsable, and Monaco shows you what changed. Then the whole generated game runs in its own sandbox as a live preview. Kinda magical!!
 
-## Technical highlights
+## Making the magic real
 
-- Next.js and TypeScript interface backed by Convex threads and workflows
-- separate planning and game-generation agents with streamed output
-- bounded filesystem and command tools for agentic code generation
-- isolated sandboxes and per-thread project state
-- Monaco Editor and React Complex Tree code exploration
-- AI-generated next-step recommendations for iterative prompting
+- Next.js + TypeScript on the front, with Convex handling threads and workflows
+- separate planning and game-building agents with streamed output
+- bounded filesystem and command tools so the agent can code without running wild
+- one isolated sandbox and project state per thread
+- Monaco Editor + React Complex Tree for poking through the generated code
+- AI-generated follow-up ideas when you do not know what to build next
