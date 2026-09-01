@@ -2,8 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ContentImage from "@components/ui/ContentImage";
-import { ContentHero, EntryTags } from "@components/ui/ContentStyles";
+import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
+import TagLabel from "@components/ui/TagLabel";
+import { formatLongDate } from "@lib/format-date";
 import { buildProjectMetadata, getAllProjectSlugs, getProjectBySlug } from "@lib/project";
+import styles from "./ProjectPost.module.css";
 
 type ProjectRouteProps = {
   params: Promise<{
@@ -41,23 +44,33 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
   return (
     <main>
       <p>
-        <Link href="/home#projects">← Back to projects</Link>{" "}
+        <Link href="/home#projects">&larr; Back to projects</Link>
       </p>
 
-      <article>
-        <header>
-          <p>
-            <EntryTags>{project.tags.join(" · ")}</EntryTags>
-          </p>
+      <article className={styles.article}>
+        <header className={styles.header}>
           <h1>{project.title}</h1>
-          <p>{project.summary}</p>
+          <p className={styles.summary}>{project.summary}</p>
         </header>
 
         <ContentHero>
           <ContentImage alt={project.thumbnailAlt} src={project.thumbnail} variant="hero" />
         </ContentHero>
 
-        <ProjectContent />
+        <div className={styles.meta}>
+          <BlogDate as="time" dateTime={project.date}>
+            {formatLongDate(project.date)}
+          </BlogDate>
+          <div aria-label="Project technologies" className={styles.tags}>
+            {project.tags.map((tag) => (
+              <TagLabel key={tag} label={tag} />
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.content}>
+          <ProjectContent />
+        </div>
       </article>
     </main>
   );
