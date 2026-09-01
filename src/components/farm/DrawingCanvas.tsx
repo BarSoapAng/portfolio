@@ -89,7 +89,7 @@ const StyledCanvas = styled.canvas`
   display: block;
   width: 100%;
   height: auto;
-  background: transparent;
+  background: #ffffff;
 `;
 
 const Utilities = styled.div`
@@ -106,7 +106,12 @@ const ToolRow = styled.div`
 `;
 
 const HistoryControls = styled(ToolRow)`
-  justify-content: flex-end;
+  justify-content: space-between;
+`;
+
+const UndoRedoControls = styled.div`
+  display: flex;
+  gap: var(--space-2);
 `;
 
 const Label = styled.span`
@@ -627,13 +632,15 @@ export default function DrawingCanvas() {
             style={step === 2 ? { cursor: "default" } : undefined}
           />
         </CanvasWrapper>
-        <HistoryControls data-button-group>
-          <IconButton aria-label="Undo" title="Undo" onClick={undo}>
-            <FaArrowRotateLeft size={14} />
-          </IconButton>
-          <IconButton aria-label="Redo" title="Redo" onClick={redo}>
-            <FaArrowRotateRight size={14} />
-          </IconButton>
+        <HistoryControls>
+          <UndoRedoControls data-button-group>
+            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
+              <FaArrowRotateLeft size={14} />
+            </IconButton>
+            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
+              <FaArrowRotateRight size={14} />
+            </IconButton>
+          </UndoRedoControls>
           <IconButton aria-label="Clear" title="Clear" onClick={handleClear}>
             <FaTrashCan size={14} />
           </IconButton>
