@@ -304,8 +304,8 @@ const ActionButton = styled.button<{ $primary?: boolean }>`
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
 
-  &:hover,
-  &:active {
+  &:not(:disabled):hover,
+  &:not(:disabled):active {
     background: ${(p) => (p.$primary ? "var(--color-primary-hover)" : "transparent")};
     color: ${(p) => (p.$primary ? "var(--color-on-primary)" : "var(--color-primary-hover)")};
   }
