@@ -5,33 +5,15 @@ import styled from "styled-components";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
+import { FaEraser, FaTrashCan } from "react-icons/fa6";
 import { MdUndo, MdRedo } from "react-icons/md";
 
 const filter = new Filter();
 
-const COLORS = [
-  "#000000",
-  "#ffffff",
-  "#a94065",
-  "#69745a",
-  "#8a5942",
-  "#f9dce5",
-  "#e5e9de",
-  "#3e302d",
-  "#e74c3c",
-  "#e67e22",
-  "#f1c40f",
-  "#2ecc71",
-  "#3498db",
-  "#9b59b6",
-  "#1abc9c",
-  "#95a5a6",
-];
-
 const BRUSH_SIZES = [
-  { label: "S", size: 2 },
-  { label: "M", size: 6 },
-  { label: "L", size: 12 },
+  { label: "Small", size: 2 },
+  { label: "Medium", size: 6 },
+  { label: "Large", size: 12 },
 ];
 
 const Wrapper = styled.div`
@@ -94,23 +76,37 @@ const Label = styled.span`
   font-weight: var(--font-weight-medium);
 `;
 
-const ColorSwatch = styled.button<{ $c: string; $active: boolean }>`
-  width: 24px;
-  height: 24px;
-  border-radius: var(--radius-circle);
-  border: 2px solid
-    ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-border)")};
-  background: ${(p) => p.$c};
-  cursor: pointer;
+const ColorPicker = styled.input`
+  width: 28px;
+  height: 28px;
   padding: 0;
-  outline-offset: 2px;
-  box-shadow: ${(p) => (p.$active ? "0 0 0 2px var(--color-primary-soft)" : "none")};
+  border-radius: var(--radius-circle);
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-circle);
+  }
+
+  &::-moz-color-swatch {
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-circle);
+  }
 `;
 
 const SizeButton = styled.button<{ $active: boolean }>`
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  padding: var(--space-1) var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border-radius: var(--radius-small);
   border: 1px solid
     ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-border)")};
@@ -119,28 +115,24 @@ const SizeButton = styled.button<{ $active: boolean }>`
   cursor: pointer;
 `;
 
-const ToolButton = styled.button<{ $active?: boolean }>`
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-small);
-  border: 1px solid
-    ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-border)")};
-  background: ${(p) => (p.$active ? "var(--color-primary-soft)" : "var(--color-surface)")};
-  color: var(--color-text);
-  cursor: pointer;
+const BrushSizeCircle = styled.span<{ $size: number }>`
+  width: ${(p) => Math.max(p.$size, 4)}px;
+  height: ${(p) => Math.max(p.$size, 4)}px;
+  border-radius: var(--radius-circle);
+  background: currentColor;
 `;
 
-const IconButton = styled.button`
+const IconButton = styled.button<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
   border-radius: var(--radius-small);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text-muted);
+  border: 1px solid
+    ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-border)")};
+  background: ${(p) => (p.$active ? "var(--color-primary-soft)" : "var(--color-surface)")};
+  color: ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-text-muted)")};
   cursor: pointer;
   padding: 0;
 
@@ -413,17 +405,16 @@ export default function DrawingCanvas() {
         <Utilities>
           <ToolRow>
             <Label>Color</Label>
-            {COLORS.map((c) => (
-              <ColorSwatch
-                key={c}
-                $c={c}
-                $active={!eraser && color === c}
-                onClick={() => {
-                  setColor(c);
-                  setEraser(false);
-                }}
-              />
-            ))}
+            <ColorPicker
+              type="color"
+              aria-label="Choose brush color"
+              value={color}
+              onClick={() => setEraser(false)}
+              onChange={(e) => {
+                setColor(e.target.value);
+                setEraser(false);
+              }}
+            />
           </ToolRow>
 
           <ToolRow>
@@ -432,20 +423,32 @@ export default function DrawingCanvas() {
               <SizeButton
                 key={b.size}
                 $active={brushSize === b.size}
-                onClick={() => setBrushSize(b.size)}
+                aria-label={`${b.label} brush`}
+                title={`${b.label} brush`}
+                onClick={() => {
+                  setBrushSize(b.size);
+                  setEraser(false);
+                }}
               >
-                {b.label}
+                <BrushSizeCircle $size={b.size} />
               </SizeButton>
             ))}
-            <ToolButton $active={eraser} onClick={() => setEraser(!eraser)}>
-              Eraser
-            </ToolButton>
-            <ToolButton onClick={clearCanvas}>Clear</ToolButton>
+            <IconButton
+              $active={eraser}
+              aria-label="Eraser"
+              title="Eraser"
+              onClick={() => setEraser(!eraser)}
+            >
+              <FaEraser size={14} />
+            </IconButton>
+            <IconButton aria-label="Clear canvas" title="Clear canvas" onClick={clearCanvas}>
+              <FaTrashCan size={14} />
+            </IconButton>
             <Divider />
-            <IconButton onClick={undo} title="Undo">
+            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
               <MdUndo size={16} />
             </IconButton>
-            <IconButton onClick={redo} title="Redo">
+            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
               <MdRedo size={16} />
             </IconButton>
           </ToolRow>
