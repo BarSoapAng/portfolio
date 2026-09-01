@@ -158,12 +158,9 @@ const PolaroidPosition = styled(motion.div)`
 const Polaroid = styled(motion.button)`
   width: 100%;
   padding: var(--space-3) var(--space-3) var(--space-16);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-text-muted);
   border-radius: var(--radius-small);
   background: var(--color-surface);
-  box-shadow:
-    0 0.75rem 1.75rem color-mix(in srgb, var(--color-wood) 18%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--color-surface) 70%, transparent);
   color: inherit;
   cursor: grab;
   touch-action: pan-y;
