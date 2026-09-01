@@ -182,7 +182,7 @@ const PolaroidPhoto = styled.div`
 
   img {
     aspect-ratio: 1;
-    border: 0;
+    border: 1px solid var(--color-primary-hover);
     border-radius: 0;
     box-shadow: none;
   }
