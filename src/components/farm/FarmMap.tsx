@@ -181,6 +181,7 @@ export default function FarmMap() {
   const [tooltip, setTooltip] = useState<{ name: string; x: number; y: number } | null>(null);
   const [contextMenu, setContextMenu] = useState<{ drawing: Drawing; x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const transformRef = useRef<ReactZoomPanPinchRef>(null);
   const visitorIdRef = useRef("");
 
   useEffect(() => {
@@ -248,16 +249,15 @@ export default function FarmMap() {
     containerRef.current.style.setProperty("--grid-position-y", `${state.positionY}px`);
   }, []);
 
-  if (!loaded) return null;
-
   const worldSize = getWorldSize(drawings.length);
 
   return (
     <MapContainer ref={containerRef}>
-      {drawings.length === 0 ? (
+      {!loaded ? null : drawings.length === 0 ? (
         <EmptyMessage>No drawings yet — be the first!</EmptyMessage>
       ) : (
         <TransformWrapper
+          ref={transformRef}
           initialScale={0.8}
           minScale={0.3}
           maxScale={2}
@@ -269,49 +269,54 @@ export default function FarmMap() {
           onInit={syncGrid}
           onTransform={syncGrid}
         >
-          {({ zoomIn, zoomOut, resetTransform }) => (
-            <>
-              <TransformComponent
-                wrapperStyle={{ width: "100%", height: "100%" }}
-                contentStyle={{ width: worldSize.width, height: worldSize.height }}
-              >
-                <WorldLayer style={{ width: worldSize.width, height: worldSize.height }}>
-                  {drawings.map((d, i) => {
-                    const pos = getPlotPosition(d.id, i, drawings.length);
-                    return (
-                      <Plot
-                        key={d.id}
-                        style={{ left: pos.x, top: pos.y }}
-                        onMouseEnter={(e) => handleMouseEnter(e, d.name)}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        onContextMenu={(e) => handleContextMenu(e, d)}
-                      >
-                        <PlotImage src={d.image_data} alt={d.name} />
-                      </Plot>
-                    );
-                  })}
-                </WorldLayer>
-              </TransformComponent>
-              <MapControls role="group" aria-label="Garden canvas controls">
-                <MapControlButton type="button" aria-label="Zoom in" onClick={() => zoomIn(0.2)}>
-                  <FaPlus aria-hidden />
-                </MapControlButton>
-                <MapControlButton type="button" aria-label="Zoom out" onClick={() => zoomOut(0.2)}>
-                  <FaMinus aria-hidden />
-                </MapControlButton>
-                <MapControlButton
-                  type="button"
-                  aria-label="Reset zoom and pan"
-                  onClick={() => resetTransform()}
-                >
-                  <FaRotateLeft aria-hidden />
-                </MapControlButton>
-              </MapControls>
-            </>
-          )}
+          <TransformComponent
+            wrapperStyle={{ width: "100%", height: "100%" }}
+            contentStyle={{ width: worldSize.width, height: worldSize.height }}
+          >
+            <WorldLayer style={{ width: worldSize.width, height: worldSize.height }}>
+              {drawings.map((d, i) => {
+                const pos = getPlotPosition(d.id, i, drawings.length);
+                return (
+                  <Plot
+                    key={d.id}
+                    style={{ left: pos.x, top: pos.y }}
+                    onMouseEnter={(e) => handleMouseEnter(e, d.name)}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    onContextMenu={(e) => handleContextMenu(e, d)}
+                  >
+                    <PlotImage src={d.image_data} alt={d.name} />
+                  </Plot>
+                );
+              })}
+            </WorldLayer>
+          </TransformComponent>
         </TransformWrapper>
       )}
+
+      <MapControls role="group" aria-label="Garden canvas controls">
+        <MapControlButton
+          type="button"
+          aria-label="Zoom in"
+          onClick={() => transformRef.current?.zoomIn(0.2)}
+        >
+          <FaPlus aria-hidden />
+        </MapControlButton>
+        <MapControlButton
+          type="button"
+          aria-label="Zoom out"
+          onClick={() => transformRef.current?.zoomOut(0.2)}
+        >
+          <FaMinus aria-hidden />
+        </MapControlButton>
+        <MapControlButton
+          type="button"
+          aria-label="Reset zoom and pan"
+          onClick={() => transformRef.current?.resetTransform()}
+        >
+          <FaRotateLeft aria-hidden />
+        </MapControlButton>
+      </MapControls>
 
       {tooltip && (
         <Tooltip style={{ left: tooltip.x + 10, top: tooltip.y }}>
