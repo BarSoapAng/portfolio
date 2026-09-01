@@ -24,7 +24,7 @@ export const SectionDivider = styled(Image).attrs({ draggable: false })<{
 
   & + * {
     margin-block-start: ${({ $roomy }) =>
-      $roomy ? "var(--space-16)" : "56px"};
+      $roomy ? "36px" : "56px"};
   }
 `;
 
