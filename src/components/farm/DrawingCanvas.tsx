@@ -95,6 +95,7 @@ const StyledCanvas = styled.canvas`
 const Utilities = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   gap: var(--space-3);
 `;
 
@@ -305,6 +306,10 @@ const StepButtons = styled.div`
   display: flex;
   gap: var(--space-2);
   margin-top: var(--space-2);
+`;
+
+const DrawingActions = styled(StepButtons)`
+  margin-top: auto;
 `;
 
 const Message = styled.p<{ $error?: boolean }>`
@@ -766,9 +771,9 @@ export default function DrawingCanvas() {
             </IconButton>
           </ToolRow>
 
-          <StepButtons data-button-group>
+          <DrawingActions data-button-group>
             <ActionButton $primary onClick={() => setStep(2)}>Next</ActionButton>
-          </StepButtons>
+          </DrawingActions>
         </Utilities>
       )}
 
