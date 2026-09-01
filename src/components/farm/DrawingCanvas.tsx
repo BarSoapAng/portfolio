@@ -70,28 +70,33 @@ const Label = styled.span`
   font-weight: var(--font-weight-medium);
 `;
 
-const ColorPicker = styled.input`
-  width: 28px;
-  height: 28px;
+const ColorWheel = styled.button`
+  position: relative;
+  width: 7rem;
+  aspect-ratio: 1;
   padding: 0;
   border-radius: var(--radius-circle);
   border: 0;
-  background: none;
-  cursor: pointer;
+  background:
+    radial-gradient(circle, #000000 0%, transparent 70%),
+    conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+  box-shadow: 0 0 0 1px var(--color-border);
+  cursor: crosshair;
+  touch-action: none;
+`;
 
-  &::-webkit-color-swatch-wrapper {
-    padding: 0;
-  }
-
-  &::-webkit-color-swatch {
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-circle);
-  }
-
-  &::-moz-color-swatch {
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-circle);
-  }
+const ColorIndicator = styled.span<{ $color: string; $x: number; $y: number }>`
+  position: absolute;
+  left: ${(p) => p.$x}%;
+  top: ${(p) => p.$y}%;
+  width: 12px;
+  height: 12px;
+  translate: -50% -50%;
+  border: 2px solid #ffffff;
+  border-radius: var(--radius-circle);
+  background: ${(p) => p.$color};
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 `;
 
 const SizeButton = styled.button<{ $active: boolean }>`
@@ -209,8 +214,12 @@ export default function DrawingCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const rectRef = useRef<DOMRect | null>(null);
+  const pixelRatioRef = useRef(1);
   const isDrawing = useRef(false);
+  const colorWheelRef = useRef<HTMLButtonElement>(null);
+  const isChoosingColor = useRef(false);
   const [color, setColor] = useState("#000000");
+  const [colorPosition, setColorPosition] = useState({ x: 50, y: 50 });
   const [brushSize, setBrushSize] = useState(6);
   const [eraser, setEraser] = useState(false);
   const [name, setName] = useState("");
@@ -227,8 +236,11 @@ export default function DrawingCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctxRef.current = ctx;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
   }, []);
 
   const saveSnapshot = useCallback(() => {
@@ -258,16 +270,29 @@ export default function DrawingCanvas() {
   }, []);
 
   useEffect(() => {
-    clearCanvas();
-  }, [clearCanvas]);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const pixelRatio = window.devicePixelRatio || 1;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    pixelRatioRef.current = pixelRatio;
+    canvas.width = Math.round(rect.width * pixelRatio);
+    canvas.height = Math.round(rect.height * pixelRatio);
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    ctxRef.current = ctx;
+  }, []);
 
   const getPos = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     const rect = rectRef.current!;
     const canvas = canvasRef.current!;
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
+    const scaleX = canvas.width / pixelRatioRef.current / rect.width;
+    const scaleY = canvas.height / pixelRatioRef.current / rect.height;
     if ("touches" in e) {
       const touch = e.touches[0];
       return {
@@ -315,6 +340,31 @@ export default function DrawingCanvas() {
 
   const stopDrawing = () => {
     isDrawing.current = false;
+  };
+
+  const chooseColor = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const wheel = colorWheelRef.current;
+    if (!wheel) return;
+    const rect = wheel.getBoundingClientRect();
+    const radius = rect.width / 2;
+    const offsetX = e.clientX - rect.left - radius;
+    const offsetY = e.clientY - rect.top - radius;
+    const distance = Math.hypot(offsetX, offsetY);
+    const clampedDistance = Math.min(distance, radius);
+    const scale = distance === 0 ? 0 : clampedDistance / distance;
+    const x = offsetX * scale;
+    const y = offsetY * scale;
+    const hue = (Math.atan2(y, x) * 180) / Math.PI + 90;
+    const saturation = (clampedDistance / radius) * 100;
+
+    setColor(
+      `hsl(${Math.round((hue + 360) % 360)}, ${Math.round(saturation)}%, ${Math.round(saturation / 2)}%)`,
+    );
+    setColorPosition({
+      x: 50 + (x / radius) * 50,
+      y: 50 + (y / radius) * 50,
+    });
+    setEraser(false);
   };
 
   const handleSave = async () => {
@@ -408,16 +458,27 @@ export default function DrawingCanvas() {
 
           <ToolRow>
             <Label>Color</Label>
-            <ColorPicker
-              type="color"
+            <ColorWheel
+              ref={colorWheelRef}
+              type="button"
               aria-label="Choose brush color"
-              value={color}
-              onClick={() => setEraser(false)}
-              onChange={(e) => {
-                setColor(e.target.value);
-                setEraser(false);
+              onPointerDown={(e) => {
+                e.currentTarget.setPointerCapture(e.pointerId);
+                isChoosingColor.current = true;
+                chooseColor(e);
               }}
-            />
+              onPointerMove={(e) => {
+                if (isChoosingColor.current) chooseColor(e);
+              }}
+              onPointerUp={() => {
+                isChoosingColor.current = false;
+              }}
+              onPointerCancel={() => {
+                isChoosingColor.current = false;
+              }}
+            >
+              <ColorIndicator $color={color} $x={colorPosition.x} $y={colorPosition.y} />
+            </ColorWheel>
           </ToolRow>
 
           <ToolRow>
