@@ -7,6 +7,7 @@ import {
   TransformComponent,
   type ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
+import { FaMinus, FaPlus, FaRotateLeft } from "react-icons/fa6";
 import { getVisitorId } from "@lib/visitor-id";
 
 interface Drawing {
@@ -132,6 +133,38 @@ const PopoverButton = styled.button`
   }
 `;
 
+const MapControls = styled.div`
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 50;
+  display: flex;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 8px rgba(62, 48, 45, 0.12);
+`;
+
+const MapControlButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  & + & {
+    border-left: 1px solid var(--color-border);
+  }
+
+  &:hover {
+    background: var(--color-primary-soft);
+  }
+`;
+
 const EmptyMessage = styled.div`
   display: flex;
   align-items: center;
@@ -229,34 +262,54 @@ export default function FarmMap() {
           minScale={0.3}
           maxScale={2}
           limitToBounds={false}
+          disablePadding
           wheel={{ step: 0.005 }}
           pinch={{ step: 3 }}
           panning={{ velocityDisabled: true }}
           onInit={syncGrid}
           onTransform={syncGrid}
         >
-          <TransformComponent
-            wrapperStyle={{ width: "100%", height: "100%" }}
-            contentStyle={{ width: worldSize.width, height: worldSize.height }}
-          >
-            <WorldLayer style={{ width: worldSize.width, height: worldSize.height }}>
-              {drawings.map((d, i) => {
-                const pos = getPlotPosition(d.id, i, drawings.length);
-                return (
-                  <Plot
-                    key={d.id}
-                    style={{ left: pos.x, top: pos.y }}
-                    onMouseEnter={(e) => handleMouseEnter(e, d.name)}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    onContextMenu={(e) => handleContextMenu(e, d)}
-                  >
-                    <PlotImage src={d.image_data} alt={d.name} />
-                  </Plot>
-                );
-              })}
-            </WorldLayer>
-          </TransformComponent>
+          {({ zoomIn, zoomOut, resetTransform }) => (
+            <>
+              <TransformComponent
+                wrapperStyle={{ width: "100%", height: "100%" }}
+                contentStyle={{ width: worldSize.width, height: worldSize.height }}
+              >
+                <WorldLayer style={{ width: worldSize.width, height: worldSize.height }}>
+                  {drawings.map((d, i) => {
+                    const pos = getPlotPosition(d.id, i, drawings.length);
+                    return (
+                      <Plot
+                        key={d.id}
+                        style={{ left: pos.x, top: pos.y }}
+                        onMouseEnter={(e) => handleMouseEnter(e, d.name)}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        onContextMenu={(e) => handleContextMenu(e, d)}
+                      >
+                        <PlotImage src={d.image_data} alt={d.name} />
+                      </Plot>
+                    );
+                  })}
+                </WorldLayer>
+              </TransformComponent>
+              <MapControls role="group" aria-label="Garden canvas controls">
+                <MapControlButton type="button" aria-label="Zoom in" onClick={() => zoomIn(0.2)}>
+                  <FaPlus aria-hidden />
+                </MapControlButton>
+                <MapControlButton type="button" aria-label="Zoom out" onClick={() => zoomOut(0.2)}>
+                  <FaMinus aria-hidden />
+                </MapControlButton>
+                <MapControlButton
+                  type="button"
+                  aria-label="Reset zoom and pan"
+                  onClick={() => resetTransform()}
+                >
+                  <FaRotateLeft aria-hidden />
+                </MapControlButton>
+              </MapControls>
+            </>
+          )}
         </TransformWrapper>
       )}
 
