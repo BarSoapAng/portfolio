@@ -358,7 +358,6 @@ export default function DrawingCanvas() {
   const [name, setName] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ text: string; error: boolean } | null>(null);
-  const [step, setStep] = useState<1 | 2>(1);
   const history = useRef<ImageData[]>([]);
   const redoStack = useRef<ImageData[]>([]);
 
@@ -625,7 +624,6 @@ export default function DrawingCanvas() {
 
       setMessage({ text: "Saved! 🌱", error: false });
       setName("");
-      setStep(1);
       clearCanvas();
     } catch (err: unknown) {
       setMessage({
@@ -645,14 +643,13 @@ export default function DrawingCanvas() {
             ref={canvasRef}
             width={300}
             height={300}
-            onMouseDown={step === 1 ? startDrawing : undefined}
-            onMouseMove={step === 1 ? draw : undefined}
-            onMouseUp={step === 1 ? stopDrawing : undefined}
-            onMouseLeave={step === 1 ? stopDrawing : undefined}
-            onTouchStart={step === 1 ? startDrawing : undefined}
-            onTouchMove={step === 1 ? draw : undefined}
-            onTouchEnd={step === 1 ? stopDrawing : undefined}
-            style={step === 2 ? { cursor: "default" } : undefined}
+            onMouseDown={startDrawing}
+            onMouseMove={draw}
+            onMouseUp={stopDrawing}
+            onMouseLeave={stopDrawing}
+            onTouchStart={startDrawing}
+            onTouchMove={draw}
+            onTouchEnd={stopDrawing}
           />
         </CanvasWrapper>
         <HistoryControls>
@@ -670,8 +667,7 @@ export default function DrawingCanvas() {
         </HistoryControls>
       </CanvasColumn>
 
-      {step === 1 && (
-        <Utilities>
+      <Utilities>
           <ColorControls>
             <Label>Color</Label>
             <ColorPicker>
@@ -789,34 +785,22 @@ export default function DrawingCanvas() {
             </IconButton>
           </ToolRow>
 
-          <DrawingActions data-button-group>
-            <ActionButton $primary onClick={() => setStep(2)}>Next</ActionButton>
-          </DrawingActions>
-        </Utilities>
-      )}
+        <Input
+          type="text"
+          maxLength={40}
+          placeholder="Name your creation (optional)"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      {step === 2 && (
-        <Utilities>
-          <Input
-            type="text"
-            maxLength={40}
-            placeholder="Name your creation (optional)"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        {message && <Message $error={message.error}>{message.text}</Message>}
 
-          <StepButtons data-button-group>
-            <ActionButton onClick={() => setStep(1)}>
-              Back
-            </ActionButton>
-            <ActionButton disabled={saving} onClick={handleSave}>
-              {saving ? "Saving..." : "Plant it!"}
-            </ActionButton>
-          </StepButtons>
-
-          {message && <Message $error={message.error}>{message.text}</Message>}
-        </Utilities>
-      )}
+        <DrawingActions data-button-group>
+          <ActionButton $primary disabled={saving} onClick={handleSave}>
+            {saving ? "Saving..." : "Plant it!"}
+          </ActionButton>
+        </DrawingActions>
+      </Utilities>
     </Wrapper>
   );
 }
