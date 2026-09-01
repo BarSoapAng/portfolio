@@ -2,7 +2,11 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import styled from "styled-components";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+  TransformWrapper,
+  TransformComponent,
+  type ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
 import { getVisitorId } from "@lib/visitor-id";
 
 interface Drawing {
@@ -46,9 +50,14 @@ const MapContainer = styled.div`
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle, var(--color-border) 1px, transparent 1px) 0 0 / 24px 24px,
-    var(--color-background);
+  background-color: var(--color-background);
+  background-image: radial-gradient(
+    circle,
+    var(--color-border) var(--grid-dot-size, 0.8px),
+    transparent var(--grid-dot-size, 0.8px)
+  );
+  background-position: var(--grid-position-x, 0) var(--grid-position-y, 0);
+  background-size: var(--grid-size, 19.2px) var(--grid-size, 19.2px);
   cursor: grab;
   z-index: 1;
 
@@ -123,30 +132,6 @@ const PopoverButton = styled.button`
   }
 `;
 
-const Header = styled.div`
-  position: absolute;
-  top: var(--space-6);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
-  text-align: center;
-  pointer-events: none;
-`;
-
-const Title = styled.h1`
-  font-family: var(--font-display);
-  font-size: var(--font-size-3xl);
-  color: var(--color-primary);
-  margin: 0;
-`;
-
-const Subtitle = styled.p`
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  margin: var(--space-1) 0 0;
-`;
-
 const EmptyMessage = styled.div`
   display: flex;
   align-items: center;
@@ -157,11 +142,7 @@ const EmptyMessage = styled.div`
   color: var(--color-text-muted);
 `;
 
-interface FarmMapProps {
-  showHeader?: boolean;
-}
-
-export default function FarmMap({ showHeader }: FarmMapProps) {
+export default function FarmMap() {
   const [drawings, setDrawings] = useState<Drawing[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [tooltip, setTooltip] = useState<{ name: string; x: number; y: number } | null>(null);
@@ -226,18 +207,20 @@ export default function FarmMap({ showHeader }: FarmMapProps) {
     setTooltip(null);
   }, []);
 
+  const syncGrid = useCallback(({ state }: ReactZoomPanPinchRef) => {
+    if (!containerRef.current) return;
+    containerRef.current.style.setProperty("--grid-dot-size", `${state.scale}px`);
+    containerRef.current.style.setProperty("--grid-size", `${24 * state.scale}px`);
+    containerRef.current.style.setProperty("--grid-position-x", `${state.positionX}px`);
+    containerRef.current.style.setProperty("--grid-position-y", `${state.positionY}px`);
+  }, []);
+
   if (!loaded) return null;
 
   const worldSize = getWorldSize(drawings.length);
 
   return (
     <MapContainer ref={containerRef}>
-      {showHeader && (
-        <Header>
-          <Title>Community Garden</Title>
-          <Subtitle>Hover to see names. Right-click your own to delete.</Subtitle>
-        </Header>
-      )}
       {drawings.length === 0 ? (
         <EmptyMessage>No drawings yet — be the first!</EmptyMessage>
       ) : (
@@ -246,7 +229,11 @@ export default function FarmMap({ showHeader }: FarmMapProps) {
           minScale={0.3}
           maxScale={2}
           limitToBounds={false}
+          wheel={{ step: 0.005 }}
+          pinch={{ step: 3 }}
           panning={{ velocityDisabled: true }}
+          onInit={syncGrid}
+          onTransform={syncGrid}
         >
           <TransformComponent
             wrapperStyle={{ width: "100%", height: "100%" }}

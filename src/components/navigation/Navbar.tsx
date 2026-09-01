@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import NavbarLink from "@components/ui/NavbarLink";
 
@@ -50,11 +51,36 @@ const SiteHeader = styled.header`
     color: var(--color-primary-hover);
     font-weight: var(--font-weight-bold);
   }
+
+  &[data-garden] {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  &[data-garden] > p {
+    display: none;
+  }
+
+  &[data-garden] nav ul {
+    flex-wrap: nowrap;
+  }
+
+  &[data-garden] nav a {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(62, 48, 45, 0.12);
+  }
 `;
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
-    <SiteHeader>
+    <SiteHeader data-garden={pathname === "/garden" || undefined}>
       <p>
         <Link href="/home">Angela&apos;s World</Link>
       </p>

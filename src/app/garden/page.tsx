@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function GardenPage() {
-  return <FarmMap showHeader />;
+  return <FarmMap />;
 }
