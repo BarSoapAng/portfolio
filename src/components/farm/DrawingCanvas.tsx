@@ -392,6 +392,7 @@ export default function DrawingCanvas() {
   const [tool, setTool] = useState<DrawingTool>("pen");
   const [name, setName] = useState("");
   const [saving, setSaving] = useState(false);
+  const [hasDrawing, setHasDrawing] = useState(false);
   const [message, setMessage] = useState<{ text: string; error: boolean } | null>(null);
   const history = useRef<ImageData[]>([]);
   const redoStack = useRef<ImageData[]>([]);
@@ -406,6 +407,7 @@ export default function DrawingCanvas() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.restore();
+    setHasDrawing(false);
   }, []);
 
   const saveSnapshot = useCallback(() => {
@@ -424,6 +426,7 @@ export default function DrawingCanvas() {
     if (!canvas || !ctx || history.current.length === 0) return;
     redoStack.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     ctx.putImageData(history.current.pop()!, 0, 0);
+    setHasDrawing(!isCanvasEmpty(canvas));
   }, []);
 
   const redo = useCallback(() => {
@@ -432,6 +435,7 @@ export default function DrawingCanvas() {
     if (!canvas || !ctx || redoStack.current.length === 0) return;
     history.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     ctx.putImageData(redoStack.current.pop()!, 0, 0);
+    setHasDrawing(!isCanvasEmpty(canvas));
   }, []);
 
   useEffect(() => {
@@ -510,6 +514,8 @@ export default function DrawingCanvas() {
 
   const stopDrawing = () => {
     isDrawing.current = false;
+    const canvas = canvasRef.current;
+    if (canvas) setHasDrawing(!isCanvasEmpty(canvas));
   };
 
   const fillArea = (logicalX: number, logicalY: number) => {
@@ -581,6 +587,7 @@ export default function DrawingCanvas() {
     }
 
     ctx.putImageData(imageData, 0, 0);
+    setHasDrawing(true);
   };
 
   const handleClear = () => {
@@ -623,10 +630,7 @@ export default function DrawingCanvas() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    if (isCanvasEmpty(canvas)) {
-      setMessage({ text: "Please draw something first.", error: true });
-      return;
-    }
+    if (isCanvasEmpty(canvas)) return;
 
     const trimmedName = name.trim().slice(0, 40);
     if (trimmedName && filter.isProfane(trimmedName)) {
@@ -844,7 +848,7 @@ export default function DrawingCanvas() {
         </StatusRow>
 
         <DrawingActions data-button-group>
-          <ActionButton $primary disabled={saving} onClick={handleSave}>
+          <ActionButton $primary disabled={saving || !hasDrawing} onClick={handleSave}>
             {saving ? "Saving..." : "Plant it!"}
           </ActionButton>
         </DrawingActions>
