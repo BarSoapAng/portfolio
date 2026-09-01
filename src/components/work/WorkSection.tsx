@@ -252,7 +252,7 @@ function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps)
   const visibleOpacity =
     total === 1 ? 0.7 : 0.3 + (index / (total - 1)) * 0.4;
   const opacity = useTransform(progress, (value) =>
-    value >= ((index + 1) / total) * 0.8 ? visibleOpacity : 0,
+    value >= ((index + 1) / total) * 0.95 ? visibleOpacity : 0,
   );
 
   return (
@@ -375,7 +375,7 @@ export default function WorkSection() {
     <EricssonWorkExperience key="ericsson" />,
     <WecWorkExperience key="wec" />,
   ];
-  const pawCounts = [6, 3, 7, 3, 6];
+  const pawCounts = useMemo(() => [6, 3, 7, 3, 6], []);
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -387,10 +387,10 @@ export default function WorkSection() {
     let cumulative = 0;
     for (const count of pawCounts) {
       cumulative += count;
-      thresholds.push((cumulative / totalPaws) * 0.8);
+      thresholds.push((cumulative / totalPaws) * 0.95);
     }
     return thresholds;
-  }, []);
+  }, [pawCounts, totalPaws]);
 
   useLayoutEffect(() => {
     if (shouldReduceMotion) return;

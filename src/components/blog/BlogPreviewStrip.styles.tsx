@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { mediumHeadingStyles } from "@components/ui/HeadingStyles";
 import { IndexSection } from "../../app/home/HomePage.styles";
 
 export const BlogStripSection = styled(IndexSection)`
@@ -34,7 +35,7 @@ export const BlogStripCard = styled.article`
 
   h3 {
     margin-block: var(--space-2) var(--space-1);
-    font-size: var(--font-size-md);
+    ${mediumHeadingStyles}
   }
 
   h3 a {
