@@ -5,6 +5,10 @@ import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
 import { largeHeadingStyles, mediumHeadingStyles } from "@components/ui/HeadingStyles";
 
+export const HomeMain = styled.main`
+  padding-block-start: 0;
+`;
+
 export const SectionDivider = styled(Image).attrs({ draggable: false })`
   display: block;
   width: 100%;
@@ -34,13 +38,13 @@ export const IndexSection = styled.section`
 `;
 
 export const ProjectsSection = styled(IndexSection)`
-  height: calc(100vh - 4.625rem);
+  height: calc(100vh - 74px);
   max-height: 900px;
   margin-block-start: 0;
 `;
 
 export const GardenSection = styled(IndexSection)`
-  height: calc(100vh - 4.625rem);
+  height: calc(100vh - 74px);
   max-height: 900px;
 
   > h2 {

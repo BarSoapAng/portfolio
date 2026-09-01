@@ -6,14 +6,19 @@ import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import WorkSection from "@components/work/WorkSection";
 import { getTopPosts } from "@lib/blog";
 import { getAllProjects } from "@lib/project";
-import { GardenSection, ProjectsSection, SectionDivider } from "./HomePage.styles";
+import {
+  GardenSection,
+  HomeMain,
+  ProjectsSection,
+  SectionDivider,
+} from "./HomePage.styles";
 
 function HomePage() {
   const projects = getAllProjects();
   const recentPosts = getTopPosts(3);
 
   return (
-    <main>
+    <HomeMain>
       <SelfDescriptionCard />
       <SectionDivider
         src={sectionDivider}
@@ -39,7 +44,7 @@ function HomePage() {
       />
 
       <BlogPreviewStrip posts={recentPosts} />
-    </main>
+    </HomeMain>
   );
 }
 
