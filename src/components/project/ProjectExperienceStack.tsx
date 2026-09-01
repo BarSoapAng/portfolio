@@ -158,7 +158,7 @@ const PolaroidPosition = styled(motion.div)`
 const Polaroid = styled(motion.button)`
   width: 100%;
   padding: var(--space-3) var(--space-3) var(--space-16);
-  border: 1px solid var(--color-text-muted);
+  border: 1px solid var(--color-primary-hover);
   border-radius: var(--radius-small);
   background: var(--color-surface);
   color: inherit;
