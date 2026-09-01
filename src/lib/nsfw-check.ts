@@ -1,6 +1,8 @@
 "use client";
 
-let modelPromise: Promise<any> | null = null;
+import type { NSFWJS } from "nsfwjs";
+
+let modelPromise: Promise<NSFWJS> | null = null;
 
 async function getModel() {
   if (!modelPromise) {
@@ -15,10 +17,10 @@ export async function isImageSafe(canvas: HTMLCanvasElement): Promise<boolean> {
   const model = await getModel();
   const predictions = await model.classify(canvas);
   const unsafe = predictions.find(
-    (p: any) =>
-      p.className === "Porn" ||
-      p.className === "Hentai" ||
-      p.className === "Sexy"
+    (prediction) =>
+      prediction.className === "Porn" ||
+      prediction.className === "Hentai" ||
+      prediction.className === "Sexy"
   );
   return !unsafe || unsafe.probability < 0.3;
 }

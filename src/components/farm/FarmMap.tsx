@@ -164,13 +164,13 @@ interface FarmMapProps {
 export default function FarmMap({ showHeader }: FarmMapProps) {
   const [drawings, setDrawings] = useState<Drawing[]>([]);
   const [loaded, setLoaded] = useState(false);
-  const [visitorId, setVisitorId] = useState("");
   const [tooltip, setTooltip] = useState<{ name: string; x: number; y: number } | null>(null);
   const [contextMenu, setContextMenu] = useState<{ drawing: Drawing; x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const visitorIdRef = useRef("");
 
   useEffect(() => {
-    setVisitorId(getVisitorId());
+    visitorIdRef.current = getVisitorId();
     fetch("/api/drawings")
       .then((res) => res.json())
       .then((data) => {
@@ -196,22 +196,22 @@ export default function FarmMap({ showHeader }: FarmMapProps) {
       await fetch(`/api/drawings/${drawing.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ visitor_id: visitorId }),
+        body: JSON.stringify({ visitor_id: visitorIdRef.current }),
       });
       setDrawings((prev) => prev.filter((d) => d.id !== drawing.id));
     } catch {
       // ignore
     }
-  }, [contextMenu, visitorId]);
+  }, [contextMenu]);
 
   const handleContextMenu = useCallback(
     (e: React.MouseEvent, drawing: Drawing) => {
-      if (drawing.visitor_id !== visitorId) return;
+      if (drawing.visitor_id !== visitorIdRef.current) return;
       e.preventDefault();
       e.stopPropagation();
       setContextMenu({ drawing, x: e.clientX, y: e.clientY });
     },
-    [visitorId],
+    [],
   );
 
   const handleMouseEnter = useCallback((e: React.MouseEvent, name: string) => {

@@ -39,9 +39,14 @@ const Wrapper = styled.div`
   border: 2px solid var(--color-border);
   border-radius: var(--radius-medium);
   padding: var(--space-3);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
+  align-items: start;
   gap: var(--space-3);
+
+  @media (max-width: 42rem) {
+    grid-template-columns: minmax(0, 1fr);
+  }
 `;
 
 const CanvasWrapper = styled.div`
@@ -58,6 +63,12 @@ const StyledCanvas = styled.canvas`
   display: block;
   width: 100%;
   height: auto;
+`;
+
+const Utilities = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 `;
 
 const ToolRow = styled.div`
@@ -368,8 +379,11 @@ export default function DrawingCanvas() {
       setIsPublished(false);
       setStep(1);
       clearCanvas();
-    } catch (err: any) {
-      setMessage({ text: err.message || "Something went wrong", error: true });
+    } catch (err: unknown) {
+      setMessage({
+        text: err instanceof Error ? err.message : "Something went wrong",
+        error: true,
+      });
     } finally {
       setSaving(false);
     }
@@ -394,7 +408,7 @@ export default function DrawingCanvas() {
       </CanvasWrapper>
 
       {step === 1 && (
-        <>
+        <Utilities>
           <ToolRow>
             <Label>Color</Label>
             {COLORS.map((c) => (
@@ -435,11 +449,11 @@ export default function DrawingCanvas() {
           </ToolRow>
 
           <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
-        </>
+        </Utilities>
       )}
 
       {step === 2 && (
-        <>
+        <Utilities>
           <Input
             type="text"
             maxLength={40}
@@ -467,7 +481,7 @@ export default function DrawingCanvas() {
           </StepButtons>
 
           {message && <Message $error={message.error}>{message.text}</Message>}
-        </>
+        </Utilities>
       )}
     </Wrapper>
   );
