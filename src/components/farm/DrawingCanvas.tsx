@@ -53,8 +53,10 @@ const CanvasWrapper = styled.div`
   justify-content: center;
   width: 100%;
   max-width: 20rem;
-  background: var(--color-surface-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
+  box-sizing: border-box;
   overflow: hidden;
 `;
 
@@ -71,6 +73,7 @@ const StyledCanvas = styled.canvas`
   display: block;
   width: 100%;
   height: auto;
+  background: transparent;
 `;
 
 const Utilities = styled.div`
