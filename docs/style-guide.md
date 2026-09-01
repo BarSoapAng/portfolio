@@ -110,6 +110,11 @@ spacing token.
 - Keep reading content within the existing `900px` page container.
 - Let the page canvas show through primary content containers and use spacing instead
   of borders or fills to separate them.
+- When adjacent sections or button groups need a stronger boundary, separate them with
+  a single divider line. Do not add a background or enclosing border around each group.
+- Prefer transparent, borderless buttons. Use spacing, text color, and visible focus or
+  selected states to communicate interaction; reserve fills and borders for controls
+  that require stronger emphasis.
 - Use pill shapes for tags and selected navigation states.
 - Use the dusty-rose grid only as a low-contrast page texture. Do not repeat it inside
   cards.
