@@ -41,8 +41,8 @@ export const HeroContent = styled.div`
 
 export const HighlightedGreeting = styled.span`
   background-image: linear-gradient(
-    transparent 55%,
-    var(--color-primary-soft) 55%
+    var(--color-primary-soft),
+    var(--color-primary-soft)
   );
   background-position: left;
   background-repeat: no-repeat;
