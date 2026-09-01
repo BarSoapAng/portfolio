@@ -46,6 +46,22 @@ const Wrapper = styled.div`
   @media (max-width: 42rem) {
     grid-template-columns: minmax(0, 20rem);
   }
+
+  [data-button-group] > button + button {
+    position: relative;
+  }
+
+  [data-button-group] > button + button::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: calc(-1 * var(--space-1) - 1px);
+    top: 50%;
+    width: 1px;
+    height: 18px;
+    translate: 0 -50%;
+    background: var(--color-border);
+    pointer-events: none;
+  }
 `;
 
 const CanvasWrapper = styled.div`
@@ -90,12 +106,7 @@ const ToolRow = styled.div`
 `;
 
 const HistoryControls = styled(ToolRow)`
-  justify-content: space-between;
-`;
-
-const UndoRedoControls = styled.div`
-  display: flex;
-  gap: var(--space-2);
+  justify-content: flex-end;
 `;
 
 const Label = styled.span`
@@ -205,11 +216,15 @@ const SizeButton = styled.button<{ $active: boolean }>`
   height: 28px;
   padding: 0;
   border-radius: var(--radius-small);
-  border: 1px solid
-    ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-border)")};
-  background: ${(p) => (p.$active ? "var(--color-primary-soft)" : "var(--color-surface)")};
-  color: var(--color-text);
+  border: 0;
+  background: transparent;
+  color: ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-text-muted)")};
   cursor: pointer;
+
+  &:hover,
+  &:active {
+    color: var(--color-primary-hover);
+  }
 `;
 
 const BrushSizeCircle = styled.span<{ $size: number }>`
@@ -226,16 +241,15 @@ const IconButton = styled.button<{ $active?: boolean }>`
   width: 28px;
   height: 28px;
   border-radius: var(--radius-small);
-  border: 1px solid
-    ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-border)")};
-  background: ${(p) => (p.$active ? "var(--color-primary-soft)" : "var(--color-surface)")};
+  border: 0;
+  background: transparent;
   color: ${(p) => (p.$active ? "var(--color-primary)" : "var(--color-text-muted)")};
   cursor: pointer;
   padding: 0;
 
-  &:hover {
-    background: var(--color-surface-muted);
-    color: var(--color-text);
+  &:hover,
+  &:active {
+    color: var(--color-primary-hover);
   }
 `;
 
@@ -256,28 +270,24 @@ const Input = styled.input`
   }
 `;
 
-const ActionButton = styled.button<{ $variant?: "primary" | "secondary" }>`
+const ActionButton = styled.button<{ $primary?: boolean }>`
   width: 100%;
   padding: var(--space-1) var(--space-3);
-  background: ${(p) =>
-    p.$variant === "secondary" ? "var(--color-surface)" : "var(--color-primary)"};
-  color: ${(p) =>
-    p.$variant === "secondary" ? "var(--color-text)" : "var(--color-on-primary)"};
-  border: ${(p) =>
-    p.$variant === "secondary" ? "1px solid var(--color-border)" : "none"};
+  background: ${(p) => (p.$primary ? "var(--color-primary)" : "transparent")};
+  color: ${(p) => (p.$primary ? "var(--color-on-primary)" : "var(--color-text-muted)")};
+  border: 0;
   border-radius: var(--radius-medium);
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-tight);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: color 0.15s, background 0.15s;
 
-  &:hover {
-    background: ${(p) =>
-      p.$variant === "secondary"
-        ? "var(--color-surface-muted)"
-        : "var(--color-primary-hover)"};
+  &:hover,
+  &:active {
+    background: ${(p) => (p.$primary ? "var(--color-primary-hover)" : "transparent")};
+    color: ${(p) => (p.$primary ? "var(--color-on-primary)" : "var(--color-primary-hover)")};
   }
 
   &:disabled {
@@ -617,15 +627,13 @@ export default function DrawingCanvas() {
             style={step === 2 ? { cursor: "default" } : undefined}
           />
         </CanvasWrapper>
-        <HistoryControls>
-          <UndoRedoControls>
-            <IconButton aria-label="Undo" title="Undo" onClick={undo}>
-              <FaArrowRotateLeft size={14} />
-            </IconButton>
-            <IconButton aria-label="Redo" title="Redo" onClick={redo}>
-              <FaArrowRotateRight size={14} />
-            </IconButton>
-          </UndoRedoControls>
+        <HistoryControls data-button-group>
+          <IconButton aria-label="Undo" title="Undo" onClick={undo}>
+            <FaArrowRotateLeft size={14} />
+          </IconButton>
+          <IconButton aria-label="Redo" title="Redo" onClick={redo}>
+            <FaArrowRotateRight size={14} />
+          </IconButton>
           <IconButton aria-label="Clear" title="Clear" onClick={handleClear}>
             <FaTrashCan size={14} />
           </IconButton>
@@ -705,7 +713,7 @@ export default function DrawingCanvas() {
             </ColorPicker>
           </ColorControls>
 
-          <ToolRow>
+          <ToolRow data-button-group>
             <Label>Size</Label>
             {BRUSH_SIZES.map((b) => (
               <SizeButton
@@ -723,7 +731,7 @@ export default function DrawingCanvas() {
             ))}
           </ToolRow>
 
-          <ToolRow>
+          <ToolRow data-button-group>
             <Label>Tool</Label>
             <IconButton
               $active={tool === "pen"}
@@ -751,8 +759,8 @@ export default function DrawingCanvas() {
             </IconButton>
           </ToolRow>
 
-          <StepButtons>
-            <ActionButton onClick={() => setStep(2)}>Next</ActionButton>
+          <StepButtons data-button-group>
+            <ActionButton $primary onClick={() => setStep(2)}>Next</ActionButton>
           </StepButtons>
         </Utilities>
       )}
@@ -767,8 +775,8 @@ export default function DrawingCanvas() {
             onChange={(e) => setName(e.target.value)}
           />
 
-          <StepButtons>
-            <ActionButton $variant="secondary" onClick={() => setStep(1)}>
+          <StepButtons data-button-group>
+            <ActionButton onClick={() => setStep(1)}>
               Back
             </ActionButton>
             <ActionButton disabled={saving} onClick={handleSave}>
