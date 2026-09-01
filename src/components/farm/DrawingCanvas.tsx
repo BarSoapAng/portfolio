@@ -320,6 +320,25 @@ const Message = styled.p<{ $error?: boolean }>`
   margin: var(--space-2) 0 0;
 `;
 
+function exportDrawing(canvas: HTMLCanvasElement) {
+  const output = document.createElement("canvas");
+  output.width = 256;
+  output.height = 256;
+  const context = output.getContext("2d");
+
+  if (!context) return Promise.reject(new Error("Unable to export drawing"));
+
+  context.drawImage(canvas, 0, 0, output.width, output.height);
+
+  return new Promise<Blob>((resolve, reject) => {
+    output.toBlob(
+      (blob) => (blob ? resolve(blob) : reject(new Error("Unable to export drawing"))),
+      "image/webp",
+      0.9,
+    );
+  });
+}
+
 export default function DrawingCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -587,17 +606,16 @@ export default function DrawingCanvas() {
         return;
       }
 
-      const imageData = canvas.toDataURL("image/png");
+      const image = await exportDrawing(canvas);
       const visitorId = getVisitorId();
+      const formData = new FormData();
+      formData.append("visitor_id", visitorId);
+      formData.append("name", trimmedName);
+      formData.append("image", image, image.type === "image/webp" ? "drawing.webp" : "drawing.png");
 
       const res = await fetch("/api/drawings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          visitor_id: visitorId,
-          name: trimmedName,
-          image_data: imageData,
-        }),
+        body: formData,
       });
 
       if (!res.ok) {

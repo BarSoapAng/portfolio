@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@lib/supabase";
+import { isDrawingStoragePath } from "@lib/drawing-images";
 
 export async function PATCH(
   request: NextRequest,
@@ -36,14 +37,24 @@ export async function DELETE(
     return NextResponse.json({ error: "Missing visitor_id" }, { status: 400 });
   }
 
-  const { error } = await supabase
+  const { data: drawing, error } = await supabase
     .from("drawings")
     .delete()
     .eq("id", id)
-    .eq("visitor_id", visitor_id);
+    .eq("visitor_id", visitor_id)
+    .select("image_data")
+    .maybeSingle();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  if (drawing && isDrawingStoragePath(drawing.image_data)) {
+    const { error: storageError } = await supabase.storage
+      .from("drawings")
+      .remove([drawing.image_data]);
+
+    if (storageError) console.error("Failed to remove drawing image", storageError);
   }
 
   return NextResponse.json({ success: true });

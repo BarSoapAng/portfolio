@@ -13,7 +13,7 @@ import { getVisitorId } from "@lib/visitor-id";
 interface Drawing {
   id: string;
   name: string;
-  image_data: string;
+  image_url: string;
   visitor_id: string;
   created_at: string;
 }
@@ -286,7 +286,7 @@ export default function FarmMap() {
                     onMouseLeave={handleMouseLeave}
                     onContextMenu={(e) => handleContextMenu(e, d)}
                   >
-                    <PlotImage src={d.image_data} alt={d.name} />
+                    <PlotImage src={d.image_url} alt={d.name} loading="lazy" decoding="async" />
                   </Plot>
                 );
               })}

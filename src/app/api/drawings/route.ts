@@ -1,5 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@lib/supabase";
+import { getDrawingImageUrl } from "@lib/drawing-images";
 import { Filter } from "bad-words";
 
 const filter = new Filter();
@@ -16,18 +18,40 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ drawings });
+  return NextResponse.json({
+    drawings: drawings.map(({ image_data, ...drawing }) => ({
+      ...drawing,
+      image_url: getDrawingImageUrl(image_data),
+    })),
+  });
 }
 
 export async function POST(request: NextRequest) {
-  const { visitor_id, name, image_data } = await request.json();
+  const formData = await request.formData();
+  const visitorId = formData.get("visitor_id");
+  const name = formData.get("name");
+  const image = formData.get("image");
 
-  if (!visitor_id || !image_data) {
+  if (typeof visitorId !== "string" || !visitorId || !image || typeof image === "string") {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  if (image_data.length > 700_000) {
+  if (image.size > 500_000) {
     return NextResponse.json({ error: "Image too large" }, { status: 400 });
+  }
+
+  const imageBuffer = await image.arrayBuffer();
+  const bytes = new Uint8Array(imageBuffer);
+  const isWebP =
+    bytes.length >= 12 &&
+    String.fromCharCode(...bytes.slice(0, 4)) === "RIFF" &&
+    String.fromCharCode(...bytes.slice(8, 12)) === "WEBP";
+  const isPng =
+    bytes.length >= 8 &&
+    bytes.slice(0, 8).every((byte, index) => byte === [137, 80, 78, 71, 13, 10, 26, 10][index]);
+
+  if (!isWebP && !isPng) {
+    return NextResponse.json({ error: "Unsupported image format" }, { status: 400 });
   }
 
   const trimmedName = typeof name === "string" ? name.trim().slice(0, 40) : "";
@@ -37,20 +61,34 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Name contains inappropriate language" }, { status: 400 });
   }
 
-  const { data, error } = await supabase
+  const id = randomUUID();
+  const imagePath = `${id}.${isWebP ? "webp" : "png"}`;
+  const { error: uploadError } = await supabase.storage
+    .from("drawings")
+    .upload(imagePath, imageBuffer, {
+      cacheControl: "31536000",
+      contentType: isWebP ? "image/webp" : "image/png",
+      upsert: false,
+    });
+
+  if (uploadError) {
+    return NextResponse.json({ error: uploadError.message }, { status: 500 });
+  }
+
+  const { error } = await supabase
     .from("drawings")
     .insert({
-      visitor_id,
+      id,
+      visitor_id: visitorId,
       name: drawingName,
-      image_data,
+      image_data: imagePath,
       is_published: true,
-    })
-    .select("id")
-    .single();
+    });
 
   if (error) {
+    await supabase.storage.from("drawings").remove([imagePath]);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ id: data.id });
+  return NextResponse.json({ id });
 }

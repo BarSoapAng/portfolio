@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@lib/supabase";
+import { getDrawingImageUrl } from "@lib/drawing-images";
 
 export async function GET(request: NextRequest) {
   const visitorId = request.nextUrl.searchParams.get("visitor_id");
@@ -18,5 +19,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ drawings });
+  return NextResponse.json({
+    drawings: drawings.map(({ image_data, ...drawing }) => ({
+      ...drawing,
+      image_url: getDrawingImageUrl(image_data),
+    })),
+  });
 }
