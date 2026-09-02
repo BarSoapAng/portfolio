@@ -180,7 +180,7 @@ const StyledWorkArtwork = styled(Image)<StyledWorkArtworkProps>`
     ${({ $layout }) => placementStyles($layout.tablet)}
   }
 
-  @media ${mediaQuery.mobile} {
+  @media ${mediaQuery.largeMobile} {
     ${({ $layout }) => placementStyles($layout.mobile)}
   }
 `;
