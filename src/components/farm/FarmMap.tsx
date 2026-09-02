@@ -203,15 +203,20 @@ export default function FarmMap() {
     if (!contextMenu) return;
     const { drawing } = contextMenu;
     setContextMenu(null);
+    setDrawings((prev) => prev.filter((d) => d.id !== drawing.id));
+
     try {
-      await fetch(`/api/drawings/${drawing.id}`, {
+      const response = await fetch(`/api/drawings/${drawing.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ visitor_id: visitorIdRef.current }),
       });
-      setDrawings((prev) => prev.filter((d) => d.id !== drawing.id));
+
+      if (!response.ok) throw new Error("Failed to delete drawing");
     } catch {
-      // ignore
+      setDrawings((prev) =>
+        [...prev, drawing].sort((a, b) => b.created_at.localeCompare(a.created_at)),
+      );
     }
   }, [contextMenu]);
 

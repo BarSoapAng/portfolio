@@ -75,6 +75,7 @@
 - Export new drawings as 256-by-256 WebP images and upload them as multipart form data through the drawings API. PNG is the browser fallback.
 - Store new drawing images in the public Supabase Storage `drawings` bucket. The `drawings.image_data` column contains the Storage object path; legacy Base64 data URLs remain supported.
 - Keep uploads at or below 500,000 bytes. When a drawing is deleted, remove its Storage object after deleting its database row.
+- Remove garden drawings from the client immediately when deletion starts, and restore them if the request fails.
 
 ## Validation
 
