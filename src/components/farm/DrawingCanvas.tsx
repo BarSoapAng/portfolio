@@ -70,6 +70,7 @@ const Wrapper = styled.div`
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
     grid-template-columns: minmax(0, 1fr) minmax(0, 20rem) minmax(0, 1fr);
+    column-gap: var(--space-2);
   }
 
   @media ${mediaQuery.largeMobile} {
