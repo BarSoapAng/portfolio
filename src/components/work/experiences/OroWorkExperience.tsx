@@ -33,6 +33,12 @@ export default function OroWorkExperience() {
             width: "10%",
             rotate: "-12deg",
           },
+          smallMobile: {
+            left: "-6%",
+            top: "-25%",
+            width: "9%",
+            rotate: "-25deg",
+          },
         }}
       />
       <WorkArtwork
@@ -43,6 +49,7 @@ export default function OroWorkExperience() {
           desktop: { bottom: "50%", left: "13%", width: "20%" },
           tablet: { bottom: "50%", left: "13%", width: "20%" },
           mobile: { bottom: "50%", left: "13%", width: "20%" },
+          smallMobile: { bottom: "50%", left: "10%", width: "18%" },
         }}
       />
     </WorkExperience>

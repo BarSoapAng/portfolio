@@ -18,6 +18,12 @@ export default function WecWorkExperience() {
           desktop: { bottom: "70%", right: "11%", width: "11%" },
           tablet: { bottom: "70%", right: "11%", width: "11%" },
           mobile: { bottom: "70%", right: "11%", width: "11%" },
+          smallMobile: {
+            bottom: "75%",
+            right: "1%",
+            width: "9.5%",
+            transform: "scaleX(-1)",
+          },
         }}
       />
       <WorkArtwork
@@ -28,6 +34,13 @@ export default function WecWorkExperience() {
           desktop: { right: "-10%", bottom: "35%", width: "20%" },
           tablet: { right: "-10%", bottom: "35%", width: "20%" },
           mobile: { right: "-10%", bottom: "35%", width: "20%" },
+          smallMobile: {
+            right: "11%",
+            bottom: "55%",
+            width: "21%",
+            transform: "scaleX(-1)",
+            rotate: "10deg",
+          },
         }}
       />
     </WorkExperience>

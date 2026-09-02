@@ -33,6 +33,12 @@ export default function TeslaWorkExperience() {
             rotate: "12deg",
             width: "9.5%",
           },
+          smallMobile: {
+            right: "51%",
+            bottom: "18%",
+            rotate: "11deg",
+            width: "8%",
+          },
         }}
       />
       <WorkArtwork
@@ -43,6 +49,7 @@ export default function TeslaWorkExperience() {
           desktop: { top: "-45%", left: "15%", width: "32%" },
           tablet: { top: "-45%", left: "15%", width: "32%" },
           mobile: { top: "-38%", left: "15%", width: "28%" },
+          smallMobile: { top: "-57%", left: "13%", width: "28%" },
         }}
       />
     </WorkExperience>

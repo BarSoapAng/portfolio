@@ -33,6 +33,12 @@ export default function EricssonWorkExperience() {
             width: "6.4%",
             rotate: "-2deg",
           },
+          smallMobile: {
+            left: "-7.5%",
+            top: "3%",
+            width: "5.5%",
+            rotate: "-2deg",
+          },
         }}
       />
       <WorkArtwork
@@ -43,6 +49,7 @@ export default function EricssonWorkExperience() {
           desktop: { bottom: "43%", left: "23%", width: "23%" },
           tablet: { bottom: "43%", left: "23%", width: "23%" },
           mobile: { bottom: "43%", left: "23%", width: "20%" },
+          smallMobile: { bottom: "45%", left: "18%", width: "14.5%" },
         }}
       />
     </WorkExperience>
