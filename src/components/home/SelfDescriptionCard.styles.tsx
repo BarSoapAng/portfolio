@@ -1,6 +1,6 @@
 "use client";
 
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { Text } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 
@@ -51,7 +51,7 @@ export const HeroContent = styled.div`
   min-width: 0;
 `;
 
-export const HighlightedGreeting = styled(Text)`
+export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
   color: inherit;
   font: inherit;
   background-image: linear-gradient(
@@ -61,7 +61,11 @@ export const HighlightedGreeting = styled(Text)`
   background-position: left;
   background-repeat: no-repeat;
   background-size: 0 100%;
-  animation: ${highlightText} 0.8s ease-out 0.25s forwards;
+  ${({ $isInView }) =>
+    $isInView &&
+    css`
+      animation: ${highlightText} 0.8s ease-out 0.25s forwards;
+    `}
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 

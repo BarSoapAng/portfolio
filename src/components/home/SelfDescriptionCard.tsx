@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 import selfie from "@assets/home/selfie.webp";
 import { Body, Heading1, Strong } from "@components/ui/Typography";
 import {
@@ -8,12 +12,17 @@ import {
 } from "./SelfDescriptionCard.styles";
 
 export default function SelfDescriptionCard() {
+  const greetingRef = useRef<HTMLSpanElement>(null);
+  const isGreetingInView = useInView(greetingRef);
+
   return (
     <Hero>
       <HeroImage src={selfie.src} alt="Angela's selfie" width={230} />
       <HeroContent>
         <Heading1>
-          <HighlightedGreeting>Hello hello!</HighlightedGreeting>
+          <HighlightedGreeting ref={greetingRef} $isInView={isGreetingInView}>
+            Hello hello!
+          </HighlightedGreeting>
         </Heading1>
         <Body>
           This is a place where I share my experiences, what I'm up to, and 
