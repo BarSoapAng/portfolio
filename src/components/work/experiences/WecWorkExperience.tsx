@@ -14,13 +14,13 @@ export default function WecWorkExperience() {
         src={shell}
         alt=""
         aria-hidden="true"
-        style={{ bottom: "70%", right: "15%", width: "11%" }}
+        style={{ bottom: "70%", right: "11%", width: "11%" }}
       />
       <WorkArtwork
         src={umbrella}
         alt=""
         aria-hidden="true"
-        style={{ right: "-7%", bottom: "35%", width: "20%" }}
+        style={{ right: "-10%", bottom: "35%", width: "20%" }}
       />
     </WorkExperience>
   );

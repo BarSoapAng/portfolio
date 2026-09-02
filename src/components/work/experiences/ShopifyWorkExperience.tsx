@@ -14,13 +14,13 @@ export default function ShopifyWorkExperience() {
         src={shopifyLogo}
         alt=""
         aria-hidden="true"
-        style={{ bottom: "20%", right: "43%", width: "10%" }}
+        style={{ bottom: "20%", right: "38%", width: "10%" }}
       />
       <WorkArtwork
         src={shoppy}
         alt=""
         aria-hidden="true"
-        style={{ right: "-1%", top: "-70%", width: "22%" }}
+        style={{ right: "-5%", top: "-70%", width: "22%" }}
       />
     </WorkExperience>
   );
