@@ -135,6 +135,10 @@ const StackColumn = styled.div`
   padding-block-start: var(--space-8);
   gap: var(--space-2);
   justify-items: center;
+
+  @media ${mediaQuery.smallTablet} {
+    order: -1;
+  }
 `;
 
 const DragInstruction = styled.div`
