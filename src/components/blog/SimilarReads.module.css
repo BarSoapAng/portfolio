@@ -27,8 +27,6 @@
 }
 
 .section a {
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
   text-decoration: none;
 }
 
@@ -36,7 +34,6 @@
   display: block;
   margin-block-start: var(--space-1);
   color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
 }
 
 @media (max-width: 640px) {

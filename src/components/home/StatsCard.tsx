@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { Text } from "@components/ui/Typography";
 import { usePageViews } from "../../hooks/usePageViews";
 
 const stats = [
@@ -33,39 +34,39 @@ export default function StatsCard() {
     <Stats>
       {stats.map(({ label, value }) => (
         <div key={label}>
-          <dt>{label}:</dt>
-          <dd>{value}</dd>
+          <Text as="dt">{label}:</Text>
+          <Text as="dd">{value}</Text>
         </div>
       ))}
       <div>
-        <dt>Site Views:</dt>
-        <dd>{views === null ? "..." : views.toLocaleString()}</dd>
+        <Text as="dt">Site Views:</Text>
+        <Text as="dd">{views === null ? "..." : views.toLocaleString()}</Text>
       </div>
       <div>
-        <dt>Caffeination:</dt>
-        <dd>
+        <Text as="dt">Caffeination:</Text>
+        <Text as="dd">
           {CAFFEINE_LEVEL} of {CAFFEINE_MAX}
-        </dd>
+        </Text>
       </div>
       <div>
-        <dt>Ownership</dt>
-        <dd>4 of 5</dd>
+        <Text as="dt">Ownership</Text>
+        <Text as="dd">4 of 5</Text>
       </div>
       <div>
-        <dt>Speed</dt>
-        <dd>2 of 5</dd>
+        <Text as="dt">Speed</Text>
+        <Text as="dd">2 of 5</Text>
       </div>
       <div>
-        <dt>Quality</dt>
-        <dd>4 of 5</dd>
+        <Text as="dt">Quality</Text>
+        <Text as="dd">4 of 5</Text>
       </div>
       <div>
-        <dt>Communication</dt>
-        <dd>5 of 5</dd>
+        <Text as="dt">Communication</Text>
+        <Text as="dd">5 of 5</Text>
       </div>
       <div>
-        <dt>Design</dt>
-        <dd>3 of 5</dd>
+        <Text as="dt">Design</Text>
+        <Text as="dd">3 of 5</Text>
       </div>
     </Stats>
   );

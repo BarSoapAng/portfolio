@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { useRef, useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
+import {
+  Caption,
+  CaptionMedium,
+  CaptionStrong,
+  DisplayButton,
+  TextInput,
+} from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 import { getVisitorId } from "@lib/visitor-id";
 import { isImageSafe } from "@lib/nsfw-check";
@@ -133,11 +140,8 @@ const UndoRedoControls = styled.div`
   gap: var(--space-2);
 `;
 
-const Label = styled.span`
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+const Label = styled(CaptionMedium)`
   color: var(--color-text-muted);
-  font-weight: var(--font-weight-medium);
 `;
 
 const ColorControls = styled.div`
@@ -276,14 +280,13 @@ const IconButton = styled.button<{ $active?: boolean }>`
   }
 `;
 
-const Input = styled.input`
+const Input = styled(TextInput)`
   width: 100%;
   padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
   background: var(--color-surface);
   color: var(--color-text);
-  font: inherit;
   box-sizing: border-box;
 
   &:focus-visible {
@@ -292,20 +295,13 @@ const Input = styled.input`
   }
 `;
 
-const ActionButton = styled.button<{ $primary?: boolean }>`
+const ActionButton = styled(DisplayButton)<{ $primary?: boolean }>`
   width: 100%;
   padding: var(--space-1) var(--space-3);
   background: ${(p) => (p.$primary ? "var(--color-primary)" : "transparent")};
   color: ${(p) => (p.$primary ? "var(--color-on-primary)" : "var(--color-text-muted)")};
   border: 0;
   border-radius: var(--radius-medium);
-  font-family: var(--font-display);
-  font-size: var(--font-size-lg);
-  font-weight: ${(props) =>
-    props.$primary
-      ? "var(--font-weight-bold)"
-      : "var(--font-weight-medium)"};
-  line-height: var(--line-height-tight);
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
 
@@ -345,17 +341,12 @@ const StatusRow = styled.div`
   }
 `;
 
-const Message = styled.span<{ $error?: boolean }>`
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
+const Message = styled(Caption)<{ $error?: boolean }>`
   color: ${(p) => (p.$error ? "var(--color-primary)" : "var(--color-accent)")};
   text-align: center;
 `;
 
 const GardenLink = styled(Link)`
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
   color: var(--color-primary);
   text-underline-offset: 2px;
 
@@ -853,7 +844,9 @@ export default function DrawingCanvas() {
             </Message>
           )}
           {(!message || !message.error) && (
-            <GardenLink href="/garden">View the garden →</GardenLink>
+            <CaptionStrong>
+              <GardenLink href="/garden">View the garden →</GardenLink>
+            </CaptionStrong>
           )}
         </StatusRow>
 

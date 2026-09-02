@@ -1,4 +1,5 @@
 import TopBlogLink from "@components/navigation/TopBlogLink";
+import { Heading2 } from "@components/ui/Typography";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 import styles from "./SimilarReads.module.css";
 
@@ -9,7 +10,7 @@ type SimilarReadsProps = {
 export default function SimilarReads({ posts }: SimilarReadsProps) {
   return (
     <section className={styles.section} aria-labelledby="similar-reads-heading">
-      <h2 id="similar-reads-heading">Similar reads</h2>
+      <Heading2 id="similar-reads-heading">Similar reads</Heading2>
 
       <ul>
         {posts.map((post) => (

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import NavbarLink from "@components/ui/NavbarLink";
+import { DisplayStrong } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 
 const SiteHeader = styled.header`
@@ -16,13 +17,9 @@ const SiteHeader = styled.header`
   height: 74px;
   margin-inline: auto;
   padding-block: var(--space-4);
-  font-family: var(--font-display);
 
   > p {
     margin: 0;
-    font-family: var(--font-display);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
     white-space: nowrap;
   }
 
@@ -70,9 +67,9 @@ const SiteHeader = styled.header`
 export default function Navbar() {
   return (
     <SiteHeader>
-      <p>
+      <DisplayStrong as="p">
         <Link href="/home">Angela&apos;s World</Link>
-      </p>
+      </DisplayStrong>
       <NavbarLink />
     </SiteHeader>
   );

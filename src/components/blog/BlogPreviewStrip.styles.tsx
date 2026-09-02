@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { mediumHeadingStyles } from "@components/ui/HeadingStyles";
+import { BodySmall } from "@components/ui/Typography";
 import { IndexSection } from "../../app/home/HomePage.styles";
 import { mediaQuery } from "@lib/media";
 
@@ -44,7 +44,6 @@ export const BlogStripCard = styled.article`
 
   h3 {
     margin-block: var(--space-2) var(--space-1);
-    ${mediumHeadingStyles}
   }
 
   h3 a {
@@ -58,13 +57,11 @@ export const BlogStripCard = styled.article`
 
   p {
     margin: 0;
-    font-size: var(--font-size-sm);
     color: var(--color-text-secondary, var(--color-accent));
   }
 `;
 
-export const BlogStripMore = styled.p`
+export const BlogStripMore = styled(BodySmall)`
   margin-block-start: var(--space-4);
   text-align: end;
-  font-size: var(--font-size-sm);
 `;

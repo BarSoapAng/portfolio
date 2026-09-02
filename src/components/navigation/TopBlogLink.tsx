@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Caption, Strong, Text } from "@components/ui/Typography";
 
 type TopBlogLinkProps = {
   dateLabel: string;
@@ -8,11 +9,11 @@ type TopBlogLinkProps = {
 
 export default function TopBlogLink({ dateLabel, href, title }: TopBlogLinkProps) {
   return (
-    <li>
+    <Text as="li">
       <Link href={href} title={title}>
-        {title}
+        <Strong>{title}</Strong>
       </Link>{" "}
-      <span>{dateLabel}</span>
-    </li>
+      <Caption>{dateLabel}</Caption>
+    </Text>
   );
 }

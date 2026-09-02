@@ -6,6 +6,12 @@ import { useRouter } from "next/navigation";
 
 import type { SpotifyPlaybackState } from "@lib/spotify";
 import { EntryTags } from "@components/ui/ContentStyles";
+import {
+  BodySmall,
+  CompactHeading,
+  DisplayHero,
+  Eyebrow,
+} from "@components/ui/Typography";
 
 import styles from "./VinylPlayer.module.css";
 
@@ -58,14 +64,16 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
     return (
       <section className={styles.player} aria-label="Spotify player">
         <div className={styles.artworkFallback} aria-hidden="true">
-          <span>&#9835;</span>
+          <DisplayHero>&#9835;</DisplayHero>
         </div>
         <div className={styles.details}>
-          <p className={styles.status}>Spotify offline</p>
-          <h2 className={styles.title}>Nothing spinning right now</h2>
-          <p className={styles.message}>
+          <Eyebrow as="p" className={styles.status}>Spotify offline</Eyebrow>
+          <CompactHeading as="h2" className={styles.title}>
+            Nothing spinning right now
+          </CompactHeading>
+          <BodySmall className={styles.message}>
             {playback.message ?? "Configure Spotify on the server to show the current track."}
-          </p>
+          </BodySmall>
         </div>
       </section>
     );
@@ -83,13 +91,13 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
             height={160}
           />
         ) : (
-          <span aria-hidden="true">&#9835;</span>
+          <DisplayHero aria-hidden="true">&#9835;</DisplayHero>
         )}
       </div>
 
       <div className={styles.details}>
         <div className={styles.trackInfo}>
-          <h2 className={styles.title}>
+          <CompactHeading as="h2" className={styles.title}>
             <a
               href={playback.track.spotifyUrl}
               target="_blank"
@@ -98,7 +106,7 @@ export default function VinylPlayerClient({ playback }: VinylPlayerClientProps) 
             >
               {playback.track.title}
             </a>
-          </h2>
+          </CompactHeading>
           {playback.track.artistUrl ? (
             <EntryTags className={styles.artist}>
               <a

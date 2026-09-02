@@ -1,6 +1,7 @@
 "use client";
 
 import styled, { keyframes } from "styled-components";
+import { Text } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 
 const highlightText = keyframes`
@@ -50,7 +51,9 @@ export const HeroContent = styled.div`
   min-width: 0;
 `;
 
-export const HighlightedGreeting = styled.span`
+export const HighlightedGreeting = styled(Text)`
+  color: inherit;
+  font: inherit;
   background-image: linear-gradient(
     var(--color-primary-soft),
     var(--color-primary-soft)

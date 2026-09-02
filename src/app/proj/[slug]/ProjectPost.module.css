@@ -5,8 +5,6 @@
 
 .summary {
   color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
-  line-height: var(--line-height-relaxed);
 }
 
 .meta {

@@ -5,6 +5,7 @@ import BlogPostEngagement from "@components/blog/BlogPostEngagement";
 import SimilarReads from "@components/blog/SimilarReads";
 import ContentImage from "@components/ui/ContentImage";
 import { BlogDate, BlogMeta, ContentHero } from "@components/ui/ContentStyles";
+import { Body, Heading1 } from "@components/ui/Typography";
 import { buildPostMetadata, getAllPostSlugs, getPostBySlug, getSimilarPosts } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
 import styles from "./BlogPost.module.css";
@@ -44,16 +45,16 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
 
   return (
     <main>
-      <p>
+      <Body>
         <Link href="/blog">
           ← Back to blogs
         </Link>
-      </p>
+      </Body>
 
       <article className={styles.article}>
         <header>
-          <h1>{post.title}</h1>
-          <p>{post.summary}</p>
+          <Heading1>{post.title}</Heading1>
+          <Body>{post.summary}</Body>
         </header>
 
         <ContentHero>

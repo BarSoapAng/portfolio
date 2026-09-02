@@ -1,11 +1,6 @@
 "use client";
 
 import { createGlobalStyle } from "styled-components";
-import {
-  largeHeadingStyles,
-  mediumHeadingStyles,
-  smallHeadingStyles,
-} from "@components/ui/HeadingStyles";
 import { mediaQuery } from "@lib/media";
 
 const GlobalStyle = createGlobalStyle`
@@ -99,33 +94,6 @@ const GlobalStyle = createGlobalStyle`
     padding-block: var(--space-8);
   }
 
-  h1,
-  h2,
-  h3 {
-    margin-block: 0 var(--space-3);
-    color: var(--color-primary-hover);
-  }
-
-  h1 {
-    ${largeHeadingStyles}
-  }
-
-  h2 {
-    ${mediumHeadingStyles}
-  }
-
-  h3 {
-    ${smallHeadingStyles}
-  }
-
-  p,
-  ul,
-  ol,
-  dl,
-  blockquote {
-    margin-block: 0 var(--space-4);
-  }
-
   a {
     color: var(--color-primary);
     text-decoration-thickness: 0.08em;
@@ -152,7 +120,6 @@ const GlobalStyle = createGlobalStyle`
     border-radius: var(--radius-pill);
     background: var(--color-primary);
     color: var(--color-on-primary);
-    font-weight: var(--font-weight-bold);
     text-decoration: none;
   }
 
@@ -163,21 +130,6 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: 0 0 0 1px var(--color-border);
     user-select: none;
     -webkit-user-drag: none;
-  }
-
-  code {
-    padding: 0.1em 0.35em;
-    border-radius: var(--radius-small);
-    background: var(--color-surface-muted);
-    color: var(--color-wood);
-    font-family: var(--font-mono);
-    font-size: 0.9em;
-  }
-
-  blockquote {
-    padding-inline-start: var(--space-6);
-    border-inline-start: var(--space-1) solid var(--color-accent);
-    color: var(--color-text-muted);
   }
 
   @media ${mediaQuery.smallTablet} {

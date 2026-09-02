@@ -12,6 +12,7 @@ import {
 } from "@components/blog/BlogIndex.styles";
 import ContentImage from "@components/ui/ContentImage";
 import { ContentCardBody, EntryTags } from "@components/ui/ContentStyles";
+import { Body, Heading2, TextInput } from "@components/ui/Typography";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 
 type BlogIndexProps = {
@@ -39,7 +40,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
   return (
     <div>
       <BlogControls aria-label="Search blog posts">
-        <input
+        <TextInput
           aria-label="Search posts"
           id="blog-search"
           onChange={(event) => setQuery(event.target.value)}
@@ -50,7 +51,7 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
       </BlogControls>
 
       <BlogContentIndex as="section">
-        {filteredPosts.length === 0 ? <p>No posts match those filters.</p> : null}
+        {filteredPosts.length === 0 ? <Body>No posts match those filters.</Body> : null}
 
         {filteredPosts.map((post) => (
           <BlogContentCard key={post.slug}>
@@ -64,13 +65,13 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                 <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="thumbnail" />
               </Link>
               <ContentCardBody>
-                <p>
+                <Body>
                   <EntryTags>{formatPostDate(post.date)}</EntryTags>
-                </p>
-                <h2>
+                </Body>
+                <Heading2>
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                </h2>
-                <p>{post.summary}</p>
+                </Heading2>
+                <Body>{post.summary}</Body>
               </ContentCardBody>
             </BlogContentCardLayout>
           </BlogContentCard>

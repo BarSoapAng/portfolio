@@ -8,6 +8,7 @@ import {
   type ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
 import { FaMinus, FaPlus, FaRotateLeft } from "react-icons/fa6";
+import { Caption, DisplayLarge, SmallButton } from "@components/ui/Typography";
 import { getVisitorId } from "@lib/visitor-id";
 
 interface Drawing {
@@ -93,13 +94,11 @@ const PlotImage = styled.img`
   box-shadow: none;
 `;
 
-const Tooltip = styled.div`
+const Tooltip = styled(Caption)`
   position: fixed;
   padding: var(--space-1) var(--space-3);
   background: var(--color-text);
   color: var(--color-background);
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
   border-radius: var(--radius-small);
   pointer-events: none;
   z-index: 100;
@@ -116,12 +115,10 @@ const Popover = styled.div`
   overflow: hidden;
 `;
 
-const PopoverButton = styled.button`
+const PopoverButton = styled(SmallButton)`
   display: block;
   width: 100%;
   padding: var(--space-2) var(--space-4);
-  font-family: var(--font-body);
-  font-size: var(--font-size-sm);
   color: var(--color-primary);
   background: none;
   border: none;
@@ -166,13 +163,11 @@ const MapControlButton = styled.button`
   }
 `;
 
-const EmptyMessage = styled.div`
+const EmptyMessage = styled(DisplayLarge)`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-family: var(--font-display);
-  font-size: var(--font-size-xl);
   color: var(--color-text-muted);
 `;
 

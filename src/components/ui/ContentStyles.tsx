@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { SmallText } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 
 export const ContentIndex = styled.div`
@@ -39,9 +40,8 @@ export const ContentCardBody = styled.div`
   }
 `;
 
-export const EntryTags = styled.span`
+export const EntryTags = styled(SmallText)`
   color: var(--color-accent);
-  font-size: var(--font-size-sm);
 `;
 
 export const BlogDate = styled(EntryTags)`

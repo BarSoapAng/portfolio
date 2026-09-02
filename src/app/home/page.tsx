@@ -3,6 +3,7 @@ import BlogPreviewStrip from "@components/blog/BlogPreviewStrip";
 import DrawingCanvas from "@components/farm/DrawingCanvas";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
 import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
+import { Heading2 } from "@components/ui/Typography";
 import WorkSection from "@components/work/WorkSection";
 import { getTopPosts } from "@lib/blog";
 import { getAllProjects } from "@lib/project";
@@ -34,10 +35,10 @@ function HomePage() {
       </ProjectsSection>
 
       <GardenSection>
-        <h2>
+        <Heading2>
           Leave a Mark
           <FaPaw aria-hidden />
-        </h2>
+        </Heading2>
         <DrawingCanvas />
       </GardenSection>
 

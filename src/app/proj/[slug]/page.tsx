@@ -4,6 +4,7 @@ import Link from "next/link";
 import ContentImage from "@components/ui/ContentImage";
 import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
 import TagLabel from "@components/ui/TagLabel";
+import { Body, Heading1, Lead } from "@components/ui/Typography";
 import { formatLongDate } from "@lib/format-date";
 import { buildProjectMetadata, getAllProjectSlugs, getProjectBySlug } from "@lib/project";
 import styles from "./ProjectPost.module.css";
@@ -43,14 +44,14 @@ export default async function ProjectRoute({ params }: ProjectRouteProps) {
 
   return (
     <main>
-      <p>
+      <Body>
         <Link href="/home#projects">&larr; Back to projects</Link>
-      </p>
+      </Body>
 
       <article className={styles.article}>
         <header className={styles.header}>
-          <h1>{project.title}</h1>
-          <p className={styles.summary}>{project.summary}</p>
+          <Heading1>{project.title}</Heading1>
+          <Lead className={styles.summary}>{project.summary}</Lead>
         </header>
 
         <ContentHero>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex, EntryTags } from "@components/ui/ContentStyles";
+import { Heading2, Text } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 
 export const WorkIndex = styled(ContentIndex)`
@@ -148,13 +149,13 @@ export const Company = styled.button`
   }
 `;
 
-export const CompanyName = styled.h2`
+export const CompanyName = styled(Heading2)`
   width: fit-content;
   max-width: 100%;
   margin-block-end: var(--space-2);
 `;
 
-export const JobTitle = styled.span`
+export const JobTitle = styled(Text)`
   position: absolute;
   z-index: 1;
   bottom: calc(100% + var(--space-2));
@@ -200,5 +201,4 @@ export const WorkHeading = styled.div`
 
 export const Period = styled(EntryTags)`
   display: block;
-  font-size: var(--font-size-md);
 `;

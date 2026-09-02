@@ -13,7 +13,6 @@ export const BlogControls = styled.section`
     border-radius: var(--radius-medium);
     background: var(--color-surface);
     color: var(--color-text);
-    font: inherit;
   }
 
   input:focus-visible {

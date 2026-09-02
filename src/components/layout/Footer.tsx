@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { BodySmall } from "@components/ui/Typography";
 
 const SiteFooter = styled.footer`
   width: 100%;
@@ -8,7 +9,6 @@ const SiteFooter = styled.footer`
   border-block-start: 1px solid var(--color-accent);
   background: var(--color-accent);
   color: var(--color-on-primary);
-  font-size: var(--font-size-sm);
   text-align: center;
 
   p {
@@ -19,7 +19,7 @@ const SiteFooter = styled.footer`
 export default function Footer() {
   return (
     <SiteFooter>
-      <p>© Angela 2026 · Made with love {"<3"}</p>
+      <BodySmall>© Angela 2026 · Made with love {"<3"}</BodySmall>
     </SiteFooter>
   );
 }

@@ -1,4 +1,5 @@
 import TopBlogLink from "./TopBlogLink";
+import { Body, Heading2 } from "@components/ui/Typography";
 import styles from "./TopBlogOverview.module.css";
 import { getTopPosts } from "@lib/blog";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
@@ -15,11 +16,11 @@ export default function TopBlogOverview({ posts }: TopBlogOverviewProps) {
   return (
     <aside className={styles.sidebar} aria-labelledby="top-blogs-heading">
       <header>
-        <h2 id="top-blogs-heading">Top Blogs</h2>
+        <Heading2 id="top-blogs-heading">Top Blogs</Heading2>
       </header>
 
       {overviewPosts.length === 0 ? (
-        <p>no posts yet — check back soon!</p>
+        <Body>no posts yet — check back soon!</Body>
       ) : (
         <ul>
           {overviewPosts.map((post) => (

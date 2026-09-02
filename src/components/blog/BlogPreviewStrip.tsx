@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useInView, useReducedMotion } from "framer-motion";
 import ContentImage from "@components/ui/ContentImage";
 import { EntryTags } from "@components/ui/ContentStyles";
+import { BodySmall, Heading2 } from "@components/ui/Typography";
 import { formatPostDate, type PostSummary } from "@lib/blog-shared";
 import {
   BlogStripCard,
@@ -44,12 +45,12 @@ export default function BlogPreviewStrip({ posts }: BlogPreviewStripProps) {
                   variant="thumbnail"
                 />
               </Link>
-              <h3>
+              <Heading2 as="h3">
                 <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h3>
-              <p>
+              </Heading2>
+              <BodySmall>
                 <EntryTags>{formatPostDate(post.date)}</EntryTags>
-              </p>
+              </BodySmall>
             </BlogStripCard>
           </div>
         ))}

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
-import { largeHeadingStyles, mediumHeadingStyles } from "@components/ui/HeadingStyles";
 import { mediaQuery } from "@lib/media";
 
 export const HomeMain = styled.main`
@@ -41,10 +40,6 @@ export const SectionDivider = styled(Image).attrs({ draggable: false })`
 export const IndexSection = styled.section`
   scroll-margin-top: var(--space-8);
 
-  > h2 {
-    ${largeHeadingStyles}
-  }
-
   > ${ContentIndex} {
     margin-block-start: var(--space-4);
   }
@@ -75,7 +70,6 @@ export const GardenSection = styled(IndexSection)`
   }
 
   > h2 {
-    ${mediumHeadingStyles}
     display: flex;
     align-items: center;
     justify-content: center;

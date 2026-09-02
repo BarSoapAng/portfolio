@@ -10,6 +10,12 @@ import {
 } from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
+import {
+  Body,
+  DisplayCallout,
+  Heading2,
+  ResponsiveBodyLarge,
+} from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 import { type ProjectSummary } from "@lib/project-shared";
 
@@ -59,12 +65,12 @@ const ProjectDetails = styled.div`
 const TitleFrame = styled.div`
   display: grid;
 
-  > h2 {
+  > div {
     grid-area: 1 / 1;
   }
 `;
 
-const ProjectTitle = styled(motion.h2)``;
+const ProjectTitle = styled(motion.div)``;
 
 const ProjectLink = styled(Link)`
   color: var(--color-primary-hover);
@@ -83,20 +89,18 @@ const ProjectLink = styled(Link)`
 const DescriptionFrame = styled.div`
   display: grid;
 
-  > p {
+  > div {
     grid-area: 1 / 1;
   }
 `;
 
-const ProjectDescription = styled(motion.p)`
+const ProjectDescription = styled(motion.div)`
   max-width: 32rem;
+`;
+
+const ProjectDescriptionText = styled(ResponsiveBodyLarge)`
   margin-block-end: 0;
   color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
-
-  @media ${mediaQuery.smallTablet} {
-    font-size: var(--font-size-base);
-  }
 `;
 
 const StackColumn = styled.div`
@@ -119,11 +123,7 @@ const DragInstruction = styled.div`
   opacity: 0.8;
   pointer-events: none;
 
-  span {
-    font-family: var(--font-display);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
+  > span {
     white-space: nowrap;
     transform: rotate(-4deg);
   }
@@ -137,10 +137,6 @@ const DragInstruction = styled.div`
   }
 
   @media ${mediaQuery.mobile} {
-    span {
-      font-size: var(--font-size-lg);
-    }
-
     svg {
       width: var(--space-16);
     }
@@ -210,7 +206,7 @@ const PolaroidPhoto = styled.div`
   }
 `;
 
-const EmptyMessage = styled.p`
+const EmptyMessage = styled(Body)`
   padding-inline: var(--space-4);
 `;
 
@@ -313,26 +309,28 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
                 key={activeProject.slug}
                 transition={{ duration: 0 }}
               >
-                <ProjectLink
-                  aria-label={activeProject.title}
-                  data-cursor="pointer"
-                  href={`/proj/${activeProject.slug}`}
-                >
-                  {Array.from(activeProject.title).map((character, index) => (
-                    <motion.span
-                      animate={{ opacity: 1 }}
-                      aria-hidden="true"
-                      initial={shouldReduceMotion ? false : { opacity: 0 }}
-                      key={`${character}-${index}`}
-                      transition={{
-                        delay: shouldReduceMotion ? 0 : index * 0.06,
-                        duration: 0,
-                      }}
-                    >
-                      {character}
-                    </motion.span>
-                  ))}
-                </ProjectLink>
+                <Heading2>
+                  <ProjectLink
+                    aria-label={activeProject.title}
+                    data-cursor="pointer"
+                    href={`/proj/${activeProject.slug}`}
+                  >
+                    {Array.from(activeProject.title).map((character, index) => (
+                      <motion.span
+                        animate={{ opacity: 1 }}
+                        aria-hidden="true"
+                        initial={shouldReduceMotion ? false : { opacity: 0 }}
+                        key={`${character}-${index}`}
+                        transition={{
+                          delay: shouldReduceMotion ? 0 : index * 0.06,
+                          duration: 0,
+                        }}
+                      >
+                        {character}
+                      </motion.span>
+                    ))}
+                  </ProjectLink>
+                </Heading2>
               </ProjectTitle>
             </AnimatePresence>
           </TitleFrame>
@@ -349,7 +347,9 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
                   ease: "easeInOut",
                 }}
               >
-                {activeProject.summary}
+                <ProjectDescriptionText>
+                  {activeProject.summary}
+                </ProjectDescriptionText>
               </ProjectDescription>
             </AnimatePresence>
           </DescriptionFrame>
@@ -358,7 +358,7 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
 
       <StackColumn>
         <DragInstruction>
-          <span>drag here!</span>
+          <DisplayCallout>drag here!</DisplayCallout>
           <svg aria-hidden="true" focusable="false" viewBox="0 0 120 70">
             <path
               d="M4 12C34 4 50 16 43 34C37 50 57 53 74 43C92 33 105 44 112 60"

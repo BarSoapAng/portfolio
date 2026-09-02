@@ -1,23 +1,23 @@
 "use client";
 import { AiFillHeart, AiOutlineEye, AiOutlineHeart } from "react-icons/ai";
 import styled from "styled-components";
+import { SmallButton, SmallText } from "@components/ui/Typography";
 import { usePostEngagement } from "../../hooks/usePostEngagement";
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: var(--space-6);
-  font-size: var(--font-size-sm);
   color: var(--color-text-muted);
 `;
 
-const Stat = styled.span`
+const Stat = styled(SmallText)`
   display: flex;
   align-items: center;
   gap: var(--space-2);
 `;
 
-const LikeButton = styled.button`
+const LikeButton = styled(SmallButton)`
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -25,7 +25,6 @@ const LikeButton = styled.button`
   border: none;
   padding: 0;
   cursor: pointer;
-  font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   transition: color 0.2s;
 
