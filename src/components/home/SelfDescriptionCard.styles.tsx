@@ -64,7 +64,7 @@ export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
   ${({ $isInView }) =>
     $isInView &&
     css`
-      animation: ${highlightText} 0.8s ease-out 0.25s forwards;
+      animation: ${highlightText} 0.65s ease-out 0.25s forwards;
     `}
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
