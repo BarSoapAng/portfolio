@@ -402,6 +402,7 @@ export default function WorkSection() {
 
     articles.forEach((article) => {
       article.style.opacity = "0";
+      article.style.pointerEvents = "none";
       article.style.willChange = "opacity";
     });
 
@@ -416,6 +417,7 @@ export default function WorkSection() {
           ),
         );
         article.style.opacity = String(progress);
+        article.style.pointerEvents = progress === 1 ? "auto" : "none";
       });
     });
 
