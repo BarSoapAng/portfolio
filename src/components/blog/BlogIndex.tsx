@@ -8,6 +8,7 @@ import {
   BlogContentCardLayout,
   BlogContentIndex,
   BlogControls,
+  BlogTitleRow,
   PinnedPostIcon,
 } from "@components/blog/BlogIndex.styles";
 import ContentImage from "@components/ui/ContentImage";
@@ -56,11 +57,6 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
         {filteredPosts.map((post) => (
           <BlogContentCard key={post.slug}>
             <BlogContentCardLayout>
-              {post.pinned ? (
-                <PinnedPostIcon aria-label="Pinned post" role="img" title="Pinned post">
-                  <FaThumbtack aria-hidden />
-                </PinnedPostIcon>
-              ) : null}
               <Link aria-label={`Read ${post.title}`} href={`/blog/${post.slug}`}>
                 <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="thumbnail" />
               </Link>
@@ -68,9 +64,16 @@ export default function BlogIndex({ posts }: BlogIndexProps) {
                 <Body>
                   <EntryTags>{formatPostDate(post.date)}</EntryTags>
                 </Body>
-                <Heading2>
-                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                </Heading2>
+                <BlogTitleRow>
+                  <Heading2>
+                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                  </Heading2>
+                  {post.pinned ? (
+                    <PinnedPostIcon aria-label="Pinned post" role="img" title="Pinned post">
+                      <FaThumbtack aria-hidden />
+                    </PinnedPostIcon>
+                  ) : null}
+                </BlogTitleRow>
                 <Body>{post.summary}</Body>
               </ContentCardBody>
             </BlogContentCardLayout>

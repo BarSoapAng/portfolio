@@ -45,9 +45,7 @@ export const BlogContentCard = styled.article`
 `;
 
 export const BlogContentCardLayout = styled(ContentCard).attrs({ as: "div" })`
-  position: relative;
   padding-block: 0;
-  padding-inline-end: var(--space-6);
 
   ${ContentCardBody} > p:first-child {
     margin-block-end: var(--space-1);
@@ -58,10 +56,15 @@ export const BlogContentCardLayout = styled(ContentCard).attrs({ as: "div" })`
   }
 `;
 
+export const BlogTitleRow = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+`;
+
 export const PinnedPostIcon = styled.span`
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-end: 0;
+  flex-shrink: 0;
   color: var(--color-accent);
   font-size: var(--font-size-sm);
   line-height: 1;
