@@ -23,6 +23,7 @@ export default function HackTheNorthWorkExperience() {
             rotate: "10deg",
           },
           tablet: {
+            hidden: true,
             top: "-20%",
             right: "-12%",
             width: "10%",

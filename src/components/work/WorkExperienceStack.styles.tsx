@@ -120,6 +120,7 @@ export const WorkArtworkArea = styled.div`
 `;
 
 type WorkArtworkPlacement = {
+  hidden?: boolean;
   top?: string;
   right?: string;
   bottom?: string;
@@ -144,6 +145,7 @@ type WorkArtworkProps = Omit<ImageProps, "draggable" | "layout"> & {
 };
 
 const placementStyles = ({
+  hidden = false,
   top = "auto",
   right = "auto",
   bottom = "auto",
@@ -152,6 +154,7 @@ const placementStyles = ({
   rotate = "none",
   transform = "none",
 }: WorkArtworkPlacement) => css`
+  display: ${hidden ? "none" : "block"};
   top: ${top};
   right: ${right};
   bottom: ${bottom};
