@@ -52,6 +52,17 @@ function getLargeMobileSnapshot() {
   return window.matchMedia(mediaQuery.largeMobile).matches;
 }
 
+function subscribeToMobile(changeHandler: () => void) {
+  const query = window.matchMedia(mediaQuery.mobile);
+  query.addEventListener("change", changeHandler);
+
+  return () => query.removeEventListener("change", changeHandler);
+}
+
+function getMobileSnapshot() {
+  return window.matchMedia(mediaQuery.mobile).matches;
+}
+
 const Section = styled(IndexSection)`
   position: relative;
 `;
@@ -389,6 +400,11 @@ export default function WorkSection() {
     getLargeMobileSnapshot,
     () => false,
   );
+  const isMobile = useSyncExternalStore(
+    subscribeToMobile,
+    getMobileSnapshot,
+    () => false,
+  );
   const experiences = [
     <TeslaWorkExperience key="tesla" />,
     <HackTheNorthWorkExperience key="hack-the-north" />,
@@ -398,8 +414,13 @@ export default function WorkSection() {
     <WecWorkExperience key="wec" />,
   ];
   const pawCounts = useMemo(
-    () => (isLargeMobile ? [4, 2, 5, 3, 3] : [6, 3, 7, 3, 6]),
-    [isLargeMobile],
+    () =>
+      isMobile
+        ? [2, 2, 3, 1, 2]
+        : isLargeMobile
+          ? [4, 2, 5, 3, 3]
+          : [6, 3, 7, 3, 6],
+    [isLargeMobile, isMobile],
   );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
