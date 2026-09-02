@@ -336,11 +336,17 @@ function AnimatedPawTrail({
         `${Math.min(start, end) - trailBounds.left}px`,
       );
       trail.style.setProperty("--trail-width", `${Math.abs(end - start)}px`);
-      trail.style.setProperty(
-        "--trail-angle",
-        `${90 + (Math.atan2(trailBounds.height, end - start) * 180) / Math.PI}deg`,
-      );
       trail.dataset.direction = direction;
+
+      if (window.matchMedia(mediaQuery.mobile).matches) {
+        trail.style.removeProperty("--trail-angle");
+      } else {
+        trail.style.setProperty(
+          "--trail-angle",
+          `${90 + (Math.atan2(trailBounds.height, end - start) * 180) / Math.PI}deg`,
+        );
+      }
+
       trail.dataset.positioned = "true";
     };
 
