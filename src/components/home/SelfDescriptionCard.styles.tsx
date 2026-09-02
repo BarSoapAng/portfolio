@@ -49,6 +49,12 @@ export const HeroImage = styled.img.attrs({ draggable: false })`
 
 export const HeroContent = styled.div`
   min-width: 0;
+
+  @media ${mediaQuery.smallTablet} {
+    > h1 {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
