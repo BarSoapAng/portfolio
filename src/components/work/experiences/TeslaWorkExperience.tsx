@@ -28,10 +28,10 @@ export default function TeslaWorkExperience() {
             width: "10%",
           },
           mobile: {
-            right: "43%",
-            bottom: "-3.5%",
+            right: "47%",
+            bottom: "0",
             rotate: "12deg",
-            width: "10%",
+            width: "9.5%",
           },
         }}
       />
@@ -42,7 +42,7 @@ export default function TeslaWorkExperience() {
         layout={{
           desktop: { top: "-45%", left: "15%", width: "32%" },
           tablet: { top: "-45%", left: "15%", width: "32%" },
-          mobile: { top: "-45%", left: "15%", width: "32%" },
+          mobile: { top: "-38%", left: "15%", width: "28%" },
         }}
       />
     </WorkExperience>

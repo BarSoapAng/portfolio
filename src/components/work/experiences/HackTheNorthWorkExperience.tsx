@@ -30,8 +30,9 @@ export default function HackTheNorthWorkExperience() {
             rotate: "10deg",
           },
           mobile: {
-            top: "-20%",
-            right: "-12%",
+            hidden: true,
+            top: "-60%",
+            right: "5%",
             width: "10%",
             rotate: "10deg",
           },
@@ -55,10 +56,9 @@ export default function HackTheNorthWorkExperience() {
             width: "7%",
           },
           mobile: {
-            right: "37%",
-            bottom: "16%",
-            transform: "scaleX(-1)",
-            width: "7%",
+            right: "-10%",
+            bottom: "20%",
+            width: "9%",
           },
         }}
       />
@@ -69,7 +69,7 @@ export default function HackTheNorthWorkExperience() {
         layout={{
           desktop: { top: "-26%", right: "34.5%", width: "8%" },
           tablet: { top: "-26%", right: "34.5%", width: "8%" },
-          mobile: { top: "-26%", right: "34.5%", width: "8%" },
+          mobile: { top: "-58%", right: "30.5%", width: "9%" },
         }}
       />
     </WorkExperience>

@@ -42,7 +42,7 @@ export default function EricssonWorkExperience() {
         layout={{
           desktop: { bottom: "43%", left: "23%", width: "23%" },
           tablet: { bottom: "43%", left: "23%", width: "23%" },
-          mobile: { bottom: "43%", left: "23%", width: "23%" },
+          mobile: { bottom: "43%", left: "23%", width: "20%" },
         }}
       />
     </WorkExperience>

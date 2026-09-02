@@ -29,8 +29,8 @@ export default function OroWorkExperience() {
           },
           mobile: {
             left: "-6%",
-            top: "-29%",
-            width: "12%",
+            top: "-25%",
+            width: "10%",
             rotate: "-12deg",
           },
         }}

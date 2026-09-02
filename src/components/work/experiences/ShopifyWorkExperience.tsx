@@ -17,7 +17,7 @@ export default function ShopifyWorkExperience() {
         layout={{
           desktop: { bottom: "20%", right: "38%", width: "10%" },
           tablet: { bottom: "20%", right: "38%", width: "10%" },
-          mobile: { bottom: "20%", right: "38%", width: "10%" },
+          mobile: { bottom: "24%", right: "37.5%", width: "9%" },
         }}
       />
       <WorkArtwork
@@ -27,7 +27,7 @@ export default function ShopifyWorkExperience() {
         layout={{
           desktop: { right: "-5%", top: "-70%", width: "22%" },
           tablet: { right: "-5%", top: "-70%", width: "22%" },
-          mobile: { right: "-5%", top: "-70%", width: "22%" },
+          mobile: { right: "-6.5%", top: "-80%", width: "23%" },
         }}
       />
     </WorkExperience>
