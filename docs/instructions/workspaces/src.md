@@ -62,7 +62,7 @@
 ## Home Feature Notes
 
 - `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
-- Work entries use the shared text shell in `src/components/work/WorkExperience.tsx`; each position owns its content and percentage-based artwork placement in `src/components/work/experiences/`.
+- Work entries use the shared text shell in `src/components/work/WorkExperience.tsx`; each position owns its content and its artwork `desktop`, `tablet`, and `mobile` size and placement values in `src/components/work/experiences/`. `WorkArtwork` applies tablet values at `1024px` and mobile values at `640px`.
 - `/work` and `/proj` redirect to the matching home-page sections; only project entries retain standalone detail routes.
 - Reusable home UI belongs in `src/components/home/`.
 - The Spotify player code remains in `src/components/home/VinylPlayer.tsx`, `src/components/home/VinylPlayerClient.tsx`, and `src/lib/spotify.ts`, but it is not rendered or called by the application.

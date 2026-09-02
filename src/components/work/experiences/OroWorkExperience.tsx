@@ -14,13 +14,36 @@ export default function OroWorkExperience() {
         src={oroLogo}
         alt=""
         aria-hidden="true"
-        style={{ left: "-6%", top: "-29%", width: "12%", rotate: "-12deg" }}
+        layout={{
+          desktop: {
+            left: "-6%",
+            top: "-29%",
+            width: "12%",
+            rotate: "-12deg",
+          },
+          tablet: {
+            left: "-2%",
+            top: "-24%",
+            width: "14%",
+            rotate: "-12deg",
+          },
+          mobile: {
+            left: "1%",
+            top: "-18%",
+            width: "18%",
+            rotate: "-12deg",
+          },
+        }}
       />
       <WorkArtwork
         src={oroStyled}
         alt=""
         aria-hidden="true"
-        style={{ bottom: "50%", left: "13%", width: "20%" }}
+        layout={{
+          desktop: { bottom: "50%", left: "13%", width: "20%" },
+          tablet: { bottom: "45%", left: "14%", width: "23%" },
+          mobile: { bottom: "38%", left: "18%", width: "28%" },
+        }}
       />
     </WorkExperience>
   );

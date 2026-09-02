@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import styled from "styled-components";
+import Image, { type ImageProps } from "next/image";
+import styled, { css } from "styled-components";
 import { ContentIndex, EntryTags } from "@components/ui/ContentStyles";
 import { Heading2, Text } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
@@ -119,17 +119,78 @@ export const WorkArtworkArea = styled.div`
   }
 `;
 
-export const WorkArtwork = styled(Image).attrs({ draggable: false })`
+type WorkArtworkPlacement = {
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
+  width: string;
+  rotate?: string;
+  transform?: string;
+};
+
+export type WorkArtworkLayout = {
+  desktop: WorkArtworkPlacement;
+  tablet: WorkArtworkPlacement;
+  mobile: WorkArtworkPlacement;
+};
+
+type StyledWorkArtworkProps = {
+  $layout: WorkArtworkLayout;
+};
+
+type WorkArtworkProps = Omit<ImageProps, "draggable" | "layout"> & {
+  layout: WorkArtworkLayout;
+};
+
+const placementStyles = ({
+  top = "auto",
+  right = "auto",
+  bottom = "auto",
+  left = "auto",
+  width,
+  rotate = "none",
+  transform = "none",
+}: WorkArtworkPlacement) => css`
+  top: ${top};
+  right: ${right};
+  bottom: ${bottom};
+  left: ${left};
+  width: ${width};
+  rotate: ${rotate};
+  transform: ${transform};
+`;
+
+const StyledWorkArtwork = styled(Image)<StyledWorkArtworkProps>`
   position: absolute;
   z-index: 0;
-  width: auto;
   height: auto;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   pointer-events: none;
   user-select: none;
+
+  ${({ $layout }) => placementStyles($layout.desktop)}
+
+  @media ${mediaQuery.tablet} {
+    ${({ $layout }) => placementStyles($layout.tablet)}
+  }
+
+  @media ${mediaQuery.largeMobile} {
+    ${({ $layout }) => placementStyles($layout.mobile)}
+  }
 `;
+
+export function WorkArtwork({ layout, ...props }: WorkArtworkProps) {
+  return (
+    <StyledWorkArtwork
+      {...props}
+      $layout={layout}
+      draggable={false}
+    />
+  );
+}
 
 export const Company = styled.button`
   appearance: none;
