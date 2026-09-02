@@ -81,7 +81,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   main {
-    width: min(900px, 80vw);
+    width: min(900px, 85vw);
     margin-inline: auto;
     padding-block: var(--space-12);
   }
