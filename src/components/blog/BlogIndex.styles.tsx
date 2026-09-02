@@ -58,7 +58,7 @@ export const BlogContentCardLayout = styled(ContentCard).attrs({ as: "div" })`
 
 export const BlogTitleRow = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
 `;
