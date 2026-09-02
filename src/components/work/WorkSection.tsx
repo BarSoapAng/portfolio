@@ -1,6 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef } from "react";
+import {
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+} from "react";
 import {
   motion,
   useReducedMotion,
@@ -35,6 +40,17 @@ type AnimatedPawTrailProps = {
   shouldReduceMotion: boolean | null;
   totalPaws: number;
 };
+
+function subscribeToLargeMobile(changeHandler: () => void) {
+  const query = window.matchMedia(mediaQuery.largeMobile);
+  query.addEventListener("change", changeHandler);
+
+  return () => query.removeEventListener("change", changeHandler);
+}
+
+function getLargeMobileSnapshot() {
+  return window.matchMedia(mediaQuery.largeMobile).matches;
+}
 
 const Section = styled(IndexSection)`
   position: relative;
@@ -368,6 +384,11 @@ function AnimatedPawTrail({
 export default function WorkSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const isLargeMobile = useSyncExternalStore(
+    subscribeToLargeMobile,
+    getLargeMobileSnapshot,
+    () => false,
+  );
   const experiences = [
     <TeslaWorkExperience key="tesla" />,
     <HackTheNorthWorkExperience key="hack-the-north" />,
@@ -376,7 +397,10 @@ export default function WorkSection() {
     <EricssonWorkExperience key="ericsson" />,
     <WecWorkExperience key="wec" />,
   ];
-  const pawCounts = useMemo(() => [6, 3, 7, 3, 6], []);
+  const pawCounts = useMemo(
+    () => (isLargeMobile ? [4, 2, 5, 3, 3] : [6, 3, 7, 3, 6]),
+    [isLargeMobile],
+  );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
