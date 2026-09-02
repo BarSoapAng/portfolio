@@ -49,7 +49,7 @@ const ProjectShowcase = styled.div`
   @media ${mediaQuery.smallTablet} {
     min-height: 0;
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    gap: var(--space-12);
   }
 `;
 
