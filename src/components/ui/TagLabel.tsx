@@ -1,13 +1,13 @@
 "use client";
 
 import styled from "styled-components";
-import { DisplayLabel } from "@components/ui/Typography";
+import { Text } from "@components/ui/Typography";
 
 type TagLabelProps = {
   label: string;
 };
 
-const Label = styled(DisplayLabel)`
+const Label = styled(Text)`
   display: inline-block;
   padding: var(--space-1) var(--space-3);
   color: var(--color-text-muted);

@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import styled from "styled-components";
 import ContentImage from "@components/ui/ContentImage";
+import TagLabel from "@components/ui/TagLabel";
 import {
   Body,
   DisplayCallout,
@@ -101,6 +102,30 @@ const ProjectDescription = styled(motion.div)`
 const ProjectDescriptionText = styled(ResponsiveBodyLarge)`
   margin-block-end: 0;
   color: var(--color-text-muted);
+`;
+
+const ProjectTags = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block-start: var(--space-2);
+
+  > span + span {
+    position: relative;
+  }
+
+  > span + span::before {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: calc(-1 * var(--space-1) - 1px);
+    width: 1px;
+    height: 18px;
+    background: var(--color-border);
+    content: "";
+    pointer-events: none;
+    translate: 0 -50%;
+  }
 `;
 
 const StackColumn = styled.div`
@@ -350,6 +375,11 @@ function ProjectExperienceStack({ projects }: ProjectExperienceStackProps) {
                 <ProjectDescriptionText>
                   {activeProject.summary}
                 </ProjectDescriptionText>
+                <ProjectTags aria-label="Project technologies">
+                  {activeProject.tags.map((tag) => (
+                    <TagLabel key={tag} label={tag} />
+                  ))}
+                </ProjectTags>
               </ProjectDescription>
             </AnimatePresence>
           </DescriptionFrame>
