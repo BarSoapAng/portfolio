@@ -17,6 +17,7 @@ export const WorkIndex = styled(ContentIndex)`
 
 export const WorkEntry = styled.article`
   position: relative;
+  height: calc(var(--space-16) + var(--space-2));
   width: fit-content;
   max-width: 80%;
 

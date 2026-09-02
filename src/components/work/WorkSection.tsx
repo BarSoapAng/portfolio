@@ -245,6 +245,16 @@ const PawTrail = styled.div`
     }
   }
 
+  @media ${mediaQuery.mobile} {
+    > div {
+      justify-content: space-evenly;
+    }
+
+    span[data-paw-spacer] {
+      display: none;
+    }
+  }
+
   &[data-trail="0"] {
     --trail-offset-x: 0px;
     --trail-offset-y: 0px;
