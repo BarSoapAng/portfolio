@@ -178,6 +178,7 @@ const ToolControls = styled.div`
     grid-column: 3;
     grid-row: 1;
     align-self: start;
+    justify-self: start;
     display: flex;
     flex-direction: column-reverse;
     gap: var(--space-4);
