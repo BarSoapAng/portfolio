@@ -68,6 +68,10 @@ const Wrapper = styled.div`
     grid-template-columns: minmax(0, 20rem);
   }
 
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem) minmax(0, 1fr);
+  }
+
   @media ${mediaQuery.largeMobile} {
     padding-inline: 0;
   }
@@ -108,7 +112,7 @@ const CanvasColumn = styled.div`
   max-width: 20rem;
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 1;
+    grid-column: 2;
     grid-row: 1;
   }
 `;
@@ -162,7 +166,7 @@ const ColorControls = styled.div`
   gap: var(--space-2);
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 1;
+    grid-column: 2;
   }
 `;
 
@@ -170,11 +174,12 @@ const ToolControls = styled.div`
   display: contents;
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1;
-    align-self: center;
+    align-self: start;
     display: flex;
-    gap: var(--space-1);
+    flex-direction: column-reverse;
+    gap: var(--space-4);
 
     > ${ToolRow} {
       flex-direction: column;
@@ -333,7 +338,7 @@ const Input = styled(TextInput)`
   box-sizing: border-box;
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 1;
+    grid-column: 2;
   }
 
   &:focus-visible {
@@ -374,7 +379,7 @@ const DrawingActions = styled(StepButtons)`
   margin-top: auto;
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 1;
+    grid-column: 2;
   }
 `;
 
@@ -387,7 +392,7 @@ const StatusRow = styled.div`
   white-space: nowrap;
 
   @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 1;
+    grid-column: 2;
   }
 
   @media ${mediaQuery.largeMobile} {
