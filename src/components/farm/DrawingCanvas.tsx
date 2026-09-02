@@ -106,6 +106,11 @@ const CanvasColumn = styled.div`
   gap: var(--space-2);
   width: 100%;
   max-width: 20rem;
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 1;
+    grid-row: 1;
+  }
 `;
 
 const StyledCanvas = styled.canvas`
@@ -122,6 +127,10 @@ const Utilities = styled.div`
   flex-direction: column;
   align-self: stretch;
   gap: var(--space-3);
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    display: contents;
+  }
 `;
 
 const ToolRow = styled.div`
@@ -142,11 +151,45 @@ const UndoRedoControls = styled.div`
 
 const Label = styled(CaptionMedium)`
   color: var(--color-text-muted);
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    display: none;
+  }
 `;
 
 const ColorControls = styled.div`
   display: grid;
   gap: var(--space-2);
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 1;
+  }
+`;
+
+const ToolControls = styled.div`
+  display: contents;
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    display: flex;
+    gap: var(--space-1);
+
+    > ${ToolRow} {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: var(--space-1);
+    }
+
+    [data-button-group] > button + button::before {
+      inset-inline-start: 50%;
+      top: calc(-1 * var(--space-1) - 1px);
+      width: 18px;
+      height: 1px;
+      translate: -50% 0;
+    }
+  }
 `;
 
 const ColorPicker = styled.div`
@@ -289,6 +332,10 @@ const Input = styled(TextInput)`
   color: var(--color-text);
   box-sizing: border-box;
 
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 1;
+  }
+
   &:focus-visible {
     outline: none;
     border-color: color-mix(in srgb, var(--color-border) 75%, var(--color-text));
@@ -325,6 +372,10 @@ const StepButtons = styled.div`
 
 const DrawingActions = styled(StepButtons)`
   margin-top: auto;
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 1;
+  }
 `;
 
 const StatusRow = styled.div`
@@ -334,6 +385,10 @@ const StatusRow = styled.div`
   justify-content: center;
   gap: var(--space-2);
   white-space: nowrap;
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 1;
+  }
 
   @media ${mediaQuery.largeMobile} {
     min-height: 0;
@@ -783,51 +838,53 @@ export default function DrawingCanvas() {
             </ColorPicker>
           </ColorControls>
 
-          <ToolRow data-button-group>
-            <Label>Size</Label>
-            {BRUSH_SIZES.map((b) => (
-              <SizeButton
-                key={b.size}
-                $active={brushSize === b.size}
-                aria-label={`${b.label} brush`}
-                title={`${b.label} brush`}
-                onClick={() => {
-                  setBrushSize(b.size);
-                  setTool("pen");
-                }}
-              >
-                <BrushSizeCircle $size={b.size} />
-              </SizeButton>
-            ))}
-          </ToolRow>
+          <ToolControls>
+            <ToolRow data-button-group>
+              <Label>Size</Label>
+              {BRUSH_SIZES.map((b) => (
+                <SizeButton
+                  key={b.size}
+                  $active={brushSize === b.size}
+                  aria-label={`${b.label} brush`}
+                  title={`${b.label} brush`}
+                  onClick={() => {
+                    setBrushSize(b.size);
+                    setTool("pen");
+                  }}
+                >
+                  <BrushSizeCircle $size={b.size} />
+                </SizeButton>
+              ))}
+            </ToolRow>
 
-          <ToolRow data-button-group>
-            <Label>Tool</Label>
-            <IconButton
-              $active={tool === "pen"}
-              aria-label="Pen"
-              title="Pen"
-              onClick={() => setTool("pen")}
-            >
-              <FaPen size={14} />
-            </IconButton>
-            <IconButton
-              $active={tool === "bucket"}
-              aria-label="Fill bucket"
-              title="Fill bucket"
-              onClick={() => setTool("bucket")}
-            >
-              <FaBucket size={14} />
-            </IconButton>
-            <IconButton
-              $active={tool === "eraser"}
-              aria-label="Eraser"
-              title="Eraser"
-              onClick={() => setTool("eraser")}
-            >
-              <FaEraser size={14} />
-            </IconButton>
-          </ToolRow>
+            <ToolRow data-button-group>
+              <Label>Tool</Label>
+              <IconButton
+                $active={tool === "pen"}
+                aria-label="Pen"
+                title="Pen"
+                onClick={() => setTool("pen")}
+              >
+                <FaPen size={14} />
+              </IconButton>
+              <IconButton
+                $active={tool === "bucket"}
+                aria-label="Fill bucket"
+                title="Fill bucket"
+                onClick={() => setTool("bucket")}
+              >
+                <FaBucket size={14} />
+              </IconButton>
+              <IconButton
+                $active={tool === "eraser"}
+                aria-label="Eraser"
+                title="Eraser"
+                onClick={() => setTool("eraser")}
+              >
+                <FaEraser size={14} />
+              </IconButton>
+            </ToolRow>
+          </ToolControls>
 
         <Input
           type="text"
