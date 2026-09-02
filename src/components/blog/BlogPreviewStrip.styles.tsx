@@ -6,7 +6,15 @@ import { IndexSection } from "../../app/home/HomePage.styles";
 import { mediaQuery } from "@lib/media";
 
 export const BlogStripSection = styled(IndexSection)`
-  margin-block-start: var(--space-8);
+  margin-block-start: var(--space-16);
+
+  @media ${mediaQuery.tablet} {
+    margin-block-start: var(--space-12);
+  }
+
+  @media ${mediaQuery.smallTablet} {
+    margin-block-start: var(--space-8);
+  }
 `;
 
 export const BlogStripGrid = styled.div`

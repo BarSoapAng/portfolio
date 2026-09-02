@@ -1,6 +1,5 @@
-import { useId, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import {
-  Company,
   CompanyName,
   JobTitle,
   Period,
@@ -23,24 +22,12 @@ export default function WorkExperience({
   period,
   title,
 }: WorkExperienceProps) {
-  const titleId = useId();
-
   return (
     <WorkEntry>
       <WorkCopy>
         <WorkHeading>
-          <CompanyName>
-            <Company
-              aria-describedby={titleId}
-              data-cursor="pointer"
-              type="button"
-            >
-              {company}
-            </Company>
-          </CompanyName>
-          <JobTitle id={titleId} role="tooltip">
-            {title}
-          </JobTitle>
+          <CompanyName>{company}</CompanyName>
+          <JobTitle>{title}</JobTitle>
         </WorkHeading>
         <Period>{period}</Period>
       </WorkCopy>

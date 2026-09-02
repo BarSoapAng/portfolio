@@ -13,3 +13,19 @@ export const colors = {
   accentSoft: "#e5e9de",
   wood: "#8a5942",
 } as const;
+
+export const colorsDark = {
+  background: "#0e150f",
+  surface: "#151d16",
+  surfaceMuted: "#1e2a20",
+  primary: "#8fa07a",
+  primaryHover: "#b3c4a0",
+  primarySoft: "#2a3025",
+  onPrimary: "#0e150f",
+  text: "#e8ddd6",
+  textMuted: "#a69389",
+  border: "#3e332d",
+  accent: "#d4698e",
+  accentSoft: "#3d2230",
+  wood: "#c4926e",
+} as const;

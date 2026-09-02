@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import selfie from "@assets/home/selfie.webp";
-import { Body, Heading1, Strong } from "@components/ui/Typography";
+import { Body, Caption, Heading1, Strong } from "@components/ui/Typography";
 import {
   HighlightedGreeting,
   Hero,
@@ -24,6 +24,9 @@ export default function SelfDescriptionCard() {
             Hello hello!
           </HighlightedGreeting>
         </Heading1>
+        <Caption style={{ color: 'var(--color-text-muted)', marginBlockStart: 'var(--space-2)' }}>
+          SWE @ Tesla · CE @ UWaterloo
+        </Caption>
         <Body>
           This is a place where I share my experiences, what I'm up to, and 
           my (not so) crazy shower thoughts :3

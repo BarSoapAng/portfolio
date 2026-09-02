@@ -14,7 +14,7 @@ const SiteHeader = styled.header`
   justify-content: space-between;
   gap: var(--space-6);
   width: min(calc(100% - (2 * var(--space-4))), 900px);
-  height: 74px;
+  height: var(--navbar-height);
   margin-inline: auto;
   padding-block: var(--space-4);
 

@@ -19,7 +19,7 @@ export const Hero = styled.section`
   grid-template-columns: minmax(9rem, 13.75rem) minmax(0, 1fr);
   align-content: center;
   align-items: center;
-  height: calc(100vh - 74px);
+  height: calc(100vh - var(--navbar-height));
   max-height: 900px;
   gap: var(--space-8);
   margin-bottom: var(--space-12);

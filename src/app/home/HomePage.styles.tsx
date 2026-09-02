@@ -19,22 +19,7 @@ export const SectionDivider = styled(Image).attrs({ draggable: false })`
   box-shadow: none;
   pointer-events: none;
   user-select: none;
-
-  & + * {
-    margin-block-start: 56px;
-  }
-
-  @media ${mediaQuery.tablet} {
-    & + * {
-      margin-block-start: var(--space-12);
-    }
-  }
-
-  @media ${mediaQuery.smallTablet} {
-    & + * {
-      margin-block-start: var(--space-8);
-    }
-  }
+  filter: invert(var(--artwork-invert, 0));
 `;
 
 export const IndexSection = styled.section`
@@ -46,7 +31,7 @@ export const IndexSection = styled.section`
 `;
 
 export const ProjectsSection = styled(IndexSection)`
-  height: calc(100vh - 74px);
+  height: calc(100vh - var(--navbar-height));
   max-height: 900px;
   margin-block-start: 0;
 
@@ -58,16 +43,11 @@ export const ProjectsSection = styled(IndexSection)`
 
 export const GardenSection = styled(IndexSection)`
   --color-primary: var(--color-accent);
-  --color-primary-hover: color-mix(in srgb, var(--color-accent) 65%, black);
+  --color-primary-hover: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
   --color-primary-soft: var(--color-accent-soft);
 
-  height: calc(100vh - 74px);
-  max-height: 900px;
-
-  @media ${mediaQuery.tablet} {
-    height: auto;
-    max-height: none;
-  }
+  margin-block-start: 0 !important;
+  padding-block: 0;
 
   > h2 {
     display: flex;

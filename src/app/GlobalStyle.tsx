@@ -6,6 +6,44 @@ import { mediaQuery } from "@lib/media";
 const GlobalStyle = createGlobalStyle`
   :root {
     color-scheme: light;
+    --color-background: #fff8f3;
+    --color-surface: #fffdf9;
+    --color-surface-muted: #f4ebe4;
+    --color-primary: #a94065;
+    --color-primary-hover: #87334f;
+    --color-primary-soft: #f9dce5;
+    --color-on-primary: #ffffff;
+    --color-text: #3e302d;
+    --color-text-muted: #6f5953;
+    --color-border: #d8c5ba;
+    --color-accent: #69745a;
+    --color-accent-soft: #e5e9de;
+    --color-wood: #8a5942;
+    --artwork-invert: 0;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-background: #0e150f;
+    --color-surface: #151d16;
+    --color-surface-muted: #1e2a20;
+    --color-primary: #8fa07a;
+    --color-primary-hover: #b3c4a0;
+    --color-primary-soft: #2a3025;
+    --color-on-primary: #0e150f;
+    --color-text: #e8ddd6;
+    --color-text-muted: #a69389;
+    --color-border: #3e332d;
+    --color-accent: #d4698e;
+    --color-accent-soft: #3d2230;
+    --color-wood: #c4926e;
+    --artwork-invert: 1;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
   }
 
   * {
@@ -44,17 +82,16 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     background:
       linear-gradient(
-        color-mix(in srgb, var(--color-primary-soft) 35%, transparent) 1px,
+        color-mix(in srgb, var(--color-primary-soft) 20%, transparent) 1px,
         transparent 1px
       ),
       linear-gradient(
         90deg,
-        color-mix(in srgb, var(--color-primary-soft) 35%, transparent) 1px,
+        color-mix(in srgb, var(--color-primary-soft) 20%, transparent) 1px,
         transparent 1px
       ),
       var(--color-background);
-    background-size: calc(var(--space-8) + var(--space-1))
-      calc(var(--space-8) + var(--space-1));
+    background-size: var(--space-12) var(--space-12);
     color: var(--color-text);
     font-family: var(--font-body);
     font-size: var(--font-size-base);
@@ -101,11 +138,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a:hover {
-    color: color-mix(in srgb, var(--color-primary) 65%, black);
+    color: var(--color-primary-hover);
   }
 
   nav[aria-label="Social media"] a:hover {
-    color: color-mix(in srgb, var(--color-accent) 65%, black);
+    color: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
   }
 
   a:focus-visible {

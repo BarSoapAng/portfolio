@@ -5,7 +5,7 @@ import Footer from "@components/layout/Footer";
 import SocialLinks from "@components/layout/SocialLinks";
 import Navbar from "@components/navigation/Navbar";
 import AnimatedCursor from "@components/ui/AnimatedCursor";
-import { colors } from "@lib/colors";
+import ThemeToggle from "@components/ui/ThemeToggle";
 import { font } from "@lib/font";
 import { radius } from "@lib/radius";
 import { spacing } from "@lib/spacing";
@@ -31,19 +31,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="en"
       style={
         {
-          "--color-background": colors.background,
-          "--color-surface": colors.surface,
-          "--color-surface-muted": colors.surfaceMuted,
-          "--color-primary": colors.primary,
-          "--color-primary-hover": colors.primaryHover,
-          "--color-primary-soft": colors.primarySoft,
-          "--color-on-primary": colors.onPrimary,
-          "--color-text": colors.text,
-          "--color-text-muted": colors.textMuted,
-          "--color-border": colors.border,
-          "--color-accent": colors.accent,
-          "--color-accent-soft": colors.accentSoft,
-          "--color-wood": colors.wood,
           "--font-display": font.family.display,
           "--font-body": font.family.body,
           "--font-mono": font.family.mono,
@@ -75,14 +62,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
           "--space-12": spacing["2xl"],
           "--space-16": spacing["3xl"],
           "--space-24": spacing["4xl"],
+          "--navbar-height": "74px",
         } as ThemeProperties
       }
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
           <div className="site-wrapper">
             <AnimatedCursor />
+            <ThemeToggle />
             <Navbar />
             {children}
             <SocialLinks />

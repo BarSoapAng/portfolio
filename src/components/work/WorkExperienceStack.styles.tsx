@@ -175,6 +175,7 @@ const StyledWorkArtwork = styled(Image)<StyledWorkArtworkProps>`
   box-shadow: none;
   pointer-events: none;
   user-select: none;
+  filter: invert(var(--artwork-invert, 0));
 
   ${({ $layout }) => placementStyles($layout.desktop)}
 
@@ -201,66 +202,15 @@ export function WorkArtwork({ layout, ...props }: WorkArtworkProps) {
   );
 }
 
-export const Company = styled.button`
-  appearance: none;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  line-height: inherit;
-  text-align: start;
-  cursor: pointer;
-
-  &:focus-visible {
-    border-radius: var(--radius-small);
-    outline: 3px solid var(--color-primary);
-    outline-offset: var(--space-1);
-  }
-`;
 
 export const CompanyName = styled(Heading2)`
   width: fit-content;
   max-width: 100%;
-  margin-block-end: var(--space-2);
 `;
 
 export const JobTitle = styled(Text)`
-  position: absolute;
-  z-index: 1;
-  bottom: calc(100% + var(--space-2));
-  left: 0;
-  width: max-content;
-  max-width: min(18rem, 80vw);
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--color-accent);
-  border-radius: var(--radius-medium);
-  background: var(--color-accent);
-  color: var(--color-on-primary);
-  opacity: 0;
-  pointer-events: none;
-  translate: 0 var(--space-2);
-  transition:
-    opacity 140ms ease,
-    translate 140ms ease,
-    visibility 140ms ease;
-  visibility: hidden;
-
-  ${WorkEntry}:nth-of-type(even) & {
-    right: 0;
-    left: auto;
-  }
-
-  ${CompanyName}:hover + &,
-  ${CompanyName}:focus-within + & {
-    opacity: 1;
-    translate: 0 0;
-    visibility: visible;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
 `;
 
 export const WorkHeading = styled.div`
