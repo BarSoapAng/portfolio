@@ -22,15 +22,15 @@ export default function EricssonWorkExperience() {
             rotate: "-2deg",
           },
           tablet: {
-            left: "-4%",
+            left: "-8%",
             top: "3%",
-            width: "8%",
+            width: "6.4%",
             rotate: "-2deg",
           },
           mobile: {
-            left: "0",
-            top: "5%",
-            width: "11%",
+            left: "-8%",
+            top: "3%",
+            width: "6.4%",
             rotate: "-2deg",
           },
         }}
@@ -41,8 +41,8 @@ export default function EricssonWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { bottom: "43%", left: "23%", width: "23%" },
-          tablet: { bottom: "38%", left: "24%", width: "26%" },
-          mobile: { bottom: "30%", left: "25%", width: "32%" },
+          tablet: { bottom: "43%", left: "23%", width: "23%" },
+          mobile: { bottom: "43%", left: "23%", width: "23%" },
         }}
       />
     </WorkExperience>

@@ -16,8 +16,8 @@ export default function WecWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { bottom: "70%", right: "11%", width: "11%" },
-          tablet: { bottom: "64%", right: "12%", width: "13%" },
-          mobile: { bottom: "54%", right: "18%", width: "17%" },
+          tablet: { bottom: "70%", right: "11%", width: "11%" },
+          mobile: { bottom: "70%", right: "11%", width: "11%" },
         }}
       />
       <WorkArtwork
@@ -26,8 +26,8 @@ export default function WecWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { right: "-10%", bottom: "35%", width: "20%" },
-          tablet: { right: "-3%", bottom: "30%", width: "23%" },
-          mobile: { right: "1%", bottom: "20%", width: "30%" },
+          tablet: { right: "-10%", bottom: "35%", width: "20%" },
+          mobile: { right: "-10%", bottom: "35%", width: "20%" },
         }}
       />
     </WorkExperience>

@@ -22,15 +22,15 @@ export default function OroWorkExperience() {
             rotate: "-12deg",
           },
           tablet: {
-            left: "-2%",
-            top: "-24%",
-            width: "14%",
+            left: "-6%",
+            top: "-29%",
+            width: "12%",
             rotate: "-12deg",
           },
           mobile: {
-            left: "1%",
-            top: "-18%",
-            width: "18%",
+            left: "-6%",
+            top: "-29%",
+            width: "12%",
             rotate: "-12deg",
           },
         }}
@@ -41,8 +41,8 @@ export default function OroWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { bottom: "50%", left: "13%", width: "20%" },
-          tablet: { bottom: "45%", left: "14%", width: "23%" },
-          mobile: { bottom: "38%", left: "18%", width: "28%" },
+          tablet: { bottom: "50%", left: "13%", width: "20%" },
+          mobile: { bottom: "50%", left: "13%", width: "20%" },
         }}
       />
     </WorkExperience>
