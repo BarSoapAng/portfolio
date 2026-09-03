@@ -15,10 +15,10 @@ export default function ShopifyWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { bottom: "20%", right: "38%", width: "10%" },
-          tablet: { bottom: "20%", right: "38%", width: "10%" },
-          mobile: { bottom: "24%", right: "37.5%", width: "9%" },
-          smallMobile: { bottom: "24%", right: "37.5%", width: "8.5%" },
+          desktop: { bottom: "20%", right: "38%", width: "38px" },
+          tablet: { bottom: "20%", right: "38%", width: "38px" },
+          mobile: { bottom: "24%", right: "37.5%", width: "35px" },
+          smallMobile: { bottom: "24%", right: "37.5%", width: "32px" },
         }}
       />
       <WorkArtwork
@@ -26,10 +26,10 @@ export default function ShopifyWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { right: "-5%", top: "-70%", width: "22%" },
-          tablet: { right: "-5%", top: "-70%", width: "22%" },
-          mobile: { right: "-6.5%", top: "-80%", width: "23%" },
-          smallMobile: { right: "-1%", top: "-85%", width: "20%" },
+          desktop: { right: "-5%", top: "-70%", width: "85px" },
+          tablet: { right: "-5%", top: "-70%", width: "85px" },
+          mobile: { right: "-6.5%", top: "-80%", width: "88px" },
+          smallMobile: { right: "-1%", top: "-85%", width: "77px" },
         }}
       />
     </WorkExperience>

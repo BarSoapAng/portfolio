@@ -179,15 +179,81 @@ export const PawTrailContainer = styled.div`
     svg {
       width: calc(var(--space-4) - var(--space-1));
     }
+
+    span:nth-child(5) {
+      translate: 0 var(--space-3);
+    }
+
+    span:nth-child(6) {
+      translate: 0 var(--space-4);
+    }
+
+    span:nth-child(7) {
+      translate: 0 var(--space-6);
+    }
+  }
+
+  @media ${mediaQuery.largeMobile} {
+    height: var(--space-6);
+
+    &[data-trail] span:nth-child(4) {
+      translate: 0 var(--space-2);
+    }
+
+    &[data-trail] span:nth-child(5) {
+      translate: 0 var(--space-3);
+    }
+
+    &[data-trail] span:nth-child(6) {
+      translate: 0 var(--space-3);
+    }
+
+    &[data-trail] span:nth-child(7) {
+      translate: 0 var(--space-4);
+    }
+  }
+
+  @media ${mediaQuery.mediumMobile} {
+    display: none;
   }
 
   @media ${mediaQuery.mobile} {
+    height: var(--space-4);
+
     > div {
       justify-content: space-evenly;
     }
 
     span[data-paw-spacer] {
       display: none;
+    }
+
+    &[data-trail] span:nth-child(2) {
+      translate: 0 var(--space-1);
+    }
+
+    &[data-trail] span:nth-child(3) {
+      translate: 0 var(--space-1);
+    }
+
+    &[data-trail] span:nth-child(4) {
+      translate: 0 var(--space-2);
+    }
+
+    &[data-trail] span:nth-child(5) {
+      translate: 0 var(--space-2);
+    }
+
+    &[data-trail] span:nth-child(6) {
+      translate: 0 var(--space-2);
+    }
+
+    &[data-trail] span:nth-child(7) {
+      translate: 0 var(--space-2);
+    }
+
+    svg {
+      width: calc(var(--space-3) + var(--space-1));
     }
   }
 
@@ -219,5 +285,39 @@ export const PawTrailContainer = styled.div`
     --trail-offset-x: 0px;
     --trail-offset-y: var(--space-2);
     --trail-length-adjustment: var(--space-4);
+  }
+
+  @media ${mediaQuery.largeMobile} {
+    &[data-trail="1"] {
+      --trail-offset-x: calc(-1 * var(--space-3));
+      --trail-length-adjustment: var(--space-3);
+    }
+
+    &[data-trail="2"] {
+      --trail-offset-y: calc(-1 * var(--space-2));
+      --trail-length-adjustment: calc(-1 * var(--space-2));
+    }
+
+    &[data-trail="3"] {
+      --trail-offset-x: calc(-1 * var(--space-2));
+      --trail-offset-y: var(--space-1);
+      --trail-length-adjustment: var(--space-2);
+    }
+
+    &[data-trail="4"] {
+      --trail-offset-y: var(--space-1);
+      --trail-length-adjustment: var(--space-2);
+    }
+  }
+
+  @media ${mediaQuery.mobile} {
+    &[data-trail="1"],
+    &[data-trail="2"],
+    &[data-trail="3"],
+    &[data-trail="4"] {
+      --trail-offset-x: 0px;
+      --trail-offset-y: 0px;
+      --trail-length-adjustment: 0px;
+    }
   }
 `;

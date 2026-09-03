@@ -20,6 +20,7 @@ import {
   FaBucket,
   FaEraser,
   FaPen,
+  FaSeedling,
   FaTrashCan,
 } from "react-icons/fa6";
 
@@ -332,16 +333,13 @@ const IconButton = styled.button<{ $active?: boolean }>`
 
 const Input = styled(TextInput)`
   width: 100%;
+  min-width: 0;
   padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
   background: var(--color-surface);
   color: var(--color-text);
   box-sizing: border-box;
-
-  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
-    grid-column: 2;
-  }
 
   &:focus-visible {
     outline: none;
@@ -408,13 +406,32 @@ const Message = styled(Caption)<{ $error?: boolean }>`
   text-align: center;
 `;
 
-const GardenLink = styled(Link)`
-  color: var(--color-primary);
-  text-underline-offset: 2px;
+const InputRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  @media ${mediaQuery.smallTablet} and (min-width: 641px) {
+    grid-column: 2;
+  }
+`;
+
+const GardenButton = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: var(--font-size-base);
 
   &:hover,
   &:active {
-    color: var(--color-primary-hover);
+    color: var(--color-primary);
   }
 `;
 
@@ -893,24 +910,24 @@ export default function DrawingCanvas() {
             </ToolRow>
           </ToolControls>
 
-        <Input
-          type="text"
-          maxLength={40}
-          placeholder="Name your creation (optional)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <InputRow>
+          <Input
+            type="text"
+            maxLength={40}
+            placeholder="Name your creation (optional)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <GardenButton href="/garden" aria-label="View garden" title="View garden">
+            <FaSeedling />
+          </GardenButton>
+        </InputRow>
 
         <StatusRow>
           {message && (
             <Message $error={message.error} role="status" aria-live="polite">
               {message.text}
             </Message>
-          )}
-          {(!message || !message.error) && (
-            <CaptionStrong>
-              <GardenLink href="/garden">View the garden →</GardenLink>
-            </CaptionStrong>
           )}
         </StatusRow>
 

@@ -5,7 +5,7 @@ import { FaMoon } from "react-icons/fa6";
 import { LuSun } from "react-icons/lu";
 import styled from "styled-components";
 
-const ToggleButton = styled.button`
+const ToggleButton = styled.button<{ $isSun?: boolean }>`
   appearance: none;
   position: fixed;
   z-index: 10;
@@ -19,12 +19,12 @@ const ToggleButton = styled.button`
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-base);
+  color: ${({ $isSun }) => $isSun ? 'var(--color-primary)' : 'var(--color-text-muted)'};
+  font-size: 1.35rem;
   cursor: pointer;
 
   &:hover {
-    color: var(--color-primary);
+    color: ${({ $isSun }) => $isSun ? 'var(--color-primary-hover)' : 'var(--color-primary)'};
   }
 
   &:focus-visible {
@@ -62,6 +62,7 @@ export default function ThemeToggle() {
 
   return (
     <ToggleButton
+      $isSun={theme === "dark"}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       data-cursor="pointer"
       onClick={toggle}

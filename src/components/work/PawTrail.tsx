@@ -70,16 +70,18 @@ export default function AnimatedPawTrail({
           previousBounds.left + previousBounds.width / 2
           ? "right"
           : "left";
+      const isMobileView = window.matchMedia(mediaQuery.largeMobile).matches;
+      const gap = isMobileView ? 8 : 20;
+      const endGap = isMobileView ? 6 : 16;
       const start =
-        direction === "right" ? previousBounds.right + 20 : previousBounds.left;
+        direction === "right" ? previousBounds.right + gap : previousBounds.left;
       const end =
-        direction === "right" ? nextBounds.left : nextBounds.right - 16;
+        direction === "right" ? nextBounds.left : nextBounds.right - endGap;
 
-      trail.style.setProperty(
-        "--trail-left",
-        `${Math.min(start, end) - trailBounds.left}px`,
-      );
-      trail.style.setProperty("--trail-width", `${Math.abs(end - start)}px`);
+      const trailLeft = Math.min(start, end) - trailBounds.left;
+      const trailWidth = Math.max(0, Math.abs(end - start));
+      trail.style.setProperty("--trail-left", `${trailLeft}px`);
+      trail.style.setProperty("--trail-width", `${trailWidth}px`);
       trail.dataset.direction = direction;
 
       if (window.matchMedia(mediaQuery.mobile).matches) {

@@ -18,25 +18,25 @@ export default function EricssonWorkExperience() {
           desktop: {
             left: "-8%",
             top: "3%",
-            width: "6.4%",
+            width: "24px",
             rotate: "-2deg",
           },
           tablet: {
             left: "-8%",
             top: "3%",
-            width: "6.4%",
+            width: "24px",
             rotate: "-2deg",
           },
           mobile: {
             left: "-8%",
             top: "3%",
-            width: "6.4%",
+            width: "24px",
             rotate: "-2deg",
           },
           smallMobile: {
             left: "-7.5%",
             top: "3%",
-            width: "5.5%",
+            width: "21px",
             rotate: "-2deg",
           },
         }}
@@ -46,10 +46,10 @@ export default function EricssonWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { bottom: "43%", left: "23%", width: "23%" },
-          tablet: { bottom: "43%", left: "23%", width: "23%" },
-          mobile: { bottom: "43%", left: "23%", width: "20%" },
-          smallMobile: { bottom: "45%", left: "18%", width: "14.5%" },
+          desktop: { bottom: "43%", left: "23%", width: "88px" },
+          tablet: { bottom: "43%", left: "23%", width: "88px" },
+          mobile: { bottom: "43%", left: "23%", width: "77px" },
+          smallMobile: { bottom: "45%", left: "18%", width: "56px" },
         }}
       />
     </WorkExperience>

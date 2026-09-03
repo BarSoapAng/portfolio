@@ -85,6 +85,40 @@ export const WorkEntry = styled.article`
     }
   }
 
+  @media ${mediaQuery.largeMobile} {
+    max-width: 92%;
+
+    &:nth-of-type(2) {
+      margin-inline-end: 12%;
+    }
+
+    &:nth-of-type(3) {
+      margin-inline-start: 4%;
+    }
+
+    &:nth-of-type(4) {
+      margin-inline-end: 6%;
+    }
+
+    &:nth-of-type(5) {
+      margin-inline-start: 8%;
+    }
+  }
+
+  @media ${mediaQuery.mediumMobile} {
+    max-width: 95%;
+
+    &:nth-of-type(2),
+    &:nth-of-type(4) {
+      margin-inline-end: 4%;
+    }
+
+    &:nth-of-type(3),
+    &:nth-of-type(5) {
+      margin-inline-start: 4%;
+    }
+  }
+
   @media ${mediaQuery.mobile} {
     max-width: 95%;
 
@@ -209,7 +243,7 @@ export const CompanyName = styled(Heading2)`
 `;
 
 export const JobTitle = styled(Text)`
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   font-size: var(--font-size-sm);
 `;
 
@@ -221,4 +255,5 @@ export const WorkHeading = styled.div`
 
 export const Period = styled(EntryTags)`
   display: block;
+  color: var(--color-text-muted);
 `;
