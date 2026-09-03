@@ -28,16 +28,10 @@ export default function TeslaWorkExperience() {
             width: "32px",
           },
           mobile: {
-            right: "47%",
-            bottom: "20%",
+            right: "57%",
+            bottom: "35%",
             rotate: "12deg",
-            width: "36px",
-          },
-          smallMobile: {
-            right: "51%",
-            bottom: "20%",
-            rotate: "11deg",
-            width: "30px",
+            width: "32px",
           },
         }}
       />
@@ -48,8 +42,7 @@ export default function TeslaWorkExperience() {
         layout={{
           desktop: { bottom: "60%", left: "16%", width: "123px" },
           tablet: { bottom: "60%", left: "15%", width: "123px" },
-          mobile: { bottom: "60%", left: "15%", width: "107px" },
-          smallMobile: { bottom: "60%", left: "13%", width: "107px" },
+          mobile: { bottom: "70%", left: "13%", width: "100px" },
         }}
       />
     </WorkExperience>

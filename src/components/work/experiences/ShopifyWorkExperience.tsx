@@ -18,7 +18,6 @@ export default function ShopifyWorkExperience() {
           desktop: { bottom: "49%", right: "38%", width: "38px" },
           tablet: { bottom: "49%", right: "38%", width: "38px" },
           mobile: { bottom: "49%", right: "37.5%", width: "35px" },
-          smallMobile: { bottom: "49%", right: "37.5%", width: "32px" },
         }}
       />
       <WorkArtwork
@@ -28,8 +27,7 @@ export default function ShopifyWorkExperience() {
         layout={{
           desktop: { right: "-6%", top: "-48%", width: "85px" },
           tablet: { right: "-5%", top: "-48%", width: "85px" },
-          mobile: { right: "-6.5%", top: "-48%", width: "88px" },
-          smallMobile: { right: "-1%", top: "-48%", width: "77px" },
+          mobile: { right: "-8%", top: "-50%", width: "88px" },
         }}
       />
     </WorkExperience>

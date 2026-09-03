@@ -146,7 +146,6 @@ export type WorkArtworkLayout = {
   desktop: WorkArtworkPlacement;
   tablet: WorkArtworkPlacement;
   mobile: WorkArtworkPlacement;
-  smallMobile: WorkArtworkPlacement;
 };
 
 type StyledWorkArtworkProps = {
@@ -204,12 +203,8 @@ const StyledWorkArtwork = styled(Image)<StyledWorkArtworkProps>`
     ${({ $layout }) => placementStyles($layout.tablet)}
   }
 
-  @media ${mediaQuery.largeMobile} {
+  @media ${mediaQuery.smallTablet} {
     ${({ $layout }) => placementStyles($layout.mobile)}
-  }
-
-  @media ${mediaQuery.mobile} {
-    ${({ $layout }) => placementStyles($layout.smallMobile)}
   }
 `;
 

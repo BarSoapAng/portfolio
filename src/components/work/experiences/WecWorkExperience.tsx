@@ -17,11 +17,10 @@ export default function WecWorkExperience() {
         layout={{
           desktop: { bottom: "65%", right: "11%", width: "42px" },
           tablet: { bottom: "65%", right: "11%", width: "38px" },
-          mobile: { bottom: "65%", right: "11%", width: "42px" },
-          smallMobile: {
-            bottom: "65%",
-            right: "1%",
-            width: "37px",
+          mobile: {
+            bottom: "85%",
+            right: "12px",
+            width: "34px",
             transform: "scaleX(-1)",
           },
         }}
@@ -33,10 +32,9 @@ export default function WecWorkExperience() {
         layout={{
           desktop: { right: "-10%", bottom: "58%", width: "77px" },
           tablet: { right: "-10%", bottom: "58%", width: "77px" },
-          mobile: { right: "-10%", bottom: "58%", width: "77px" },
-          smallMobile: {
+          mobile: {
             right: "11%",
-            bottom: "58%",
+            bottom: "70%",
             width: "80px",
             transform: "scaleX(-1)",
             rotate: "10deg",
