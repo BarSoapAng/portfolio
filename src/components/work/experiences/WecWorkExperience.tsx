@@ -16,10 +16,10 @@ export default function WecWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { bottom: "65%", right: "11%", width: "42px" },
-          tablet: { bottom: "50%", right: "11%", width: "42px" },
-          mobile: { bottom: "50%", right: "11%", width: "42px" },
+          tablet: { bottom: "65%", right: "11%", width: "38px" },
+          mobile: { bottom: "65%", right: "11%", width: "42px" },
           smallMobile: {
-            bottom: "54%",
+            bottom: "65%",
             right: "1%",
             width: "37px",
             transform: "scaleX(-1)",
@@ -32,11 +32,11 @@ export default function WecWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { right: "-10%", bottom: "58%", width: "77px" },
-          tablet: { right: "-10%", bottom: "25%", width: "77px" },
-          mobile: { right: "-10%", bottom: "25%", width: "77px" },
+          tablet: { right: "-10%", bottom: "58%", width: "77px" },
+          mobile: { right: "-10%", bottom: "58%", width: "77px" },
           smallMobile: {
             right: "11%",
-            bottom: "40%",
+            bottom: "58%",
             width: "80px",
             transform: "scaleX(-1)",
             rotate: "10deg",

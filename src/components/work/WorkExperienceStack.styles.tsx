@@ -109,33 +109,6 @@ export const WorkEntry = styled.article`
     }
   }
 
-  @media ${mediaQuery.mediumMobile} {
-    max-width: 95%;
-
-    &:nth-of-type(2),
-    &:nth-of-type(4) {
-      margin-inline-end: 4%;
-    }
-
-    &:nth-of-type(3),
-    &:nth-of-type(5) {
-      margin-inline-start: 4%;
-    }
-  }
-
-  @media ${mediaQuery.mobile} {
-    max-width: 95%;
-
-    &:nth-of-type(2),
-    &:nth-of-type(4) {
-      margin-inline-end: 4%;
-    }
-
-    &:nth-of-type(3),
-    &:nth-of-type(5) {
-      margin-inline-start: 4%;
-    }
-  }
 `;
 
 export const WorkCopy = styled.div`

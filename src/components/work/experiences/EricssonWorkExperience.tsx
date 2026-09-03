@@ -47,9 +47,9 @@ export default function EricssonWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { bottom: "60%", left: "23%", width: "88px" },
-          tablet: { bottom: "31%", left: "23%", width: "88px" },
-          mobile: { bottom: "31%", left: "23%", width: "77px" },
-          smallMobile: { bottom: "32%", left: "18%", width: "56px" },
+          tablet: { bottom: "60%", left: "23%", width: "88px" },
+          mobile: { bottom: "60%", left: "23%", width: "77px" },
+          smallMobile: { bottom: "60%", left: "18%", width: "56px" },
         }}
       />
     </WorkExperience>

@@ -22,20 +22,20 @@ export default function TeslaWorkExperience() {
             width: "38px",
           },
           tablet: {
-            right: "43%",
-            bottom: "-2.5%",
+            right: "47%",
+            bottom: "25%",
             rotate: "12deg",
-            width: "38px",
+            width: "32px",
           },
           mobile: {
             right: "47%",
-            bottom: "0",
+            bottom: "20%",
             rotate: "12deg",
             width: "36px",
           },
           smallMobile: {
             right: "51%",
-            bottom: "13%",
+            bottom: "20%",
             rotate: "11deg",
             width: "30px",
           },
@@ -47,9 +47,9 @@ export default function TeslaWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: { bottom: "60%", left: "16%", width: "123px" },
-          tablet: { top: "-32%", left: "15%", width: "123px" },
-          mobile: { top: "-27%", left: "15%", width: "107px" },
-          smallMobile: { top: "-41%", left: "13%", width: "107px" },
+          tablet: { bottom: "60%", left: "15%", width: "123px" },
+          mobile: { bottom: "60%", left: "15%", width: "107px" },
+          smallMobile: { bottom: "60%", left: "13%", width: "107px" },
         }}
       />
     </WorkExperience>
