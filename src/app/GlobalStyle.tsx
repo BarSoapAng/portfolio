@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     --color-text-muted: #6f5953;
     --color-border: #d8c5ba;
     --color-accent: #69745a;
+    --color-accent-hover: #52604a;
     --color-accent-soft: #e5e9de;
     --color-wood: #8a5942;
     --artwork-invert: 0;
@@ -35,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
     --color-text-muted: #a69389;
     --color-border: #3e332d;
     --color-accent: #d4698e;
+    --color-accent-hover: #e08dab;
     --color-accent-soft: #3d2230;
     --color-wood: #c4926e;
     --artwork-invert: 1;
@@ -53,6 +55,7 @@ const GlobalStyle = createGlobalStyle`
       --color-text-muted 0.3s ease,
       --color-border 0.3s ease,
       --color-accent 0.3s ease,
+      --color-accent-hover 0.3s ease,
       --color-accent-soft 0.3s ease,
       --color-wood 0.3s ease;
   }
@@ -142,7 +145,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   nav[aria-label="Social media"] a:hover {
-    color: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
+    color: var(--color-accent-hover);
   }
 
   a:focus-visible {

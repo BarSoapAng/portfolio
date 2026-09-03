@@ -15,11 +15,11 @@ export default function WecWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { bottom: "70%", right: "11%", width: "42px" },
-          tablet: { bottom: "70%", right: "11%", width: "42px" },
-          mobile: { bottom: "70%", right: "11%", width: "42px" },
+          desktop: { bottom: "65%", right: "11%", width: "42px" },
+          tablet: { bottom: "50%", right: "11%", width: "42px" },
+          mobile: { bottom: "50%", right: "11%", width: "42px" },
           smallMobile: {
-            bottom: "75%",
+            bottom: "54%",
             right: "1%",
             width: "37px",
             transform: "scaleX(-1)",
@@ -31,12 +31,12 @@ export default function WecWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { right: "-10%", bottom: "35%", width: "77px" },
-          tablet: { right: "-10%", bottom: "35%", width: "77px" },
-          mobile: { right: "-10%", bottom: "35%", width: "77px" },
+          desktop: { right: "-10%", bottom: "58%", width: "77px" },
+          tablet: { right: "-10%", bottom: "25%", width: "77px" },
+          mobile: { right: "-10%", bottom: "25%", width: "77px" },
           smallMobile: {
             right: "11%",
-            bottom: "55%",
+            bottom: "40%",
             width: "80px",
             transform: "scaleX(-1)",
             rotate: "10deg",

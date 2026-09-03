@@ -10,6 +10,7 @@ export const colors = {
   textMuted: "#6f5953",
   border: "#d8c5ba",
   accent: "#69745a",
+  accentHover: "#52604a",
   accentSoft: "#e5e9de",
   wood: "#8a5942",
 } as const;
@@ -26,6 +27,7 @@ export const colorsDark = {
   textMuted: "#a69389",
   border: "#3e332d",
   accent: "#d4698e",
+  accentHover: "#e08dab",
   accentSoft: "#3d2230",
   wood: "#c4926e",
 } as const;

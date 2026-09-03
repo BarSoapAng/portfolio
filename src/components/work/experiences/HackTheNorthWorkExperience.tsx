@@ -17,28 +17,28 @@ export default function HackTheNorthWorkExperience() {
         aria-hidden="true"
         layout={{
           desktop: {
-            top: "-20%",
+            top: "0",
             right: "-12%",
             width: "38px",
             rotate: "10deg",
           },
           tablet: {
             hidden: true,
-            top: "-20%",
+            top: "-14%",
             right: "-12%",
             width: "38px",
             rotate: "10deg",
           },
           mobile: {
             hidden: true,
-            top: "-60%",
+            top: "-43%",
             right: "5%",
             width: "38px",
             rotate: "10deg",
           },
           smallMobile: {
             hidden: true,
-            top: "-60%",
+            top: "-43%",
             right: "5%",
             width: "38px",
             rotate: "10deg",
@@ -52,24 +52,24 @@ export default function HackTheNorthWorkExperience() {
         layout={{
           desktop: {
             right: "37%",
-            bottom: "16%",
+            bottom: "20%",
             transform: "scaleX(-1)",
             width: "27px",
           },
           tablet: {
             right: "37%",
-            bottom: "16%",
+            bottom: "12%",
             transform: "scaleX(-1)",
             width: "27px",
           },
           mobile: {
             right: "-10%",
-            bottom: "20%",
+            bottom: "14%",
             width: "35px",
           },
           smallMobile: {
             right: "-6%",
-            bottom: "44%",
+            bottom: "32%",
             width: "35px",
           },
         }}
@@ -79,10 +79,10 @@ export default function HackTheNorthWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { top: "-26%", right: "34.5%", width: "30px" },
-          tablet: { top: "-26%", right: "34.5%", width: "30px" },
-          mobile: { top: "-58%", right: "30.5%", width: "35px" },
-          smallMobile: { top: "-55%", right: "29%", width: "29px" },
+          desktop: { top: "-19%", right: "34.5%", width: "30px" },
+          tablet: { top: "-19%", right: "34.5%", width: "30px" },
+          mobile: { top: "-42%", right: "30.5%", width: "35px" },
+          smallMobile: { top: "-40%", right: "29%", width: "29px" },
         }}
       />
     </WorkExperience>

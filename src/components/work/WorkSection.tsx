@@ -62,7 +62,7 @@ const StickyContent = styled.div`
   position: sticky;
   top: 0;
   height: 100dvh;
-  padding-block: var(--space-12);
+  padding-block: var(--space-16) var(--space-8);
   box-sizing: border-box;
 `;
 

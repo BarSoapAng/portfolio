@@ -20,8 +20,8 @@ export const WorkIndex = styled(ContentIndex)`
 
 export const WorkEntry = styled.article`
   position: relative;
-  flex: 1;
-  min-height: 0;
+  flex-shrink: 0;
+  height: 100px;
   width: fit-content;
   max-width: 80%;
 
@@ -184,7 +184,7 @@ type WorkArtworkProps = Omit<ImageProps, "draggable" | "layout"> & {
   layout: WorkArtworkLayout;
 };
 
-const BASE_ENTRY_HEIGHT = 72;
+const BASE_ENTRY_HEIGHT = 100;
 
 const heightDynamicWidth = (width: string) => {
   const pxMatch = width.match(/^(\d+(?:\.\d+)?)px$/);

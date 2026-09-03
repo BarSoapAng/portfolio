@@ -63,7 +63,7 @@ export const ProjectsSection = styled(IndexSection)`
 
 export const GardenSection = styled(IndexSection)`
   --color-primary: var(--color-accent);
-  --color-primary-hover: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
+  --color-primary-hover: var(--color-accent-hover);
   --color-primary-soft: var(--color-accent-soft);
 
   padding-block: 0;

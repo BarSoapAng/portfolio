@@ -74,7 +74,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               "--color-background", "--color-surface", "--color-surface-muted",
               "--color-primary", "--color-primary-hover", "--color-primary-soft",
               "--color-on-primary", "--color-text", "--color-text-muted",
-              "--color-border", "--color-accent", "--color-accent-soft", "--color-wood",
+              "--color-border", "--color-accent", "--color-accent-hover", "--color-accent-soft", "--color-wood",
             ]
               .map((p) => `@property ${p}{syntax:'<color>';inherits:true;initial-value:transparent}`)
               .join(""),

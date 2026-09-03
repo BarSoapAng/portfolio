@@ -5,9 +5,10 @@ import { mediaQuery } from "@lib/media";
 
 export const PawTrailContainer = styled.div`
   position: relative;
-  flex-shrink: 0;
+  flex: 1;
   width: 100%;
-  height: var(--space-8);
+  min-height: var(--space-8);
+  container-type: size;
   color: var(--color-primary);
   pointer-events: none;
 
@@ -48,27 +49,27 @@ export const PawTrailContainer = styled.div`
   }
 
   span:nth-child(2) {
-    translate: 0 var(--space-1);
+    translate: 0 12.5cqh;
   }
 
   span:nth-child(3) {
-    translate: 0 var(--space-2);
+    translate: 0 25cqh;
   }
 
   span:nth-child(4) {
-    translate: 0 var(--space-3);
+    translate: 0 37.5cqh;
   }
 
   span:nth-child(5) {
-    translate: 0 var(--space-4);
+    translate: 0 50cqh;
   }
 
   span:nth-child(6) {
-    translate: 0 var(--space-6);
+    translate: 0 75cqh;
   }
 
   span:nth-child(7) {
-    translate: 1px calc(var(--space-8) - var(--space-1));
+    translate: 1px 87.5cqh;
   }
 
   span[data-paw-spacer] {
@@ -76,71 +77,71 @@ export const PawTrailContainer = styled.div`
   }
 
   &[data-trail="0"] span:nth-child(2) {
-    translate: var(--space-1) var(--space-1);
+    translate: var(--space-1) 12.5cqh;
   }
 
   &[data-trail="0"] span:nth-child(4) {
-    translate: calc(-1 * var(--space-1)) var(--space-3);
+    translate: calc(-1 * var(--space-1)) 37.5cqh;
   }
 
   &[data-trail="0"] span:nth-child(6) {
-    translate: var(--space-2) var(--space-6);
+    translate: var(--space-2) 75cqh;
   }
 
   &[data-trail="1"] span:nth-child(2) {
-    translate: calc(-1 * var(--space-2)) var(--space-1);
+    translate: calc(-1 * var(--space-2)) 12.5cqh;
   }
 
   &[data-trail="1"] span:nth-child(4) {
-    translate: var(--space-2) var(--space-3);
+    translate: var(--space-2) 37.5cqh;
   }
 
   &[data-trail="1"] span:nth-child(5) {
-    translate: calc(-1 * var(--space-1)) var(--space-4);
+    translate: calc(-1 * var(--space-1)) 50cqh;
   }
 
   &[data-trail="2"] span:nth-child(3) {
-    translate: var(--space-1) var(--space-2);
+    translate: var(--space-1) 25cqh;
   }
 
   &[data-trail="2"] span:nth-child(4) {
-    translate: calc(-1 * var(--space-2)) var(--space-3);
+    translate: calc(-1 * var(--space-2)) 37.5cqh;
   }
 
   &[data-trail="2"] span:nth-child(6) {
-    translate: var(--space-1) var(--space-6);
+    translate: var(--space-1) 75cqh;
   }
 
   &[data-trail="3"] span:nth-child(2) {
-    translate: var(--space-2) var(--space-1);
+    translate: var(--space-2) 12.5cqh;
   }
 
   &[data-trail="3"] span:nth-child(3) {
-    translate: calc(-1 * var(--space-1)) var(--space-2);
+    translate: calc(-1 * var(--space-1)) 25cqh;
   }
 
   &[data-trail="3"] span:nth-child(5) {
-    translate: var(--space-1) var(--space-4);
+    translate: var(--space-1) 50cqh;
   }
 
   &[data-trail="3"] span:nth-child(6) {
-    translate: calc(-1 * var(--space-1)) var(--space-6);
+    translate: calc(-1 * var(--space-1)) 75cqh;
   }
 
   &[data-trail="4"] span:nth-child(2) {
-    translate: calc(-1 * var(--space-1)) var(--space-1);
+    translate: calc(-1 * var(--space-1)) 12.5cqh;
   }
 
   &[data-trail="4"] span:nth-child(4) {
-    translate: var(--space-2) var(--space-3);
+    translate: var(--space-2) 37.5cqh;
   }
 
   &[data-trail="4"] span:nth-child(5) {
-    translate: var(--space-2) var(--space-4);
+    translate: var(--space-2) 50cqh;
   }
 
   &[data-trail="4"] span:nth-child(6) {
-    translate: var(--space-1) var(--space-6);
+    translate: var(--space-1) 75cqh;
   }
 
   span:nth-child(odd) {
@@ -182,35 +183,35 @@ export const PawTrailContainer = styled.div`
     }
 
     span:nth-child(5) {
-      translate: 0 var(--space-3);
+      translate: 0 37.5cqh;
     }
 
     span:nth-child(6) {
-      translate: 0 var(--space-4);
+      translate: 0 50cqh;
     }
 
     span:nth-child(7) {
-      translate: 0 var(--space-6);
+      translate: 0 75cqh;
     }
   }
 
   @media ${mediaQuery.largeMobile} {
-    height: var(--space-6);
+    min-height: var(--space-6);
 
     &[data-trail] span:nth-child(4) {
-      translate: 0 var(--space-2);
+      translate: 0 33.333cqh;
     }
 
     &[data-trail] span:nth-child(5) {
-      translate: 0 var(--space-3);
+      translate: 0 50cqh;
     }
 
     &[data-trail] span:nth-child(6) {
-      translate: 0 var(--space-3);
+      translate: 0 50cqh;
     }
 
     &[data-trail] span:nth-child(7) {
-      translate: 0 var(--space-4);
+      translate: 0 66.667cqh;
     }
   }
 
@@ -219,7 +220,7 @@ export const PawTrailContainer = styled.div`
   }
 
   @media ${mediaQuery.mobile} {
-    height: var(--space-4);
+    min-height: var(--space-4);
 
     > div {
       justify-content: space-evenly;
@@ -230,27 +231,27 @@ export const PawTrailContainer = styled.div`
     }
 
     &[data-trail] span:nth-child(2) {
-      translate: 0 var(--space-1);
+      translate: 0 25cqh;
     }
 
     &[data-trail] span:nth-child(3) {
-      translate: 0 var(--space-1);
+      translate: 0 25cqh;
     }
 
     &[data-trail] span:nth-child(4) {
-      translate: 0 var(--space-2);
+      translate: 0 50cqh;
     }
 
     &[data-trail] span:nth-child(5) {
-      translate: 0 var(--space-2);
+      translate: 0 50cqh;
     }
 
     &[data-trail] span:nth-child(6) {
-      translate: 0 var(--space-2);
+      translate: 0 50cqh;
     }
 
     &[data-trail] span:nth-child(7) {
-      translate: 0 var(--space-2);
+      translate: 0 50cqh;
     }
 
     svg {

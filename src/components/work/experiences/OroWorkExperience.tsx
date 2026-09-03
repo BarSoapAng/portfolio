@@ -17,25 +17,25 @@ export default function OroWorkExperience() {
         layout={{
           desktop: {
             left: "-6%",
-            top: "-29%",
+            top: "-21%",
             width: "46px",
             rotate: "-12deg",
           },
           tablet: {
             left: "-6%",
-            top: "-29%",
+            top: "-21%",
             width: "46px",
             rotate: "-12deg",
           },
           mobile: {
             left: "-6%",
-            top: "-25%",
+            top: "-18%",
             width: "38px",
             rotate: "-12deg",
           },
           smallMobile: {
             left: "-6%",
-            top: "-25%",
+            top: "-18%",
             width: "35px",
             rotate: "-25deg",
           },
@@ -46,10 +46,10 @@ export default function OroWorkExperience() {
         alt=""
         aria-hidden="true"
         layout={{
-          desktop: { bottom: "50%", left: "13%", width: "77px" },
-          tablet: { bottom: "50%", left: "13%", width: "77px" },
-          mobile: { bottom: "50%", left: "13%", width: "77px" },
-          smallMobile: { bottom: "50%", left: "10%", width: "69px" },
+          desktop: { bottom: "65%", left: "13%", width: "77px" },
+          tablet: { bottom: "36%", left: "13%", width: "77px" },
+          mobile: { bottom: "36%", left: "13%", width: "77px" },
+          smallMobile: { bottom: "36%", left: "10%", width: "69px" },
         }}
       />
     </WorkExperience>
