@@ -40,10 +40,10 @@ const GlobalStyle = createGlobalStyle`
     --artwork-invert: 1;
   }
 
-  *,
-  *::before,
-  *::after {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease !important;
   }
 
   * {

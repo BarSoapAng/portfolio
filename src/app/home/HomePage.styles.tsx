@@ -7,13 +7,24 @@ import { mediaQuery } from "@lib/media";
 
 export const HomeMain = styled.main`
   padding-block-start: 0;
+
+  > * + * {
+    margin-block-start: var(--space-16);
+  }
+
+  > section:first-of-type + img {
+    margin-block-start: var(--space-4);
+  }
+
+  > img:last-of-type {
+    margin-block: 8rem var(--space-16);
+  }
 `;
 
 export const SectionDivider = styled(Image).attrs({ draggable: false })`
   display: block;
   width: 100%;
   height: auto;
-  margin-block-start: var(--space-4);
   border: 0;
   border-radius: 0;
   box-shadow: none;
@@ -31,14 +42,7 @@ export const IndexSection = styled.section`
 `;
 
 export const ProjectsSection = styled(IndexSection)`
-  height: calc(100vh - var(--navbar-height));
-  max-height: 900px;
-  margin-block-start: 0;
-
-  @media ${mediaQuery.tablet} {
-    height: auto;
-    max-height: none;
-  }
+  margin-block-start: var(--space-16);
 `;
 
 export const GardenSection = styled(IndexSection)`
@@ -46,7 +50,6 @@ export const GardenSection = styled(IndexSection)`
   --color-primary-hover: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
   --color-primary-soft: var(--color-accent-soft);
 
-  margin-block-start: 0 !important;
   padding-block: 0;
 
   > h2 {
