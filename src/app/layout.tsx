@@ -68,6 +68,18 @@ export default function RootLayout({ children }: RootLayoutProps) {
       }
     >
       <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: [
+              "--color-background", "--color-surface", "--color-surface-muted",
+              "--color-primary", "--color-primary-hover", "--color-primary-soft",
+              "--color-on-primary", "--color-text", "--color-text-muted",
+              "--color-border", "--color-accent", "--color-accent-soft", "--color-wood",
+            ]
+              .map((p) => `@property ${p}{syntax:'<color>';inherits:true;initial-value:transparent}`)
+              .join(""),
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}})()`,

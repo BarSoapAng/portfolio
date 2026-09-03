@@ -1,4 +1,5 @@
 import sectionDivider from "@assets/decorative/poro-section-divider.webp";
+import sectionDividerMobile from "@assets/decorative/poro-section-divider-mobile.webp";
 import BlogPreviewStrip from "@components/blog/BlogPreviewStrip";
 import DrawingCanvas from "@components/farm/DrawingCanvas";
 import SelfDescriptionCard from "@components/home/SelfDescriptionCard";
@@ -13,6 +14,7 @@ import {
   HomeMain,
   ProjectsSection,
   SectionDivider,
+  SectionDividerImage,
 } from "./HomePage.styles";
 
 function HomePage() {
@@ -22,11 +24,18 @@ function HomePage() {
   return (
     <HomeMain>
       <SelfDescriptionCard />
-      <SectionDivider
-        src={sectionDivider}
-        alt=""
-        aria-hidden="true"
-      />
+      <SectionDivider>
+        <SectionDividerImage
+          src={sectionDivider}
+          alt=""
+          aria-hidden="true"
+        />
+        <SectionDividerImage
+          src={sectionDividerMobile}
+          alt=""
+          aria-hidden="true"
+        />
+      </SectionDivider>
 
       <WorkSection />
 
@@ -42,11 +51,18 @@ function HomePage() {
         <DrawingCanvas />
       </GardenSection>
 
-      <SectionDivider
-        src={sectionDivider}
-        alt=""
-        aria-hidden="true"
-      />
+      <SectionDivider>
+        <SectionDividerImage
+          src={sectionDivider}
+          alt=""
+          aria-hidden="true"
+        />
+        <SectionDividerImage
+          src={sectionDividerMobile}
+          alt=""
+          aria-hidden="true"
+        />
+      </SectionDivider>
 
       <BlogPreviewStrip posts={recentPosts} />
     </HomeMain>

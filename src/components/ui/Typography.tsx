@@ -17,7 +17,6 @@ const headingStyles = css`
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   text-wrap: balance;
-  transition: color 0.3s ease;
 `;
 
 export const Heading1 = styled.h1`

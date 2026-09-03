@@ -5,6 +5,7 @@ import { mediaQuery } from "@lib/media";
 
 export const PawTrailContainer = styled.div`
   position: relative;
+  flex-shrink: 0;
   width: 100%;
   height: var(--space-8);
   color: var(--color-primary);

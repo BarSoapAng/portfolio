@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useRef } from "react";
 import { useInView } from "framer-motion";
 import selfie from "@assets/home/selfie.webp";
 import { Body, Caption, Heading1, Strong } from "@components/ui/Typography";
@@ -14,15 +14,13 @@ import {
 export default function SelfDescriptionCard() {
   const greetingRef = useRef<HTMLSpanElement>(null);
   const isGreetingInView = useInView(greetingRef);
-  const [animDone, setAnimDone] = useState(false);
-  const onAnimEnd = useCallback(() => setAnimDone(true), []);
 
   return (
     <Hero>
       <HeroImage src={selfie.src} alt="Angela's selfie" width={230} />
       <HeroContent>
         <Heading1>
-          <HighlightedGreeting ref={greetingRef} $isInView={isGreetingInView} $animDone={animDone} onAnimationEnd={onAnimEnd}>
+          <HighlightedGreeting ref={greetingRef} $isInView={isGreetingInView}>
             Hello hello!
           </HighlightedGreeting>
         </Heading1>

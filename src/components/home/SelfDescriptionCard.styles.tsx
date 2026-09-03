@@ -57,37 +57,26 @@ export const HeroContent = styled.div`
   }
 `;
 
-export const HighlightedGreeting = styled(Text)<{ $isInView: boolean; $animDone: boolean }>`
+export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
   color: inherit;
   font: inherit;
-  ${({ $animDone }) =>
-    $animDone
-      ? css`
-          background-image: none;
-          background-color: var(--color-primary-soft);
-        `
-      : css`
-          background-image: linear-gradient(
-            var(--color-primary-soft),
-            var(--color-primary-soft)
-          );
-          background-position: left;
-          background-repeat: no-repeat;
-          background-size: 0 100%;
-        `}
-  ${({ $isInView, $animDone }) =>
+  background-image: linear-gradient(
+    var(--color-primary-soft),
+    var(--color-primary-soft)
+  );
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  ${({ $isInView }) =>
     $isInView &&
-    !$animDone &&
     css`
       animation: ${highlightText} 0.65s ease-out 0.25s forwards;
     `}
-  transition: color 0.3s ease, background-color 0.3s ease;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 
   @media (prefers-reduced-motion: reduce) {
-    background-color: var(--color-primary-soft);
-    background-image: none;
+    background-size: 100% 100%;
     animation: none;
   }
 `;

@@ -7,6 +7,9 @@ import { Heading2, Text } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 
 export const WorkIndex = styled(ContentIndex)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   gap: 0;
 
   > article {
@@ -17,16 +20,17 @@ export const WorkIndex = styled(ContentIndex)`
 
 export const WorkEntry = styled.article`
   position: relative;
-  height: calc(var(--space-16) + var(--space-2));
+  flex: 1;
+  min-height: 0;
   width: fit-content;
   max-width: 80%;
 
   &:nth-of-type(odd) {
-    justify-self: start;
+    align-self: flex-start;
   }
 
   &:nth-of-type(even) {
-    justify-self: end;
+    align-self: flex-end;
   }
 
   &:nth-of-type(2) {
@@ -180,6 +184,16 @@ type WorkArtworkProps = Omit<ImageProps, "draggable" | "layout"> & {
   layout: WorkArtworkLayout;
 };
 
+const BASE_ENTRY_HEIGHT = 72;
+
+const heightDynamicWidth = (width: string) => {
+  const pxMatch = width.match(/^(\d+(?:\.\d+)?)px$/);
+  if (!pxMatch) return width;
+  const px = parseFloat(pxMatch[1]);
+  const ratio = (px / BASE_ENTRY_HEIGHT).toFixed(3);
+  return `min(${width}, calc(var(--entry-h, ${BASE_ENTRY_HEIGHT}px) * ${ratio}))`;
+};
+
 const placementStyles = ({
   hidden = false,
   top = "auto",
@@ -195,7 +209,7 @@ const placementStyles = ({
   right: ${right};
   bottom: ${bottom};
   left: ${left};
-  width: ${width};
+  width: ${heightDynamicWidth(width)};
   rotate: ${rotate};
   transform: ${transform};
 `;
@@ -238,6 +252,7 @@ export function WorkArtwork({ layout, ...props }: WorkArtworkProps) {
 
 
 export const CompanyName = styled(Heading2)`
+  margin-block-end: var(--space-1);
   width: fit-content;
   max-width: 100%;
 `;

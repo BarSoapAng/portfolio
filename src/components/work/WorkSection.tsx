@@ -11,7 +11,6 @@ import {
   useScroll,
 } from "framer-motion";
 import styled from "styled-components";
-import { IndexSection } from "../../app/home/HomePage.styles";
 import { mediaQuery } from "@lib/media";
 import EricssonWorkExperience from "./experiences/EricssonWorkExperience";
 import HackTheNorthWorkExperience from "./experiences/HackTheNorthWorkExperience";
@@ -44,9 +43,11 @@ function getMobileSnapshot() {
   return window.matchMedia(mediaQuery.mobile).matches;
 }
 
-const Section = styled(IndexSection)`
+const ScrollContainer = styled.div`
   position: relative;
+  height: 300vh;
   margin-block-start: var(--space-16);
+  scroll-margin-top: var(--space-8);
 
   @media ${mediaQuery.tablet} {
     margin-block-start: var(--space-12);
@@ -57,8 +58,23 @@ const Section = styled(IndexSection)`
   }
 `;
 
+const StickyContent = styled.div`
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  padding-block: var(--space-12);
+  box-sizing: border-box;
+`;
+
+const Section = styled.section`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 export default function WorkSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isLargeMobile = useSyncExternalStore(
     subscribeToLargeMobile,
@@ -89,8 +105,8 @@ export default function WorkSection() {
   );
   const totalPaws = pawCounts.reduce((total, count) => total + count, 0);
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 65%", "end 60%"],
+    target: scrollRef,
+    offset: ["start start", "end end"],
   });
 
   const fadeThresholds = useMemo(() => {
@@ -98,16 +114,34 @@ export default function WorkSection() {
     let cumulative = 0;
     for (const count of pawCounts) {
       cumulative += count;
-      thresholds.push((cumulative / totalPaws) * 0.95);
+      thresholds.push((cumulative / totalPaws) * 0.75);
     }
     return thresholds;
   }, [pawCounts, totalPaws]);
 
   useLayoutEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const updateEntryHeight = () => {
+      const articles = content.querySelectorAll<HTMLElement>("article");
+      articles.forEach((article) => {
+        article.style.setProperty("--entry-h", `${article.offsetHeight}px`);
+      });
+    };
+
+    updateEntryHeight();
+    const observer = new ResizeObserver(updateEntryHeight);
+    observer.observe(content);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
     if (shouldReduceMotion) return;
 
     const articles =
-      sectionRef.current?.querySelectorAll<HTMLElement>("article");
+      contentRef.current?.querySelectorAll<HTMLElement>("article");
     if (!articles) return;
 
     articles.forEach((article) => {
@@ -135,22 +169,26 @@ export default function WorkSection() {
   }, [scrollYProgress, shouldReduceMotion, fadeThresholds]);
 
   return (
-    <Section id="work" ref={sectionRef}>
-      <WorkExperienceStack
-        experiences={experiences}
-        renderConnector={(connectorIndex) => (
-          <AnimatedPawTrail
-            firstPawIndex={pawCounts
-              .slice(0, connectorIndex)
-              .reduce((total, count) => total + count, 0)}
-            index={connectorIndex}
-            pawCount={pawCounts[connectorIndex]}
-            progress={scrollYProgress}
-            shouldReduceMotion={shouldReduceMotion}
-            totalPaws={totalPaws}
+    <ScrollContainer id="work" ref={scrollRef}>
+      <StickyContent>
+        <Section ref={contentRef}>
+          <WorkExperienceStack
+            experiences={experiences}
+            renderConnector={(connectorIndex) => (
+              <AnimatedPawTrail
+                firstPawIndex={pawCounts
+                  .slice(0, connectorIndex)
+                  .reduce((total, count) => total + count, 0)}
+                index={connectorIndex}
+                pawCount={pawCounts[connectorIndex]}
+                progress={scrollYProgress}
+                shouldReduceMotion={shouldReduceMotion}
+                totalPaws={totalPaws}
+              />
+            )}
           />
-        )}
-      />
-    </Section>
+        </Section>
+      </StickyContent>
+    </ScrollContainer>
   );
 }

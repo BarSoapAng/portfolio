@@ -40,10 +40,21 @@ const GlobalStyle = createGlobalStyle`
     --artwork-invert: 1;
   }
 
-  html.theme-transition *,
-  html.theme-transition *::before,
-  html.theme-transition *::after {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease !important;
+  html.theme-transition {
+    transition:
+      --color-background 0.3s ease,
+      --color-surface 0.3s ease,
+      --color-surface-muted 0.3s ease,
+      --color-primary 0.3s ease,
+      --color-primary-hover 0.3s ease,
+      --color-primary-soft 0.3s ease,
+      --color-on-primary 0.3s ease,
+      --color-text 0.3s ease,
+      --color-text-muted 0.3s ease,
+      --color-border 0.3s ease,
+      --color-accent 0.3s ease,
+      --color-accent-soft 0.3s ease,
+      --color-wood 0.3s ease;
   }
 
   * {
@@ -80,18 +91,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     min-height: 100vh;
     margin: 0;
-    background:
-      linear-gradient(
-        color-mix(in srgb, var(--color-primary-soft) 20%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        color-mix(in srgb, var(--color-primary-soft) 20%, transparent) 1px,
-        transparent 1px
-      ),
-      var(--color-background);
-    background-size: var(--space-12) var(--space-12);
+    background: var(--color-background);
     color: var(--color-text);
     font-family: var(--font-body);
     font-size: var(--font-size-base);

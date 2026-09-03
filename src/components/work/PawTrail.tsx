@@ -24,7 +24,7 @@ function PawPrint({ index, progress, shouldReduceMotion, total }: PawPrintProps)
   const visibleOpacity =
     total === 1 ? 0.7 : 0.3 + (index / (total - 1)) * 0.4;
   const opacity = useTransform(progress, (value) =>
-    value >= ((index + 1) / total) * 0.95 ? visibleOpacity : 0,
+    value >= ((index + 1) / total) * 0.75 ? visibleOpacity : 0,
   );
 
   return (
