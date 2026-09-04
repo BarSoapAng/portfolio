@@ -5,9 +5,9 @@ import { mediaQuery } from "@lib/media";
 
 export const PawTrailContainer = styled.div`
   position: relative;
-  flex: 1;
+  flex: 1 1 0;
   width: 100%;
-  min-height: var(--space-8);
+  min-height: min(var(--space-8), 4dvh);
   container-type: size;
   color: var(--color-primary);
   pointer-events: none;
@@ -196,7 +196,7 @@ export const PawTrailContainer = styled.div`
   }
 
   @media ${mediaQuery.largeMobile} {
-    min-height: var(--space-6);
+    min-height: min(var(--space-6), 3dvh);
 
     &[data-trail] span:nth-child(4) {
       translate: 0 33.333cqh;
@@ -220,7 +220,7 @@ export const PawTrailContainer = styled.div`
   }
 
   @media ${mediaQuery.mobile} {
-    min-height: var(--space-4);
+    min-height: min(var(--space-4), 2dvh);
 
     > div {
       justify-content: space-evenly;
