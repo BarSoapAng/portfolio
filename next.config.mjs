@@ -7,6 +7,10 @@ const withMDX = createMDX({
 });
 
 /** @type {import("next").NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
+};
 
 export default withMDX(nextConfig);

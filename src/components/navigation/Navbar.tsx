@@ -1,29 +1,76 @@
 "use client";
 
 import Link from "next/link";
+import styled from "styled-components";
 import NavbarLink from "@components/ui/NavbarLink";
+import { DisplayStrong } from "@components/ui/Typography";
+import { mediaQuery } from "@lib/media";
+
+const SiteHeader = styled.header`
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  width: min(calc(100% - (2 * var(--space-4))), 900px);
+  height: var(--navbar-height);
+  margin-inline: auto;
+  padding-block: var(--space-4);
+
+  > p {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  > p a {
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-lg);
+    text-decoration: none;
+  }
+
+  nav a[aria-current="page"] {
+    color: var(--color-primary-hover);
+    font-weight: var(--font-weight-bold);
+  }
+
+  @media ${mediaQuery.largeMobile} {
+    gap: var(--space-2);
+
+    nav ul {
+      gap: var(--space-1);
+    }
+
+    nav a {
+      padding-inline: var(--space-2);
+    }
+  }
+`;
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b-2 border-gray-2 shadow-retro-sm backdrop-blur-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-2 border-gray-2 bg-gradient-to-r from-purple-1 via-pink-1 to-sand-2 px-2 py-1.5 text-paper-1 sm:gap-3 sm:px-3">
-        <Link
-          href="/home"
-          className="m-0 inline-flex shrink-0 items-center gap-1.5 text-sm font-bold tracking-wide drop-shadow-[1px_1px_0_rgba(0,0,0,0.25)] transition hover:opacity-90 sm:gap-2 sm:text-base"
-        >
-          <span aria-hidden className="text-cream-1">
-            ★
-          </span>
-          <span className="sm:hidden">Angela&apos;s</span>
-          <span className="hidden sm:inline">Angela&apos;s Universe</span>
-          <span aria-hidden className="hidden text-cream-1 sm:inline">
-            ★
-          </span>
-        </Link>
-        <div className="flex min-w-0 items-center gap-1">
-          <NavbarLink />
-        </div>
-      </div>
-    </header>
+    <SiteHeader>
+      <DisplayStrong as="p">
+        <Link href="/home">Angela&apos;s World</Link>
+      </DisplayStrong>
+      <NavbarLink />
+    </SiteHeader>
   );
 }

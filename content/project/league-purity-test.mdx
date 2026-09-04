@@ -1,0 +1,33 @@
+---
+title: "League Purity Test"
+order: 1
+date: "2025-08-30"
+summary: "100 questions to find out how cooked you are by League. Somehow 50K+ people took it in two weeks."
+thumbnail: "league-purity-test.webp"
+thumbnailAlt: "League Purity Test showing a checklist of League of Legends experiences"
+published: true
+tags:
+  - react
+  - javascript
+  - cloudflare
+  - analytics
+---
+
+[Take the test!](https://lolpuritytest.com) · [GitHub Link!](https://github.com/BarSoapAng/LOLPurityTest)
+
+## 100 questions, zero dignity
+
+There is a purity test for basically everything, so obviously League of Legends needed one too.
+
+I collected 100 increasingly questionable League experiences into one checklist. Every box you tick drags your purity score a little lower, and the final damage can be shared through its own results URL or posted straight to X.
+
+The funniest part is that people actually showed up. More than 50,000 people took the test in its first two weeks! At peak, it handled 27,000+ requests in a day with zero downtime and average latency under 50ms. Not bad for a website dedicated to exposing League players LOL
+
+## Under the hood
+
+- a responsive React + Vite single-page app
+- score calculation across all 100 tiny confessions
+- shareable results saved in URL query parameters
+- custom Google Analytics events for submissions and shares
+- search metadata, a sitemap, and robots configuration so people could actually find it
+- Cloudflare deployment that stayed fast through the traffic spike

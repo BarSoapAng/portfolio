@@ -1,0 +1,148 @@
+.player {
+  display: grid;
+  grid-template-columns: var(--space-16) minmax(0, 1fr);
+  width: 100%;
+  max-width: 24rem;
+  gap: var(--space-3);
+  align-items: center;
+  overflow: hidden;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+}
+
+.artwork,
+.artworkFallback {
+  display: grid;
+  width: var(--space-16);
+  aspect-ratio: 1;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-large);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-hover);
+}
+
+.artwork img {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  box-shadow: none;
+  object-fit: cover;
+}
+
+.details {
+  min-width: 0;
+}
+
+.status {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-block-end: var(--space-1);
+  color: var(--color-primary);
+}
+
+.liveDot {
+  width: var(--space-2);
+  aspect-ratio: 1;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+}
+
+.liveDot {
+  box-shadow: 0 0 0 var(--space-1) var(--color-primary-soft);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.trackInfo {
+  min-width: 0;
+}
+
+.title {
+  overflow: hidden;
+  margin-block-end: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title a:hover {
+  color: var(--color-primary-hover);
+}
+
+.artist,
+.message {
+  overflow: hidden;
+  margin-block-end: var(--space-1);
+  color: var(--color-text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.artist a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.artist a:hover {
+  color: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
+}
+
+.timeline progress {
+  display: block;
+  width: 100%;
+  height: var(--space-1);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+}
+
+.timeline progress::-webkit-progress-bar {
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-muted);
+}
+
+.timeline progress::-webkit-progress-value {
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+}
+
+.timeline progress::-moz-progress-bar {
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 640px) {
+  .player {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .artwork,
+  .artworkFallback {
+    align-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot {
+    animation: none;
+  }
+}

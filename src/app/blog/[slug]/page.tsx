@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import TopBlogOverview from "@components/navigation/TopBlogOverview";
-import TagLabel from "@components/ui/TagLabel";
-import { buildPostMetadata, getAllPostSlugs, getAllPosts, getPostBySlug } from "@lib/blog";
+import BlogPostEngagement from "@components/blog/BlogPostEngagement";
+import SimilarReads from "@components/blog/SimilarReads";
+import ContentImage from "@components/ui/ContentImage";
+import { BlogDate, BlogMeta, ContentHero } from "@components/ui/ContentStyles";
+import { Body, Heading1 } from "@components/ui/Typography";
+import { buildPostMetadata, getAllPostSlugs, getPostBySlug, getSimilarPosts } from "@lib/blog";
 import { formatPostDate } from "@lib/blog-shared";
+import styles from "./BlogPost.module.css";
 
 type BlogPostRouteProps = {
   params: Promise<{
@@ -31,8 +35,7 @@ export async function generateMetadata({ params }: BlogPostRouteProps): Promise<
 
 export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { slug } = await params;
-  const posts = getAllPosts();
-  const post = posts.find((entry) => entry.slug === slug) ?? null;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -41,45 +44,32 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   const { default: PostContent } = await import(`../../../../content/blog/${slug}.mdx`);
 
   return (
-    <div className="px-3 py-4 text-gray-2 sm:px-6 sm:py-6">
-      <div className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
-        <aside className="lg:sticky lg:top-4">
-          <TopBlogOverview posts={posts} />
-        </aside>
+    <main>
+      <Body>
+        <Link href="/blog">
+          ← Back to blogs
+        </Link>
+      </Body>
 
-        <div className="flex min-w-0 flex-col gap-4">
-          <div>
-            <Link
-              className="inline-flex border-2 border-gray-2 bg-blue-2 px-3 py-1 font-mono text-xs font-bold uppercase tracking-[0.08em] text-gray-2 shadow-inset-blue transition hover:-translate-y-0.5 hover:bg-blue-2/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-1 focus-visible:ring-offset-2 focus-visible:ring-offset-paper-2"
-              href="/blog"
-            >
-              ← Back to blog
-            </Link>
-          </div>
+      <article className={styles.article}>
+        <header>
+          <Heading1>{post.title}</Heading1>
+          <Body>{post.summary}</Body>
+        </header>
 
-          <article className="border-2 border-gray-2 bg-paper-1 p-1 font-mono shadow-retro-lg">
-            <div className="border-2 border-sand-1 bg-cream-1 px-4 py-4 sm:px-8 sm:py-7">
-              <header className="border-b-2 border-dashed border-sand-2 pb-5">
-                <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-sand-1">
-                  <span>{formatPostDate(post.date)}</span>
-                  {post.tags.map((tag) => (
-                    <TagLabel key={tag} label={tag} />
-                  ))}
-                </div>
+        <ContentHero>
+          <ContentImage alt={post.thumbnailAlt} src={post.thumbnail} variant="hero" />
+        </ContentHero>
 
-                <h1 className="mt-3 text-2xl leading-tight text-gray-2 sm:text-3xl md:text-4xl">
-                  {post.title}
-                </h1>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-1">{post.summary}</p>
-              </header>
+        <BlogMeta>
+          <BlogDate>{formatPostDate(post.date)}</BlogDate>
+          <BlogPostEngagement slug={slug} />
+        </BlogMeta>
 
-              <div className="mdx-prose mdx-prose--blog mt-6">
-                <PostContent />
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
+        <PostContent />
+      </article>
+
+      <SimilarReads posts={getSimilarPosts(post)} />
+    </main>
   );
 }

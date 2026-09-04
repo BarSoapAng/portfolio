@@ -1,0 +1,32 @@
+---
+title: "Ludus"
+order: 3
+date: "2026-02-05"
+summary: "I made an AI build games for my Bloom take-home. Give Ludus a prompt and it plans, codes, runs, and previews an Expo project :P"
+thumbnail: "ludus.webp"
+thumbnailAlt: "Ludus game-building prompt interface with a pink flower mark"
+published: true
+tags:
+  - nextjs
+  - typescript
+  - convex
+  - ai-agents
+  - expo
+---
+
+[Try Ludus!](https://ludus-game.vercel.app) · [Watch the demo!](https://youtu.be/tKhqD2ZhX5c)
+
+## An AI that builds the game for you
+
+I built Ludus for a Bloom take-home and took the idea of an AI game builder very literally. You describe the game living in your head, one agent turns that into a plan, and another agent gets its hands dirty inside a real Expo project.
+
+The coding agent can read, edit, create, delete, and run files, but the fun part is that you can actually watch it happen. The chat streams in, threads stick around, the code tree is fully browsable, and Monaco shows you what changed. Then the whole generated game runs in its own sandbox as a live preview. Kinda magical!!
+
+## Making the magic real
+
+- Next.js + TypeScript on the front, with Convex handling threads and workflows
+- separate planning and game-building agents with streamed output
+- bounded filesystem and command tools so the agent can code without running wild
+- one isolated sandbox and project state per thread
+- Monaco Editor + React Complex Tree for poking through the generated code
+- AI-generated follow-up ideas when you do not know what to build next

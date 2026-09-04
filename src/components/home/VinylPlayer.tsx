@@ -8,5 +8,10 @@ export default async function VinylPlayer() {
   noStore();
 
   const playback = await getSpotifyPlaybackState();
-  return <VinylPlayerClient playback={playback} />;
+  return (
+    <VinylPlayerClient
+      key={`${playback.status}:${playback.track?.spotifyUrl}:${playback.track?.progressMs}`}
+      playback={playback}
+    />
+  );
 }
