@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { FaMoon } from "react-icons/fa6";
 import { LuSun } from "react-icons/lu";
 import styled from "styled-components";
@@ -38,14 +38,17 @@ function getTheme(): "light" | "dark" {
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
-export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
+function subscribeToHydration() {
+  return () => {};
+}
 
-  useEffect(() => {
-    setTheme(getTheme());
-    setMounted(true);
-  }, []);
+export default function ThemeToggle() {
+  const [theme, setTheme] = useState(getTheme);
+  const mounted = useSyncExternalStore(
+    subscribeToHydration,
+    () => true,
+    () => false,
+  );
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
