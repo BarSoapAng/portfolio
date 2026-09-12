@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 import { FaMoon } from "react-icons/fa6";
 import { LuSun } from "react-icons/lu";
 import styled from "styled-components";
 
-const ToggleRail = styled.div`
+const ToggleRail = styled.div<{ $hasFooterGap: boolean }>`
   position: absolute;
-  inset: 0 0 var(--space-6);
+  inset: 0 0 ${({ $hasFooterGap }) => $hasFooterGap ? "var(--space-6)" : "0"};
   z-index: 10;
   pointer-events: none;
 `;
@@ -51,6 +52,7 @@ function subscribeToHydration() {
 }
 
 export default function ThemeToggle() {
+  const pathname = usePathname();
   const [theme, setTheme] = useState(getTheme);
   const mounted = useSyncExternalStore(
     subscribeToHydration,
@@ -72,7 +74,7 @@ export default function ThemeToggle() {
   if (!mounted) return null;
 
   return (
-    <ToggleRail>
+    <ToggleRail $hasFooterGap={pathname !== "/garden"}>
       <ToggleButton
         $isSun={theme === "dark"}
         aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
