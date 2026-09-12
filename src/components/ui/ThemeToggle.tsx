@@ -6,25 +6,25 @@ import { FaMoon } from "react-icons/fa6";
 import { LuSun } from "react-icons/lu";
 import styled from "styled-components";
 
-const ToggleRail = styled.div<{ $hasFooterGap: boolean }>`
-  position: absolute;
-  inset: 0 0 ${({ $hasFooterGap }) => $hasFooterGap ? "var(--space-6)" : "0"};
+const ToggleRail = styled.div<{ $isGarden: boolean }>`
+  position: ${({ $isGarden }) => $isGarden ? "fixed" : "absolute"};
+  inset: ${({ $isGarden }) => $isGarden ? "auto var(--space-4) var(--space-4) auto" : "0 0 var(--space-6)"};
   z-index: 10;
   pointer-events: none;
 `;
 
-const ToggleButton = styled.button<{ $isSun?: boolean }>`
+const ToggleButton = styled.button<{ $isGarden: boolean; $isSun?: boolean }>`
   appearance: none;
-  position: sticky;
-  top: calc(100vh - var(--space-4) - 2.5rem);
+  position: ${({ $isGarden }) => $isGarden ? "static" : "sticky"};
+  top: ${({ $isGarden }) => $isGarden ? "auto" : "calc(100vh - var(--space-4) - 2.5rem)"};
   display: flex;
   align-items: center;
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
-  margin-left: auto;
-  margin-right: var(--space-4);
+  margin-left: ${({ $isGarden }) => $isGarden ? "0" : "auto"};
+  margin-right: ${({ $isGarden }) => $isGarden ? "0" : "var(--space-4)"};
   border: 0;
   background: transparent;
   color: ${({ $isSun }) => $isSun ? 'var(--color-primary)' : 'var(--color-text-muted)'};
@@ -74,8 +74,9 @@ export default function ThemeToggle() {
   if (!mounted) return null;
 
   return (
-    <ToggleRail $hasFooterGap={pathname !== "/garden"}>
+    <ToggleRail $isGarden={pathname === "/garden"}>
       <ToggleButton
+        $isGarden={pathname === "/garden"}
         $isSun={theme === "dark"}
         aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         data-cursor="pointer"
