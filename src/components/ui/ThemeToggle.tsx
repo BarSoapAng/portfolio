@@ -68,7 +68,7 @@ export default function ThemeToggle() {
     setTheme(next);
     setTimeout(() => {
       document.documentElement.classList.remove("theme-transition");
-    }, 350);
+    }, 300);
   }
 
   if (!mounted) return null;
