@@ -18,7 +18,7 @@ const SiteFooter = styled.footer`
 
 export default function Footer() {
   return (
-    <SiteFooter>
+    <SiteFooter data-theme-toggle-end>
       <BodySmall>© Angela 2026 · Made with love {"<3"}</BodySmall>
     </SiteFooter>
   );

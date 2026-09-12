@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { FaMoon } from "react-icons/fa6";
 import { LuSun } from "react-icons/lu";
 import styled from "styled-components";
 
 const ToggleButton = styled.button<{ $isSun?: boolean }>`
   appearance: none;
-  position: fixed;
+  position: absolute;
   z-index: 10;
   right: var(--space-4);
-  bottom: var(--space-4);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -44,11 +43,37 @@ function subscribeToHydration() {
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(getTheme);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const mounted = useSyncExternalStore(
     subscribeToHydration,
     () => true,
     () => false,
   );
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    const hero = document.querySelector("[data-theme-toggle-start]") ?? document.querySelector("main");
+    const footer = document.querySelector("[data-theme-toggle-end]");
+
+    if (!button || !hero || !footer) return;
+
+    const updatePosition = () => {
+      const spacing = 16;
+      const heroTop = hero.getBoundingClientRect().top + window.scrollY;
+      const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+      const viewportPosition = window.scrollY + window.innerHeight - button.offsetHeight - spacing;
+      button.style.top = `${Math.min(Math.max(viewportPosition, heroTop), footerTop - button.offsetHeight - spacing)}px`;
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition);
+    };
+  }, []);
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
@@ -61,6 +86,7 @@ export default function ThemeToggle() {
 
   return (
     <ToggleButton
+      ref={buttonRef}
       $isSun={theme === "dark"}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       data-cursor="pointer"
