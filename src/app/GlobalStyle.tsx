@@ -103,6 +103,10 @@ const GlobalStyle = createGlobalStyle`
     overflow: clip;
   }
 
+  .page-content {
+    position: relative;
+  }
+
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     body,
     body * {

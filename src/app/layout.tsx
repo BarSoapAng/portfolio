@@ -79,10 +79,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <GlobalStyle />
           <div className="site-wrapper">
             <AnimatedCursor />
-            <ThemeToggle />
             <Navbar />
-            {children}
-            <SocialLinks />
+            <div className="page-content">
+              <ThemeToggle />
+              {children}
+              <SocialLinks />
+            </div>
             <Footer />
           </div>
         </StyledComponentsRegistry>
