@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const ToggleRail = styled.div`
   position: absolute;
-  inset: 0;
+  inset: 0 0 var(--space-6);
   z-index: 10;
   pointer-events: none;
 `;
