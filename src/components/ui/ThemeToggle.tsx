@@ -52,13 +52,9 @@ export default function ThemeToggle() {
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
-    document.documentElement.classList.add("theme-transition");
     document.documentElement.dataset.theme = next;
     localStorage.setItem("theme", next);
     setTheme(next);
-    setTimeout(() => {
-      document.documentElement.classList.remove("theme-transition");
-    }, 350);
   }
 
   if (!mounted) return null;

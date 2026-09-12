@@ -42,24 +42,6 @@ const GlobalStyle = createGlobalStyle`
     --artwork-invert: 1;
   }
 
-  html.theme-transition {
-    transition:
-      --color-background 0.3s ease,
-      --color-surface 0.3s ease,
-      --color-surface-muted 0.3s ease,
-      --color-primary 0.3s ease,
-      --color-primary-hover 0.3s ease,
-      --color-primary-soft 0.3s ease,
-      --color-on-primary 0.3s ease,
-      --color-text 0.3s ease,
-      --color-text-muted 0.3s ease,
-      --color-border 0.3s ease,
-      --color-accent 0.3s ease,
-      --color-accent-hover 0.3s ease,
-      --color-accent-soft 0.3s ease,
-      --color-wood 0.3s ease;
-  }
-
   * {
     box-sizing: border-box;
     scrollbar-color: var(--color-primary) transparent;
