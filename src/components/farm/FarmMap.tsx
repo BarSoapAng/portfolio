@@ -132,7 +132,7 @@ const PopoverButton = styled(SmallButton)`
 
 const MapControls = styled.div`
   position: fixed;
-  right: var(--space-4);
+  left: var(--space-4);
   bottom: var(--space-4);
   z-index: 50;
   display: flex;
