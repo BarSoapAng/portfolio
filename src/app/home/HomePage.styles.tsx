@@ -10,7 +10,7 @@ export const SectionDivider = styled.div`
     display: none;
   }
 
-  @media ${mediaQuery.largeMobile} {
+  @media ${mediaQuery.tablet} {
     > img:first-of-type {
       display: none;
     }
