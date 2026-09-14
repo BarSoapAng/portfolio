@@ -39,6 +39,12 @@ export const NotFoundContent = styled.section`
     color: var(--color-text-muted);
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    > p:first-child {
+      transition: color 0.3s ease;
+    }
+  }
+
   nav ul {
     display: flex;
     gap: var(--space-2);
