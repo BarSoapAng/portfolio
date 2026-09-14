@@ -21,7 +21,7 @@ const Socials = styled.nav`
   a {
     display: inline-flex;
     color: var(--color-accent);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
   }
 `;
 
