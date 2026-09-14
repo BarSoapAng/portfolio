@@ -15,7 +15,9 @@ export default function NotFound() {
         <Body>Error 404</Body>
         <Heading1>Page Not Found</Heading1>
         <Body>
-          Errmmm, I don&apos;t think this page exists :( Check out these pages instead!
+          Errmmm, I don&apos;t think this page exists :(
+          <br />
+          Check out these pages instead!
         </Body>
         <NavbarLink />
       </NotFoundContent>

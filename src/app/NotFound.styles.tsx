@@ -28,6 +28,7 @@ export const NotFoundImage = styled(Image).attrs({ draggable: false })`
   height: auto;
   border: 0;
   box-shadow: none;
+  filter: invert(var(--artwork-invert, 0));
 `;
 
 export const NotFoundContent = styled.section`
@@ -52,7 +53,6 @@ export const NotFoundContent = styled.section`
     justify-content: center;
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-pill);
-    background: var(--color-primary-soft);
     font-size: var(--font-size-lg);
     text-decoration: none;
   }
