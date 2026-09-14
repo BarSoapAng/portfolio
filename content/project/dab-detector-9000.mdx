@@ -1,0 +1,31 @@
+---
+title: "DAB Detector 9000"
+order: 7
+date: "2026-03-29"
+summary: "A stupidly over-engineered dab detector with rainbows, pixel sunglasses, MLG audio, and automatic receipts."
+thumbnail: "dab-detector-9000.webp"
+thumbnailAlt: "DAB Detector 9000 applying a rainbow overlay, pixel sunglasses, and animated stickers to a webcam frame"
+published: true
+tags:
+  - computer-vision
+  - mediapipe
+  - javascript
+---
+
+[Try it live!](https://stupiddd.vercel.app) · [GitHub Link!](https://github.com/BarSoapAng/STUPIDDD)
+
+## The very serious idea
+
+I wanted to answer one of computer vision's most pressing questions: can my browser tell when I'm dabbing?
+
+Unfortunately, yes. DAB Detector 9000 watches your webcam, checks the geometry of your shoulders, elbows, and wrists, then absolutely destroys the screen with rainbows, pixel sunglasses, bouncing sprites, and MLG audio the moment you hit the pose.
+
+Hold it for a few frames and the app even saves a JPEG automatically, because something this stupid deserves receipts.
+
+## How the stupidity works
+
+- MediaPipe Pose Landmarker reads the live webcam feed
+- shoulder, elbow, wrist, and visibility data decide whether the pose is dab enough
+- GPU acceleration does the heavy lifting, with a CPU fallback just in case
+- canvas compositing handles every cursed visual effect and the automatic JPEG export
+- there is also a Python version using OpenCV, Pygame, and Pillow (one implementation was apparently not enough)

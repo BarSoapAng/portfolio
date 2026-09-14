@@ -7,14 +7,14 @@
 
 ## Primary Structure
 
-- `src/app/`: route entrypoints, layout, and global styles
+- `src/app/`: route entrypoints, layout, and the styled-components global style registry
 - `src/components/`: reusable UI components
-- `src/components/home/`: reusable home-page cards and effects
-- `src/views/`: route view modules imported by App Router entrypoints
-- `src/assets/`: imported local images and GIF assets
+- `src/components/home/`: reusable home-page content
+- `src/assets/`: local image assets use WebP except for animated cursor APNGs under `src/assets/cursor/apng/`; `public/webIcon.webp` is the only image kept in `public/`
+- `src/lib/`: data helpers and shared design utilities
 - `src/routes.ts`: shared route metadata used by navigation
 - `content/blog/`: local MDX blog posts loaded by the App Router blog routes
-- `content/work/`: local MDX work entries loaded by the App Router work routes
+- `src/components/work/experiences/`: position-specific work entries and their artwork placement
 - `content/project/`: local MDX project entries loaded by the App Router project routes
 
 ## Routing Rules
@@ -22,28 +22,60 @@
 - Put actual route files in `src/app/**/page.tsx`.
 - `src/app/page.tsx` currently redirects `/` to `/home`.
 - Use `next/navigation` redirects only in route entrypoints or other server-safe locations that already follow Next.js rules.
-- Do not put application view modules in `src/pages/`; Next.js treats that directory as the legacy Pages Router and will generate accidental routes from it.
-- Keep App Router view modules in `src/views/` instead.
 - `src/app/blog/page.tsx` and `src/app/blog/[slug]/page.tsx` load blog content from `content/blog/`, where each `.mdx` filename becomes its slug.
-- `src/app/work/page.tsx` and `src/app/work/[slug]/page.tsx` load work content from `content/work/`, where each `.mdx` filename becomes its slug.
-- `src/app/proj/page.tsx` and `src/app/proj/[slug]/page.tsx` load project content from `content/project/`, where each `.mdx` filename becomes its slug.
+- `src/app/work/page.tsx` redirects to the home work section; work entries do not have standalone detail routes.
+- `src/app/proj/page.tsx` redirects to the home projects section; `src/app/proj/[slug]/page.tsx` loads project content from `content/project/`, where each `.mdx` filename becomes its slug.
+
+## Content Images
+
+- Published blog and project MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
+- Store content thumbnails in `src/assets/content/`, register them in `src/lib/content-images.ts`, and reference them in frontmatter by filename such as `example.webp`. Keep the registry limited to filenames referenced by published MDX.
+- Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
+- Home work entries import their local artwork from `src/assets/work/` and render it through position-specific components. They do not have standalone detail pages.
+
+## Blog Content Types
+
+- Use only `eng`, `career`, `life`, and `fun` in published blog `tags` frontmatter.
+- Set optional blog frontmatter `pinned: true` to place a post before unpinned posts in the blog index and Top Blogs. Multiple pinned posts are ordered newest first.
+- Set `similarReads` to exactly three unique published blog slugs. A post cannot recommend itself.
+- The blog index provides debounced title and summary search. Tag metadata is not displayed or searchable there.
 
 ## Import Conventions
 
 - Prefer the configured aliases from `tsconfig.json` when they make imports easier to read:
     - `@components/*`
     - `@assets/*`
-    - `@views/*`
+    - `@lib/*`
 - Keep import paths consistent within a file. Avoid mixing old and new component locations for the same feature.
+
+## Visual Presentation
+
+- Follow the [farmhouse pink style guide](../../style-guide.md).
+- Keep shared color, font, radius, and spacing values in `src/lib/colors.ts`, `src/lib/font.ts`, `src/lib/radius.ts`, and `src/lib/spacing.ts`.
+- Map shared values to global CSS custom properties in `src/app/layout.tsx`; use those properties in styled-components and the remaining CSS modules.
+- Render text with the semantic primitives in `src/components/ui/Typography.tsx`; extend those components for feature-specific layout or color instead of setting font properties in feature styles.
+- Keep document-wide resets and element defaults in the styled-components global style; colocate feature-specific rules with their components.
+- Bundle production fonts in `src/assets/fonts/` and load them with `next/font/local` so builds do not depend on Google Fonts availability.
+- Use the symmetric radius tokens for rounded corners. Do not use asymmetric corner radii, raw radius values, or spacing tokens as radii.
+- Pink is the primary theme color. Treat sage and wood as supporting accents rather than competing themes.
 
 ## Home Feature Notes
 
-- `src/app/home/page.tsx` currently defines the home page layout directly.
+- `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
+- Work entries use the shared text shell in `src/components/work/WorkExperience.tsx`; each position owns its content and its artwork `desktop`, `tablet`, and `mobile` size and placement values in `src/components/work/experiences/`. `WorkArtwork` applies tablet values at `1024px` and mobile values at `768px`. The stack shrinks its entries, artwork, padding, and paw-trail gaps to fit short dynamic viewports while retaining the 100px entry height on taller screens.
+- `/work` and `/proj` redirect to the matching home-page sections; only project entries retain standalone detail routes.
 - Reusable home UI belongs in `src/components/home/`.
-- Interactive home effects live in `src/components/home/effects/`.
-- There is no `src/views/home/components/` directory in the repo. Import home UI from `src/components/home/` instead of recreating a parallel tree.
-- `src/components/home/VinylPlayer.tsx` is a server component that fetches Spotify playback state through `src/lib/spotify.ts` and passes display data into the client-only `src/components/home/VinylPlayerClient.tsx`.
-- The Spotify player expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
+- The Spotify player code remains in `src/components/home/VinylPlayer.tsx`, `src/components/home/VinylPlayerClient.tsx`, and `src/lib/spotify.ts`, but it is not rendered or called by the application.
+- If the Spotify player is re-enabled, it expects `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in the server environment. Keep token refresh and API calls on the server; do not expose Spotify secrets in client components.
+
+## Garden Feature Notes
+
+- Garden drawing names are optional; blank names are stored as `Untitled` and do not show a name tooltip.
+- New garden drawings are always saved as published and appear in the shared garden.
+- Export new drawings as 256-by-256 WebP images and upload them as multipart form data through the drawings API. PNG is the browser fallback.
+- Store new drawing images in the public Supabase Storage `drawings` bucket. The `drawings.image_data` column contains the Storage object path; legacy Base64 data URLs remain supported.
+- Keep uploads at or below 500,000 bytes. When a drawing is deleted, remove its Storage object after deleting its database row.
+- Remove garden drawings from the client immediately when deletion starts, and restore them if the request fails.
 
 ## Validation
 

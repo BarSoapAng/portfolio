@@ -1,0 +1,4 @@
+.article {
+  margin-block-start: var(--space-4);
+  padding-block-start: 0;
+}

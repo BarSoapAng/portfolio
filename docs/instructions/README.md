@@ -23,6 +23,7 @@ If two detailed docs overlap, follow the more specific one. Workspace guidance w
 - Read [authoring.md](authoring.md) before editing instruction docs.
 - Read workflow docs in `workflows/` for shared process requirements.
 - Read [workspaces/src.md](workspaces/src.md) before changing app code in `src/`.
+- Use the product-facing [farmhouse pink style guide](../style-guide.md) for visual work.
 
 ## Canonical Files
 
