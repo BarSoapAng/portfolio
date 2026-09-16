@@ -39,6 +39,7 @@ export default function EricssonWorkExperience() {
         src={phone}
         alt=""
         aria-hidden="true"
+        hideFromMobile
         layout={{
           desktop: { bottom: "60%", left: "23%", width: "88px" },
           tablet: { bottom: "60%", left: "23%", width: "88px" },
