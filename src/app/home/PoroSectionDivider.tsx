@@ -6,31 +6,31 @@ import { mediaQuery } from "@lib/media";
 import { useSyncExternalStore } from "react";
 import { SectionDivider, SectionDividerImage } from "./HomePage.styles";
 
-function subscribeToTablet(onChange: () => void) {
-  const query = window.matchMedia(mediaQuery.tablet);
+function subscribeToLargeMobile(onChange: () => void) {
+  const query = window.matchMedia(mediaQuery.largeMobile);
   query.addEventListener("change", onChange);
   return () => query.removeEventListener("change", onChange);
 }
 
-function getTabletSnapshot() {
-  return window.matchMedia(mediaQuery.tablet).matches;
+function getLargeMobileSnapshot() {
+  return window.matchMedia(mediaQuery.largeMobile).matches;
 }
 
-function getTabletServerSnapshot() {
+function getLargeMobileServerSnapshot() {
   return false;
 }
 
 export default function PoroSectionDivider() {
-  const isTablet = useSyncExternalStore(
-    subscribeToTablet,
-    getTabletSnapshot,
-    getTabletServerSnapshot,
+  const isLargeMobile = useSyncExternalStore(
+    subscribeToLargeMobile,
+    getLargeMobileSnapshot,
+    getLargeMobileServerSnapshot,
   );
 
   return (
     <SectionDivider>
       <SectionDividerImage
-        src={isTablet ? sectionDividerMobile : sectionDivider}
+        src={isLargeMobile ? sectionDividerMobile : sectionDivider}
         alt=""
         aria-hidden="true"
       />
