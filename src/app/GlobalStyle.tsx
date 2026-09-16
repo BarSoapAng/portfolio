@@ -95,7 +95,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     background: var(--color-background);
     color: var(--color-text);
@@ -106,13 +106,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .site-wrapper {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
     overflow: clip;
   }
 
   .page-content {
     position: relative;
+    flex: 1 0 auto;
   }
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
