@@ -1,15 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
 
-export const SectionDivider = styled.div`
-  > picture {
-    display: block;
-  }
-`;
+export const SectionDivider = styled.div``;
 
-export const SectionDividerImage = styled.img.attrs({ draggable: false })`
+export const SectionDividerImage = styled(Image).attrs({ draggable: false })`
   display: block;
   width: 100%;
   height: auto;
