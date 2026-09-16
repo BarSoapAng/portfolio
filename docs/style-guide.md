@@ -131,7 +131,9 @@ spacing token.
 | `tablet` | `1024px` |
 | `smallTablet` | `768px` |
 | `largeMobile` | `640px` |
+| `mediumMobile` | `540px` |
 | `mobile` | `480px` |
+| `mobileShort` | `480px` wide and height under `870px` |
 
 Write responsive rules from the widest breakpoint to the narrowest so smaller-device
 overrides remain easy to follow. Use pixels for every media-query breakpoint.

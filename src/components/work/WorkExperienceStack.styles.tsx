@@ -16,6 +16,10 @@ export const WorkIndex = styled(ContentIndex)`
     padding-block: 0;
     border: 0;
   }
+
+  @media ${mediaQuery.mobileShort} {
+    justify-content: space-between;
+  }
 `;
 
 export const WorkEntry = styled.article`
