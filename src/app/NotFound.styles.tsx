@@ -6,10 +6,10 @@ import { mediaQuery } from "@lib/media";
 
 export const NotFoundMain = styled.main`
   display: grid;
+  flex: 1 0 auto;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: var(--space-12);
-  min-height: calc(100svh - var(--navbar-height) - var(--space-24));
 
   > * + * {
     margin-block-start: 0;

@@ -115,7 +115,9 @@ const GlobalStyle = createGlobalStyle`
 
   .page-content {
     position: relative;
+    display: flex;
     flex: 1 0 auto;
+    flex-direction: column;
   }
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
