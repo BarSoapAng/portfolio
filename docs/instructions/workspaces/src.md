@@ -31,6 +31,8 @@
 - Published blog and project MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
 - Store content thumbnails in `src/assets/content/`, register them in `src/lib/content-images.ts`, and reference them in frontmatter by filename such as `example.webp`. Keep the registry limited to filenames referenced by published MDX.
 - Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
+- Store in-post (body) images under `src/assets/content/<blog-slug>/`. Prefer WebP; PNG is allowed for screenshots already authored that way. Import them directly in the MDX file with `next/image` and the `@assets/*` alias. Do not register body images in `content-images.ts`.
+- Keep a folder for every blog slug under `src/assets/content/<slug>/`. Use a `.gitkeep` when the folder has no body images yet. Do not move shared or placeholder thumbnails into these folders.
 - Home work entries import their local artwork from `src/assets/work/` and render it through position-specific components. They do not have standalone detail pages.
 
 ## Blog Content Types
