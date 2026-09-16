@@ -215,10 +215,6 @@ export const PawTrailContainer = styled.div`
     }
   }
 
-  @media ${mediaQuery.mediumMobile} {
-    display: none;
-  }
-
   @media ${mediaQuery.mobile} {
     min-height: min(var(--space-4), 2dvh);
 

@@ -20,7 +20,7 @@ export const WorkIndex = styled(ContentIndex)`
 
 export const WorkEntry = styled.article`
   position: relative;
-  flex: 1 1 100px;
+  flex: 0 1 100px;
   min-height: 0;
   max-height: 100px;
   width: fit-content;
