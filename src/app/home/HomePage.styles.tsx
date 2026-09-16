@@ -1,27 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import styled from "styled-components";
 import { ContentIndex } from "@components/ui/ContentStyles";
-import { mediaQuery } from "@lib/media";
 
 export const SectionDivider = styled.div`
-  > img:last-of-type {
-    display: none;
-  }
-
-  @media ${mediaQuery.tablet} {
-    > img:first-of-type {
-      display: none;
-    }
-
-    > img:last-of-type {
-      display: block;
-    }
+  > picture {
+    display: block;
   }
 `;
 
-export const SectionDividerImage = styled(Image).attrs({ draggable: false })`
+export const SectionDividerImage = styled.img.attrs({ draggable: false })`
   display: block;
   width: 100%;
   height: auto;

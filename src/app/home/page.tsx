@@ -7,7 +7,9 @@ import ProjectExperienceStack from "@components/project/ProjectExperienceStack";
 import { Heading2 } from "@components/ui/Typography";
 import WorkSection from "@components/work/WorkSection";
 import { getTopPosts } from "@lib/blog";
+import { mediaQuery } from "@lib/media";
 import { getAllProjects } from "@lib/project";
+import { getImageProps } from "next/image";
 import { FaPaw } from "react-icons/fa";
 import {
   GardenSection,
@@ -17,6 +19,34 @@ import {
   SectionDividerImage,
 } from "./HomePage.styles";
 
+function PoroSectionDivider() {
+  const {
+    props: { srcSet: mobileSrcSet },
+  } = getImageProps({
+    src: sectionDividerMobile,
+    alt: "",
+    sizes: "100vw",
+  });
+  const { props: desktop } = getImageProps({
+    src: sectionDivider,
+    alt: "",
+    sizes: "100vw",
+  });
+
+  return (
+    <SectionDivider>
+      <picture>
+        <source
+          media={mediaQuery.tablet}
+          srcSet={mobileSrcSet}
+          sizes="100vw"
+        />
+        <SectionDividerImage {...desktop} aria-hidden="true" />
+      </picture>
+    </SectionDivider>
+  );
+}
+
 function HomePage() {
   const projects = getAllProjects();
   const recentPosts = getTopPosts(3);
@@ -24,18 +54,7 @@ function HomePage() {
   return (
     <HomeMain>
       <SelfDescriptionCard />
-      <SectionDivider>
-        <SectionDividerImage
-          src={sectionDivider}
-          alt=""
-          aria-hidden="true"
-        />
-        <SectionDividerImage
-          src={sectionDividerMobile}
-          alt=""
-          aria-hidden="true"
-        />
-      </SectionDivider>
+      <PoroSectionDivider />
 
       <WorkSection />
 
@@ -51,18 +70,7 @@ function HomePage() {
         <DrawingCanvas />
       </GardenSection>
 
-      <SectionDivider>
-        <SectionDividerImage
-          src={sectionDivider}
-          alt=""
-          aria-hidden="true"
-        />
-        <SectionDividerImage
-          src={sectionDividerMobile}
-          alt=""
-          aria-hidden="true"
-        />
-      </SectionDivider>
+      <PoroSectionDivider />
 
       <BlogPreviewStrip posts={recentPosts} />
     </HomeMain>
