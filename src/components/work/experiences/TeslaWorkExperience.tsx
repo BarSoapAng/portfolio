@@ -14,6 +14,7 @@ export default function TeslaWorkExperience() {
         src={teslaLogo}
         alt=""
         aria-hidden="true"
+        hideFromMobile
         layout={{
           desktop: {
             right: "45%",

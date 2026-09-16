@@ -151,10 +151,12 @@ export type WorkArtworkLayout = {
 
 type StyledWorkArtworkProps = {
   $layout: WorkArtworkLayout;
+  $hideFromMobile?: boolean;
 };
 
 type WorkArtworkProps = Omit<ImageProps, "draggable" | "layout"> & {
   layout: WorkArtworkLayout;
+  hideFromMobile?: boolean;
 };
 
 const BASE_ENTRY_HEIGHT = 100;
@@ -207,13 +209,26 @@ const StyledWorkArtwork = styled(Image)<StyledWorkArtworkProps>`
   @media ${mediaQuery.smallTablet} {
     ${({ $layout }) => placementStyles($layout.mobile)}
   }
+
+  ${({ $hideFromMobile }) =>
+    $hideFromMobile &&
+    css`
+      @media ${mediaQuery.mobile} {
+        display: none;
+      }
+    `}
 `;
 
-export function WorkArtwork({ layout, ...props }: WorkArtworkProps) {
+export function WorkArtwork({
+  layout,
+  hideFromMobile = false,
+  ...props
+}: WorkArtworkProps) {
   return (
     <StyledWorkArtwork
       {...props}
       $layout={layout}
+      $hideFromMobile={hideFromMobile}
       draggable={false}
     />
   );

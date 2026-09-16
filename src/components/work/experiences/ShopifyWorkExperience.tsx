@@ -14,6 +14,7 @@ export default function ShopifyWorkExperience() {
         src={shopifyLogo}
         alt=""
         aria-hidden="true"
+        hideFromMobile
         layout={{
           desktop: { bottom: "49%", right: "38%", width: "38px" },
           tablet: { bottom: "49%", right: "38%", width: "38px" },
