@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const Socials = styled.nav`
   width: min(calc(100% - (2 * var(--space-4))), 900px);
+  margin-block-start: auto;
   margin-inline: auto;
   padding-block: 0 var(--space-8);
 
