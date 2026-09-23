@@ -56,7 +56,6 @@ const ScrollToTopButton = styled(ToggleButton)<{ $isVisible: boolean }>`
   visibility: ${({ $isVisible }) => $isVisible ? "visible" : "hidden"};
   opacity: ${({ $isVisible }) => $isVisible ? 1 : 0};
   transform: translateY(${({ $isVisible }) => $isVisible ? "0" : "var(--space-2)"});
-  font-size: 1rem;
   pointer-events: ${({ $isVisible }) => $isVisible ? "auto" : "none"};
 
   @media (prefers-reduced-motion: no-preference) {
@@ -135,7 +134,7 @@ export default function ThemeToggle() {
             tabIndex={showScrollToTop ? 0 : -1}
             type="button"
           >
-            <FaArrowUp aria-hidden />
+            <FaArrowUp aria-hidden stroke="currentColor" strokeWidth={20} />
           </ScrollToTopButton>
         )}
         <ToggleButton
