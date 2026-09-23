@@ -30,7 +30,7 @@ export default function SocialLinks() {
     <Socials aria-label="Social media">
       <ul>
         <li>
-          <a aria-label="Email" href="mailto:a229zhou@uwaterloo.ca">
+          <a aria-label="Email" href="mailto:angela@barsoapang.dev">
             <FaAt aria-hidden />
           </a>
         </li>
