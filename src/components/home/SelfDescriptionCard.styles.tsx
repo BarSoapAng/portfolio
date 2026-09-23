@@ -76,13 +76,8 @@ export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
   -webkit-box-decoration-break: clone;
 
   @media (prefers-reduced-motion: no-preference) {
-    html.theme-transition & {
-      transition:
-        background-color 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        color 0.3s ease,
-        filter 0.3s ease;
+    && {
+      transition: color 0.3s ease;
     }
   }
 
