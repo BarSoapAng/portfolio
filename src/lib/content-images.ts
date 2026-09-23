@@ -3,16 +3,16 @@ import "server-only";
 import type { StaticImageData } from "next/image";
 import buildingAScrapbookSite from "@assets/content/building-a-scrapbook-site.webp";
 import creatorGrowthConsultant from "@assets/content/creator-growth-consultant.webp";
-import dabDetector9000 from "@assets/content/dab-detector-9000.webp";
+import dabDetector9000 from "@assets/projects/dab-detector-9000.webp";
 import internetNudity from "@assets/content/internet-nudity.webp";
 import oroPivot from "@assets/content/oro-pivot.webp";
-import rakansFeather from "@assets/content/rakans-feather.webp";
+import rakansFeather from "@assets/projects/rakans-feather.webp";
 import whoAmI from "@assets/content/who-am-i.webp";
-import dotfiles from "@assets/content/dotfiles.webp";
-import leaguePurityTest from "@assets/content/league-purity-test.webp";
-import leetcodeDiscordBot from "@assets/content/leetcode-discord-bot.webp";
-import ludus from "@assets/content/ludus.webp";
-import nodeReactTemplate from "@assets/content/node-react-template.webp";
+import dotfiles from "@assets/projects/dotfiles.webp";
+import leaguePurityTest from "@assets/projects/league-purity-test.webp";
+import leetcodeDiscordBot from "@assets/projects/leetcode-discord-bot.webp";
+import ludus from "@assets/projects/ludus.webp";
+import nodeReactTemplate from "@assets/projects/node-react-template.webp";
 
 const CONTENT_IMAGES = {
   "building-a-scrapbook-site.webp": buildingAScrapbookSite,
