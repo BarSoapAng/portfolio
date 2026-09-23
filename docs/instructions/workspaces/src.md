@@ -64,6 +64,7 @@
 ## Home Feature Notes
 
 - `src/app/home/page.tsx` defines the home page layout and includes the work and project indexes.
+- Keep the introductory home content server-rendered. The below-the-fold work, projects, garden, and blog preview sections load through `src/app/home/LazyHomeContent.tsx` so their client code is split from the initial page bundle.
 - Work entries use the shared text shell in `src/components/work/WorkExperience.tsx`; each position owns its content and its artwork `desktop`, `tablet`, and `mobile` size and placement values in `src/components/work/experiences/`. `WorkArtwork` applies tablet values at `1024px` and mobile values at `768px`. The stack shrinks its entries, artwork, padding, and paw-trail gaps to fit short dynamic viewports while retaining the 100px entry height on taller screens. Paw trails hide under `mediaQuery.mobileShort` (mobile width and height under 870px); `WorkIndex` then uses `justify-content: space-between` so entries still fill the sticky viewport.
 - `/work` and `/proj` redirect to the matching home-page sections; only project entries retain standalone detail routes.
 - Reusable home UI belongs in `src/components/home/`.

@@ -67,3 +67,9 @@ export const GardenSection = styled(IndexSection)`
     }
   }
 `;
+
+export const HomeSectionSkeleton = styled.div<{ $height: string }>`
+  min-height: ${({ $height }) => $height};
+  border-radius: var(--radius-medium);
+  background: color-mix(in srgb, var(--color-surface) 86%, var(--color-border));
+`;
