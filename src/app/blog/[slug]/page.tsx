@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa6";
 import BlogPostEngagement from "@components/blog/BlogPostEngagement";
 import SimilarReads from "@components/blog/SimilarReads";
 import ContentImage from "@components/ui/ContentImage";
@@ -46,8 +47,8 @@ export default async function BlogPostRoute({ params }: BlogPostRouteProps) {
   return (
     <main>
       <Body>
-        <Link href="/blog">
-          ← Back to blogs
+        <Link aria-label="Back to blogs" href="/blog">
+          <FaArrowLeft aria-hidden />
         </Link>
       </Body>
 
