@@ -73,6 +73,7 @@
 
 ## Garden Feature Notes
 
+- Center the garden world in the viewport on load and reset. Place drawings chronologically from the world center outward in a deterministic square spiral, keeping the oldest drawing exactly at the center and applying ID-based jitter only to later drawings.
 - Garden drawing names are optional; blank names are stored as `Untitled` and do not show a name tooltip.
 - New garden drawings are always saved as published and appear in the shared garden.
 - Export new drawings as 256-by-256 WebP images and upload them as multipart form data through the drawings API. PNG is the browser fallback.

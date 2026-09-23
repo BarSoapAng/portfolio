@@ -28,23 +28,48 @@ function hashCode(str: string): number {
   return Math.abs(hash);
 }
 
-function getPlotPosition(id: string, index: number, total: number) {
-  const cols = Math.max(3, Math.ceil(Math.sqrt(total * 1.5)));
-  const row = Math.floor(index / cols);
-  const col = index % cols;
-  const offsetX = row % 2 === 0 ? 0 : 60;
+function getSpiralOffset(index: number) {
+  let x = 0;
+  let y = 0;
+  let dx = 1;
+  let dy = 0;
+  let segmentLength = 1;
+  let segmentProgress = 0;
+  let turns = 0;
+
+  for (let step = 0; step < index; step++) {
+    x += dx;
+    y += dy;
+    segmentProgress++;
+
+    if (segmentProgress === segmentLength) {
+      [dx, dy] = [-dy, dx];
+      segmentProgress = 0;
+      turns++;
+      if (turns % 2 === 0) segmentLength++;
+    }
+  }
+
+  return { x, y };
+}
+
+function getPlotPosition(id: string, index: number, worldSize: { width: number; height: number }) {
+  const offset = getSpiralOffset(index);
   const hash = hashCode(id);
-  const jitterX = (hash % 30) - 15;
-  const jitterY = ((hash >> 8) % 20) - 10;
-  return { x: col * 140 + offsetX + jitterX + 40, y: row * 140 + jitterY + 40 };
+  const jitterX = index === 0 ? 0 : (hash % 30) - 15;
+  const jitterY = index === 0 ? 0 : ((hash >> 8) % 20) - 10;
+  return {
+    x: worldSize.width / 2 - 50 + offset.x * 140 + jitterX,
+    y: worldSize.height / 2 - 50 + offset.y * 140 + jitterY,
+  };
 }
 
 function getWorldSize(total: number) {
-  const cols = Math.max(3, Math.ceil(Math.sqrt(total * 1.5)));
-  const rows = Math.ceil(total / cols);
+  const radius = Math.ceil((Math.sqrt(total) - 1) / 2);
+  const size = radius * 280 + 240;
   return {
-    width: Math.max(800, cols * 140 + 160),
-    height: Math.max(600, rows * 140 + 160),
+    width: Math.max(800, size),
+    height: Math.max(600, size),
   };
 }
 
@@ -261,6 +286,7 @@ export default function FarmMap() {
         <TransformWrapper
           ref={transformRef}
           initialScale={0.8}
+          centerOnInit
           minScale={0.3}
           maxScale={2}
           limitToBounds={false}
@@ -277,7 +303,8 @@ export default function FarmMap() {
           >
             <WorldLayer style={{ width: worldSize.width, height: worldSize.height }}>
               {drawings.map((d, i) => {
-                const pos = getPlotPosition(d.id, i, drawings.length);
+                const placementIndex = drawings.length - i - 1;
+                const pos = getPlotPosition(d.id, placementIndex, worldSize);
                 return (
                   <Plot
                     key={d.id}
