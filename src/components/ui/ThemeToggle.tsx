@@ -134,7 +134,7 @@ export default function ThemeToggle() {
             tabIndex={showScrollToTop ? 0 : -1}
             type="button"
           >
-            <FaArrowUp aria-hidden stroke="currentColor" strokeWidth={20} />
+            <FaArrowUp aria-hidden stroke="currentColor" strokeWidth={12} />
           </ScrollToTopButton>
         )}
         <ToggleButton
