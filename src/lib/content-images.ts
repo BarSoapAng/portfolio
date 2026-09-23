@@ -7,7 +7,7 @@ import dabDetector9000 from "@assets/projects/dab-detector-9000.webp";
 import internetNudity from "@assets/content/internet-nudity.webp";
 import oroPivot from "@assets/content/oro-pivot.webp";
 import rakansFeather from "@assets/projects/rakans-feather.webp";
-import whoAmI from "@assets/content/who-am-i.webp";
+import whoAmI from "@assets/content/who-am-i/who-am-i.webp";
 import dotfiles from "@assets/projects/dotfiles.webp";
 import leaguePurityTest from "@assets/projects/league-purity-test.webp";
 import leetcodeDiscordBot from "@assets/projects/leetcode-discord-bot.webp";
