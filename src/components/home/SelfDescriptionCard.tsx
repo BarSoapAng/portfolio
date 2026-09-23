@@ -16,7 +16,7 @@ export default function SelfDescriptionCard() {
   const isGreetingInView = useInView(greetingRef);
 
   return (
-    <Hero>
+    <Hero data-home-hero>
       <HeroImage src={selfie.src} alt="Angela's selfie" width={230} />
       <HeroContent>
         <Heading1>

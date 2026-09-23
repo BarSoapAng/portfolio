@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { FaMoon } from "react-icons/fa6";
-import { LuSun } from "react-icons/lu";
+import { LuArrowUp, LuSun } from "react-icons/lu";
 import styled from "styled-components";
 
 const ToggleRail = styled.div<{ $isGarden: boolean }>`
@@ -13,18 +13,28 @@ const ToggleRail = styled.div<{ $isGarden: boolean }>`
   pointer-events: none;
 `;
 
-const ToggleButton = styled.button<{ $isGarden: boolean; $isSun?: boolean }>`
-  appearance: none;
+const ButtonStack = styled.div<{ $isGarden: boolean; $isHome: boolean }>`
   position: ${({ $isGarden }) => $isGarden ? "static" : "sticky"};
-  top: ${({ $isGarden }) => $isGarden ? "auto" : "calc(100vh - var(--space-4) - 2.5rem)"};
+  top: ${({ $isGarden, $isHome }) =>
+    $isGarden
+      ? "auto"
+      : `calc(100vh - var(--space-4) - ${$isHome ? "5.5rem" : "2.5rem"})`};
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 2.5rem;
+  margin-left: ${({ $isGarden }) => $isGarden ? "0" : "auto"};
+  margin-right: ${({ $isGarden }) => $isGarden ? "0" : "var(--space-4)"};
+`;
+
+const ToggleButton = styled.button<{ $isSun?: boolean }>`
+  appearance: none;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
-  margin-left: ${({ $isGarden }) => $isGarden ? "0" : "auto"};
-  margin-right: ${({ $isGarden }) => $isGarden ? "0" : "var(--space-4)"};
   border: 0;
   background: transparent;
   color: ${({ $isSun }) => $isSun ? 'var(--color-primary)' : 'var(--color-text-muted)'};
@@ -42,6 +52,21 @@ const ToggleButton = styled.button<{ $isGarden: boolean; $isSun?: boolean }>`
   }
 `;
 
+const ScrollToTopButton = styled(ToggleButton)<{ $isVisible: boolean }>`
+  visibility: ${({ $isVisible }) => $isVisible ? "visible" : "hidden"};
+  opacity: ${({ $isVisible }) => $isVisible ? 1 : 0};
+  transform: translateY(${({ $isVisible }) => $isVisible ? "0" : "var(--space-2)"});
+  pointer-events: ${({ $isVisible }) => $isVisible ? "auto" : "none"};
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s ease;
+  }
+`;
+
 function getTheme(): "light" | "dark" {
   if (typeof document === "undefined") return "light";
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
@@ -54,11 +79,26 @@ function subscribeToHydration() {
 export default function ThemeToggle() {
   const pathname = usePathname();
   const [theme, setTheme] = useState(getTheme);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const mounted = useSyncExternalStore(
     subscribeToHydration,
     () => true,
     () => false,
   );
+
+  useEffect(() => {
+    if (pathname !== "/home") return;
+
+    const hero = document.querySelector("[data-home-hero]");
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setShowScrollToTop(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+    });
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
@@ -71,20 +111,42 @@ export default function ThemeToggle() {
     }, 300);
   }
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }
+
   if (!mounted) return null;
 
   return (
     <ToggleRail $isGarden={pathname === "/garden"}>
-      <ToggleButton
-        $isGarden={pathname === "/garden"}
-        $isSun={theme === "dark"}
-        aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-        data-cursor="pointer"
-        onClick={toggle}
-        type="button"
-      >
-        {theme === "dark" ? <LuSun aria-hidden /> : <FaMoon aria-hidden />}
-      </ToggleButton>
+      <ButtonStack $isGarden={pathname === "/garden"} $isHome={pathname === "/home"}>
+        {pathname === "/home" && (
+          <ScrollToTopButton
+            $isVisible={showScrollToTop}
+            aria-label="Scroll to top"
+            data-cursor="pointer"
+            onClick={scrollToTop}
+            tabIndex={showScrollToTop ? 0 : -1}
+            type="button"
+          >
+            <LuArrowUp aria-hidden />
+          </ScrollToTopButton>
+        )}
+        <ToggleButton
+          $isSun={theme === "dark"}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          data-cursor="pointer"
+          onClick={toggle}
+          type="button"
+        >
+          {theme === "dark" ? <LuSun aria-hidden /> : <FaMoon aria-hidden />}
+        </ToggleButton>
+      </ButtonStack>
     </ToggleRail>
   );
 }
