@@ -128,13 +128,14 @@ export default function ThemeToggle() {
         {pathname === "/home" && (
           <ScrollToTopButton
             $isVisible={showScrollToTop}
+            $isSun={theme === "dark"}
             aria-label="Scroll to top"
             data-cursor="pointer"
             onClick={scrollToTop}
             tabIndex={showScrollToTop ? 0 : -1}
             type="button"
           >
-            <FaArrowUp aria-hidden stroke="currentColor" strokeWidth={12} />
+            <FaArrowUp aria-hidden stroke="currentColor" strokeWidth={10} />
           </ScrollToTopButton>
         )}
         <ToggleButton
