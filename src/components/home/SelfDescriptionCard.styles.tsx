@@ -20,7 +20,7 @@ export const Hero = styled.section`
   align-content: center;
   align-items: center;
   height: calc(100vh - var(--navbar-height));
-  max-height: 900px;
+  max-height: 920px;
   gap: var(--space-8);
   margin-bottom: var(--space-12);
 
