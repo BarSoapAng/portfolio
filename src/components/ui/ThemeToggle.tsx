@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import { FaMoon } from "react-icons/fa6";
-import { LuArrowUp, LuSun } from "react-icons/lu";
+import { FaArrowUp, FaMoon } from "react-icons/fa6";
+import { LuSun } from "react-icons/lu";
 import styled from "styled-components";
 
 const ToggleRail = styled.div<{ $isGarden: boolean }>`
@@ -56,6 +56,7 @@ const ScrollToTopButton = styled(ToggleButton)<{ $isVisible: boolean }>`
   visibility: ${({ $isVisible }) => $isVisible ? "visible" : "hidden"};
   opacity: ${({ $isVisible }) => $isVisible ? 1 : 0};
   transform: translateY(${({ $isVisible }) => $isVisible ? "0" : "var(--space-2)"});
+  font-size: 1rem;
   pointer-events: ${({ $isVisible }) => $isVisible ? "auto" : "none"};
 
   @media (prefers-reduced-motion: no-preference) {
@@ -134,7 +135,7 @@ export default function ThemeToggle() {
             tabIndex={showScrollToTop ? 0 : -1}
             type="button"
           >
-            <LuArrowUp aria-hidden />
+            <FaArrowUp aria-hidden />
           </ScrollToTopButton>
         )}
         <ToggleButton
