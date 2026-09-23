@@ -8,6 +8,10 @@ type SimilarReadsProps = {
 };
 
 export default function SimilarReads({ posts }: SimilarReadsProps) {
+  if (posts.length === 0) {
+    return null;
+  }
+
   return (
     <section className={styles.section} aria-labelledby="similar-reads-heading">
       <Heading2 id="similar-reads-heading">Similar reads</Heading2>

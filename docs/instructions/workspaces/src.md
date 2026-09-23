@@ -29,7 +29,7 @@
 ## Content Images
 
 - Published blog and project MDX frontmatter must include `thumbnail` and `thumbnailAlt` strings.
-- Store content thumbnails in `src/assets/content/`, register them in `src/lib/content-images.ts`, and reference them in frontmatter by filename such as `example.webp`. Keep the registry limited to filenames referenced by published MDX.
+- Store blog thumbnails in `src/assets/content/` and project thumbnails in `src/assets/projects/`. Register them in `src/lib/content-images.ts` and reference them in frontmatter by filename such as `example.webp`. Keep the registry limited to filenames referenced by published MDX.
 - Blog and project listings render these images as thumbnails; their detail pages reuse the same images as larger heroes.
 - Store in-post (body) images under `src/assets/content/<blog-slug>/` as WebP. Import them directly in the MDX file with `next/image` and the `@assets/*` alias. Do not register body images in `content-images.ts`.
 - Keep a folder for every blog slug under `src/assets/content/<slug>/`. Use a `.gitkeep` when the folder has no body images yet. Do not move shared or placeholder thumbnails into these folders.
@@ -39,7 +39,7 @@
 
 - Use only `eng`, `career`, `life`, and `fun` in published blog `tags` frontmatter.
 - Set optional blog frontmatter `pinned: true` to place a post before unpinned posts in the blog index and Top Blogs. Multiple pinned posts are ordered newest first.
-- Set `similarReads` to exactly three unique published blog slugs. A post cannot recommend itself.
+- Set `similarReads` to up to three unique published blog slugs. A post cannot recommend itself.
 - The blog index provides debounced title and summary search. Tag metadata is not displayed or searchable there.
 
 ## Import Conventions

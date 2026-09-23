@@ -23,6 +23,12 @@ export function usePostEngagement(slug: string) {
   const toggleLike = useCallback(async () => {
     if (toggling) return;
     setToggling(true);
+    const previousLiked = liked;
+    const previousLikes = likes;
+    setLiked(!previousLiked);
+    setLikes((count) =>
+      count === null ? count : Math.max(0, count + (previousLiked ? -1 : 1)),
+    );
     const visitorId = getVisitorId();
     try {
       const res = await fetch(`/api/blog/${slug}/likes`, {
@@ -30,13 +36,17 @@ export function usePostEngagement(slug: string) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ visitor_id: visitorId }),
       });
+      if (!res.ok) throw new Error("Failed to update like");
       const data = await res.json();
       setLikes(data.count);
       setLiked(data.likedByVisitor);
+    } catch {
+      setLikes(previousLikes);
+      setLiked(previousLiked);
     } finally {
       setToggling(false);
     }
-  }, [slug, toggling]);
+  }, [liked, likes, slug, toggling]);
 
   return { views, likes, liked, toggleLike, toggling };
 }

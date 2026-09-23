@@ -23,11 +23,11 @@ const POST_FIELD_PARSERS = {
   similarReads: (value, fileName) => {
     if (
       !Array.isArray(value) ||
-      value.length !== 3 ||
+      value.length > 3 ||
       value.some((slug) => typeof slug !== "string" || slug.trim().length === 0) ||
-      new Set(value).size !== 3
+      new Set(value).size !== value.length
     ) {
-      throw new Error(`Expected "similarReads" to contain three unique post slugs in ${fileName}.`);
+      throw new Error(`Expected "similarReads" to contain up to three unique post slugs in ${fileName}.`);
     }
 
     return value;

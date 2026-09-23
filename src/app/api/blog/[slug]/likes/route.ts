@@ -30,17 +30,23 @@ export async function POST(req: Request, { params }: RouteParams) {
   const { slug } = await params;
   const { visitor_id } = await req.json();
 
-  const { data: existing } = await supabase
+  const { data: existing, error: lookupError } = await supabase
     .from("post_likes")
     .select("id")
     .eq("slug", slug)
     .eq("visitor_id", visitor_id)
     .maybeSingle();
 
-  if (existing) {
-    await supabase.from("post_likes").delete().eq("id", existing.id);
-  } else {
-    await supabase.from("post_likes").insert({ slug, visitor_id });
+  if (lookupError) {
+    return NextResponse.json({ error: "Failed to update like" }, { status: 500 });
+  }
+
+  const { error: mutationError } = existing
+    ? await supabase.from("post_likes").delete().eq("id", existing.id)
+    : await supabase.from("post_likes").insert({ slug, visitor_id });
+
+  if (mutationError) {
+    return NextResponse.json({ error: "Failed to update like" }, { status: 500 });
   }
 
   const { count } = await supabase
