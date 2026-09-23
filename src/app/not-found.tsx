@@ -1,4 +1,4 @@
-import poroQuestion from "@assets/404/poro-question.png";
+import poroQuestion from "@assets/404/poro-question.webp";
 import NavbarLink from "@components/ui/NavbarLink";
 import { Body, Heading1 } from "@components/ui/Typography";
 import { NotFoundContent, NotFoundImage, NotFoundMain } from "./NotFound.styles";
