@@ -55,6 +55,10 @@ function getCursorName(target: EventTarget | null): CursorName {
     return "wait";
   }
 
+  if (target.closest(':disabled, [aria-disabled="true"]')) {
+    return "default";
+  }
+
   const cursorOverrideElement = target.closest<HTMLElement>("[data-cursor]");
   const cursorOverride = cursorOverrideElement?.dataset.cursor;
   const pointerElement = target.closest(
