@@ -58,7 +58,7 @@ export const HeroContent = styled.div`
 `;
 
 export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
-  color: inherit;
+  color: var(--color-primary-hover);
   font: inherit;
   background-image: linear-gradient(
     var(--color-primary-soft),
@@ -74,6 +74,17 @@ export const HighlightedGreeting = styled(Text)<{ $isInView: boolean }>`
     `}
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+
+  @media (prefers-reduced-motion: no-preference) {
+    html.theme-transition & {
+      transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        color 0.3s ease,
+        filter 0.3s ease;
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     background-size: 100% 100%;
