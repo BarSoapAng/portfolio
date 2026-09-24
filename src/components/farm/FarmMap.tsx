@@ -25,48 +25,32 @@ function hashCode(str: string): number {
     hash = (hash << 5) - hash + str.charCodeAt(i);
     hash |= 0;
   }
-  return Math.abs(hash);
+  return hash >>> 0;
 }
 
-function getSpiralOffset(index: number) {
-  let x = 0;
-  let y = 0;
-  let dx = 1;
-  let dy = 0;
-  let segmentLength = 1;
-  let segmentProgress = 0;
-  let turns = 0;
-
-  for (let step = 0; step < index; step++) {
-    x += dx;
-    y += dy;
-    segmentProgress++;
-
-    if (segmentProgress === segmentLength) {
-      [dx, dy] = [-dy, dx];
-      segmentProgress = 0;
-      turns++;
-      if (turns % 2 === 0) segmentLength++;
-    }
-  }
-
-  return { x, y };
+function getSeededValue(id: string, salt: string) {
+  return hashCode(`${id}:${salt}`) / 0xffffffff;
 }
 
-function getPlotPosition(id: string, index: number, worldSize: { width: number; height: number }) {
-  const offset = getSpiralOffset(index);
-  const hash = hashCode(id);
-  const jitterX = index === 0 ? 0 : (hash % 30) - 15;
-  const jitterY = index === 0 ? 0 : ((hash >> 8) % 20) - 10;
+function getPlotLayout(id: string, index: number, worldSize: { width: number; height: number }) {
+  const size = index === 0 ? 100 : 85 + Math.round(getSeededValue(id, "size") * 30);
+  const angle =
+    index * Math.PI * (3 - Math.sqrt(5)) + (getSeededValue(id, "angle") - 0.5) * 0.7;
+  const radius =
+    index === 0
+      ? 0
+      : 95 + 75 * (Math.sqrt(index) - 1) + (getSeededValue(id, "radius") - 0.5) * 24;
+
   return {
-    x: worldSize.width / 2 - 50 + offset.x * 140 + jitterX,
-    y: worldSize.height / 2 - 50 + offset.y * 140 + jitterY,
+    x: worldSize.width / 2 + Math.cos(angle) * radius - size / 2,
+    y: worldSize.height / 2 + Math.sin(angle) * radius - size / 2,
+    size,
   };
 }
 
 function getWorldSize(total: number) {
-  const radius = Math.ceil((Math.sqrt(total) - 1) / 2);
-  const size = radius * 280 + 240;
+  const radius = total > 1 ? 95 + 75 * (Math.sqrt(total - 1) - 1) + 12 : 0;
+  const size = radius * 2 + 235;
   return {
     width: Math.max(800, size),
     height: Math.max(600, size),
@@ -99,8 +83,6 @@ const WorldLayer = styled.div`
 
 const Plot = styled.div`
   position: absolute;
-  width: 100px;
-  height: 100px;
   transition: transform 0.15s;
 
   &:hover {
@@ -304,11 +286,16 @@ export default function FarmMap() {
             <WorldLayer style={{ width: worldSize.width, height: worldSize.height }}>
               {drawings.map((d, i) => {
                 const placementIndex = drawings.length - i - 1;
-                const pos = getPlotPosition(d.id, placementIndex, worldSize);
+                const layout = getPlotLayout(d.id, placementIndex, worldSize);
                 return (
                   <Plot
                     key={d.id}
-                    style={{ left: pos.x, top: pos.y }}
+                    style={{
+                      left: layout.x,
+                      top: layout.y,
+                      width: layout.size,
+                      height: layout.size,
+                    }}
                     onMouseEnter={(e) => handleMouseEnter(e, d.name)}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
