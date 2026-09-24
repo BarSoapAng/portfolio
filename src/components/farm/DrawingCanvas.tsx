@@ -567,7 +567,7 @@ export default function DrawingCanvas() {
       if ("requestIdleCallback" in window) {
         window.requestIdleCallback(preloadImageSafetyModel, { timeout: 1000 });
       } else {
-        window.setTimeout(preloadImageSafetyModel, 0);
+        setTimeout(preloadImageSafetyModel, 0);
       }
     }
 

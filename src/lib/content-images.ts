@@ -2,6 +2,7 @@ import "server-only";
 
 import type { StaticImageData } from "next/image";
 import dabDetector9000 from "@assets/projects/dab-detector-9000.webp";
+import handlingBadInput from "@assets/content/handling-bad-input/handling-bad-input.webp";
 import internetNudity from "@assets/content/internet-nudity/internet-nudity.webp";
 import oroPivot from "@assets/content/oro-pivot/oro-pivot.webp";
 import rakansFeather from "@assets/projects/rakans-feather.webp";
@@ -14,6 +15,7 @@ import nodeReactTemplate from "@assets/projects/node-react-template.webp";
 
 const CONTENT_IMAGES = {
   "dab-detector-9000.webp": dabDetector9000,
+  "handling-bad-input.webp": handlingBadInput,
   "internet-nudity.webp": internetNudity,
   "oro-pivot.webp": oroPivot,
   "rakans-feather.webp": rakansFeather,
