@@ -1,9 +1,9 @@
 ---
-title: ""
+title: "Handling Bad User Input"
 date: "2026-08-31"
 summary: "How the community garden handles NSFW content."
-thumbnail: "internet-nudity.webp"
-thumbnailAlt: "Angela's selfie at her work desk"
+thumbnail: "handling-bad-input.webp"
+thumbnailAlt: "A community garden filled with visitors' selfies and drawings"
 published: true
 similarReads:
   - fe-at-htn
@@ -11,32 +11,33 @@ tags:
   - content
 ---
 
-When leaving people to be responsible for their own inputs, you inevitably get some... *interesting* inputs.
+When you let people be responsible for their own inputs, you inevitably get some... *interesting* inputs.
 
-NSFW and "bad" words is probably the most common of such inputs, so let's go over how this site handles that!
+NSFW content and "bad" words are probably the most common examples, so let's go over how this site handles them!
 
 ## The problem
 
-Text input risks profanity and drawings risk, well absolutely everything. When you give a user so much freedom, that also comes with a lot of behind the scenes logic to make sure that freedom is used sparingly.
+Text inputs risk containing profanity, and drawings risk containing, well, absolutely anything. Giving users so much freedom also requires a lot of behind-the-scenes logic to make sure that freedom is used responsibly.
 
-And obviously for a site from a SWE to an audience of other SWEs, we also have to handle the case of malicious inputs :3
+And obviously, for a site built by a SWE for an audience of other SWEs, we also have to handle malicious inputs :3
 
 ## Text
 
-For the name inputs, I simply checked the name against the `bad-words` package, a [javascript package](https://www.npmjs.com/package/bad-words) that filters through bad words for you!
+For name inputs, I simply check the name against the `bad-words` package, a [JavaScript package](https://www.npmjs.com/package/bad-words) that filters out bad words for you!
 
 ## Drawing
 
-**Empty case:** disable submit when the canvas is empty
+**Empty case:** Disable submission when the canvas is empty.
 
-**NSFW case:** before uploading, the browser runs `NSFWJS` to classify the drawing. This [open source model](https://github.com/infinitered/nsfwjs) predicts the likiness of explicit content within 5 different categories. The content warning triggers if any one of the categories exceed `30%`.
+**NSFW case:** Before uploading, the browser runs `NSFWJS` to classify the drawing. This [open-source model](https://github.com/infinitered/nsfwjs) predicts the likelihood of explicit content across five different categories. The content warning triggers if any one of the categories exceeds `30%`.
 
-- This is a client side check!
-- The trade off is slightly worse UX with slower upload times
+- This is a client-side check!
+- The trade-off is a slightly worse UX due to slower upload times.
 
-The UX problem is actually a pretty difficult one to solve. Loading in TensorFlow and the model on submission takes significant memory, often causing lag or freezing. Things done to improve this:
-- Cap drawing snapshot history (for undo/redo) to 15
-- Load model after first canvas interaction in the BG
-- Load TensorFlow, NSFWJS concurrently
+The UX problem is actually a pretty difficult one to solve. Loading TensorFlow and the model on submission takes significant memory, often causing lag or freezing. A few things improve this:
 
-**Malicious case:** luckily image display (as long as it's not profane) is quite safe! Both front and backend accept only image types :) 
+- Cap the drawing snapshot history (for undo/redo) at 15.
+- Load the model in the background after the first canvas interaction.
+- Load TensorFlow and NSFWJS concurrently.
+
+**Malicious case:** Luckily, displaying images (as long as their content isn't inappropriate) is quite safe! Both the frontend and backend accept only image file types :)
