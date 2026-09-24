@@ -1,0 +1,42 @@
+---
+title: ""
+date: "2026-08-31"
+summary: "How the community garden handles NSFW content."
+thumbnail: "internet-nudity.webp"
+thumbnailAlt: "Angela's selfie at her work desk"
+published: true
+similarReads:
+  - fe-at-htn
+tags:
+  - content
+---
+
+When leaving people to be responsible for their own inputs, you inevitably get some... *interesting* inputs.
+
+NSFW and "bad" words is probably the most common of such inputs, so let's go over how this site handles that!
+
+## The problem
+
+Text input risks profanity and drawings risk, well absolutely everything. When you give a user so much freedom, that also comes with a lot of behind the scenes logic to make sure that freedom is used sparingly.
+
+And obviously for a site from a SWE to an audience of other SWEs, we also have to handle the case of malicious inputs :3
+
+## Text
+
+For the name inputs, I simply checked the name against the `bad-words` package, a [javascript package](https://www.npmjs.com/package/bad-words) that filters through bad words for you!
+
+## Drawing
+
+**Empty case:** disable submit when the canvas is empty
+
+**NSFW case:** before uploading, the browser runs `NSFWJS` to classify the drawing. This [open source model](https://github.com/infinitered/nsfwjs) predicts the likiness of explicit content within 5 different categories. The content warning triggers if any one of the categories exceed `30%`.
+
+- This is a client side check!
+- The trade off is slightly worse UX with slower upload times
+
+The UX problem is actually a pretty difficult one to solve. Loading in TensorFlow and the model on submission takes significant memory, often causing lag or freezing. Things done to improve this:
+- Cap drawing snapshot history (for undo/redo) to 15
+- Load model after first canvas interaction in the BG
+- Load TensorFlow, NSFWJS concurrently
+
+**Malicious case:** luckily image display (as long as it's not profane) is quite safe! Both front and backend accept only image types :) 
