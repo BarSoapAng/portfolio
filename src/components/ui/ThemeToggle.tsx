@@ -18,7 +18,7 @@ const ButtonStack = styled.div<{ $isGarden: boolean; $isHome: boolean }>`
   top: ${({ $isGarden, $isHome }) =>
     $isGarden
       ? "auto"
-      : `calc(100vh - var(--space-4) - ${$isHome ? "5.5rem" : "2.5rem"})`};
+      : `calc(100dvh - var(--space-4) - ${$isHome ? "5.5rem" : "2.5rem"})`};
   display: flex;
   flex-direction: column;
   gap: var(--space-2);

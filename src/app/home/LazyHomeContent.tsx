@@ -13,7 +13,7 @@ import {
 import PoroSectionDivider from "./PoroSectionDivider";
 
 const WorkSection = dynamic(() => import("@components/work/WorkSection"), {
-  loading: () => <HomeSectionSkeleton $height="100vh" aria-hidden />,
+  loading: () => <HomeSectionSkeleton $height="100dvh" aria-hidden />,
   ssr: false,
 });
 
