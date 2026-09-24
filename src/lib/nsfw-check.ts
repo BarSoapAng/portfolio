@@ -6,11 +6,18 @@ let modelPromise: Promise<NSFWJS> | null = null;
 
 async function getModel() {
   if (!modelPromise) {
-    const nsfwjs = await import("nsfwjs");
-    await import("@tensorflow/tfjs");
-    modelPromise = nsfwjs.load();
+    modelPromise = Promise.all([import("nsfwjs"), import("@tensorflow/tfjs")])
+      .then(([nsfwjs]) => nsfwjs.load())
+      .catch((error) => {
+        modelPromise = null;
+        throw error;
+      });
   }
   return modelPromise;
+}
+
+export function preloadImageSafetyModel() {
+  void getModel().catch(() => undefined);
 }
 
 export async function isImageSafe(canvas: HTMLCanvasElement): Promise<boolean> {

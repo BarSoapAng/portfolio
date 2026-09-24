@@ -81,6 +81,7 @@
 - Garden drawing names are optional; blank names are stored as `Untitled` and do not show a name tooltip.
 - New garden drawings are always saved as published and appear in the shared garden.
 - Export new drawings as 256-by-256 WebP images and upload them as multipart form data through the drawings API. PNG is the browser fallback.
+- Keep at most 15 drawing-history snapshots. Start loading the image-safety model at idle priority after the visitor first interacts with the canvas so submission can reuse the pending or loaded model.
 - Store new drawing images in the public Supabase Storage `drawings` bucket. The `drawings.image_data` column contains the Storage object path; legacy Base64 data URLs remain supported.
 - Keep uploads at or below 500,000 bytes. When a drawing is deleted, remove its Storage object after deleting its database row.
 - Remove garden drawings from the client immediately when deletion starts, and restore them if the request fails.
