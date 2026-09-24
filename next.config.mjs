@@ -11,6 +11,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  serverExternalPackages: ["sharp", "@tensorflow/tfjs", "nsfwjs"],
 };
 
 export default withMDX(nextConfig);

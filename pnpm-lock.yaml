@@ -56,6 +56,9 @@ importers:
       remark-frontmatter:
         specifier: ^5.0.0
         version: 5.0.0
+      sharp:
+        specifier: 0.34.5
+        version: 0.34.5
       styled-components:
         specifier: ^6.5.3
         version: 6.5.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -87,9 +90,6 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
-      sharp:
-        specifier: 0.34.5
-        version: 0.34.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3

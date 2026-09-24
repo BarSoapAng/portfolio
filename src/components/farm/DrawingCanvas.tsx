@@ -13,7 +13,6 @@ import {
 } from "@components/ui/Typography";
 import { mediaQuery } from "@lib/media";
 import { getVisitorId } from "@lib/visitor-id";
-import { isImageSafe, preloadImageSafetyModel } from "@lib/nsfw-check";
 import { Filter } from "bad-words";
 import {
   FaArrowRotateLeft,
@@ -463,7 +462,6 @@ export default function DrawingCanvas() {
   const isDrawing = useRef(false);
   const colorFieldRef = useRef<HTMLButtonElement>(null);
   const isChoosingColor = useRef(false);
-  const hasScheduledModelPreload = useRef(false);
   const [color, setColor] = useState("#000000");
   const [colorSelection, setColorSelection] = useState({
     hue: 0,
@@ -561,15 +559,6 @@ export default function DrawingCanvas() {
     if ("touches" in e) e.preventDefault();
     const ctx = ctxRef.current;
     if (!ctx) return;
-
-    if (!hasScheduledModelPreload.current) {
-      hasScheduledModelPreload.current = true;
-      if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(preloadImageSafetyModel, { timeout: 1000 });
-      } else {
-        setTimeout(preloadImageSafetyModel, 0);
-      }
-    }
 
     rectRef.current = canvasRef.current!.getBoundingClientRect();
     const pos = getPos(e);
@@ -746,13 +735,6 @@ export default function DrawingCanvas() {
     setMessage(null);
 
     try {
-      const safe = await isImageSafe(canvas);
-      if (!safe) {
-        setMessage({ text: "Image didn't pass our content check. Try something else!", error: true });
-        setSaving(false);
-        return;
-      }
-
       const image = await exportDrawing(canvas);
       const visitorId = getVisitorId();
       const formData = new FormData();

@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@lib/supabase";
 import { getDrawingImageUrl } from "@lib/drawing-images";
+import { isImageSafeServer } from "@lib/nsfw-check-server";
 import { Filter } from "bad-words";
 
 const filter = new Filter();
@@ -52,6 +53,11 @@ export async function POST(request: NextRequest) {
 
   if (!isWebP && !isPng) {
     return NextResponse.json({ error: "Unsupported image format" }, { status: 400 });
+  }
+
+  const safe = await isImageSafeServer(imageBuffer);
+  if (!safe) {
+    return NextResponse.json({ error: "Image didn't pass our content check" }, { status: 400 });
   }
 
   const trimmedName = typeof name === "string" ? name.trim().slice(0, 40) : "";
