@@ -11,6 +11,17 @@ tags:
   - career
 ---
 
+import Image from "next/image"
+import hackerAppsDesign from "@assets/content/fe-at-htn/hacker-apps-design.webp"
+import staticSiteDesign from "@assets/content/fe-at-htn/static-site-design.webp"
+import staticSiteHero from "@assets/content/fe-at-htn/static-site-hero.webp"
+import storySquadBrainstorming1 from "@assets/content/fe-at-htn/story-squad-brainstorming1.webp"
+import storySquadBrainstorming2 from "@assets/content/fe-at-htn/story-squad-brainstorming2.webp"
+import storySquadBrainstorming3 from "@assets/content/fe-at-htn/story-squad-brainstorming3.webp"
+import storySquadPic from "@assets/content/fe-at-htn/story-squad-pic.webp"
+import teaserAssets from "@assets/content/fe-at-htn/teaser-assets.webp"
+import teaserDesign from "@assets/content/fe-at-htn/teaser-design.webp"
+
 Today is September 22, 2026. It's 2 days after HTN.
 
 ## How did we get here?
@@ -43,6 +54,21 @@ The frontend team split off into a museum pod and a teaser pod. For the first mo
 
 Then, the teaser site design was finished. God, it was so beautiful!!!
 
+<div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)", marginBlock: "var(--space-6)" }}>
+  <Image
+    src={teaserDesign}
+    alt="Figma workspace showing the responsive teaser site design"
+    sizes="(max-width: 640px) 100vw, 45vw"
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+  <Image
+    src={teaserAssets}
+    alt="Figma workspace showing illustrated assets for the teaser site"
+    sizes="(max-width: 640px) 100vw, 45vw"
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+</div>
+
 This was close to finals season, so I ended up pumping out a lo-fi site within 2 days (of working on this full time LOL). I didn't worry about it for the rest of finals! But after finals... I would spend the next week working full time on this teaser site.
 
 It was so incredibly challenging to keep fonts, sizing, and placements consistent across screen sizes. There was some pretty odd math that went into the height-based scaling for the site to make sure everything always fit. Benny and I really locked in to make that site happen haha
@@ -52,6 +78,21 @@ Now by full time, I mean I worked on this site from the moment I woke up to the 
 ## [Static site](https://hackthenorth.com/)
 
 I don't know how they do it, but HTN designers are on another level. The first time I saw the mid-fi design for the static site, I was blown away. Not only was it incredibly creative, but it was also really really hard.
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)", marginBlock: "var(--space-6)" }}>
+  <Image
+    src={staticSiteDesign}
+    alt="Figma workspace showing responsive designs for the static site"
+    sizes="(max-width: 640px) 100vw, 45vw"
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+  <Image
+    src={staticSiteHero}
+    alt="Finished Hack the North 2026 static site hero"
+    sizes="(max-width: 640px) 100vw, 45vw"
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+</div>
 
 We split up the work (I got hero and footer) and got to working. Honestly, I was really grateful I worked on the teaser site ahead of time because the hero was so incredibly challenging. The animations, placements, and polish that were required on every screen, every resolution, every zoom, were INSANE.
 
@@ -74,6 +115,13 @@ In fact, the header was a huge headache for me...
 Thank god for hacker app development -- I was unemployed. This, once again, took another week of my full-time work LOL. Making the whole experience seamless with so many heavy assets and animations and sounds was really quite the challenge. At least now I had become much more comfortable with this kind of development and had a much easier time with it :)
 
 I wish you could see the hacker apps site and go through it still, it is really quite incredible!
+
+<Image
+  src={hackerAppsDesign}
+  alt="Figma workspace showing the hacker application experience"
+  sizes="(max-width: 900px) 100vw, 900px"
+  style={{ maxWidth: "100%", height: "auto", marginBlock: "var(--space-6)" }}
+/>
 
 Honestly I'm just glad I didn't have to deal with the short and long answers section; Belinda and Ching Lam REALLY suffered through that hahaha
 
@@ -99,7 +147,35 @@ On top of the team you actively work in, there are also many project squads that
 
 We spent hours, and I mean HOURS, deciding on the story, how it would unfold, and how it would affect the hackers. Meetings sometimes went up to 3 hours long!
 
+<div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)", marginBlock: "var(--space-6)" }}>
+  <Image
+    src={storySquadBrainstorming1}
+    alt="Early Story Squad brainstorming board with narrative and immersion ideas"
+    sizes="(max-width: 640px) 100vw, 30vw"
+    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+  <Image
+    src={storySquadBrainstorming2}
+    alt="Story Squad board developing the narrative, setting, and characters"
+    sizes="(max-width: 640px) 100vw, 30vw"
+    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+  <Image
+    src={storySquadBrainstorming3}
+    alt="Story Squad board brainstorming the event experience and ceremony"
+    sizes="(max-width: 640px) 100vw, 30vw"
+    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+  />
+</div>
+
 All of us were SO excited for this vision. It was really incredible.
+
+<Image
+  src={storySquadPic}
+  alt="Illustrated 2026 Story Squad group picture around a campfire and lake"
+  sizes="(max-width: 900px) 100vw, 900px"
+  style={{ maxWidth: "100%", height: "auto", marginBlock: "var(--space-6)" }}
+/>
 
 In fact, we hired an animator for the closing ceremony video, we acted out the opening ceremony teaser, and we dedicated ourselves to making 2 different balloon arches to commit to the bit LOL
 
