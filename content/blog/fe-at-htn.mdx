@@ -59,13 +59,13 @@ Then, the teaser site design was finished. God, it was so beautiful!!!
     src={teaserDesign}
     alt="Figma workspace showing the responsive teaser site design"
     sizes="(max-width: 640px) 100vw, 45vw"
-    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain", boxShadow: "none" }}
   />
   <Image
     src={teaserAssets}
     alt="Figma workspace showing illustrated assets for the teaser site"
     sizes="(max-width: 640px) 100vw, 45vw"
-    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain", boxShadow: "none" }}
   />
 </div>
 
@@ -84,13 +84,13 @@ I don't know how they do it, but HTN designers are on another level. The first t
     src={staticSiteDesign}
     alt="Figma workspace showing responsive designs for the static site"
     sizes="(max-width: 640px) 100vw, 45vw"
-    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain", boxShadow: "none" }}
   />
   <Image
     src={staticSiteHero}
     alt="Finished Hack the North 2026 static site hero"
     sizes="(max-width: 640px) 100vw, 45vw"
-    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+    style={{ flex: "1 1 18rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain", boxShadow: "none" }}
   />
 </div>
 
@@ -120,7 +120,7 @@ I wish you could see the hacker apps site and go through it still, it is really 
   src={hackerAppsDesign}
   alt="Figma workspace showing the hacker application experience"
   sizes="(max-width: 900px) 100vw, 900px"
-  style={{ maxWidth: "100%", height: "auto", marginBlock: "var(--space-6)" }}
+  style={{ maxWidth: "100%", height: "auto", marginBlock: "var(--space-6)", boxShadow: "none" }}
 />
 
 Honestly I'm just glad I didn't have to deal with the short and long answers section; Belinda and Ching Lam REALLY suffered through that hahaha
@@ -147,25 +147,27 @@ On top of the team you actively work in, there are also many project squads that
 
 We spent hours, and I mean HOURS, deciding on the story, how it would unfold, and how it would affect the hackers. Meetings sometimes went up to 3 hours long!
 
-<div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-4)", marginBlock: "var(--space-6)" }}>
+<div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "var(--space-4)", marginBlock: "var(--space-6)" }}>
   <Image
     src={storySquadBrainstorming1}
     alt="Early Story Squad brainstorming board with narrative and immersion ideas"
     sizes="(max-width: 640px) 100vw, 30vw"
-    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
+    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain", boxShadow: "none" }}
   />
-  <Image
-    src={storySquadBrainstorming2}
-    alt="Story Squad board developing the narrative, setting, and characters"
-    sizes="(max-width: 640px) 100vw, 30vw"
-    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
-  />
-  <Image
-    src={storySquadBrainstorming3}
-    alt="Story Squad board brainstorming the event experience and ceremony"
-    sizes="(max-width: 640px) 100vw, 30vw"
-    style={{ flex: "1 1 16rem", minWidth: 0, maxWidth: "100%", height: "auto", objectFit: "contain" }}
-  />
+  <div style={{ display: "flex", flex: "2 1 32rem", minWidth: 0, flexDirection: "column", gap: "var(--space-4)" }}>
+    <Image
+      src={storySquadBrainstorming2}
+      alt="Story Squad board developing the narrative, setting, and characters"
+      sizes="(max-width: 640px) 100vw, 60vw"
+      style={{ width: "100%", height: "auto", boxShadow: "none" }}
+    />
+    <Image
+      src={storySquadBrainstorming3}
+      alt="Story Squad board brainstorming the event experience and ceremony"
+      sizes="(max-width: 640px) 100vw, 60vw"
+      style={{ width: "100%", height: "auto", boxShadow: "none" }}
+    />
+  </div>
 </div>
 
 All of us were SO excited for this vision. It was really incredible.
@@ -174,7 +176,7 @@ All of us were SO excited for this vision. It was really incredible.
   src={storySquadPic}
   alt="Illustrated 2026 Story Squad group picture around a campfire and lake"
   sizes="(max-width: 900px) 100vw, 900px"
-  style={{ maxWidth: "100%", height: "auto", marginBlock: "var(--space-6)" }}
+  style={{ maxWidth: "100%", height: "auto", marginBlock: "var(--space-6)", boxShadow: "none" }}
 />
 
 In fact, we hired an animator for the closing ceremony video, we acted out the opening ceremony teaser, and we dedicated ourselves to making 2 different balloon arches to commit to the bit LOL
