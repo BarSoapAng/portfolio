@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import type { CSSProperties, ReactNode } from "react";
 import GlobalStyle from "./GlobalStyle";
+import GoogleAnalytics from "@components/analytics/GoogleAnalytics";
 import Footer from "@components/layout/Footer";
 import SocialLinks from "@components/layout/SocialLinks";
 import Navbar from "@components/navigation/Navbar";
@@ -82,6 +84,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-31JF4MZFHX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-31JF4MZFHX', { send_page_view: false });`}
+        </Script>
+        <GoogleAnalytics />
         <StyledComponentsRegistry>
           <GlobalStyle />
           <div className="site-wrapper">

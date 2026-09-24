@@ -50,6 +50,10 @@
     - `@lib/*`
 - Keep import paths consistent within a file. Avoid mixing old and new component locations for the same feature.
 
+## Analytics
+
+- `src/components/analytics/GoogleAnalytics.tsx` records page views plus delegated link, button, and form interactions. Add `data-analytics-label` when an interactive element's visible text or accessibility label does not identify the action clearly.
+
 ## Visual Presentation
 
 - Follow the [farmhouse pink style guide](../../style-guide.md).
