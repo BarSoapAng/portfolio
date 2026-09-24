@@ -29,15 +29,11 @@ For name inputs, I simply check the name against the `bad-words` package, a [Jav
 
 **Empty case:** Disable submission when the canvas is empty.
 
-**NSFW case:** Before uploading, the browser runs `NSFWJS` to classify the drawing. This [open-source model](https://github.com/infinitered/nsfwjs) predicts the likelihood of explicit content across five different categories. The content warning triggers if any one of the categories exceeds `30%`.
+**NSFW case:** During uploading, the backend runs `NSFWJS` to classify the drawing. This [open-source model](https://github.com/infinitered/nsfwjs) predicts the likelihood of explicit content across five different categories. The content warning triggers if any one of the categories exceeds `30%`.
 
-- This is a client-side check!
-- The trade-off is a slightly worse UX due to slower upload times.
+I originally had this check happen client side, which looks like loading in TensorFlow and the model in after uploading. This posed some major issues though:
 
-The UX problem is actually a pretty difficult one to solve. Loading TensorFlow and the model on submission takes significant memory, often causing lag or freezing. A few things improve this:
-
-- Cap the drawing snapshot history (for undo/redo) at 15.
-- Load the model in the background after the first canvas interaction.
-- Load TensorFlow and NSFWJS concurrently.
+- Bad UX from the browser freeze up during load in, there's honestly no way around this client side
+- Users can bypass this check by calling the upload endpoint directly
 
 **Malicious case:** Luckily, displaying images (as long as their content isn't inappropriate) is quite safe! Both the frontend and backend accept only image file types :)
