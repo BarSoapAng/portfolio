@@ -52,7 +52,7 @@
 
 ## Analytics
 
-- `src/components/analytics/GoogleAnalytics.tsx` records page views plus delegated link, button, and form interactions. Add `data-analytics-label` when an interactive element's visible text or accessibility label does not identify the action clearly.
+- `src/components/analytics/GoogleAnalytics.tsx` records page views plus delegated link, button, and form interactions. Add `data-analytics-label` when an interactive element's visible text or accessibility label does not identify the action clearly, and call `trackEvent` after meaningful async actions succeed.
 
 ## Visual Presentation
 

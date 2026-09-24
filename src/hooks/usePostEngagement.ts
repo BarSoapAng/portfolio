@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { trackEvent } from "@components/analytics/GoogleAnalytics";
 import { getVisitorId } from "@lib/visitor-id";
 
 export function usePostEngagement(slug: string) {
@@ -40,6 +41,7 @@ export function usePostEngagement(slug: string) {
       const data = await res.json();
       setLikes(data.count);
       setLiked(data.likedByVisitor);
+      trackEvent("blog_like", { liked: data.likedByVisitor, post_slug: slug });
     } catch {
       setLikes(previousLikes);
       setLiked(previousLiked);

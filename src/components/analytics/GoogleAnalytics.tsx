@@ -9,7 +9,7 @@ declare global {
   }
 }
 
-function track(event: string, parameters: Record<string, string | boolean>) {
+export function trackEvent(event: string, parameters: Record<string, string | boolean>) {
   window.gtag?.("event", event, parameters);
 }
 
@@ -31,7 +31,7 @@ export default function GoogleAnalytics() {
     if (previousPath.current === pathname) return;
 
     previousPath.current = pathname;
-    track("page_view", {
+    trackEvent("page_view", {
       page_path: pathname,
       page_location: window.location.href,
       page_title: document.title,
@@ -46,7 +46,7 @@ export default function GoogleAnalytics() {
       if (!element) return;
 
       const link = element instanceof HTMLAnchorElement ? element : null;
-      track(link ? "link_click" : "button_click", {
+      trackEvent(link ? "link_click" : "button_click", {
         element_label: getLabel(element),
         link_url: link?.href || "",
         page_path: window.location.pathname,
@@ -56,7 +56,7 @@ export default function GoogleAnalytics() {
     function handleSubmit(event: SubmitEvent) {
       if (!(event.target instanceof HTMLFormElement)) return;
 
-      track("form_submit", {
+      trackEvent("form_submit", {
         form_id: event.target.id || event.target.getAttribute("name") || "unnamed",
         page_path: window.location.pathname,
       });

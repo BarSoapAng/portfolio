@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
+import { trackEvent } from "@components/analytics/GoogleAnalytics";
 import {
   Caption,
   CaptionMedium,
@@ -746,6 +747,7 @@ export default function DrawingCanvas() {
         throw new Error(data.error || "Failed to save");
       }
 
+      trackEvent("garden_drawing_submit", { has_name: Boolean(trimmedName) });
       setMessage({ text: "TY for contributing :)", error: false });
       setName("");
       clearCanvas();
