@@ -17,6 +17,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/webIcon.webp",
   },
+  openGraph: {
+    images: ["/thumbnail.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/thumbnail.webp"],
+  },
 };
 
 type RootLayoutProps = {
