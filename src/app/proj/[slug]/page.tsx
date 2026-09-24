@@ -6,6 +6,7 @@ import { BlogDate, ContentHero } from "@components/ui/ContentStyles";
 import TagLabel from "@components/ui/TagLabel";
 import { Body, Heading1, Lead } from "@components/ui/Typography";
 import { formatLongDate } from "@lib/format-date";
+import { projectsEnabled } from "@lib/feature-flags";
 import { buildProjectMetadata, getAllProjectSlugs, getProjectBySlug } from "@lib/project";
 import styles from "./ProjectPost.module.css";
 
@@ -18,10 +19,16 @@ type ProjectRouteProps = {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getAllProjectSlugs().map((slug) => ({ slug }));
+  return projectsEnabled
+    ? getAllProjectSlugs().map((slug) => ({ slug }))
+    : [];
 }
 
 export async function generateMetadata({ params }: ProjectRouteProps): Promise<Metadata> {
+  if (!projectsEnabled) {
+    notFound();
+  }
+
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
@@ -33,6 +40,10 @@ export async function generateMetadata({ params }: ProjectRouteProps): Promise<M
 }
 
 export default async function ProjectRoute({ params }: ProjectRouteProps) {
+  if (!projectsEnabled) {
+    notFound();
+  }
+
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 

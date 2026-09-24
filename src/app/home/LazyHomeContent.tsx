@@ -51,9 +51,11 @@ export default function LazyHomeContent({
     <>
       <WorkSection />
 
-      <ProjectsSection id="projects">
-        <ProjectExperienceStack projects={projects} />
-      </ProjectsSection>
+      {projects.length > 0 && (
+        <ProjectsSection id="projects">
+          <ProjectExperienceStack projects={projects} />
+        </ProjectsSection>
+      )}
 
       <GardenSection>
         <Heading2>

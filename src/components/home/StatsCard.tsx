@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import { Text } from "@components/ui/Typography";
+import { projectsEnabled } from "@lib/feature-flags";
 import { usePageViews } from "../../hooks/usePageViews";
 
 const stats = [
@@ -32,12 +33,14 @@ export default function StatsCard() {
 
   return (
     <Stats>
-      {stats.map(({ label, value }) => (
-        <div key={label}>
-          <Text as="dt">{label}:</Text>
-          <Text as="dd">{value}</Text>
-        </div>
-      ))}
+      {stats
+        .filter(({ label }) => projectsEnabled || label !== "Projects")
+        .map(({ label, value }) => (
+          <div key={label}>
+            <Text as="dt">{label}:</Text>
+            <Text as="dd">{value}</Text>
+          </div>
+        ))}
       <div>
         <Text as="dt">Site Views:</Text>
         <Text as="dd">{views === null ? "..." : views.toLocaleString()}</Text>
