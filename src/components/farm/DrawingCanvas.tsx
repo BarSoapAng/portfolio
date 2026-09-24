@@ -596,7 +596,13 @@ export default function DrawingCanvas() {
   const stopDrawing = () => {
     isDrawing.current = false;
     const canvas = canvasRef.current;
-    if (canvas) setHasDrawing(!isCanvasEmpty(canvas));
+    if (!canvas) return;
+
+    const nextHasDrawing = !isCanvasEmpty(canvas);
+    if (!hasDrawing && nextHasDrawing) {
+      trackEvent("garden_drawing_started", { tool });
+    }
+    setHasDrawing(nextHasDrawing);
   };
 
   const fillArea = (logicalX: number, logicalY: number) => {
@@ -668,10 +674,16 @@ export default function DrawingCanvas() {
     }
 
     ctx.putImageData(imageData, 0, 0);
+    if (!hasDrawing) {
+      trackEvent("garden_drawing_started", { tool: "bucket" });
+    }
     setHasDrawing(true);
   };
 
   const handleClear = () => {
+    if (hasDrawing) {
+      trackEvent("garden_drawing_cleared", {});
+    }
     saveSnapshot();
     clearCanvas();
   };
