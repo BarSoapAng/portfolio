@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import {
   TransformWrapper,
   TransformComponent,
@@ -79,16 +79,6 @@ const MapContainer = styled.div`
 
 const WorldLayer = styled.div`
   position: relative;
-`;
-
-const Plot = styled.div`
-  position: absolute;
-  transition: transform 0.15s;
-
-  &:hover {
-    transform: scale(1.15);
-    z-index: 10;
-  }
 `;
 
 const PlotImage = styled.img`
@@ -178,6 +168,58 @@ const EmptyMessage = styled(DisplayLarge)`
   color: var(--color-text-muted);
 `;
 
+const spin = keyframes`
+  to { transform: rotate(360deg); }
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const Spinner = styled.div`
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: ${spin} 0.8s linear infinite;
+`;
+
+const popIn = keyframes`
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
+
+const Plot = styled.div<{ $delay: number }>`
+  position: absolute;
+  opacity: 0;
+  animation: ${popIn} 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: ${(p) => p.$delay}ms;
+
+  &:hover {
+    transform: scale(1.15);
+    z-index: 10;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 1;
+  }
+`;
+
 export default function FarmMap() {
   const [drawings, setDrawings] = useState<Drawing[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -262,7 +304,11 @@ export default function FarmMap() {
 
   return (
     <MapContainer ref={containerRef}>
-      {!loaded ? null : drawings.length === 0 ? (
+      {!loaded ? (
+        <LoadingContainer>
+          <Spinner />
+        </LoadingContainer>
+      ) : drawings.length === 0 ? (
         <EmptyMessage>No drawings yet — be the first!</EmptyMessage>
       ) : (
         <TransformWrapper
@@ -290,6 +336,7 @@ export default function FarmMap() {
                 return (
                   <Plot
                     key={d.id}
+                    $delay={Math.min(i * 30, 1500)}
                     style={{
                       left: layout.x,
                       top: layout.y,
