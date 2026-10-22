@@ -12,6 +12,7 @@ import leaguePurityTest from "@assets/projects/league-purity-test.webp";
 import leetcodeDiscordBot from "@assets/projects/leetcode-discord-bot.webp";
 import ludus from "@assets/projects/ludus.webp";
 import nodeReactTemplate from "@assets/projects/node-react-template.webp";
+import stanLaunchpad from "@assets/content/stan-launchpad/thumbnail.webp";
 
 const CONTENT_IMAGES = {
   "dab-detector-9000.webp": dabDetector9000,
@@ -25,6 +26,7 @@ const CONTENT_IMAGES = {
   "leetcode-discord-bot.webp": leetcodeDiscordBot,
   "ludus.webp": ludus,
   "node-react-template.webp": nodeReactTemplate,
+  "stan-launchpad.webp": stanLaunchpad,
 } satisfies Record<string, StaticImageData>;
 
 export function requireContentImageField(key: string) {
