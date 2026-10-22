@@ -135,7 +135,7 @@ function readMdxCollection<TFields extends { date: string; published: boolean }>
       slug: fileName.slice(0, -MDX_EXTENSION.length),
       ...parseFrontmatter(directory, fileName, options.fieldParsers),
     }))
-    .filter((entry) => entry.published)
+    .filter((entry) => entry.published || process.env.NODE_ENV === "development")
     .sort((left, right) => {
       const leftOrder = (left as { order?: unknown }).order;
       const rightOrder = (right as { order?: unknown }).order;
