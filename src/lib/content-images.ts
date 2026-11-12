@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { StaticImageData } from "next/image";
+import alone from "@assets/content/alone/alone.webp";
 import dabDetector9000 from "@assets/projects/dab-detector-9000.webp";
 import handlingBadInput from "@assets/content/handling-bad-input/handling-bad-input.webp";
 import internetNudity from "@assets/content/internet-nudity/internet-nudity.webp";
@@ -15,6 +16,7 @@ import nodeReactTemplate from "@assets/projects/node-react-template.webp";
 import stanLaunchpad from "@assets/content/stan-launchpad/thumbnail.webp";
 
 const CONTENT_IMAGES = {
+  "alone.webp": alone,
   "dab-detector-9000.webp": dabDetector9000,
   "handling-bad-input.webp": handlingBadInput,
   "internet-nudity.webp": internetNudity,
